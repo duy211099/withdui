@@ -1,21 +1,15 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.4.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.5", ">= 7.1.5.2"
-
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+gem "rails", "~> 8.1.1"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -28,6 +22,9 @@ gem "jbuilder"
 
 # Vite integration for Rails
 gem "vite_rails"
+
+# Inertia.js adapter for Rails
+gem "inertia_rails"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
@@ -69,5 +66,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "inertia_rails", "~> 3.11"

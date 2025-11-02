@@ -119,6 +119,8 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
+    inertia_rails (3.11.0)
+      railties (>= 6)
     io-console (0.8.1)
     irb (1.15.3)
       pp (>= 0.6.0)
@@ -345,6 +347,7 @@ DEPENDENCIES
   capybara
   debug
   importmap-rails
+  inertia_rails (~> 3.11)
   jbuilder
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.2)

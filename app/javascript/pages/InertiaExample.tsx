@@ -6,6 +6,7 @@ import reactSvg from '/assets/react.svg'
 import viteRubySvg from '/assets/vite_ruby.svg'
 
 import cs from './InertiaExample.module.css'
+import { Button } from '@/components/ui/button'
 
 export default function InertiaExample({ name }: { name: string }) {
   const [count, setCount] = useState(0)
@@ -38,8 +39,14 @@ export default function InertiaExample({ name }: { name: string }) {
         </div>
 
         <h2 className={cs.h2}>Inertia + Vite Ruby + React</h2>
-
         <div className="card">
+          <Button
+            variant={'default'}
+            size={"lg"}
+            onClick={() => setCount((count) => count + 1)}
+          >
+            count is {count}
+          </Button>
           <button
             className={cs.button}
             onClick={() => setCount((count) => count + 1)}

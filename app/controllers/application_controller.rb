@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
   # Dynamic sharing: Data is evaluated at render time
-  # inertia_share do
-  #   {
-  #     user: current_user,
-  #     notifications: current_user&.unread_notifications_count
-  #   } if user_signed_in?
-  # end
+  inertia_share do
+     {
+        current_user: current_user&.as_json(only: [ :id, :email, :name, :avatar_url ]),
+        flash: {
+          notice: flash[:notice],
+          alert: flash[:alert]
+        }
+      }
+  end
 end

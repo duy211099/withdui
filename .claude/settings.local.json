@@ -3,7 +3,16 @@
     "allow": [
       "Bash(cat:*)",
       "Bash(brew upgrade:*)",
-      "Bash(bin/rails server:*)"
+      "Bash(bin/rails server:*)",
+      "Bash(bin/rails generate:*)",
+      "Bash(bin/rails db:migrate:*)",
+      "Bash(bin/rails db:drop:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(bundle install:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(test:*)",
+      "Bash(bin/rails routes:*)",
+      "Bash(bin/rails runner:*)"
     ],
     "deny": [],
     "ask": []

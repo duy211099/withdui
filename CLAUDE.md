@@ -16,6 +16,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Tailwind CSS 4.1.16 (CSS-in-JS with native @import syntax)
 - shadcn/ui component system
 
+**Authentication:**
+- Devise for authentication framework
+- Google OAuth2 via omniauth-google-oauth2
+- Environment variables via dotenv-rails (development/test only)
+
 **Development:**
 - Overmind/Foreman process manager
 - RuboCop with rails-omakase style guide
@@ -131,6 +136,9 @@ bin/rails c                # Open Rails console
 
 - `config/routes.rb` - Application routes
 - `config/initializers/inertia_rails.rb` - Inertia.js setup and version tracking
+  - **Note:** Shared props (like `current_user`) were removed. Add them back if needed via `config.share`
+- `config/initializers/devise.rb` - Devise authentication configuration
+  - Google OAuth2 credentials loaded from ENV variables
 - `config/application.rb` - Rails app initialization
 
 ### Styling
@@ -196,6 +204,67 @@ Components are installed to `app/frontend/components/ui/` and use the `@/` alias
 1. Tailwind CSS properly configured (already done)
 2. `cn()` utility from `@/lib/utils`
 3. CSS imported in Inertia entrypoint: `import './application.css'` in `inertia.ts`
+
+## Authentication
+
+This app uses **Devise with Google OAuth2** for authentication.
+
+### Environment Variables
+
+Required environment variables (set in `.env` for development):
+```
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+```
+
+**Important:** Never commit `.env` file. Use `.env.example` as a template.
+
+### User Model
+
+The User model (`app/models/user.rb`) includes:
+- Standard Devise modules: `:database_authenticatable, :registerable, :recoverable, :rememberable, :validatable`
+- OmniAuth module: `:omniauthable, omniauth_providers: [:google_oauth2]`
+- OAuth fields: `provider`, `uid`, `name`, `avatar_url`
+- `from_omniauth` class method for OAuth callback handling
+
+### Authentication Flow
+
+1. User clicks "Sign In" → redirects to `/users/sign_in`
+2. Custom sessions controller renders Inertia page: `auth/Login`
+3. Login page uses POST request with CSRF token to `/users/auth/google_oauth2`
+4. OmniAuth redirects to Google OAuth consent screen
+5. Google redirects back to `/users/auth/google_oauth2/callback`
+6. `Users::OmniauthCallbacksController` handles callback via `from_omniauth`
+7. User is signed in and redirected to home page
+
+### Custom Controllers
+
+- `app/controllers/users/sessions_controller.rb` - Custom sessions controller for Inertia integration
+- `app/controllers/users/omniauth_callbacks_controller.rb` - Handles Google OAuth2 callbacks
+
+### CSRF Protection
+
+The app uses `omniauth-rails_csrf_protection` gem, which requires:
+- OAuth requests must be POST (not GET)
+- Must include CSRF token in the request
+- Direct browser access to `/users/auth/google_oauth2` will show "Authentication passthru" error
+
+### Accessing Current User
+
+In controllers:
+```ruby
+current_user  # Devise helper
+user_signed_in?  # Check if user is authenticated
+```
+
+To pass user data to Inertia pages, add to `config/initializers/inertia_rails.rb`:
+```ruby
+config.share do |controller|
+  {
+    current_user: controller.current_user&.as_json(only: [:id, :email, :name, :avatar_url])
+  }
+end
+```
 
 ## Common Patterns
 
@@ -298,6 +367,15 @@ If you get "Missing Inertia page component" error:
 2. Check page name matches controller render call exactly (case-sensitive)
 3. Restart dev server (glob patterns are cached)
 
+### Authentication passthru error
+
+If you see "Not found. Authentication passthru." when accessing OAuth URLs:
+
+1. **Never access OAuth URLs directly in browser** - they require POST with CSRF token
+2. Use the proper authentication flow (sign in button → login page → OAuth button)
+3. Verify environment variables are set (restart server after adding `.env`)
+4. Check Google Cloud Console redirect URI matches your app's callback URL
+
 ## Layout and Asset Loading
 
 The main layout is `app/views/layouts/application.html.erb`:
@@ -332,7 +410,23 @@ The main layout is `app/views/layouts/application.html.erb`:
 
 This app supports both traditional Rails ERB views and Inertia React pages:
 
-- **ERB pages**: Use traditional Rails rendering (e.g., `home#index` at `/`)
-- **Inertia pages**: Use React components (e.g., `/inertia-example`, `/hello`)
+- **ERB pages**: Use traditional Rails rendering (controller renders view directly)
+- **Inertia pages**: Use React components (controller uses `render inertia: "PageName"`)
 
 The layout file includes both Hotwire and Inertia assets, allowing gradual migration.
+
+## Google OAuth Setup
+
+For detailed Google OAuth2 setup instructions, see `GOOGLE_OAUTH_SETUP.md` which includes:
+- Creating a Google Cloud project
+- Configuring OAuth consent screen
+- Creating OAuth 2.0 credentials
+- Setting up authorized redirect URIs
+- Troubleshooting common OAuth errors
+
+**Quick setup:**
+1. Get credentials from Google Cloud Console
+2. Copy `.env.example` to `.env`
+3. Add your `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
+4. Restart the Rails server
+5. Add callback URL to Google Cloud Console: `http://localhost:3000/users/auth/google_oauth2/callback` (adjust port if needed)

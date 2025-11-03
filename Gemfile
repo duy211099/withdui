@@ -35,6 +35,13 @@ gem "inertia_rails"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
+# Authentication with Devise
+gem "devise"
+
+# Google OAuth2 authentication
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -48,6 +55,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
   gem "rubocop-rails-omakase", require: false
+
+  # Load environment variables from .env file
+  gem "dotenv-rails"
 end
 
 group :development do

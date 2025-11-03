@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Clean up stale PID files to prevent "server already running" errors
+rm -f /rails/tmp/pids/*.pid
+
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   ./bin/rails db:prepare

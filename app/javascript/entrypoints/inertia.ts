@@ -3,6 +3,14 @@ import { createInertiaApp } from '@inertiajs/react'
 import { createElement, ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Layout from '@/components/Layout'
+import axios from 'axios'
+
+// Configure axios to include CSRF token in all requests
+const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+if (token) {
+  axios.defaults.headers.common['X-CSRF-Token'] = token
+  axios.defaults.headers.common['Accept'] = 'application/json'
+}
 
 // Temporary type definition, until @inertiajs/react provides one
 type PageComponent = {

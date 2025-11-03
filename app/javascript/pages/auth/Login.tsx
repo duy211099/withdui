@@ -4,18 +4,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export default function Login() {
   const handleGoogleLogin = () => {
+    // Get CSRF token from meta tag
+    const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content
+
+    if (!csrfToken) {
+      console.error('CSRF token not found. Please refresh the page and try again.')
+      alert('Security token not found. Please refresh the page and try again.')
+      return
+    }
+
+    // Create and submit form with CSRF token
     const form = document.createElement('form')
     form.method = 'POST'
     form.action = '/users/auth/google_oauth2'
 
-    const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content
-    if (csrfToken) {
-      const csrfInput = document.createElement('input')
-      csrfInput.type = 'hidden'
-      csrfInput.name = 'authenticity_token'
-      csrfInput.value = csrfToken
-      form.appendChild(csrfInput)
-    }
+    const csrfInput = document.createElement('input')
+    csrfInput.type = 'hidden'
+    csrfInput.name = 'authenticity_token'
+    csrfInput.value = csrfToken
+    form.appendChild(csrfInput)
 
     document.body.appendChild(form)
     form.submit()

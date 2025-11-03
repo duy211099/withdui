@@ -12,14 +12,10 @@ interface User {
 
 interface PageProps extends InertiaPageProps {
   current_user: User | null
-  flash: {
-    notice?: string
-    alert?: string
-  }
 }
 
 export default function Home() {
-  const { current_user, flash } = usePage<PageProps>().props
+  const { current_user } = usePage<PageProps>().props
 
   const handleSignOut = () => {
     const form = document.createElement('form')

@@ -3,10 +3,7 @@ class ApplicationController < ActionController::Base
   inertia_share do
      {
         current_user: current_user&.as_json(only: [ :id, :email, :name, :avatar_url ]),
-        flash: {
-          notice: flash[:notice],
-          alert: flash[:alert]
-        }
+        flash: flash.to_hash
       }
   end
 end

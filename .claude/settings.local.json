@@ -12,7 +12,8 @@
       "mcp__ide__getDiagnostics",
       "Bash(test:*)",
       "Bash(bin/rails routes:*)",
-      "Bash(bin/rails runner:*)"
+      "Bash(bin/rails runner:*)",
+      "Bash(npm run check:*)"
     ],
     "deny": [],
     "ask": []

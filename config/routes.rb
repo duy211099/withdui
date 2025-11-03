@@ -15,4 +15,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  # Serve empty responses for all /.well-known/* paths to prevent unnecessary 404 errors in logs.
+  match "/.well-known/*path", to: proc { [ 204, {}, [ "" ] ] }, via: :all
 end

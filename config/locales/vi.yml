@@ -1,50 +1,39 @@
-# Vietnamese translations
-# Bản dịch tiếng Việt
-
+---
 vi:
-  # Frontend translations (exported to JavaScript via i18n-js)
   frontend:
-    # Header component
-    header:
-      app_name: "WithDui"
-      sign_in: "Đăng nhập"
-      sign_out: "Đăng xuất"
-
-    # Theme switcher component
-    theme:
-      toggle: "Chuyển đổi giao diện"
-      light: "Sáng"
-      dark: "Tối"
-      system: "Hệ thống"
-
-    # Home page
-    home:
-      title: "Trang chủ"
-      welcome: "Chào mừng đến với Withdui"
-      signed_in_as: "Bạn đang đăng nhập với %{email}"
-      please_sign_in: "Vui lòng đăng nhập để tiếp tục"
-      success_message: "Bạn đã xác thực thành công với Google OAuth2."
-      name_label: "Tên:"
-      email_label: "Email:"
-      sign_in_instruction: "Nhấn vào nút Đăng nhập ở trên để xác thực với tài khoản Google của bạn."
-
-    # Auth/Login page
     auth:
       login:
-        title: "Đăng nhập"
-        heading: "Chào mừng trở lại"
-        description: "Đăng nhập vào tài khoản của bạn với Google"
-        continue_with_google: "Tiếp tục với Google"
-        csrf_error: "Không tìm thấy mã bảo mật. Vui lòng làm mới trang và thử lại."
-        csrf_console_error: "Không tìm thấy CSRF token. Vui lòng làm mới trang và thử lại."
-
-    # Language switcher
+        continue_with_google: Tiếp tục với Google
+        csrf_console_error: Không tìm thấy CSRF token. Vui lòng làm mới trang và thử
+          lại.
+        csrf_error: Không tìm thấy mã bảo mật. Vui lòng làm mới trang và thử lại.
+        description: Đăng nhập vào tài khoản của bạn với Google
+        heading: Chào mừng trở lại
+        title: Đăng nhập
+    header:
+      app_name: WithDui
+      sign_in: Đăng nhập
+      sign_out: Đăng xuất
+    home:
+      email_label: 'Email:'
+      name_label: 'Tên:'
+      please_sign_in: Vui lòng đăng nhập để tiếp tục
+      sign_in_instruction: Nhấn vào nút Đăng nhập ở trên để xác thực với tài khoản
+        Google của bạn.
+      signed_in_as: Bạn đang đăng nhập với %{email}
+      success_message: Bạn đã xác thực thành công với Google OAuth2.
+      title: Trang chủ
+      welcome: Chào mừng đến với Withdui
     locale:
-      english: "English"
-      vietnamese: "Tiếng Việt"
-      switch_success: "Đã chuyển đổi ngôn ngữ thành công"
-      switch_language: "Chuyển đổi ngôn ngữ"
-
-  # Backend/controller messages
+      english: English
+      switch_language: Chuyển đổi ngôn ngữ
+      switch_success: Đã chuyển đổi ngôn ngữ thành công
+      vietnamese: Tiếng Việt
+    theme:
+      dark: Tối
+      light: Sáng
+      system: Hệ thống
+      toggle: Chuyển đổi giao diện
   messages:
-    auth_failed: "Xác thực thất bại, vui lòng thử lại."
+    auth_failed: Xác thực thất bại, vui lòng thử lại.
+    locale_switched: Đã chuyển đổi ngôn ngữ thành công

@@ -18,7 +18,8 @@
       "WebSearch",
       "Bash(bundle exec i18n:*)",
       "Bash(bin/dev)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(bundle exec i18n-tasks:*)"
     ],
     "deny": [],
     "ask": []

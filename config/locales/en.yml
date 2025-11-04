@@ -1,76 +1,39 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
+---
 en:
-  # Frontend translations (exported to JavaScript via i18n-js)
   frontend:
-    # Header component
-    header:
-      app_name: "WithDui"
-      sign_in: "Sign In"
-      sign_out: "Sign Out"
-
-    # Theme switcher component
-    theme:
-      toggle: "Toggle theme"
-      light: "Light"
-      dark: "Dark"
-      system: "System"
-
-    # Home page
-    home:
-      title: "Home"
-      welcome: "Welcome to Withdui"
-      signed_in_as: "You are signed in as %{email}"
-      please_sign_in: "Please sign in to continue"
-      success_message: "You have successfully authenticated with Google OAuth2."
-      name_label: "Name:"
-      email_label: "Email:"
-      sign_in_instruction: "Click the Sign In button above to authenticate with your Google account."
-
-    # Auth/Login page
     auth:
       login:
-        title: "Sign In"
-        heading: "Welcome back"
-        description: "Sign in to your account with Google"
-        continue_with_google: "Continue with Google"
-        csrf_error: "Security token not found. Please refresh the page and try again."
-        csrf_console_error: "CSRF token not found. Please refresh the page and try again."
-
-    # Language switcher
+        continue_with_google: Continue with Google
+        csrf_console_error: CSRF token not found. Please refresh the page and try
+          again.
+        csrf_error: Security token not found. Please refresh the page and try again.
+        description: Sign in to your account with Google
+        heading: Welcome back
+        title: Sign In
+    header:
+      app_name: WithDui
+      sign_in: Sign In
+      sign_out: Sign Out
+    home:
+      email_label: 'Email:'
+      name_label: 'Name:'
+      please_sign_in: Please sign in to continue
+      sign_in_instruction: Click the Sign In button above to authenticate with your
+        Google account.
+      signed_in_as: You are signed in as %{email}
+      success_message: You have successfully authenticated with Google OAuth2.
+      title: Home
+      welcome: Welcome to Withdui
     locale:
-      english: "English"
-      vietnamese: "Tiếng Việt"
-      switch_success: "Language switched successfully"
-      switch_language: "Switch language"
-
-  # Backend/controller messages
+      english: English
+      switch_language: Switch language
+      switch_success: Language switched successfully
+      vietnamese: Tiếng Việt
+    theme:
+      dark: Dark
+      light: Light
+      system: System
+      toggle: Toggle theme
   messages:
-    auth_failed: "Authentication failed, please try again."
+    auth_failed: Authentication failed, please try again.
+    locale_switched: Language switched successfully

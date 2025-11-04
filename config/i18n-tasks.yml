@@ -1,0 +1,26 @@
+# i18n-tasks configuration
+# See https://github.com/glebm/i18n-tasks for more information
+
+base_locale: en
+locales: [en, vi]
+
+data:
+  read:
+    - config/locales/%{locale}.yml
+  write:
+    - config/locales/%{locale}.yml
+
+# Ignore keys that are used in the frontend (TypeScript/React)
+# i18n-tasks cannot track frontend usage, so these will always appear as "unused"
+ignore_unused:
+  - 'frontend.*'  # All frontend translations are exported to JavaScript
+
+# Search configuration (Ruby/ERB files only)
+search:
+  paths:
+    - app/
+    - config/
+  exclude:
+    - app/assets/images
+    - app/javascript  # Exclude JS/TS files (can't be scanned reliably)
+    - app/frontend    # Exclude frontend component library

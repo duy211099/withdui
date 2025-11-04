@@ -22,10 +22,12 @@ class Users::SessionsController < Devise::SessionsController
 
   def destroy
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
-    set_flash_message! :notice, :signed_out if signed_out
 
     # Reset session to generate new CSRF token
     reset_session
+
+    # Set flash message AFTER reset_session to preserve it
+    set_flash_message! :notice, :signed_out if signed_out
 
     # Force a full page reload (not Inertia visit) to get fresh CSRF token
     response.headers['X-Inertia-Location'] = root_url

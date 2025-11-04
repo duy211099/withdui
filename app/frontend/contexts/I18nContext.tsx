@@ -31,8 +31,8 @@ export function I18nProvider({ children }: I18nProviderProps) {
   // This ensures consuming components re-render with new translations
   const value: I18nContextType = useMemo(() => ({
     t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
-    locale: props.locale || 'en',
-    availableLocales: props.available_locales || ['en', 'vi'],
+    locale: props.locale || 'vi',
+    availableLocales: props.available_locales || ['vi', 'en'],
     setLocale,
   }), [props.locale, props.available_locales])
 

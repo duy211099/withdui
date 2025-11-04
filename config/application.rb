@@ -17,9 +17,9 @@ module Withdui
     config.autoload_lib(ignore: %w[assets tasks])
 
     # i18n configuration
-    config.i18n.available_locales = [ :en, :vi ]
-    config.i18n.default_locale = :en
-    config.i18n.fallbacks = [ :en ]
+    config.i18n.available_locales = [ :vi, :en ]
+    config.i18n.default_locale = :vi
+    config.i18n.fallbacks = [ :vi ]
 
     # Configuration for the application, engines, and railties goes here.
     #

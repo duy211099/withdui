@@ -5,8 +5,8 @@ import translations from '../../javascript/locales/translations.json'
 const i18n = new I18n(translations)
 
 // Default locale
-i18n.defaultLocale = 'en'
-i18n.locale = 'en'
+i18n.defaultLocale = 'vi'
+i18n.locale = 'vi'
 
 // Enable fallbacks
 i18n.enableFallback = true

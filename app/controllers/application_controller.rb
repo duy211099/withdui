@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    # Priority: 1. Cookie, 2. Accept-Language header, 3. Default
+    # Priority: 1. Cookie, 2. Default locale
     # Note: URL params are only used in LocaleController for switching
-    detected_locale = locale_from_cookie || locale_from_header || I18n.default_locale
+    detected_locale = locale_from_cookie || I18n.default_locale
 
     # Debug logging
     Rails.logger.debug "=== Locale Detection ==="

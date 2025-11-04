@@ -14,7 +14,10 @@
       "Bash(bin/rails routes:*)",
       "Bash(bin/rails runner:*)",
       "Bash(npm run check:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "WebSearch",
+      "Bash(bundle exec i18n:*)",
+      "Bash(bin/dev)"
     ],
     "deny": [],
     "ask": []

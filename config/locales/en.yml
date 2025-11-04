@@ -28,4 +28,49 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  # Frontend translations (exported to JavaScript via i18n-js)
+  frontend:
+    # Header component
+    header:
+      app_name: "WithDui"
+      sign_in: "Sign In"
+      sign_out: "Sign Out"
+
+    # Theme switcher component
+    theme:
+      toggle: "Toggle theme"
+      light: "Light"
+      dark: "Dark"
+      system: "System"
+
+    # Home page
+    home:
+      title: "Home"
+      welcome: "Welcome to Withdui"
+      signed_in_as: "You are signed in as %{email}"
+      please_sign_in: "Please sign in to continue"
+      success_message: "You have successfully authenticated with Google OAuth2."
+      name_label: "Name:"
+      email_label: "Email:"
+      sign_in_instruction: "Click the Sign In button above to authenticate with your Google account."
+
+    # Auth/Login page
+    auth:
+      login:
+        title: "Sign In"
+        heading: "Welcome back"
+        description: "Sign in to your account with Google"
+        continue_with_google: "Continue with Google"
+        csrf_error: "Security token not found. Please refresh the page and try again."
+        csrf_console_error: "CSRF token not found. Please refresh the page and try again."
+
+    # Language switcher
+    locale:
+      english: "English"
+      vietnamese: "Tiếng Việt"
+      switch_success: "Language switched successfully"
+      switch_language: "Switch language"
+
+  # Backend/controller messages
+  messages:
+    auth_failed: "Authentication failed, please try again."

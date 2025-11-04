@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     }
   }
 
+  # Locale switching
+  post "locale/:locale", to: "locale#switch", as: :switch_locale
+
   get "inertia-example", to: "inertia_example#index"
   get "hello", to: "inertia_example#hello"
 

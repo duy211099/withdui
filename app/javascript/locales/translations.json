@@ -1,0 +1,84 @@
+{
+  "en": {
+    "frontend": {
+      "auth": {
+        "login": {
+          "continue_with_google": "Continue with Google",
+          "csrf_console_error": "CSRF token not found. Please refresh the page and try again.",
+          "csrf_error": "Security token not found. Please refresh the page and try again.",
+          "description": "Sign in to your account with Google",
+          "heading": "Welcome back",
+          "title": "Sign In"
+        }
+      },
+      "header": {
+        "app_name": "WithDui",
+        "sign_in": "Sign In",
+        "sign_out": "Sign Out"
+      },
+      "home": {
+        "email_label": "Email:",
+        "name_label": "Name:",
+        "please_sign_in": "Please sign in to continue",
+        "sign_in_instruction": "Click the Sign In button above to authenticate with your Google account.",
+        "signed_in_as": "You are signed in as %{email}",
+        "success_message": "You have successfully authenticated with Google OAuth2.",
+        "title": "Home",
+        "welcome": "Welcome to Withdui"
+      },
+      "locale": {
+        "english": "English",
+        "switch_language": "Switch language",
+        "switch_success": "Language switched successfully",
+        "vietnamese": "Tiếng Việt"
+      },
+      "theme": {
+        "dark": "Dark",
+        "light": "Light",
+        "system": "System",
+        "toggle": "Toggle theme"
+      }
+    }
+  },
+  "vi": {
+    "frontend": {
+      "auth": {
+        "login": {
+          "continue_with_google": "Tiếp tục với Google",
+          "csrf_console_error": "Không tìm thấy CSRF token. Vui lòng làm mới trang và thử lại.",
+          "csrf_error": "Không tìm thấy mã bảo mật. Vui lòng làm mới trang và thử lại.",
+          "description": "Đăng nhập vào tài khoản của bạn với Google",
+          "heading": "Chào mừng trở lại",
+          "title": "Đăng nhập"
+        }
+      },
+      "header": {
+        "app_name": "WithDui",
+        "sign_in": "Đăng nhập",
+        "sign_out": "Đăng xuất"
+      },
+      "home": {
+        "email_label": "Email:",
+        "name_label": "Tên:",
+        "please_sign_in": "Vui lòng đăng nhập để tiếp tục",
+        "sign_in_instruction": "Nhấn vào nút Đăng nhập ở trên để xác thực với tài khoản Google của bạn.",
+        "signed_in_as": "Bạn đang đăng nhập với %{email}",
+        "success_message": "Bạn đã xác thực thành công với Google OAuth2.",
+        "title": "Trang chủ",
+        "welcome": "Chào mừng đến với Withdui"
+      },
+      "locale": {
+        "english": "English",
+        "switch_language": "Chuyển đổi ngôn ngữ",
+        "switch_success": "Đã chuyển đổi ngôn ngữ thành công",
+        "vietnamese": "Tiếng Việt"
+      },
+      "theme": {
+        "dark": "Tối",
+        "light": "Sáng",
+        "system": "Hệ thống",
+        "toggle": "Chuyển đổi giao diện"
+      }
+    }
+  }
+}

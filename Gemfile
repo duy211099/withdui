@@ -26,6 +26,9 @@ gem "vite_rails"
 # Inertia.js adapter for Rails
 gem "inertia_rails"
 
+# i18n-js for exporting Rails translations to JavaScript
+gem "i18n-js", "~> 4.2"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

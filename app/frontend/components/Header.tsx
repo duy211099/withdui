@@ -1,6 +1,8 @@
 import { usePage, Link } from '@inertiajs/react'
 import { ThemeSwitcher } from './ThemeSwitcher'
+import LocaleSwitcher from './LocaleSwitcher'
 import { Button } from './ui/button'
+import { useTranslation } from '@/contexts/I18nContext'
 
 interface User {
   id: number
@@ -11,15 +13,17 @@ interface User {
 
 export default function Header() {
   const { current_user } = usePage<{ current_user?: User }>().props
+  const { t } = useTranslation()
 
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold">
-          WithDui
+          {t('frontend.header.app_name')}
         </Link>
 
         <div className="flex items-center gap-4">
+          <LocaleSwitcher />
           <ThemeSwitcher />
 
           {current_user ? (
@@ -34,14 +38,14 @@ export default function Header() {
               <span className="text-sm">{current_user.name || current_user.email}</span>
               <Button variant="outline" size="sm" asChild>
                 <Link href="/users/sign_out" method="delete" as="button">
-                  Sign Out
+                  {t('frontend.header.sign_out')}
                 </Link>
               </Button>
             </div>
           ) : (
             <Button variant="default" size="sm" asChild>
               <Link href="/users/sign_in">
-                Sign In
+                {t('frontend.header.sign_in')}
               </Link>
             </Button>
           )}

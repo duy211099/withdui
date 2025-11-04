@@ -1,15 +1,18 @@
 import { Head } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useTranslation } from '@/contexts/I18nContext'
 
 export default function Login() {
+  const { t } = useTranslation()
+
   const handleGoogleLogin = () => {
     // Get CSRF token from meta tag
     const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content
 
     if (!csrfToken) {
-      console.error('CSRF token not found. Please refresh the page and try again.')
-      alert('Security token not found. Please refresh the page and try again.')
+      console.error(t('frontend.auth.login.csrf_console_error'))
+      alert(t('frontend.auth.login.csrf_error'))
       return
     }
 
@@ -30,15 +33,15 @@ export default function Login() {
 
   return (
     <>
-      <Head title="Sign In" />
+      <Head title={t('frontend.auth.login.title')} />
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">
-              Welcome back
+              {t('frontend.auth.login.heading')}
             </CardTitle>
             <CardDescription className="text-center">
-              Sign in to your account with Google
+              {t('frontend.auth.login.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -70,7 +73,7 @@ export default function Login() {
                   fill="#EA4335"
                 />
               </svg>
-              Continue with Google
+              {t('frontend.auth.login.continue_with_google')}
             </Button>
           </CardContent>
         </Card>

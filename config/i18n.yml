@@ -1,0 +1,9 @@
+# i18n-js configuration
+# Exports Rails translations to JavaScript for frontend use
+# Documentation: https://github.com/fnando/i18n-js
+
+translations:
+  - file: app/javascript/locales/translations.json
+    patterns:
+      - "frontend.*"
+      - "*.frontend.*"

@@ -17,7 +17,8 @@
       "Bash(npm install:*)",
       "WebSearch",
       "Bash(bundle exec i18n:*)",
-      "Bash(bin/dev)"
+      "Bash(bin/dev)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

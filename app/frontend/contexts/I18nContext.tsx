@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, ReactNode } from 'react'
+import { createContext, useContext, ReactNode, useMemo } from 'react'
 import { usePage } from '@inertiajs/react'
-import { t as translate, setLocale } from '@/lib/i18n'
+import i18n, { setLocale } from '@/lib/i18n'
 
 interface I18nContextType {
-  t: typeof translate
+  t: (key: string, options?: Record<string, unknown>) => string
   locale: string
   availableLocales: string[]
   setLocale: typeof setLocale
@@ -21,27 +21,20 @@ export function I18nProvider({ children }: I18nProviderProps) {
     available_locales: string[]
   }>()
 
-  // Debug: log Inertia props
-  console.log('I18nProvider Inertia props:', {
-    locale: props.locale,
-    available_locales: props.available_locales,
-    localeType: typeof props.locale
-  })
+  // Sync i18n locale with Rails locale synchronously during render
+  // This ensures translations work correctly on first render
+  if (props.locale && i18n.locale !== props.locale) {
+    setLocale(props.locale)
+  }
 
-  // Sync i18n locale with Rails locale from Inertia props
-  useEffect(() => {
-    if (props.locale) {
-      console.log('Setting i18n locale to:', props.locale)
-      setLocale(props.locale)
-    }
-  }, [props.locale])
-
-  const value: I18nContextType = {
-    t: translate,
+  // Use useMemo to recreate context value when locale changes
+  // This ensures consuming components re-render with new translations
+  const value: I18nContextType = useMemo(() => ({
+    t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
     locale: props.locale || 'en',
     availableLocales: props.available_locales || ['en', 'vi'],
     setLocale,
-  }
+  }), [props.locale, props.available_locales])
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }

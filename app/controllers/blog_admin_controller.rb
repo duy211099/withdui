@@ -73,5 +73,4 @@ class BlogAdminController < ApplicationController
       :published, :featured_image, :content, tags: []
     )
   end
-
 end

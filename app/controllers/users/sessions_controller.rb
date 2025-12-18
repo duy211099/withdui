@@ -6,13 +6,13 @@ class Users::SessionsController < Devise::SessionsController
 
   def new
     # Prevent caching of login page to ensure fresh CSRF tokens
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
 
     # Force full page reload if this is an Inertia request to get fresh CSRF token
-    if request.headers['X-Inertia']
-      response.headers['X-Inertia-Location'] = request.url
+    if request.headers["X-Inertia"]
+      response.headers["X-Inertia-Location"] = request.url
       head :conflict
       return
     end
@@ -30,7 +30,7 @@ class Users::SessionsController < Devise::SessionsController
     set_flash_message! :notice, :signed_out if signed_out
 
     # Force a full page reload (not Inertia visit) to get fresh CSRF token
-    response.headers['X-Inertia-Location'] = root_url
+    response.headers["X-Inertia-Location"] = root_url
     head :conflict
   end
 

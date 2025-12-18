@@ -13,6 +13,7 @@
       },
       "header": {
         "app_name": "WithDui",
+        "blog": "Blog",
         "sign_in": "Sign In",
         "sign_out": "Sign Out"
       },
@@ -54,6 +55,7 @@
       },
       "header": {
         "app_name": "WithDui",
+        "blog": "Blog",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất"
       },

@@ -1,4 +1,5 @@
 import { Head, useForm, Link } from '@inertiajs/react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -25,6 +26,8 @@ interface EditProps {
 }
 
 export default function Edit({ post, categories }: EditProps) {
+  const [tagsInput, setTagsInput] = useState((post.tags || []).join(', '))
+
   const { data, setData, patch, processing, errors } = useForm({
     title: post.title,
     slug: post.slug,
@@ -40,7 +43,16 @@ export default function Edit({ post, categories }: EditProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    patch(`/blog/admin/${post.slug}`)
+    // Parse tags from input string before submitting
+    const parsedTags = tagsInput.split(',').map(t => t.trim()).filter(Boolean)
+    setData('tags', parsedTags)
+
+    // Submit with parsed tags
+    patch(`/blog/admin/${post.slug}`, {
+      onBefore: () => {
+        setData('tags', parsedTags)
+      }
+    })
   }
 
   return (
@@ -141,8 +153,8 @@ export default function Edit({ post, categories }: EditProps) {
             <Label htmlFor="tags">Tags</Label>
             <Input
               id="tags"
-              value={data.tags.join(', ')}
-              onChange={e => setData('tags', e.target.value.split(',').map(t => t.trim()).filter(Boolean))}
+              value={tagsInput}
+              onChange={e => setTagsInput(e.target.value)}
               placeholder="rails, react, tutorial (comma-separated)"
             />
             <p className="text-sm text-muted-foreground">

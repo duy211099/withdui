@@ -1,9 +1,11 @@
 import { Head, useForm, Link } from '@inertiajs/react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { slugify } from '@/lib/slugify'
 
 interface NewProps {
   categories: string[]
@@ -11,6 +13,8 @@ interface NewProps {
 }
 
 export default function New({ categories }: NewProps) {
+  const [tagsInput, setTagsInput] = useState('')
+
   const { data, setData, post, processing, errors } = useForm({
     title: '',
     slug: '',
@@ -26,20 +30,23 @@ export default function New({ categories }: NewProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    post('/blog/admin')
-  }
+    // Parse tags from input string before submitting
+    const parsedTags = tagsInput.split(',').map(t => t.trim()).filter(Boolean)
+    setData('tags', parsedTags)
 
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
+    // Submit with parsed tags
+    post('/blog/admin', {
+      onBefore: () => {
+        setData('tags', parsedTags)
+      }
+    })
   }
 
   const handleTitleChange = (value: string) => {
     setData('title', value)
-    if (!data.slug || data.slug === generateSlug(data.title)) {
-      setData('slug', generateSlug(value))
+    // Auto-generate slug if it's empty or matches the previous auto-generated slug
+    if (!data.slug || data.slug === slugify(data.title)) {
+      setData('slug', slugify(value))
     }
   }
 
@@ -135,8 +142,8 @@ export default function New({ categories }: NewProps) {
             <Label htmlFor="tags">Tags</Label>
             <Input
               id="tags"
-              value={data.tags.join(', ')}
-              onChange={e => setData('tags', e.target.value.split(',').map(t => t.trim()).filter(Boolean))}
+              value={tagsInput}
+              onChange={e => setTagsInput(e.target.value)}
               placeholder="rails, react, tutorial (comma-separated)"
             />
             <p className="text-sm text-muted-foreground">

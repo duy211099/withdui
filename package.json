@@ -42,6 +42,7 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json"
+    "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
+    "i18n:export": "bundle exec i18n export"
   }
 }

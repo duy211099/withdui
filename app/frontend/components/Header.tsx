@@ -22,6 +22,15 @@ export default function Header() {
           {t('frontend.header.app_name')}
         </Link>
 
+        <nav className="flex items-center gap-6">
+          <Link
+            href="/blog"
+            className="text-sm font-medium hover:text-primary transition-colors"
+          >
+            {t('frontend.header.blog')}
+          </Link>
+        </nav>
+
         <div className="flex items-center gap-4">
           <LocaleSwitcher />
           <ThemeSwitcher />

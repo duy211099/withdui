@@ -21,6 +21,10 @@ module Withdui
     config.i18n.default_locale = :vi
     config.i18n.fallbacks = [ :vi ]
 
+    # Autoload services directory
+    config.autoload_paths << Rails.root.join("app/services")
+    config.eager_load_paths << Rails.root.join("app/services")
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

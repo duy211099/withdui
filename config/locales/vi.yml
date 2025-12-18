@@ -37,3 +37,9 @@ vi:
   messages:
     auth_failed: Xác thực thất bại, vui lòng thử lại.
     locale_switched: Đã chuyển đổi ngôn ngữ thành công
+  blog:
+    post_not_found: Không tìm thấy bài viết
+    admin:
+      post_created: Đã tạo bài viết thành công
+      post_updated: Đã cập nhật bài viết thành công
+      post_deleted: Đã xóa bài viết thành công

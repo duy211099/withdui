@@ -1,0 +1,132 @@
+---
+title: "MDX Features Guide"
+slug: "mdx-features-guide"
+date: "2025-01-01"
+excerpt: "A comprehensive guide to MDX features and how to use them effectively in your blog posts."
+category: "Guide"
+tags: ["mdx", "markdown", "react", "documentation"]
+author: "Team"
+published: true
+featured_image: ""
+---
+
+# MDX Features Guide
+
+MDX is an authorable format that lets you seamlessly write JSX in your Markdown documents. Here's what you can do with it!
+
+## Standard Markdown
+
+All standard markdown features work:
+
+### Headings
+Use `#` for headings (H1 through H6)
+
+### Text Formatting
+- **Bold text** with `**bold**`
+- *Italic text* with `*italic*`
+- ~~Strikethrough~~ with `~~strikethrough~~`
+- `Inline code` with backticks
+
+### Lists
+
+Unordered lists:
+- First item
+- Second item
+  - Nested item
+  - Another nested item
+- Third item
+
+Ordered lists:
+1. First step
+2. Second step
+3. Third step
+
+### Links and Images
+[Visit our homepage](/)
+
+### Blockquotes
+
+> "MDX is the best way to write content for the modern web."
+> — Every developer who's tried it
+
+## Code Blocks
+
+Syntax highlighting works out of the box:
+
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`
+}
+
+console.log(greet('MDX'))
+```
+
+```ruby
+def greet(name)
+  "Hello, #{name}!"
+end
+
+puts greet('MDX')
+```
+
+```css
+.button {
+  background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  padding: 12px 24px;
+}
+```
+
+## Tables
+
+| Feature | Markdown | MDX |
+|---------|----------|-----|
+| Text formatting | ✅ | ✅ |
+| Code blocks | ✅ | ✅ |
+| React components | ❌ | ✅ |
+| Interactive elements | ❌ | ✅ |
+
+## Horizontal Rules
+
+---
+
+## Task Lists
+
+Want to create checklists? While not supported by default GFM in our setup, you can use regular lists:
+
+- [x] Set up MDX
+- [x] Create blog posts
+- [ ] Add more features
+- [ ] Write more content
+
+## Advanced Features
+
+### Math (if configured)
+While not enabled by default, MDX supports math rendering with appropriate plugins.
+
+### Footnotes
+MDX can support footnotes with the right remark plugins.
+
+## Best Practices
+
+1. **Keep it simple**: Start with markdown, add complexity only when needed
+2. **Use headings wisely**: Maintain a logical hierarchy (H1 → H2 → H3)
+3. **Code formatting**: Always specify the language for syntax highlighting
+4. **Alt text for images**: Always provide meaningful alt text
+5. **Test your content**: Preview posts before publishing
+
+## Writing Tips
+
+- Use short paragraphs for better readability
+- Add code examples to illustrate concepts
+- Use lists and tables to organize information
+- Break up long content with headings and horizontal rules
+- Include a conclusion or call-to-action
+
+---
+
+## Conclusion
+
+MDX provides a powerful way to create rich, interactive blog posts. Start with familiar markdown syntax and gradually incorporate more advanced features as needed.
+
+Happy writing! 🎉

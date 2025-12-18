@@ -68,6 +68,10 @@ group :development do
   gem "web-console"
   gem 'i18n-tasks', '~> 1.0.15'
 
+  # Better error pages with REPL
+  gem "better_errors"
+  gem "binding_of_caller"
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

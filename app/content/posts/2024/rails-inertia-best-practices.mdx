@@ -1,0 +1,138 @@
+---
+title: "Rails + Inertia.js Best Practices"
+slug: "rails-inertia-best-practices"
+date: "2024-12-18"
+excerpt: "Learn the best practices for building modern web applications with Rails and Inertia.js."
+category: "Tutorial"
+tags: ["rails", "inertia", "react", "best-practices"]
+author: "Team"
+published: true
+featured_image: ""
+---
+
+# Rails + Inertia.js Best Practices
+
+Building applications with Rails and Inertia.js offers the best of both worlds: server-side rendering with reactive frontends. Here are some best practices we've learned.
+
+## 1. Keep Your Controllers Thin
+
+Inertia controllers should focus on:
+- Authentication and authorization
+- Loading data
+- Rendering Inertia responses
+
+```ruby
+class PostsController < ApplicationController
+  def show
+    post = Post.find(params[:id])
+    authorize post
+
+    render inertia: 'Posts/Show', props: {
+      post: post.as_json,
+      comments: post.comments.as_json
+    }
+  end
+end
+```
+
+## 2. Use Shared Props Wisely
+
+Share common data like current user and flash messages:
+
+```ruby
+class ApplicationController < ActionController::Base
+  inertia_share do
+    {
+      current_user: current_user&.as_json,
+      flash: flash.to_hash
+    }
+  end
+end
+```
+
+## 3. Organize Inertia Pages
+
+Structure your pages to match your domain:
+
+```
+app/javascript/pages/
+├── Posts/
+│   ├── Index.tsx
+│   ├── Show.tsx
+│   └── Edit.tsx
+├── Users/
+│   └── Profile.tsx
+└── Home.tsx
+```
+
+## 4. Type Safety with TypeScript
+
+Define interfaces for your props:
+
+```typescript
+interface Post {
+  id: number
+  title: string
+  content: string
+  author: User
+}
+
+export default function Show({ post }: { post: Post }) {
+  return <div>{post.title}</div>
+}
+```
+
+## 5. Handle Forms with Inertia
+
+Use Inertia's form helpers for seamless form submissions:
+
+```typescript
+import { useForm } from '@inertiajs/react'
+
+const { data, setData, post, processing, errors } = useForm({
+  title: '',
+  content: ''
+})
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+  post('/posts')
+}
+```
+
+## 6. Optimize Asset Loading
+
+Use lazy loading for heavy components:
+
+```typescript
+import { lazy, Suspense } from 'react'
+
+const HeavyComponent = lazy(() => import('./HeavyComponent'))
+
+<Suspense fallback={<div>Loading...</div>}>
+  <HeavyComponent />
+</Suspense>
+```
+
+## 7. Cache Strategically
+
+Cache expensive queries in your Rails controllers:
+
+```ruby
+def index
+  posts = Rails.cache.fetch('posts_index', expires_in: 1.hour) do
+    Post.published.includes(:author).to_a
+  end
+
+  render inertia: 'Posts/Index', props: { posts: posts }
+end
+```
+
+## Conclusion
+
+These practices help maintain a clean, performant codebase. Experiment and find what works best for your application!
+
+**Related Topics:**
+- Inertia.js Documentation
+- Rails Performance Tips
+- React Optimization

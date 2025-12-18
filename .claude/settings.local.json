@@ -19,7 +19,8 @@
       "Bash(bundle exec i18n:*)",
       "Bash(bin/dev)",
       "Bash(pkill:*)",
-      "Bash(bundle exec i18n-tasks:*)"
+      "Bash(bundle exec i18n-tasks:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

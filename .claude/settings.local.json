@@ -23,7 +23,8 @@
       "Bash(tree:*)",
       "Bash(npm run lint:fix:*)",
       "Bash(ruby --version:*)",
-      "Bash(bundle exec rubocop:*)"
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bin/rails:*)"
     ],
     "deny": [],
     "ask": []

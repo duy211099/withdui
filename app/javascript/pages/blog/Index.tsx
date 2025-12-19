@@ -34,7 +34,7 @@ interface BlogIndexProps {
   search_index: SearchIndexItem[]
 }
 
-export default function BlogIndex({ posts, categories, search_index }: BlogIndexProps) {
+export default function BlogIndex({ posts, categories, tags, search_index }: BlogIndexProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
@@ -77,12 +77,30 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
     return result
   }, [posts, selectedCategory, selectedTag, searchQuery, searchIndex])
 
+  // Calculate tag counts
+  const tagCounts = useMemo(() => {
+    const counts: Record<string, number> = {}
+    posts.forEach((post) => {
+      post.tags.forEach((tag) => {
+        counts[tag] = (counts[tag] || 0) + 1
+      })
+    })
+    return counts
+  }, [posts])
+
   return (
     <>
       <Head title="Blog" />
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Blog</h1>
+        <h1 className="text-4xl font-bold mb-8">
+          Blog
+          {(selectedCategory || selectedTag) && (
+            <span className="text-2xl text-muted-foreground ml-2">
+              / {selectedCategory || ''} {selectedTag ? `#${selectedTag}` : ''}
+            </span>
+          )}
+        </h1>
 
         {/* Search */}
         <div className="mb-8">
@@ -99,7 +117,10 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
         <div className="mb-6 flex gap-2 flex-wrap">
           <Button
             variant={selectedCategory === null ? 'default' : 'outline'}
-            onClick={() => setSelectedCategory(null)}
+            onClick={() => {
+              setSelectedCategory(null)
+              setSelectedTag(null)
+            }}
           >
             All
           </Button>
@@ -113,6 +134,25 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
             </Button>
           ))}
         </div>
+
+        {/* Tags */}
+        {tags && tags.length > 0 && (
+          <div className="mb-6">
+            <h2 className="text-sm font-semibold mb-3 text-muted-foreground">Filter by Tag</h2>
+            <div className="flex gap-2 flex-wrap">
+              {tags.map((tag) => (
+                <Button
+                  key={tag}
+                  variant={selectedTag === tag ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                >
+                  {tag} ({tagCounts[tag] || 0})
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Posts Grid */}
         {filteredPosts.length > 0 ? (
@@ -139,12 +179,17 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
                   <CardContent>
                     <div className="flex gap-2 flex-wrap">
                       {post.tags.map((tag) => (
-                        <span
+                        <button
                           key={tag}
-                          className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded"
+                          className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            setSelectedTag(tag)
+                          }}
                         >
                           {tag}
-                        </span>
+                        </button>
                       ))}
                     </div>
                   </CardContent>

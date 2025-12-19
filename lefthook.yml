@@ -9,3 +9,7 @@ pre-commit:
       root: "app/javascript/ app/frontend/"
       run: npx biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
       stage_fixed: true
+    rubocop:
+      glob: "*.rb"
+      run: bundle exec rubocop --autocorrect {staged_files}
+      stage_fixed: true

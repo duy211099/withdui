@@ -10,4 +10,12 @@ published: true
 featured_image: ""
 ---
 
-#
+# Mục tiêu của việc tách biệt code lõi và code hạ tầng
+
+Trong phát triển ứng dụng web, **code lõi (Core Code) được hiểu là phần code chứa logic nghiệp vụ thuần túy của ứng dụng**, bao gồm những quy tắc, thao tác và xử lý phàn ánh đúng mô hình hoạt động của lĩnh vực (Domain) mà ứng dụng phục vụ. Ngược lại, **code hạ tầng (Infrastructure Code) là phần code đóng vai trò kết nối, tương tác giữa logic lõi của ứng dụng với các hệ thống bên ngoài** như CSDL, Third-Party, hệ thống file, Framework Web,... **Mục tiêu của việc tách biệt hai loại code** này là để chúng không trộn lẫn trong cùng một thành phần, giúp việc **thết kế hệ thống rõ ràng hơn và dễ quản lý hơn**. Cả hai loại code đều quan trọng như nhau trong ứng dụng, nhưng **nếu chúng ở chung trong một Layer hoặc Module**, sẽ **phát sinh nhiều vấn đề về bảo trì và phát triển.**
+
+**Mục tiêu chính** của kiến trúc tách biệt core code và infrastucture code là **tạo ra một ranh giới rõ rành giữa phần logic nghiệp vụ cốt lõi và phần triển khai kỹ thuật bên ngoài**. **Khi đạt được điều này**, chúng ta có thể **phát triền phần domain (nghiệp vụ) một cách độc lập, tập trung**, mà **không bị ảnh hưởng bởi chi tiết cơ sở dữ liệu, framework hay các dịch vụ bên ngoài**. Đồng thời, việc tách biệt giúp xây dựng một nền tảng kỹ thuật vững chắc để phát triển theo hướng **Domain-Driven** (thiết kế hướng nghiệp vụ) và dễ dàng áp dụng các thực hành như **Test-First** hay **TDD** (Test-Driven Development)
+
+Nói cách khác, **Core Code được viết sao cho thể hiện trực tiếp yêu càu của nghiệp vụ** (VD: Tạo đơn hàng mới, tính tổng số tiền) một cách rõ ràng, còn **Code Infrastructure sẽ đảm nhiệm chi tiết cách thức để lưu trữ dữ liệu, giao tiếp mạng, đọc/ghi file,...** **Mục tiêu là khi đọc phần Core Code, Dev thấy được câu chuyện-nghiệp vụ đang diễn ra, thay vì bị che giấu trong các đoạn code nặng tính mô tả kỹ thuật**. *Ví dụ, thay vì trong hàm xử lý có những câu lệnh SQL Insert dữ liệu, chúng ta muốn hàm đó chỉ gọi một phương thức "lưu đơn hàng" ở mức tổng quát. Chi tiết thực hiện "Lưu" (dùng SQL hay gọi API,...) sẽ do lớp hạ tầng đảm nhận. Bằng cách này, luồng xử lý nghiệp vụ trở nên dễ hiểu hơn và ít phụ thuộc vào quyết định công nghệ cụ thể*. **Tóm lại**, mục tiêu của việc tách biệt là để mỗi phần code có một trách nhiệm rõ ràng: **phần Core tập trung giải quyết vấn đề nghiệp vụ**, **phần Infrastructre lo việc tương tác môi trường ngoài**.
+
+> Điều này hướng tới mã nguồn trong sáng, dễ đọc, và một kiến trúc linh hoạt - sắn sàng cho những thay đổi trong tương lai

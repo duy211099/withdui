@@ -1,16 +1,14 @@
 ---
-title: Mục tiêu và tầm quan trọng của việc tách biệt Core Code & Infrastructure Code
+title: 1. Mục tiêu của việc tách biệt code lõi và code hạ tầng
 slug: muc-tieu-va-tam-quan-trong-cua-viec-tach-biet-core-code-infrastructure-code
 date: '2025-12-18'
 excerpt: ''
 category: Web Architecture
-tags: ["KIẾN TRÚC ỨNG DỤNG WEB - Nguyễn Thế Huy"]
+tags: ["KIẾN TRÚC ỨNG DỤNG WEB - Nguyễn Thế Huy", "1-Core Code & Infrastructure Code"]
 author: huynt.dev
 published: true
 featured_image: ''
 ---
-
-# Mục tiêu của việc tách biệt code lõi và code hạ tầng
 
 Trong phát triển ứng dụng web, **code lõi (Core Code) được hiểu là phần code chứa logic nghiệp vụ thuần túy của ứng dụng**, bao gồm những quy tắc, thao tác và xử lý phàn ánh đúng mô hình hoạt động của lĩnh vực (Domain) mà ứng dụng phục vụ. Ngược lại, **code hạ tầng (Infrastructure Code) là phần code đóng vai trò kết nối, tương tác giữa logic lõi của ứng dụng với các hệ thống bên ngoài** như CSDL, Third-Party, hệ thống file, Framework Web,... **Mục tiêu của việc tách biệt hai loại code** này là để chúng không trộn lẫn trong cùng một thành phần, giúp việc **thết kế hệ thống rõ ràng hơn và dễ quản lý hơn**. Cả hai loại code đều quan trọng như nhau trong ứng dụng, nhưng **nếu chúng ở chung trong một Layer hoặc Module**, sẽ **phát sinh nhiều vấn đề về bảo trì và phát triển.**
 

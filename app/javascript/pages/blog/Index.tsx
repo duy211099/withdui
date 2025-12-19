@@ -1,9 +1,9 @@
 import { Head, Link } from '@inertiajs/react'
-import { useState, useMemo } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Document } from 'flexsearch'
+import { useMemo, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 
 interface Post {
   title: string
@@ -45,11 +45,11 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
       document: {
         id: 'id',
         index: ['title', 'excerpt', 'content'],
-        store: ['title', 'url_path']
-      }
+        store: ['title', 'url_path'],
+      },
     })
 
-    search_index.forEach(doc => {
+    search_index.forEach((doc) => {
       index.add(doc)
     })
 
@@ -61,17 +61,17 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
     let result = posts
 
     if (selectedCategory) {
-      result = result.filter(p => p.category === selectedCategory)
+      result = result.filter((p) => p.category === selectedCategory)
     }
 
     if (selectedTag) {
-      result = result.filter(p => p.tags.includes(selectedTag))
+      result = result.filter((p) => p.tags.includes(selectedTag))
     }
 
     if (searchQuery) {
-      const searchResults = searchIndex.search(searchQuery)
-      const resultIds = new Set(searchResults.flatMap((r: any) => r.result))
-      result = result.filter(p => resultIds.has(p.slug))
+      const searchResults = searchIndex.search(searchQuery) as Array<{ result: string[] }>
+      const resultIds = new Set(searchResults.flatMap((r) => r.result))
+      result = result.filter((p) => resultIds.has(p.slug))
     }
 
     return result
@@ -103,7 +103,7 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
           >
             All
           </Button>
-          {categories.map(cat => (
+          {categories.map((cat) => (
             <Button
               key={cat}
               variant={selectedCategory === cat ? 'default' : 'outline'}
@@ -117,7 +117,7 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
         {/* Posts Grid */}
         {filteredPosts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPosts.map(post => (
+            {filteredPosts.map((post) => (
               <Link key={post.slug} href={post.url_path}>
                 <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                   {post.featured_image && (
@@ -138,7 +138,7 @@ export default function BlogIndex({ posts, categories, search_index }: BlogIndex
                   </CardHeader>
                   <CardContent>
                     <div className="flex gap-2 flex-wrap">
-                      {post.tags.map(tag => (
+                      {post.tags.map((tag) => (
                         <span
                           key={tag}
                           className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded"

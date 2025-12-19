@@ -1,5 +1,5 @@
-import { Head, usePage } from '@inertiajs/react'
 import type { PageProps as InertiaPageProps } from '@inertiajs/core'
+import { Head, usePage } from '@inertiajs/react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
 
@@ -22,7 +22,6 @@ export default function Home() {
     <>
       <Head title={t('frontend.home.title')} />
       <div className="min-h-screen bg-background">
-
         <main className="container mx-auto px-4 py-8">
           <Card className="max-w-2xl">
             <CardHeader>
@@ -36,22 +35,20 @@ export default function Home() {
             <CardContent>
               {current_user ? (
                 <div className="space-y-4">
-                  <p className="text-muted-foreground">
-                    {t('frontend.home.success_message')}
-                  </p>
+                  <p className="text-muted-foreground">{t('frontend.home.success_message')}</p>
                   <div className="grid gap-2">
                     <div>
-                      <span className="font-semibold">{t('frontend.home.name_label')}</span> {current_user.name}
+                      <span className="font-semibold">{t('frontend.home.name_label')}</span>{' '}
+                      {current_user.name}
                     </div>
                     <div>
-                      <span className="font-semibold">{t('frontend.home.email_label')}</span> {current_user.email}
+                      <span className="font-semibold">{t('frontend.home.email_label')}</span>{' '}
+                      {current_user.email}
                     </div>
                   </div>
                 </div>
               ) : (
-                <p className="text-muted-foreground">
-                  {t('frontend.home.sign_in_instruction')}
-                </p>
+                <p className="text-muted-foreground">{t('frontend.home.sign_in_instruction')}</p>
               )}
             </CardContent>
           </Card>

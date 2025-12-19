@@ -1,13 +1,10 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button'
 
 export default function InertiaExample() {
-
   return (
-    <>
-      <h1>
+    <h1>
         Hello
-        <Button/>
+        <Button />
       </h1>
-    </>
   )
 }

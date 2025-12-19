@@ -1,8 +1,8 @@
-import { ReactNode } from 'react'
 import { ThemeProvider } from 'next-themes'
+import type { ReactNode } from 'react'
 import Flash from '@/components/Flash'
-import { Toaster } from '@/components/ui/sonner'
 import Header from '@/components/Header'
+import { Toaster } from '@/components/ui/sonner'
 import { I18nProvider } from '@/contexts/I18nContext'
 
 interface LayoutProps {
@@ -16,9 +16,7 @@ export default function Layout({ children }: LayoutProps) {
         <Toaster />
         <Flash />
         <Header />
-        <main className="container mx-auto px-4 py-8">
-          {children}
-        </main>
+        <main className="container mx-auto px-4 py-8">{children}</main>
       </ThemeProvider>
     </I18nProvider>
   )

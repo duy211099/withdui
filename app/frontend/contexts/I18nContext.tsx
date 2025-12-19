@@ -1,5 +1,5 @@
-import { createContext, useContext, ReactNode, useMemo } from 'react'
 import { usePage } from '@inertiajs/react'
+import { createContext, type ReactNode, useContext, useMemo } from 'react'
 import i18n, { setLocale } from '@/lib/i18n'
 
 interface I18nContextType {
@@ -29,12 +29,15 @@ export function I18nProvider({ children }: I18nProviderProps) {
 
   // Use useMemo to recreate context value when locale changes
   // This ensures consuming components re-render with new translations
-  const value: I18nContextType = useMemo(() => ({
-    t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
-    locale: props.locale || 'vi',
-    availableLocales: props.available_locales || ['vi', 'en'],
-    setLocale,
-  }), [props.locale, props.available_locales])
+  const value: I18nContextType = useMemo(
+    () => ({
+      t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
+      locale: props.locale || 'vi',
+      availableLocales: props.available_locales || ['vi', 'en'],
+      setLocale,
+    }),
+    [props.locale, props.available_locales]
+  )
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }

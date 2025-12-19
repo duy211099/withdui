@@ -29,7 +29,9 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-4xl font-bold">Manage Blog Posts</h1>
-            <p className="text-muted-foreground mt-2">{posts.length} total post{posts.length !== 1 ? 's' : ''}</p>
+            <p className="text-muted-foreground mt-2">
+              {posts.length} total post{posts.length !== 1 ? 's' : ''}
+            </p>
           </div>
           <Link href="/blog/admin/new">
             <Button size="lg">Create New Post</Button>
@@ -44,7 +46,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
 
         {posts.length > 0 ? (
           <div className="space-y-4">
-            {posts.map(post => (
+            {posts.map((post) => (
               <Card key={post.slug}>
                 <CardHeader>
                   <div className="flex justify-between items-start gap-4">
@@ -63,7 +65,9 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                     </div>
                     <div className="flex gap-2 shrink-0">
                       <Link href={`/blog/admin/${post.slug}/edit`}>
-                        <Button variant="outline" size="sm">Edit</Button>
+                        <Button variant="outline" size="sm">
+                          Edit
+                        </Button>
                       </Link>
                       <Button
                         variant="destructive"

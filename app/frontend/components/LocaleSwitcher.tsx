@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/react'
-import { useI18n } from '@/contexts/I18nContext'
+import { Languages } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Languages } from 'lucide-react'
+import { useI18n } from '@/contexts/I18nContext'
 
 export default function LocaleSwitcher() {
   const { locale, availableLocales, t } = useI18n()
@@ -16,7 +16,11 @@ export default function LocaleSwitcher() {
   console.log('LocaleSwitcher state:', { locale, availableLocales, localeType: typeof locale })
 
   const switchLocale = (newLocale: string) => {
-    console.log('Switching locale to:', { newLocale, currentLocale: locale, url: `/locale/${newLocale}` })
+    console.log('Switching locale to:', {
+      newLocale,
+      currentLocale: locale,
+      url: `/locale/${newLocale}`,
+    })
     if (newLocale === locale) return
 
     // POST to the locale switching endpoint

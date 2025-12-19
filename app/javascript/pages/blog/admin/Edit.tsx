@@ -1,10 +1,10 @@
-import { Head, useForm, Link } from '@inertiajs/react'
+import { Head, Link, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { Textarea } from '@/components/ui/textarea'
 
 interface Post {
   title: string
@@ -38,20 +38,23 @@ export default function Edit({ post, categories }: EditProps) {
     author: post.author || '',
     published: post.published !== false,
     featured_image: post.featured_image || '',
-    content: post.content
+    content: post.content,
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Parse tags from input string before submitting
-    const parsedTags = tagsInput.split(',').map(t => t.trim()).filter(Boolean)
+    const parsedTags = tagsInput
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean)
     setData('tags', parsedTags)
 
     // Submit with parsed tags
     patch(`/blog/admin/${post.slug}`, {
       onBefore: () => {
         setData('tags', parsedTags)
-      }
+      },
     })
   }
 
@@ -76,7 +79,7 @@ export default function Edit({ post, categories }: EditProps) {
             <Input
               id="title"
               value={data.title}
-              onChange={e => setData('title', e.target.value)}
+              onChange={(e) => setData('title', e.target.value)}
               required
               placeholder="Enter post title"
             />
@@ -89,7 +92,7 @@ export default function Edit({ post, categories }: EditProps) {
             <Input
               id="slug"
               value={data.slug}
-              onChange={e => setData('slug', e.target.value)}
+              onChange={(e) => setData('slug', e.target.value)}
               required
               placeholder="post-slug"
             />
@@ -111,7 +114,7 @@ export default function Edit({ post, categories }: EditProps) {
               id="date"
               type="date"
               value={data.date}
-              onChange={e => setData('date', e.target.value)}
+              onChange={(e) => setData('date', e.target.value)}
               required
             />
             {errors.date && <p className="text-destructive text-sm">{errors.date}</p>}
@@ -123,7 +126,7 @@ export default function Edit({ post, categories }: EditProps) {
             <Textarea
               id="excerpt"
               value={data.excerpt}
-              onChange={e => setData('excerpt', e.target.value)}
+              onChange={(e) => setData('excerpt', e.target.value)}
               rows={3}
               placeholder="Brief description of the post"
             />
@@ -136,12 +139,12 @@ export default function Edit({ post, categories }: EditProps) {
             <Input
               id="category"
               value={data.category}
-              onChange={e => setData('category', e.target.value)}
+              onChange={(e) => setData('category', e.target.value)}
               placeholder="e.g., Tutorial, News, Guide"
               list="categories"
             />
             <datalist id="categories">
-              {categories.map(cat => (
+              {categories.map((cat) => (
                 <option key={cat} value={cat} />
               ))}
             </datalist>
@@ -154,12 +157,10 @@ export default function Edit({ post, categories }: EditProps) {
             <Input
               id="tags"
               value={tagsInput}
-              onChange={e => setTagsInput(e.target.value)}
+              onChange={(e) => setTagsInput(e.target.value)}
               placeholder="rails, react, tutorial (comma-separated)"
             />
-            <p className="text-sm text-muted-foreground">
-              Comma-separated tags
-            </p>
+            <p className="text-sm text-muted-foreground">Comma-separated tags</p>
             {errors.tags && <p className="text-destructive text-sm">{errors.tags}</p>}
           </div>
 
@@ -169,7 +170,7 @@ export default function Edit({ post, categories }: EditProps) {
             <Input
               id="author"
               value={data.author}
-              onChange={e => setData('author', e.target.value)}
+              onChange={(e) => setData('author', e.target.value)}
               placeholder="Your name"
             />
             {errors.author && <p className="text-destructive text-sm">{errors.author}</p>}
@@ -182,10 +183,12 @@ export default function Edit({ post, categories }: EditProps) {
               id="featured_image"
               type="url"
               value={data.featured_image}
-              onChange={e => setData('featured_image', e.target.value)}
+              onChange={(e) => setData('featured_image', e.target.value)}
               placeholder="https://example.com/image.jpg"
             />
-            {errors.featured_image && <p className="text-destructive text-sm">{errors.featured_image}</p>}
+            {errors.featured_image && (
+              <p className="text-destructive text-sm">{errors.featured_image}</p>
+            )}
           </div>
 
           {/* Published */}
@@ -193,7 +196,7 @@ export default function Edit({ post, categories }: EditProps) {
             <Switch
               id="published"
               checked={data.published}
-              onCheckedChange={checked => setData('published', checked)}
+              onCheckedChange={(checked) => setData('published', checked)}
             />
             <Label htmlFor="published" className="cursor-pointer">
               Published
@@ -206,14 +209,15 @@ export default function Edit({ post, categories }: EditProps) {
             <Textarea
               id="content"
               value={data.content}
-              onChange={e => setData('content', e.target.value)}
+              onChange={(e) => setData('content', e.target.value)}
               rows={20}
               className="font-mono text-sm"
               placeholder="Write your MDX content here..."
               required
             />
             <p className="text-sm text-muted-foreground">
-              MDX supports markdown with React components. Use standard markdown syntax for formatting.
+              MDX supports markdown with React components. Use standard markdown syntax for
+              formatting.
             </p>
             {errors.content && <p className="text-destructive text-sm">{errors.content}</p>}
           </div>

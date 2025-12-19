@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
 import { compile, run } from '@mdx-js/mdx'
+import { useEffect, useState } from 'react'
 import * as runtime from 'react/jsx-runtime'
-import remarkGfm from 'remark-gfm'
-import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeSlug from 'rehype-slug'
+import remarkGfm from 'remark-gfm'
 
 interface MDXRendererProps {
   content: string
@@ -21,12 +21,14 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
     const compileAndRun = async () => {
       try {
         setError(null)
-        const code = String(await compile(content, {
-          outputFormat: 'function-body',
-          development: false,
-          remarkPlugins: [remarkGfm],
-          rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-        }))
+        const code = String(
+          await compile(content, {
+            outputFormat: 'function-body',
+            development: false,
+            remarkPlugins: [remarkGfm],
+            rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+          })
+        )
         const { default: Component } = await run(code, {
           ...runtime,
           baseUrl: import.meta.url,

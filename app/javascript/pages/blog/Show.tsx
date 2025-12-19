@@ -52,7 +52,10 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
             {post.category && (
               <>
                 <span>•</span>
-                <Link href={`/blog/category/${post.category}`} className="hover:underline hover:text-primary">
+                <Link
+                  href={`/blog/category/${post.category}`}
+                  className="hover:underline hover:text-primary"
+                >
                   {post.category}
                 </Link>
               </>
@@ -61,7 +64,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
 
           {post.tags && post.tags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
-              {post.tags.map(tag => (
+              {post.tags.map((tag) => (
                 <Link key={tag} href={`/blog/tag/${tag}`}>
                   <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm hover:bg-secondary/80 transition-colors">
                     #{tag}
@@ -73,11 +76,13 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
         </header>
 
         {/* MDX Content */}
-        <Suspense fallback={
-          <div className="flex items-center justify-center p-8">
-            <div className="animate-pulse text-muted-foreground">Loading content...</div>
-          </div>
-        }>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center p-8">
+              <div className="animate-pulse text-muted-foreground">Loading content...</div>
+            </div>
+          }
+        >
           <MDXRenderer content={post.content} />
         </Suspense>
 
@@ -86,7 +91,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
           <aside className="mt-12 pt-8 border-t">
             <h2 className="text-2xl font-bold mb-4">Related Posts</h2>
             <div className="grid md:grid-cols-3 gap-4">
-              {related_posts.map(p => (
+              {related_posts.map((p) => (
                 <Link key={p.url_path} href={p.url_path}>
                   <div className="p-4 border rounded hover:shadow-md transition-shadow h-full">
                     <h3 className="font-semibold mb-2 hover:text-primary transition-colors">

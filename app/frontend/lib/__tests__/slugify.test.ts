@@ -46,5 +46,5 @@ export default {
     { input: 'Học lập trình React và Rails', output: 'hoc-lap-trinh-react-va-rails' },
     { input: 'Hướng dẫn sử dụng MDX', output: 'huong-dan-su-dung-mdx' },
     { input: 'Đây là bài viết về TypeScript', output: 'day-la-bai-viet-ve-typescript' },
-  ]
+  ],
 }

@@ -1,12 +1,10 @@
 import { Head } from '@inertiajs/react'
 import { useState } from 'react'
-
+import { Button } from '@/components/ui/button'
 import inertiaSvg from '/assets/inertia.svg'
 import reactSvg from '/assets/react.svg'
 import viteRubySvg from '/assets/vite_ruby.svg'
-
 import cs from './InertiaExample.module.css'
-import { Button } from '@/components/ui/button'
 
 export default function InertiaExample({ name }: { name: string }) {
   const [count, setCount] = useState(0)
@@ -19,43 +17,27 @@ export default function InertiaExample({ name }: { name: string }) {
         <h1 className={cs.h1}>Hello {name}!</h1>
 
         <div>
-          <a href="https://inertia-rails.dev" target="_blank">
+          <a href="https://inertia-rails.dev" target="_blank" rel="noopener">
             <img className={cs.logo} src={inertiaSvg} alt="Inertia logo" />
           </a>
-          <a href="https://vite-ruby.netlify.app" target="_blank">
-            <img
-              className={`${cs.logo} ${cs.vite}`}
-              src={viteRubySvg}
-              alt="Vite Ruby logo"
-            />
+          <a href="https://vite-ruby.netlify.app" target="_blank" rel="noopener">
+            <img className={`${cs.logo} ${cs.vite}`} src={viteRubySvg} alt="Vite Ruby logo" />
           </a>
-          <a href="https://react.dev" target="_blank">
-            <img
-              className={`${cs.logo} ${cs.react}`}
-              src={reactSvg}
-              alt="React logo"
-            />
+          <a href="https://react.dev" target="_blank" rel="noopener">
+            <img className={`${cs.logo} ${cs.react}`} src={reactSvg} alt="React logo" />
           </a>
         </div>
 
         <h2 className={cs.h2}>Inertia + Vite Ruby + React</h2>
         <div className="card">
-          <Button
-            variant={'default'}
-            size={"lg"}
-            onClick={() => setCount((count) => count + 1)}
-          >
+          <Button variant={'default'} size={'lg'} onClick={() => setCount((count) => count + 1)}>
             count is {count}
           </Button>
-          <button
-            className={cs.button}
-            onClick={() => setCount((count) => count + 1)}
-          >
+          <button type="button" className={cs.button} onClick={() => setCount((count) => count + 1)}>
             count is {count}
           </button>
           <p>
-            Edit <code>app/frontend/pages/InertiaExample.jsx</code> and save to
-            test HMR
+            Edit <code>app/frontend/pages/InertiaExample.jsx</code> and save to test HMR
           </p>
         </div>
         <p className={cs.readTheDocs}>

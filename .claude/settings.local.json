@@ -20,7 +20,8 @@
       "Bash(bin/dev)",
       "Bash(pkill:*)",
       "Bash(bundle exec i18n-tasks:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(npm run lint:fix:*)"
     ],
     "deny": [],
     "ask": []

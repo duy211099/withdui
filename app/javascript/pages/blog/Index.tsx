@@ -90,11 +90,11 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
 
   return (
     <>
-      <Head title="Blog" />
+      <Head title="Notes" />
 
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-8">
-          Blog
+          Notes
           {(selectedCategory || selectedTag) && (
             <span className="text-2xl text-muted-foreground ml-2">
               / {selectedCategory || ''} {selectedTag ? `#${selectedTag}` : ''}

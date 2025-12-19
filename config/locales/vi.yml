@@ -12,7 +12,7 @@ vi:
         title: Đăng nhập
     header:
       app_name: WithDui
-      blog: Blog
+      blog: Notes
       sign_in: Đăng nhập
       sign_out: Đăng xuất
     home:

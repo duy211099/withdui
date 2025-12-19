@@ -1,9 +1,9 @@
 ---
 title: "Rails + Inertia.js Best Practices"
 slug: "rails-inertia-best-practices"
-date: "2024-12-18"
+date: "2025-12-17"
 excerpt: "Learn the best practices for building modern web applications with Rails and Inertia.js."
-category: "Tutorial"
+category: "MDX"
 tags: ["rails", "inertia", "react", "best-practices"]
 author: "Team"
 published: true
@@ -17,6 +17,7 @@ Building applications with Rails and Inertia.js offers the best of both worlds: 
 ## 1. Keep Your Controllers Thin
 
 Inertia controllers should focus on:
+
 - Authentication and authorization
 - Loading data
 - Rendering Inertia responses
@@ -71,14 +72,14 @@ Define interfaces for your props:
 
 ```typescript
 interface Post {
-  id: number
-  title: string
-  content: string
-  author: User
+  id: number;
+  title: string;
+  content: string;
+  author: User;
 }
 
 export default function Show({ post }: { post: Post }) {
-  return <div>{post.title}</div>
+  return <div>{post.title}</div>;
 }
 ```
 
@@ -87,17 +88,17 @@ export default function Show({ post }: { post: Post }) {
 Use Inertia's form helpers for seamless form submissions:
 
 ```typescript
-import { useForm } from '@inertiajs/react'
+import { useForm } from "@inertiajs/react";
 
 const { data, setData, post, processing, errors } = useForm({
-  title: '',
-  content: ''
-})
+  title: "",
+  content: "",
+});
 
 const handleSubmit = (e) => {
-  e.preventDefault()
-  post('/posts')
-}
+  e.preventDefault();
+  post("/posts");
+};
 ```
 
 ## 6. Optimize Asset Loading
@@ -133,6 +134,7 @@ end
 These practices help maintain a clean, performant codebase. Experiment and find what works best for your application!
 
 **Related Topics:**
+
 - Inertia.js Documentation
 - Rails Performance Tips
 - React Optimization

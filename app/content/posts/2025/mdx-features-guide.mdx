@@ -1,9 +1,9 @@
 ---
 title: "MDX Features Guide"
 slug: "mdx-features-guide"
-date: "2025-01-01"
+date: "2025-12-17"
 excerpt: "A comprehensive guide to MDX features and how to use them effectively in your blog posts."
-category: "Guide"
+category: "MDX"
 tags: ["mdx", "markdown", "react", "documentation"]
 author: "Team"
 published: true
@@ -19,17 +19,20 @@ MDX is an authorable format that lets you seamlessly write JSX in your Markdown 
 All standard markdown features work:
 
 ### Headings
+
 Use `#` for headings (H1 through H6)
 
 ### Text Formatting
+
 - **Bold text** with `**bold**`
-- *Italic text* with `*italic*`
+- _Italic text_ with `*italic*`
 - ~~Strikethrough~~ with `~~strikethrough~~`
 - `Inline code` with backticks
 
 ### Lists
 
 Unordered lists:
+
 - First item
 - Second item
   - Nested item
@@ -37,11 +40,13 @@ Unordered lists:
 - Third item
 
 Ordered lists:
+
 1. First step
 2. Second step
 3. Third step
 
 ### Links and Images
+
 [Visit our homepage](/)
 
 ### Blockquotes
@@ -55,10 +60,10 @@ Syntax highlighting works out of the box:
 
 ```javascript
 function greet(name) {
-  return `Hello, ${name}!`
+  return `Hello, ${name}!`;
 }
 
-console.log(greet('MDX'))
+console.log(greet("MDX"));
 ```
 
 ```ruby
@@ -79,12 +84,12 @@ puts greet('MDX')
 
 ## Tables
 
-| Feature | Markdown | MDX |
-|---------|----------|-----|
-| Text formatting | ✅ | ✅ |
-| Code blocks | ✅ | ✅ |
-| React components | ❌ | ✅ |
-| Interactive elements | ❌ | ✅ |
+| Feature              | Markdown | MDX |
+| -------------------- | -------- | --- |
+| Text formatting      | ✅       | ✅  |
+| Code blocks          | ✅       | ✅  |
+| React components     | ❌       | ✅  |
+| Interactive elements | ❌       | ✅  |
 
 ## Horizontal Rules
 
@@ -102,9 +107,11 @@ Want to create checklists? While not supported by default GFM in our setup, you 
 ## Advanced Features
 
 ### Math (if configured)
+
 While not enabled by default, MDX supports math rendering with appropriate plugins.
 
 ### Footnotes
+
 MDX can support footnotes with the right remark plugins.
 
 ## Best Practices

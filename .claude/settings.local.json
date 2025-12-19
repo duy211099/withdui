@@ -21,7 +21,9 @@
       "Bash(pkill:*)",
       "Bash(bundle exec i18n-tasks:*)",
       "Bash(tree:*)",
-      "Bash(npm run lint:fix:*)"
+      "Bash(npm run lint:fix:*)",
+      "Bash(ruby --version:*)",
+      "Bash(bundle exec rubocop:*)"
     ],
     "deny": [],
     "ask": []

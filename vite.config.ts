@@ -26,4 +26,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './app/frontend'),
     },
   },
+  build: {
+    // Disable source maps in production to prevent source code exposure
+    sourcemap: false,
+    // Use esbuild for minification (default, faster than terser)
+    minify: 'esbuild',
+  },
 })

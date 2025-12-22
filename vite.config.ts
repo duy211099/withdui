@@ -32,4 +32,8 @@ export default defineConfig({
     // Use esbuild for minification (default, faster than terser)
     minify: 'esbuild',
   },
+  esbuild: {
+    // Remove console.log, console.warn, console.error in production
+    drop: ['console', 'debugger'],
+  },
 })

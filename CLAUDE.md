@@ -134,6 +134,7 @@ bin/rails c                # Open Rails console
   - Sets `@/` alias to `./app/frontend`
   - Configures path resolution for imports
   - **Security**: Source maps disabled in production builds to prevent code exposure
+  - **Production optimization**: Console statements automatically removed in production
 
 - `tsconfig.json` - Root TypeScript config with project references
 - `tsconfig.app.json` - App TypeScript config (strict mode, includes app/frontend)

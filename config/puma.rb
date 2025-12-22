@@ -29,7 +29,8 @@ threads_count = ENV.fetch("RAILS_MAX_THREADS", 3)
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT", 3000)
+# Commented out because we use bind directive below (which is better for Docker)
+# port ENV.fetch("PORT", 3000)
 
 # Bind to all interfaces (0.0.0.0) to allow access from outside Docker container
 # In development, this allows Docker port mapping to work correctly

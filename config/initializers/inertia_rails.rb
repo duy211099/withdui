@@ -3,7 +3,9 @@
 if defined?(InertiaRails)
   InertiaRails.configure do |config|
     config.version = ViteRuby.digest
-    config.encrypt_history = true
+    # Only encrypt history when SSL/HTTPS is available
+    # Encryption requires HTTPS - disable for local production testing
+    config.encrypt_history = false
     config.always_include_errors_hash = true
   end
 end

@@ -41,8 +41,7 @@ This is a **server-side React application** using Inertia.js, not a traditional 
 app/frontend/            # Single unified frontend directory (configured in config/vite.json)
 ├── entrypoints/         # Build entry points
 │   ├── inertia.ts       # Inertia app setup & page resolver
-│   ├── application.css  # Tailwind imports & theme config
-│   └── application.js   # Hotwire setup (if needed)
+│   └── application.css  # Tailwind imports & theme config
 ├── pages/               # Inertia page components (auto-loaded by glob)
 │   ├── InertiaExample.tsx
 │   ├── Home.tsx
@@ -59,7 +58,6 @@ app/frontend/            # Single unified frontend directory (configured in conf
 │   ├── utils.ts         # cn() helper
 │   └── i18n.ts          # i18n configuration
 ├── contexts/            # React contexts
-├── controllers/         # Stimulus controllers
 ├── locales/             # i18n translations
 └── assets/              # Static assets (SVGs, etc.)
 ```
@@ -69,6 +67,7 @@ app/frontend/            # Single unified frontend directory (configured in conf
 - Easier imports: no confusion about directory boundaries
 - Consistent @/ alias: points to the entire frontend codebase
 - All files scanned by Tailwind, TypeScript, and linters
+- **No importmap** - Everything bundled through Vite
 
 ### Inertia.js Page Resolution
 

@@ -22,5 +22,4 @@ search:
     - config/
   exclude:
     - app/assets/images
-    - app/javascript  # Exclude JS/TS files (can't be scanned reliably)
     - app/frontend    # Exclude frontend component library

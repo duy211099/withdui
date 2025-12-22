@@ -47,10 +47,10 @@
     "prepare": "lefthook install",
     "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
     "i18n:export": "bundle exec i18n export",
-    "lint": "biome lint ./app/javascript ./app/frontend",
-    "lint:fix": "biome lint --write ./app/javascript ./app/frontend",
-    "format": "biome format --write ./app/javascript ./app/frontend",
-    "format:check": "biome format ./app/javascript ./app/frontend",
-    "biome:check": "biome check --write ./app/javascript ./app/frontend"
+    "lint": "biome lint ./app/frontend",
+    "lint:fix": "biome lint --write ./app/frontend",
+    "format": "biome format --write ./app/frontend",
+    "format:check": "biome format ./app/frontend",
+    "biome:check": "biome check --write ./app/frontend"
   }
 }

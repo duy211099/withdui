@@ -3,7 +3,7 @@
 # Documentation: https://github.com/fnando/i18n-js
 
 translations:
-  - file: app/javascript/locales/translations.json
+  - file: app/frontend/locales/translations.json
     patterns:
       - "frontend.*"
       - "*.frontend.*"

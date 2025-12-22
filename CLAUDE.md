@@ -38,29 +38,41 @@ This is a **server-side React application** using Inertia.js, not a traditional 
 ### Directory Structure
 
 ```
-app/
-├── javascript/           # Vite source directory (configured in config/vite.json)
-│   ├── entrypoints/     # Build entry points
-│   │   ├── inertia.ts   # Inertia app setup & page resolver
-│   │   ├── application.css  # Tailwind imports & theme config
-│   │   └── application.js   # Hotwire setup (if needed)
-│   └── pages/           # Inertia page components (auto-loaded by glob)
-│       ├── InertiaExample.tsx
-│       └── v1/Hello.tsx
-│
-└── frontend/            # Shared component library (imported via @/ alias)
-    ├── components/ui/   # shadcn/ui components
-    └── lib/utils.ts     # Utility functions (cn, etc.)
+app/frontend/            # Single unified frontend directory (configured in config/vite.json)
+├── entrypoints/         # Build entry points
+│   ├── inertia.ts       # Inertia app setup & page resolver
+│   ├── application.css  # Tailwind imports & theme config
+│   └── application.js   # Hotwire setup (if needed)
+├── pages/               # Inertia page components (auto-loaded by glob)
+│   ├── InertiaExample.tsx
+│   ├── Home.tsx
+│   ├── auth/
+│   ├── blog/
+│   ├── utils/
+│   └── v1/
+├── components/          # Shared component library
+│   ├── ui/              # shadcn/ui components
+│   ├── Layout.tsx
+│   ├── Header.tsx
+│   └── ...
+├── lib/                 # Utility functions
+│   ├── utils.ts         # cn() helper
+│   └── i18n.ts          # i18n configuration
+├── contexts/            # React contexts
+├── controllers/         # Stimulus controllers
+├── locales/             # i18n translations
+└── assets/              # Static assets (SVGs, etc.)
 ```
 
-**Why two directories?**
-- `app/javascript/` is the Vite build source
-- `app/frontend/` is a reusable component library accessible via `@/` alias
-- Both are scanned by Tailwind and TypeScript
+**Why a single directory?**
+- Simpler mental model: all frontend code in one place
+- Easier imports: no confusion about directory boundaries
+- Consistent @/ alias: points to the entire frontend codebase
+- All files scanned by Tailwind, TypeScript, and linters
 
 ### Inertia.js Page Resolution
 
-Pages are resolved via Vite glob in `app/javascript/entrypoints/inertia.ts`:
+Pages are resolved via Vite glob in `app/frontend/entrypoints/inertia.ts`:
 
 ```typescript
 const pages = import.meta.glob<ResolvedComponent>('../pages/**/*.tsx', { eager: true })
@@ -69,11 +81,11 @@ const page = pages[`../pages/${name}.tsx`]
 
 **Flow:**
 1. Rails controller: `render inertia: "InertiaExample", props: { name: "World" }`
-2. Inertia finds matching component: `app/javascript/pages/InertiaExample.tsx`
+2. Inertia finds matching component: `app/frontend/pages/InertiaExample.tsx`
 3. React component receives props and renders
 
 **Adding a new page:**
-1. Create `.tsx` file in `app/javascript/pages/`
+1. Create `.tsx` file in `app/frontend/pages/`
 2. Add route in `config/routes.rb`
 3. Add controller action that calls `render inertia: "PageName"`
 
@@ -124,11 +136,11 @@ bin/rails c                # Open Rails console
   - Configures path resolution for imports
 
 - `tsconfig.json` - Root TypeScript config with project references
-- `tsconfig.app.json` - App TypeScript config (strict mode, includes both app/javascript and app/frontend)
+- `tsconfig.app.json` - App TypeScript config (strict mode, includes app/frontend)
 - `tsconfig.node.json` - Vite config TypeScript types
 
 - `config/vite.json` - Vite Ruby configuration
-  - `sourceCodeDir: "app/javascript"`
+  - `sourceCodeDir: "app/frontend"`
   - Development port: 3036
   - Test port: 3037
 
@@ -143,12 +155,11 @@ bin/rails c                # Open Rails console
 
 ### Styling
 
-- `app/javascript/entrypoints/application.css` - **Main Tailwind configuration**
+- `app/frontend/entrypoints/application.css` - **Main Tailwind configuration**
   - Uses Tailwind v4 syntax: `@import "tailwindcss"`
-  - `@source` directives tell Tailwind where to scan for classes:
+  - `@source` directive tells Tailwind where to scan for classes:
     ```css
-    @source "../**/*.{js,ts,jsx,tsx}";      # Scans app/javascript/
-    @source "../../frontend/**/*.{js,ts,jsx,tsx}";  # Scans app/frontend/
+    @source "../**/*.{js,ts,jsx,tsx}";  # Scans all of app/frontend/
     ```
   - Theme configuration with CSS variables for design tokens
   - Custom variant for dark mode: `@custom-variant dark (&:is(.dark *))`
@@ -185,7 +196,7 @@ import { Button } from '../../app/frontend/components/ui/button'
 **Relative imports for local files:**
 
 ```typescript
-// In app/javascript/pages/
+// In app/frontend/pages/
 import styles from './InertiaExample.module.css'
 ```
 

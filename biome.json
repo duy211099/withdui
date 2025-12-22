@@ -8,7 +8,6 @@
 	"files": {
 		"ignoreUnknown": false,
 		"includes": [
-			"app/javascript/**/*.{js,jsx,ts,tsx}",
 			"app/frontend/**/*.{js,jsx,ts,tsx}"
 		]
 	},

@@ -1,5 +1,5 @@
 import { I18n } from 'i18n-js'
-import translations from '../../javascript/locales/translations.json'
+import translations from '../locales/translations.json'
 
 // Create i18n instance
 const i18n = new I18n(translations)

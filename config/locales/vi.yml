@@ -13,6 +13,7 @@ vi:
     header:
       app_name: WithDui
       blog: Notes
+      utils: Tiện ích
       sign_in: Đăng nhập
       sign_out: Đăng xuất
     home:

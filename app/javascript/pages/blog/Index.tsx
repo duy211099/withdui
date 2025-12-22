@@ -181,6 +181,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
                       {post.tags.map((tag) => (
                         <button
                           key={tag}
+                          type="button"
                           className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors"
                           onClick={(e) => {
                             e.preventDefault()

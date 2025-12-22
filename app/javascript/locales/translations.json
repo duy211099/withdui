@@ -15,7 +15,8 @@
         "app_name": "WithDui",
         "blog": "Notes",
         "sign_in": "Sign In",
-        "sign_out": "Sign Out"
+        "sign_out": "Sign Out",
+        "utils": "Utils"
       },
       "home": {
         "email_label": "Email:",
@@ -57,7 +58,8 @@
         "app_name": "WithDui",
         "blog": "Notes",
         "sign_in": "Đăng nhập",
-        "sign_out": "Đăng xuất"
+        "sign_out": "Đăng xuất",
+        "utils": "Tiện ích"
       },
       "home": {
         "email_label": "Email:",

@@ -33,7 +33,11 @@ export default function InertiaExample({ name }: { name: string }) {
           <Button variant={'default'} size={'lg'} onClick={() => setCount((count) => count + 1)}>
             count is {count}
           </Button>
-          <button type="button" className={cs.button} onClick={() => setCount((count) => count + 1)}>
+          <button
+            type="button"
+            className={cs.button}
+            onClick={() => setCount((count) => count + 1)}
+          >
             count is {count}
           </button>
           <p>

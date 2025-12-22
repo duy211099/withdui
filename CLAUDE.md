@@ -133,6 +133,7 @@ bin/rails c                # Open Rails console
 - `vite.config.ts` - Vite configuration with React, Tailwind, and Ruby plugins
   - Sets `@/` alias to `./app/frontend`
   - Configures path resolution for imports
+  - **Security**: Source maps disabled in production builds to prevent code exposure
 
 - `tsconfig.json` - Root TypeScript config with project references
 - `tsconfig.app.json` - App TypeScript config (strict mode, includes app/frontend)

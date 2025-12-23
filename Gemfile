@@ -36,7 +36,6 @@ gem "sentry-sidekiq"
 
 # Redis for Sidekiq/caching/Action Cable
 gem "redis", ">= 4.0.1"
-gem "hiredis-client"
 
 # Security
 gem "rack-attack"

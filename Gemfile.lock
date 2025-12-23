@@ -167,8 +167,6 @@ GEM
     hashie (5.0.0)
     highline (3.1.2)
       reline
-    hiredis-client (0.26.2)
-      redis-client (= 0.26.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     i18n-js (4.2.4)
@@ -488,7 +486,6 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  hiredis-client
   i18n-js (~> 4.2)
   i18n-tasks (~> 1.0.15)
   inertia_rails

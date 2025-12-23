@@ -4,12 +4,11 @@ Rails.application.routes.draw do
   # Mount Sidekiq web UI (protect this in production!)
   mount Sidekiq::Web => "/sidekiq"
 
-  devise_for :users, **{
+  devise_for :users,
     controllers: {
       omniauth_callbacks: "users/omniauth_callbacks",
       sessions: "users/sessions"
     }
-  }
 
   # Locale switching
   post "locale/:locale", to: "locale#switch", as: :switch_locale

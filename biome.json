@@ -11,6 +11,17 @@
 			"app/frontend/**/*.{js,jsx,ts,tsx}"
 		]
 	},
+	"overrides": [
+		{
+			"includes": ["app/frontend/lib/**"],
+			"linter": {
+				"enabled": false
+			},
+			"formatter": {
+				"enabled": false
+			}
+		}
+	],
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "space",

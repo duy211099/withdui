@@ -194,6 +194,9 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
+    js-routes (2.3.6)
+      railties (>= 5)
+      sorbet-runtime
     json (2.15.0)
     jwt (3.1.2)
       base64
@@ -424,6 +427,7 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
+    sorbet-runtime (0.6.12869)
     stringio (3.1.7)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
@@ -490,6 +494,7 @@ DEPENDENCIES
   i18n-tasks (~> 1.0.15)
   inertia_rails
   jbuilder
+  js-routes
   listen (~> 3.9)
   omniauth-google-oauth2
   omniauth-rails_csrf_protection

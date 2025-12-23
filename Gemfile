@@ -23,6 +23,9 @@ gem "inertia_rails"
 # i18n-js for exporting Rails translations to JavaScript
 gem "i18n-js", "~> 4.2"
 
+# js-routes for exposing Rails routes to JavaScript
+gem "js-routes"
+
 # Background jobs
 gem "sidekiq", "~> 7.0"
 

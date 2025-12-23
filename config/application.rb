@@ -25,6 +25,9 @@ module Withdui
     config.autoload_paths << Rails.root.join("app/services")
     config.eager_load_paths << Rails.root.join("app/services")
 
+    # Use Rack::Attack for rate limiting and throttling
+    config.middleware.use Rack::Attack
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -1,4 +1,9 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
+  # Mount Sidekiq web UI (protect this in production!)
+  mount Sidekiq::Web => "/sidekiq"
+
   devise_for :users, **{
     controllers: {
       omniauth_callbacks: "users/omniauth_callbacks",
@@ -28,6 +33,11 @@ Rails.application.routes.draw do
 
   # Utils routes
   get "utils", to: "utils#index", as: :utils_index
+
+  # Test routes (development only)
+  if Rails.env.development?
+    get "test/sentry", to: "test#sentry"
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

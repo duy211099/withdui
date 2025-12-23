@@ -5,8 +5,8 @@ ruby "3.4.7"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
 
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 1.4"
+# Use PostgreSQL as the database for Active Record
+gem "pg", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -23,8 +23,23 @@ gem "inertia_rails"
 # i18n-js for exporting Rails translations to JavaScript
 gem "i18n-js", "~> 4.2"
 
-# Use Redis adapter to run Action Cable in production
-# gem "redis", ">= 4.0.1"
+# Background jobs
+gem "sidekiq", "~> 7.0"
+
+# API serialization
+gem "blueprinter"
+
+# Error tracking
+gem "sentry-ruby"
+gem "sentry-rails"
+gem "sentry-sidekiq"
+
+# Redis for Sidekiq/caching/Action Cable
+gem "redis", ">= 4.0.1"
+gem "hiredis-client"
+
+# Security
+gem "rack-attack"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -45,8 +60,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+# Cloudflare R2 storage (S3-compatible)
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -71,6 +86,12 @@ group :development do
 
   # File watching for content hot reload
   gem "listen", "~> 3.9"
+
+  # Security scanner
+  gem "brakeman", require: false
+
+  # N+1 query detection
+  gem "bullet"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"

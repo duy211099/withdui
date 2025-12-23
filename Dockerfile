@@ -20,7 +20,7 @@ FROM base as build
 # Install packages needed to build gems and Node.js for Vite
 ARG NODE_VERSION=20
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev libvips pkg-config curl && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev libpq-dev pkg-config curl && \
     curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
@@ -42,7 +42,9 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production (Vite builds assets, Rails precompiles)
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 \
+    DATABASE_URL=postgresql://dummy:dummy@localhost/dummy \
+    ./bin/rails assets:precompile
 
 
 # Final stage for app image
@@ -50,7 +52,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
+    apt-get install --no-install-recommends -y curl libpq5 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application

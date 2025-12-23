@@ -107,7 +107,6 @@ GEM
     bindex (0.8.1)
     binding_of_caller (1.0.1)
       debug_inspector (>= 1.2.0)
-    blueprinter (1.2.1)
     bootsnap (1.18.6)
       msgpack (~> 1.2)
     brakeman (7.1.1)
@@ -265,6 +264,9 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.3)
       version_gem (~> 1.1, >= 1.1.9)
+    oj (3.16.13)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     omniauth (2.1.4)
       hashie (>= 3.4.6)
       logger
@@ -282,6 +284,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -491,7 +494,6 @@ DEPENDENCIES
   aws-sdk-s3
   better_errors
   binding_of_caller
-  blueprinter
   bootsnap
   brakeman
   bullet
@@ -506,6 +508,7 @@ DEPENDENCIES
   jbuilder
   js-routes
   listen (~> 3.9)
+  oj
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.5)

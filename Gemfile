@@ -29,8 +29,8 @@ gem "js-routes"
 # Background jobs
 gem "sidekiq", "~> 7.0"
 
-# API serialization
-gem "blueprinter"
+# Fast JSON parsing and generation
+gem "oj"
 
 # Error tracking
 gem "sentry-ruby"

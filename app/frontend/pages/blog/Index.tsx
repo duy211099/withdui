@@ -146,7 +146,8 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
                   variant={selectedTag === tag ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                  className="whitespace-normal h-auto min-h-8 py-2 max-w-[180px] text-left"
+                  // max-w-[calc(50%-0.5rem)]: Max width is half the container width minus gap
+                  className="whitespace-normal h-auto min-h-8 py-2 max-w-[calc(50%-0.5rem)] text-left"
                 >
                   <span className="line-clamp-2 wrap-break-word">
                     {tag} ({tagCounts[tag] || 0})

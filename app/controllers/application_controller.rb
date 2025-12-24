@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   # Ensure CSRF protection is enabled with exception strategy
   protect_from_forgery with: :exception, prepend: true
 
+  # Set current user for request-scoped access
+  before_action :set_current_user
+
   # Set locale from cookie, params, or browser preference
   before_action :set_locale
 
@@ -26,6 +29,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_current_user
+    Current.user = current_user
+    Current.request_id = request.uuid
+    Current.user_agent = request.user_agent
+  end
 
   def set_locale
     # Priority: 1. Cookie, 2. Default locale

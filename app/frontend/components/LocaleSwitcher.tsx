@@ -1,5 +1,4 @@
 import { router } from '@inertiajs/react'
-import { Languages } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -41,11 +40,15 @@ export default function LocaleSwitcher() {
     return name
   }
 
+  const getFlag = (loc: string) => {
+    return loc === 'en' ? '🇺🇸' : '🇻🇳'
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Languages className="h-4 w-4" />
+        <Button variant="outline" size="icon">
+          <span className="text-xl leading-none">{getFlag(locale)}</span>
           <span className="sr-only">{t('frontend.locale.switch_language')}</span>
         </Button>
       </DropdownMenuTrigger>
@@ -56,7 +59,8 @@ export default function LocaleSwitcher() {
             onClick={() => switchLocale(loc)}
             className={locale === loc ? 'bg-accent' : ''}
           >
-            {getLocaleName(loc)}
+            <span className="mr-2 text-base">{getFlag(loc)}</span>
+            <span>{getLocaleName(loc)}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

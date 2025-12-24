@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   # Set locale from cookie, params, or browser preference
   before_action :set_locale
 
+  # Track changes with PaperTrail (who made the change)
+  before_action :set_paper_trail_whodunnit
+
   # Dynamic sharing: Data is evaluated at render time
   inertia_share do
      {
@@ -58,5 +61,10 @@ class ApplicationController < ActionController::Base
     unless current_user&.admin?
       redirect_to root_path, alert: "You don't have permission to access this page."
     end
+  end
+
+  # PaperTrail: Track who made the change
+  def user_for_paper_trail
+    current_user&.id # Store user ID in whodunnit column
   end
 end

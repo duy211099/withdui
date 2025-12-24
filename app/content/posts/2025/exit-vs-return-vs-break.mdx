@@ -41,6 +41,7 @@ puts "This won't print if exit was called"
 - `exit(0)` or `exit` = successful termination
 - `exit(1)` or any non-zero = error termination
 - Alternative: `exit!` skips ensure blocks and finalizers
+- Best practice: Use `exit 0` for normal termination, `exit 1` for errors.
 
 ---
 

@@ -12,7 +12,7 @@ interface NewProps {
   tags?: string[]
 }
 
-export default function New({ categories }: NewProps) {
+export default function New({ categories, tags }: NewProps) {
   const [tagsInput, setTagsInput] = useState('')
 
   const { data, setData, processing, errors } = useForm({
@@ -146,7 +146,13 @@ export default function New({ categories }: NewProps) {
               value={tagsInput}
               onChange={(e) => setTagsInput(e.target.value)}
               placeholder="rails, react, tutorial (comma-separated)"
+              list="tags"
             />
+            <datalist id="tags">
+              {tags?.map((tag) => (
+                <option key={tag} value={tag} />
+              ))}
+            </datalist>
             <p className="text-sm text-muted-foreground">Comma-separated tags</p>
             {errors.tags && <p className="text-destructive text-sm">{errors.tags}</p>}
           </div>

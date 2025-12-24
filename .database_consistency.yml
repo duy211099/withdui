@@ -1,0 +1,36 @@
+# Database Consistency Configuration
+# https://github.com/djezzzl/database_consistency
+
+# Run with: bundle exec database_consistency
+# Add to CI pipeline for automatic checks
+
+# Enable/disable specific checkers
+enabled_checkers:
+  - ForeignKeyChecker         # Ensures associations have foreign keys
+  - LengthConstraintChecker   # Ensures length validations match DB constraints
+  - NullConstraintChecker     # Ensures presence validations match NOT NULL constraints
+  - UniqueIndexChecker        # Ensures uniqueness validations have unique indexes
+  - ColumnPresenceChecker     # Ensures columns used in validations exist
+  - MissingIndexChecker       # Detects missing indexes on foreign keys
+  - MissingUniqueIndexChecker # Detects missing unique indexes
+  - PrimaryKeyTypeChecker     # Ensures primary key types are correct
+  - EnumTypeChecker           # Ensures enum values match DB constraints
+  - EnumValueChecker          # Ensures enum values are consistent
+  - RedundantIndexChecker     # Detects redundant indexes
+  - RedundantUniqueIndexChecker # Detects redundant unique indexes
+
+# Exclude specific models or columns from checks
+# exclude:
+#   models:
+#     - ApplicationRecord
+#     - ActiveStorage::Blob
+#     - ActiveStorage::Attachment
+#   columns:
+#     - legacy_column
+
+# Custom configuration for specific checkers
+# checkers:
+#   ForeignKeyChecker:
+#     enabled: true
+#   NullConstraintChecker:
+#     enabled: true

@@ -46,7 +46,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Neo-brutalist shadow tokens */
-  --shadow-offset: 4px;
+  --shadow-offset: 2px;
   --shadow-color: var(--shadow);
 }
 
@@ -175,6 +175,159 @@
   }
 }
 
+/* Syntax highlighting for code blocks */
+@layer base {
+  /* Light mode syntax highlighting */
+  .hljs {
+    background: transparent;
+    color: var(--foreground);
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: oklch(0.55 0.01 285);
+    font-style: italic;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-subst {
+    color: oklch(0.50 0.12 285);
+    font-weight: 600;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag .hljs-attr {
+    color: oklch(0.55 0.15 25);
+  }
+
+  .hljs-string,
+  .hljs-doctag {
+    color: oklch(0.50 0.12 150);
+  }
+
+  .hljs-title,
+  .hljs-section,
+  .hljs-selector-id {
+    color: oklch(0.45 0.15 55);
+    font-weight: 600;
+  }
+
+  .hljs-type,
+  .hljs-class .hljs-title {
+    color: oklch(0.50 0.12 200);
+  }
+
+  .hljs-tag,
+  .hljs-name,
+  .hljs-attribute {
+    color: oklch(0.50 0.10 150);
+  }
+
+  .hljs-regexp,
+  .hljs-link {
+    color: oklch(0.55 0.12 340);
+  }
+
+  .hljs-symbol,
+  .hljs-bullet {
+    color: oklch(0.55 0.12 200);
+  }
+
+  .hljs-built_in,
+  .hljs-builtin-name {
+    color: oklch(0.50 0.12 285);
+  }
+
+  .hljs-meta {
+    color: oklch(0.55 0.01 285);
+  }
+
+  .hljs-deletion {
+    background: oklch(0.60 0.15 25 / 0.2);
+  }
+
+  .hljs-addition {
+    background: oklch(0.50 0.12 150 / 0.2);
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: bold;
+  }
+
+  /* Dark mode syntax highlighting */
+  .dark .hljs-comment,
+  .dark .hljs-quote {
+    color: oklch(0.60 0.01 285);
+  }
+
+  .dark .hljs-keyword,
+  .dark .hljs-selector-tag,
+  .dark .hljs-subst {
+    color: oklch(0.70 0.12 285);
+  }
+
+  .dark .hljs-number,
+  .dark .hljs-literal,
+  .dark .hljs-variable,
+  .dark .hljs-template-variable,
+  .dark .hljs-tag .hljs-attr {
+    color: oklch(0.70 0.15 25);
+  }
+
+  .dark .hljs-string,
+  .dark .hljs-doctag {
+    color: oklch(0.65 0.12 150);
+  }
+
+  .dark .hljs-title,
+  .dark .hljs-section,
+  .dark .hljs-selector-id {
+    color: oklch(0.75 0.15 55);
+  }
+
+  .dark .hljs-type,
+  .dark .hljs-class .hljs-title {
+    color: oklch(0.70 0.12 200);
+  }
+
+  .dark .hljs-tag,
+  .dark .hljs-name,
+  .dark .hljs-attribute {
+    color: oklch(0.65 0.10 150);
+  }
+
+  .dark .hljs-regexp,
+  .dark .hljs-link {
+    color: oklch(0.70 0.12 340);
+  }
+
+  .dark .hljs-symbol,
+  .dark .hljs-bullet {
+    color: oklch(0.70 0.12 200);
+  }
+
+  .dark .hljs-built_in,
+  .dark .hljs-builtin-name {
+    color: oklch(0.70 0.12 285);
+  }
+
+  .dark .hljs-deletion {
+    background: oklch(0.65 0.15 25 / 0.2);
+  }
+
+  .dark .hljs-addition {
+    background: oklch(0.65 0.12 150 / 0.2);
+  }
+}
+
 /* Neo-brutalist utility classes */
 @layer utilities {
   /* Default shadows - flat, no shadow */
@@ -183,11 +336,11 @@
   }
 
   .brutalist-shadow-sm {
-    box-shadow: 2px 2px 0 var(--shadow-color);
+    box-shadow: 1px 1px 0 var(--shadow-color);
   }
 
   .brutalist-shadow-lg {
-    box-shadow: 6px 6px 0 var(--shadow-color);
+    box-shadow: 2px 2px 0 var(--shadow-color);
   }
 
   /* Hover-activated shadows - lifts element on hover */
@@ -199,8 +352,8 @@
   }
 
   .brutalist-hover:hover {
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--shadow-color);
+    transform: translate(-1px, -1px);
   }
 
   /* Border utilities */

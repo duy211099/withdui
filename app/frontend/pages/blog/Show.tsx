@@ -9,7 +9,7 @@ interface Post {
   date: string
   category: string
   tags: string[]
-  author: string
+  author: string | null
   content: string
   featured_image?: string
   url_path: string
@@ -48,7 +48,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
           <div className="flex gap-4 text-muted-foreground text-sm mb-4 flex-wrap">
             <span>{new Date(post.date).toLocaleDateString()}</span>
             <span>•</span>
-            <span>{post.author}</span>
+            <span>{post.author || 'A Philosopher 🧙‍♂️'}</span>
             {post.category && (
               <>
                 <span>•</span>

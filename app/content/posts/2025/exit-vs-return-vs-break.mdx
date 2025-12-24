@@ -1,0 +1,192 @@
+---
+title: "`exit` vs `return` vs `break`"
+slug: exit-vs-return-vs-break
+date: '2025-12-24'
+excerpt: ''
+category: Ruby
+tags: [ruby, codecrafters, shell]
+author: ''
+published: true
+featured_image: ''
+---
+
+# Exit vs Return vs Break in Ruby
+
+## Overview
+
+Ruby provides three different keywords for controlling program flow: `exit`, `return`, and `break`. Each serves a distinct purpose and operates at different levels of your code.
+
+## `exit`
+
+**Purpose:** Terminates the entire Ruby program immediately.
+
+**Scope:** Global - affects the entire process
+
+**Use case:** When you need to stop the entire application
+
+```ruby
+def process_data
+  if critical_error
+    puts "Critical error detected!"
+    exit(1)  # Exits the entire program with status code 1
+  end
+end
+
+process_data
+puts "This won't print if exit was called"
+```
+
+**Notes:**
+- Takes an optional exit status code (default is 0 for success)
+- `exit(0)` or `exit` = successful termination
+- `exit(1)` or any non-zero = error termination
+- Alternative: `exit!` skips ensure blocks and finalizers
+
+---
+
+## `return`
+
+**Purpose:** Exits from the current method and optionally returns a value.
+
+**Scope:** Method-level - only affects the current method
+
+**Use case:** When you want to exit a method early or return a specific value
+
+```ruby
+def check_age(age)
+  return "Too young" if age < 18
+  return "Valid age" if age <= 65
+  "Senior citizen"
+end
+
+result = check_age(15)  # Returns "Too young"
+puts result             # This still executes
+```
+
+**Notes:**
+- Returns `nil` if no value is specified
+- Can return multiple values as an array: `return x, y, z`
+- The last expression in a method is implicitly returned (explicit `return` not needed)
+
+---
+
+## `break`
+
+**Purpose:** Exits from a loop or block immediately.
+
+**Scope:** Loop/block-level - only affects the innermost loop or block
+
+**Use case:** When you want to exit a loop early based on a condition
+
+```ruby
+# Breaking from a loop
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+numbers.each do |num|
+  if num > 5
+    break  # Exits the loop when num > 5
+  end
+  puts num  # Only prints 1, 2, 3, 4, 5
+end
+
+puts "Loop finished"  # This still executes
+```
+
+**With return value:**
+```ruby
+result = [1, 2, 3, 4, 5].each do |num|
+  break "Found it!" if num == 3
+  num * 2
+end
+
+puts result  # Outputs: "Found it!"
+```
+
+**Notes:**
+- Can return a value: `break value`
+- Only breaks out of the innermost loop
+- Works with: `loop`, `while`, `until`, `for`, `.each`, `.map`, etc.
+- In nested loops, only breaks the inner loop
+
+---
+
+## Quick Comparison
+
+| Keyword  | Exits From          | Continues After? | Common Use Case                    |
+|----------|---------------------|------------------|-------------------------------------|
+| `exit`   | Entire program      | No               | Fatal errors, script completion     |
+| `return` | Current method      | Yes              | Early method exit, return values    |
+| `break`  | Loop or block       | Yes              | Stop iteration based on condition   |
+
+---
+
+## Bonus: Related Keywords
+
+### `next`
+Skips the current iteration and continues with the next one:
+
+```ruby
+(1..5).each do |num|
+  next if num.even?  # Skip even numbers
+  puts num           # Only prints 1, 3, 5
+end
+```
+
+### `redo`
+Restarts the current iteration from the beginning:
+
+```ruby
+i = 0
+[1, 2, 3].each do |num|
+  i += 1
+  redo if i < 3 && num == 1  # Redo first iteration twice
+  puts num
+end
+```
+
+---
+
+## Practical Example: All Three Together
+
+```ruby
+def process_items(items)
+  items.each do |item|
+    # break: exit the loop
+    if item == "STOP"
+      puts "Stop signal received"
+      break
+    end
+    
+    # next would skip to next iteration
+    next if item.empty?
+    
+    # return: exit the entire method
+    if item == "ERROR"
+      puts "Error encountered!"
+      return false
+    end
+    
+    puts "Processing: #{item}"
+  end
+  
+  true  # Return success if we get here
+end
+
+# exit would terminate the entire program
+exit(1) if ENV['EMERGENCY_MODE']
+
+result = process_items(["apple", "banana", "ERROR", "cherry"])
+# result is false, but program continues
+puts "Program still running"
+```
+
+---
+
+## Summary
+
+- Use **`exit`** when the entire program must stop
+- Use **`return`** when you want to exit from a method
+- Use **`break`** when you want to exit from a loop or block
+
+Choose the right tool based on the scope of control flow you need!
+

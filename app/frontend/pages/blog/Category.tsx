@@ -42,7 +42,7 @@ export default function Category({
           </Button>
         </Link>
 
-        <h1 className="text-4xl font-bold mb-2">{title}</h1>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">{title}</h1>
         <p className="text-muted-foreground mb-8">
           {posts.length} post{posts.length !== 1 ? 's' : ''}
         </p>
@@ -82,7 +82,7 @@ export default function Category({
 
         {/* Posts Grid */}
         {posts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {posts.map((post) => (
               <Link key={post.slug} href={post.url_path}>
                 <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
@@ -90,7 +90,7 @@ export default function Category({
                     <img
                       src={post.featured_image}
                       alt={post.title}
-                      className="w-full h-48 object-cover rounded-t-lg"
+                      className="w-full h-40 sm:h-44 md:h-48 object-cover rounded-t-lg"
                     />
                   )}
                   <CardHeader>

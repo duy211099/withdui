@@ -1,6 +1,9 @@
 import { Link, usePage } from '@inertiajs/react'
+import { Menu } from 'lucide-react'
+import { useState } from 'react'
 import { useTranslation } from '@/contexts/I18nContext'
 import LocaleSwitcher from './LocaleSwitcher'
+import MobileMenu from './MobileMenu'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
 
@@ -14,21 +17,22 @@ interface User {
 export default function Header() {
   const { current_user } = usePage<{ current_user?: User }>().props
   const { t } = useTranslation()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="border-b">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="border-b-2">
+      <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
         <div className="flex gap-4">
           <Link href="/" className="text-xl font-bold">
             {t('frontend.header.app_name')}
           </Link>
 
-          <nav className="flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6">
             <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">
               {t('frontend.header.blog')}
             </Link>
           </nav>
-          <nav className="flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/utils"
               className="text-sm font-medium hover:text-primary transition-colors"
@@ -38,7 +42,8 @@ export default function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Desktop controls - hidden on mobile */}
+        <div className="hidden md:flex items-center gap-4">
           <LocaleSwitcher />
           <ThemeSwitcher />
 
@@ -51,7 +56,9 @@ export default function Header() {
                   className="h-8 w-8 rounded-full"
                 />
               )}
-              <span className="text-sm">{current_user.name || current_user.email}</span>
+              <span className="text-sm hidden md:inline">
+                {current_user.name || current_user.email}
+              </span>
               <Button variant="outline" size="sm" asChild>
                 <Link href="/users/sign_out" method="delete" as="button">
                   {t('frontend.header.sign_out')}
@@ -64,7 +71,24 @@ export default function Header() {
             </Button>
           )}
         </div>
+
+        {/* Hamburger menu - visible only on mobile */}
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen(true)}
+          className="md:hidden p-2 -mr-2 hover:bg-muted rounded"
+          aria-label="Open menu"
+        >
+          <Menu className="h-6 w-6" />
+        </button>
       </div>
+
+      {/* Mobile menu component */}
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        current_user={current_user}
+      />
     </header>
   )
 }

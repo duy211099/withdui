@@ -23,7 +23,7 @@ export default function Home() {
       <Head title={t('frontend.home.title')} />
       <div className="min-h-screen bg-background">
         <main className="container mx-auto px-4 py-8">
-          <Card className="max-w-2xl">
+          <Card className="w-full max-w-2xl">
             <CardHeader>
               <CardTitle>{t('frontend.home.welcome')}</CardTitle>
               <CardDescription>

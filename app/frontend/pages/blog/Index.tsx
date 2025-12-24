@@ -93,10 +93,10 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
       <Head title="Notes" />
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
           Notes
           {(selectedCategory || selectedTag) && (
-            <span className="text-2xl text-muted-foreground ml-2">
+            <span className="text-lg md:text-xl text-muted-foreground ml-2">
               / {selectedCategory || ''} {selectedTag ? `#${selectedTag}` : ''}
             </span>
           )}
@@ -109,7 +109,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
             placeholder="Search posts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="max-w-md"
+            className="w-full max-w-md"
           />
         </div>
 
@@ -156,7 +156,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
 
         {/* Posts Grid */}
         {filteredPosts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {filteredPosts.map((post) => (
               <Link key={post.slug} href={post.url_path}>
                 <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
@@ -164,7 +164,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
                     <img
                       src={post.featured_image}
                       alt={post.title}
-                      className="w-full h-48 object-cover rounded-t-lg"
+                      className="w-full h-40 sm:h-44 md:h-48 object-cover rounded-t-lg"
                     />
                   )}
                   <CardHeader>

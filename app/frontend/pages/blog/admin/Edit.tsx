@@ -62,14 +62,14 @@ export default function Edit({ post, categories }: EditProps) {
     <>
       <Head title={`Edit: ${post.title}`} />
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 w-full max-w-4xl">
         <Link href="/blog/admin">
           <Button variant="ghost" className="mb-4">
             ← Back to Admin
           </Button>
         </Link>
 
-        <h1 className="text-4xl font-bold mb-2">Edit Post</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-2">Edit Post</h1>
         <p className="text-muted-foreground mb-8">Editing: {post.title}</p>
 
         <form onSubmit={handleSubmit} className="space-y-6">

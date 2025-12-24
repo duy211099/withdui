@@ -26,7 +26,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
     <>
       <Head title={post.title} />
 
-      <article className="container mx-auto px-4 py-8 max-w-4xl">
+      <article className="container mx-auto px-3 sm:px-4 py-6 md:py-8 w-full max-w-4xl">
         {/* Header */}
         <header className="mb-8">
           <Link href="/blog">
@@ -39,11 +39,11 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
             <img
               src={post.featured_image}
               alt={post.title}
-              className="w-full h-64 object-cover rounded-lg mb-6"
+              className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-lg mb-6"
             />
           )}
 
-          <h1 className="text-5xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{post.title}</h1>
 
           <div className="flex gap-4 text-muted-foreground text-sm mb-4 flex-wrap">
             <span>{new Date(post.date).toLocaleDateString()}</span>
@@ -89,8 +89,8 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
         {/* Related Posts */}
         {related_posts && related_posts.length > 0 && (
           <aside className="mt-12 pt-8 border-t">
-            <h2 className="text-2xl font-bold mb-4">Related Posts</h2>
-            <div className="grid md:grid-cols-3 gap-4">
+            <h2 className="text-xl md:text-2xl font-bold mb-4">Related Posts</h2>
+            <div className="grid md:grid-cols-3 gap-3 md:gap-4">
               {related_posts.map((p) => (
                 <Link key={p.url_path} href={p.url_path}>
                   <div className="p-4 border rounded hover:shadow-md transition-shadow h-full">

@@ -13,6 +13,8 @@ en:
     header:
       app_name: WithDui
       blog: Notes
+      language: Language
+      theme: Theme
       utils: Utils
       sign_in: Sign In
       sign_out: Sign Out

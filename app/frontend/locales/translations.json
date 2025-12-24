@@ -14,8 +14,10 @@
       "header": {
         "app_name": "WithDui",
         "blog": "Notes",
+        "language": "Language",
         "sign_in": "Sign In",
         "sign_out": "Sign Out",
+        "theme": "Theme",
         "utils": "Utils"
       },
       "home": {
@@ -57,8 +59,10 @@
       "header": {
         "app_name": "WithDui",
         "blog": "Notes",
+        "language": "Ngôn ngữ",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
+        "theme": "Giao diện",
         "utils": "Tiện ích"
       },
       "home": {

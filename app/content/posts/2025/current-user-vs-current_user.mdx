@@ -1,0 +1,125 @@
+---
+title: Current.user vs current_user
+slug: current-user-vs-current_user
+date: '2025-12-24'
+excerpt: ''
+category: Rails
+tags: [rails]
+author: ''
+published: true
+featured_image: ''
+---
+
+# Rails: current_user vs Current.user
+
+The key difference between `current_user` and `Current.user` in Rails relates to **where** and **how** you access the current user:
+
+## `current_user`
+
+A **helper method** typically defined in `ApplicationController`:
+
+```ruby
+class ApplicationController < ActionController::Base
+  helper_method :current_user
+  
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+end
+```
+
+- Available in **controllers and views** (via `helper_method`)
+- Traditional Rails pattern
+- Requires passing as argument to other objects (models, services, jobs)
+- Scoped to the controller/view layer
+
+## `Current.user`
+
+Uses **`ActiveSupport::CurrentAttributes`** for request-scoped global state:
+
+```ruby
+# app/models/current.rb
+class Current < ActiveSupport::CurrentAttributes
+  attribute :user
+end
+
+# In your controller
+class ApplicationController < ActionController::Base
+  before_action :set_current_user
+  
+  private
+  
+  def set_current_user
+    Current.user = current_user
+  end
+end
+```
+
+- Accessible **anywhere** in your app (models, services, jobs, etc.)
+- Automatically reset between requests
+- More convenient but creates implicit dependencies
+- Modern Rails pattern (Rails 5.2+)
+
+## When to Use Which?
+
+- **`current_user`**: Better for explicit dependencies, easier to test, more traditional
+- **`Current.user`**: Convenient when you need user context deep in your stack (audit logs, multi-tenancy, background jobs)
+
+Many apps use **both** - `current_user` in controllers/views, and set `Current.user` for deeper access when needed.
+
+## Devise and `current_user`
+
+If you're using Devise for authentication, you **don't need to manually define** `current_user` or call `helper_method`. Devise does this automatically!
+
+### How Devise Provides `current_user`
+
+When you add Devise to your User model:
+
+```ruby
+class User < ApplicationRecord
+  devise :database_authenticatable, :registerable, ...
+end
+```
+
+And include it in your `ApplicationController`:
+
+```ruby
+class ApplicationController < ActionController::Base
+  # This line is often added automatically
+  before_action :authenticate_user!  # optional, for protected routes
+end
+```
+
+Devise **automatically generates** these helper methods:
+
+- `current_user` - returns the signed-in user
+- `user_signed_in?` - returns true/false
+- `authenticate_user!` - redirect if not signed in
+- `user_session` - access the session data
+
+### Behind the Scenes
+
+Devise does this through its `Devise::Controllers::Helpers` module, which is automatically included in `ActionController::Base`. It dynamically creates methods like:
+
+```ruby
+# Devise generates this for you:
+def current_user
+  @current_user ||= warden.authenticate(scope: :user)
+end
+
+# And makes it available in views:
+helper_method :current_user
+```
+
+### For Multiple Models
+
+If you have multiple Devise models (User, Admin, etc.):
+
+```ruby
+current_user       # User model
+current_admin      # Admin model
+user_signed_in?    # User check
+admin_signed_in?   # Admin check
+```
+
+**No manual `helper_method` needed** - Devise handles it all automatically! This is one of the conveniences of using Devise over rolling your own authentication.

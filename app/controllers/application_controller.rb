@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   # Include ActionPolicy for authorization
   include ActionPolicy::Controller
 
+  # Include PaperTrail for tracking changes
+  include PaperTrail::Rails::Controller
+
   # Ensure CSRF protection is enabled with exception strategy
   protect_from_forgery with: :exception, prepend: true
 

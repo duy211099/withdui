@@ -9,6 +9,22 @@
 @plugin "@tailwindcss/forms";
 
 @theme inline {
+  /* Increased line heights for Vietnamese diacritics */
+  --font-sans--line-height: 1.2;
+  --text-xs--line-height: 1.2;
+  --text-sm--line-height: 1.2;
+  --text-base--line-height: 1.2;
+  --text-lg--line-height: 1.2;
+  --text-xl--line-height: 1.2;
+  --text-2xl--line-height: 1.2;
+  --text-3xl--line-height: 1.2;
+  --text-4xl--line-height: 1.2;
+  --text-5xl--line-height: 1.2;
+  --text-6xl--line-height: 1.2;
+  --text-7xl--line-height: 1.2;
+  --text-8xl--line-height: 1.2;
+  --text-9xl--line-height: 1.2;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

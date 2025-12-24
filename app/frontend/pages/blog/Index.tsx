@@ -139,15 +139,18 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
         {tags && tags.length > 0 && (
           <div className="mb-6">
             <h2 className="text-sm font-semibold mb-3 text-muted-foreground">Filter by Tag</h2>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Button
                   key={tag}
                   variant={selectedTag === tag ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                  className="whitespace-normal h-auto min-h-8 py-2 max-w-[180px] text-left"
                 >
-                  {tag} ({tagCounts[tag] || 0})
+                  <span className="line-clamp-2 break-words">
+                    {tag} ({tagCounts[tag] || 0})
+                  </span>
                 </Button>
               ))}
             </div>

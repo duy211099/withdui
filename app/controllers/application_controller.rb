@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  # Include ActionPolicy for authorization
+  include ActionPolicy::Controller
+
   # Ensure CSRF protection is enabled with exception strategy
   protect_from_forgery with: :exception, prepend: true
 
@@ -9,6 +12,7 @@ class ApplicationController < ActionController::Base
   inertia_share do
      {
         current_user: current_user&.as_json(only: [ :id, :email, :name, :avatar_url ]),
+        is_admin: current_user&.admin? || false,
         flash: flash.to_hash,
         locale: I18n.locale.to_s,
         available_locales: I18n.available_locales.map(&:to_s)
@@ -46,5 +50,13 @@ class ApplicationController < ActionController::Base
     # Parse the Accept-Language header and find the first available locale
     accepted_locales = request.env["HTTP_ACCEPT_LANGUAGE"].scan(/[a-z]{2}/).map(&:to_sym)
     accepted_locales.find { |locale| I18n.available_locales.include?(locale) }
+  end
+
+  # Admin authorization helper
+  # Redirects to homepage if user is not an admin
+  def require_admin!
+    unless current_user&.admin?
+      redirect_to root_path, alert: "You don't have permission to access this page."
+    end
   end
 end

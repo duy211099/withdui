@@ -1,7 +1,7 @@
 class BlogAdminController < ApplicationController
-  # Require authentication for admin actions
+  # Require authentication and admin authorization
   before_action :authenticate_user!, if: -> { defined?(Devise) }
-  # Note: Add authorization check here if you want to restrict to admin users only
+  before_action :require_admin!
 
   def index
     render inertia: "blog/admin/Index", props: {

@@ -71,9 +71,6 @@ gem "aws-sdk-s3", "~> 1.208", require: false
 # Image processing for Active Storage variants
 gem "image_processing", "~> 1.2"
 
-# Image proxy for on-the-fly image processing
-gem "imgproxy-rails", "~> 0.3"
-
 # ActiveRecord enhancements
 gem "store_attribute", "~> 2.0"
 gem "store_model", "~> 4.4"
@@ -93,7 +90,7 @@ group :development, :test do
   gem "dotenv-rails", "~> 3.1"
 
   # Annotate models with schema information
-  gem "annotate", "~> 2.6"
+  gem "annotaterb", "~> 4.20"
 end
 
 group :development do

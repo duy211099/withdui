@@ -5,7 +5,7 @@
 if Rails.env.development?
   Rack::MiniProfiler.config.tap do |c|
     # Position the badge in bottom-left corner (won't overlap typical UI elements)
-    c.position = "bottom-right"
+    c.position = "bottom-left"
 
     # Enable advanced debugging tools (flamegraph, memory profiling)
     c.enable_advanced_debugging_tools = true

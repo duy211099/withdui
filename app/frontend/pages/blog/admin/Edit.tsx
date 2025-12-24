@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from '@inertiajs/react'
+import { Head, Link, router, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,7 +28,7 @@ interface EditProps {
 export default function Edit({ post, categories }: EditProps) {
   const [tagsInput, setTagsInput] = useState((post.tags || []).join(', '))
 
-  const { data, setData, patch, processing, errors } = useForm({
+  const { data, setData, processing, errors } = useForm({
     title: post.title,
     slug: post.slug,
     date: post.date.split('T')[0],
@@ -48,13 +48,11 @@ export default function Edit({ post, categories }: EditProps) {
       .split(',')
       .map((t) => t.trim())
       .filter(Boolean)
-    setData('tags', parsedTags)
 
-    // Submit with parsed tags
-    patch(`/blog/admin/${post.slug}`, {
-      onBefore: () => {
-        setData('tags', parsedTags)
-      },
+    // Submit with parsed tags included
+    router.patch(`/blog/admin/${post.slug}`, {
+      ...data,
+      tags: parsedTags,
     })
   }
 

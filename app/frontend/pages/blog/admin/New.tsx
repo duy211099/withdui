@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from '@inertiajs/react'
+import { Head, Link, router, useForm } from '@inertiajs/react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,7 +15,7 @@ interface NewProps {
 export default function New({ categories }: NewProps) {
   const [tagsInput, setTagsInput] = useState('')
 
-  const { data, setData, post, processing, errors } = useForm({
+  const { data, setData, processing, errors } = useForm({
     title: '',
     slug: '',
     date: new Date().toISOString().split('T')[0],
@@ -35,13 +35,11 @@ export default function New({ categories }: NewProps) {
       .split(',')
       .map((t) => t.trim())
       .filter(Boolean)
-    setData('tags', parsedTags)
 
-    // Submit with parsed tags
-    post('/blog/admin', {
-      onBefore: () => {
-        setData('tags', parsedTags)
-      },
+    // Submit with parsed tags included
+    router.post('/blog/admin', {
+      ...data,
+      tags: parsedTags,
     })
   }
 

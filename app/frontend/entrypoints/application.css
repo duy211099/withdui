@@ -97,7 +97,8 @@
   --destructive: oklch(0.6 0.15 25);
 
   /* Lighter borders for softer neo-brutalism */
-  --border: oklch(0.60 0.015 285);
+  --border: black;
+  /* --border: oklch(0.60 0.015 285); */
   --input: oklch(0.88 0.01 85);
   --ring: oklch(0.55 0.08 150);
 
@@ -119,7 +120,8 @@
   --sidebar-ring: oklch(0.55 0.08 150);
 
   /* Neo-brutalist shadow - lighter for softer look */
-  --shadow: oklch(0.60 0.015 285);
+  --shadow: black;
+  /* --shadow: oklch(0.60 0.015 285); */
 }
 
 .dark {

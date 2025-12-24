@@ -1,0 +1,534 @@
+---
+title: The PATH Environment Variable
+slug: the-path-environment-variable
+date: '2025-12-24'
+excerpt: ''
+category: Shell
+tags:
+- shell
+- codecrafters
+author: ''
+published: true
+featured_image: ''
+---
+
+# The PATH Environment Variable
+
+## What is PATH?
+
+**PATH** is an environment variable that tells your shell where to look for executable programs when you type a command.
+
+When you type a command like `ls` or `python`, the shell searches through directories listed in PATH to find the executable file.
+
+---
+
+## How PATH Works
+
+### The Basic Flow
+
+```bash
+You type: python3 my_script.py
+          ↓
+Shell checks: Is "python3" a builtin command? → No
+          ↓
+Shell searches PATH directories in order:
+  1. /usr/local/bin/python3 → Not found
+  2. /usr/bin/python3 → Found! ✓
+          ↓
+Shell executes: /usr/bin/python3 my_script.py
+```
+
+### View Your PATH
+
+```bash
+# View PATH (colon-separated list)
+echo $PATH
+# Output: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+# View PATH (one directory per line - easier to read)
+echo $PATH | tr ':' '\n'
+# Output:
+# /usr/local/bin
+# /usr/bin
+# /bin
+# /usr/sbin
+# /sbin
+```
+
+---
+
+## PATH Structure
+
+### Format
+
+```
+/first/directory:/second/directory:/third/directory
+```
+
+- Directories are separated by colons (`:`)
+- Searched from **left to right**
+- First match wins
+
+### Common Directories in PATH
+
+| Directory | Purpose | Typical Contents |
+|-----------|---------|------------------|
+| `/usr/local/bin` | User-installed programs | Custom software, Homebrew (macOS) |
+| `/usr/bin` | System programs | Standard Unix utilities |
+| `/bin` | Essential binaries | Core commands (ls, cp, mv) |
+| `/usr/sbin` | System admin tools | Root-level utilities |
+| `/sbin` | System binaries | Boot and recovery tools |
+| `~/.local/bin` | User-specific programs | Personal scripts |
+
+---
+
+## Why PATH Matters
+
+### Without PATH
+
+```bash
+# You'd have to type the full path every time
+/usr/bin/python3 script.py
+/usr/bin/git status
+/usr/local/bin/node app.js
+
+# Tedious and error-prone!
+```
+
+### With PATH
+
+```bash
+# Just type the command name
+python3 script.py
+git status
+node app.js
+
+# Shell finds it automatically!
+```
+
+---
+
+## Modifying PATH
+
+### Temporary (Current Session Only)
+
+```bash
+# Add directory to beginning of PATH
+export PATH="/new/directory:$PATH"
+
+# Add directory to end of PATH
+export PATH="$PATH:/new/directory"
+
+# Check it worked
+echo $PATH
+```
+
+### Permanent (All Sessions)
+
+Add to your shell configuration file:
+
+**For Bash:**
+```bash
+# Edit ~/.bashrc (Linux) or ~/.bash_profile (macOS)
+nano ~/.bashrc
+
+# Add this line:
+export PATH="/new/directory:$PATH"
+
+# Reload configuration
+source ~/.bashrc
+```
+
+**For Zsh (default on macOS):**
+```bash
+# Edit ~/.zshrc
+nano ~/.zshrc
+
+# Add this line:
+export PATH="/new/directory:$PATH"
+
+# Reload configuration
+source ~/.zshrc
+```
+
+### Example: Adding a Custom Scripts Directory
+
+```bash
+# Create a directory for your scripts
+mkdir -p ~/bin
+
+# Add it to PATH in ~/.bashrc or ~/.zshrc
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+
+# Reload
+source ~/.bashrc
+
+# Now any executable in ~/bin can be run by name!
+```
+
+---
+
+## PATH Priority (Order Matters!)
+
+### First Match Wins
+
+```bash
+# If your PATH is:
+# /usr/local/bin:/usr/bin:/bin
+
+# And python3 exists in:
+# - /usr/local/bin/python3 (version 3.12)
+# - /usr/bin/python3 (version 3.9)
+
+python3 --version
+# Uses /usr/local/bin/python3 (3.12) because it's found first!
+```
+
+### Shadowing
+
+```bash
+# You can "shadow" system commands by placing your version first
+export PATH="$HOME/my-tools:$PATH"
+
+# If you have ~/my-tools/ls, it will run instead of /bin/ls
+```
+
+---
+
+## Finding Commands
+
+### Which Command is Running?
+
+```bash
+# Find location of a command
+which python3
+# /usr/bin/python3
+
+which git
+# /usr/local/bin/git
+
+# Show all matches in PATH
+which -a python3
+# /usr/local/bin/python3
+# /usr/bin/python3
+```
+
+### Other Useful Commands
+
+```bash
+# whereis - searches common directories
+whereis python3
+# python3: /usr/bin/python3 /usr/lib/python3
+
+# type - shows command type (builtin or path)
+type python3
+# python3 is /usr/bin/python3
+
+type cd
+# cd is a shell builtin
+
+# command -v - portable way to find commands
+command -v python3
+# /usr/bin/python3
+```
+
+---
+
+## Common PATH Problems
+
+### 1. "Command Not Found"
+
+```bash
+$ mycommand
+bash: mycommand: command not found
+```
+
+**Causes:**
+- Command not installed
+- Command not in any PATH directory
+- Typo in command name
+
+**Solutions:**
+```bash
+# Check if command exists
+which mycommand
+
+# Find where it's installed
+sudo find / -name mycommand 2>/dev/null
+
+# Add its directory to PATH
+export PATH="/path/to/directory:$PATH"
+```
+
+### 2. Wrong Version Running
+
+```bash
+# You installed Python 3.12 but Python 3.9 still runs
+python3 --version
+# Python 3.9.0
+
+# Check which one is being used
+which python3
+# /usr/bin/python3
+
+# Check all versions in PATH
+which -a python3
+# /usr/bin/python3
+# /usr/local/bin/python3
+```
+
+**Solution:** Adjust PATH order
+```bash
+# Put newer version first
+export PATH="/usr/local/bin:$PATH"
+```
+
+### 3. Duplicate Entries
+
+```bash
+echo $PATH
+# /usr/bin:/usr/local/bin:/usr/bin:/usr/local/bin:/usr/bin
+# Duplicates make PATH search slower
+```
+
+**Solution:** Clean up your shell config files
+
+---
+
+## Special Cases
+
+### Current Directory (.)
+
+```bash
+# Some people add current directory to PATH
+export PATH=".:$PATH"  # DANGEROUS!
+
+# Now you can run scripts in current directory without ./
+mycommand  # Runs ./mycommand
+
+# BUT RISKY: If you cd into untrusted directory,
+# malicious scripts could override system commands!
+```
+
+**Best Practice:** Don't add `.` to PATH. Use `./` explicitly:
+```bash
+./myscript.sh  # Safe and explicit
+```
+
+### Windows PATH
+
+```powershell
+# View PATH in Windows (PowerShell)
+$env:PATH
+
+# Or (Command Prompt)
+echo %PATH%
+
+# Separator is semicolon (;) not colon (:)
+C:\Windows\System32;C:\Python39;C:\Program Files\Git\cmd
+```
+
+---
+
+## PATH and Shells
+
+### Per-Shell PATH
+
+Different shells have different PATH defaults:
+
+```bash
+# Bash
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+# Zsh (may include more directories)
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/username/.local/bin
+
+# Fish (different syntax)
+set -gx PATH /usr/local/bin /usr/bin /bin
+```
+
+### Login vs Non-Login Shells
+
+**Login Shell:**
+- Reads: `~/.bash_profile`, `~/.zprofile`
+- When: SSH, terminal login
+
+**Non-Login Shell:**
+- Reads: `~/.bashrc`, `~/.zshrc`
+- When: Opening new terminal window
+
+**Best Practice:** Put PATH changes in both or source one from the other:
+```bash
+# In ~/.bash_profile
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+```
+
+---
+
+## Practical Examples
+
+### Example 1: Installing Homebrew (macOS)
+
+```bash
+# Homebrew adds to PATH automatically
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+
+# This adds /opt/homebrew/bin to PATH
+```
+
+### Example 2: Node.js and npm
+
+```bash
+# npm global packages go to a special directory
+npm config get prefix
+# /usr/local
+
+# Global packages are in: /usr/local/bin
+# Already in PATH!
+
+# But if you change npm prefix:
+npm config set prefix ~/.npm-global
+
+# You need to add it to PATH:
+export PATH="$HOME/.npm-global/bin:$PATH"
+```
+
+### Example 3: Python Virtual Environments
+
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# PATH is modified temporarily:
+echo $PATH
+# /path/to/venv/bin:/usr/local/bin:/usr/bin:...
+
+# Deactivate restores original PATH
+deactivate
+```
+
+### Example 4: Multiple Programming Languages
+
+```bash
+# Typical developer PATH
+export PATH="$HOME/.cargo/bin:$PATH"           # Rust
+export PATH="$HOME/.rbenv/shims:$PATH"         # Ruby
+export PATH="$HOME/.pyenv/shims:$PATH"         # Python
+export PATH="/usr/local/go/bin:$PATH"          # Go
+export PATH="$HOME/.local/bin:$PATH"           # User scripts
+```
+
+---
+
+## Debugging PATH Issues
+
+### Step-by-Step Troubleshooting
+
+```bash
+# 1. Check current PATH
+echo $PATH
+
+# 2. Check if command exists anywhere
+sudo find / -name "mycommand" 2>/dev/null
+
+# 3. Check which command is being used
+which mycommand
+type mycommand
+
+# 4. Check shell configuration files
+cat ~/.bashrc
+cat ~/.zshrc
+cat ~/.bash_profile
+
+# 5. Check for typos in PATH modifications
+echo $PATH | tr ':' '\n' | grep mycommand
+
+# 6. Reload configuration
+source ~/.bashrc  # or ~/.zshrc
+
+# 7. Start fresh shell
+exec $SHELL
+```
+
+---
+
+## Best Practices
+
+### ✅ Do's
+
+- Add your custom directories to the **beginning** of PATH (for higher priority)
+- Use `$HOME` instead of `~` for better portability
+- Keep PATH modifications in one place (e.g., `~/.bashrc`)
+- Use absolute paths when adding to PATH
+
+```bash
+# Good
+export PATH="$HOME/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+```
+
+### ❌ Don'ts
+
+- Don't add current directory (`.`) to PATH
+- Don't duplicate directories unnecessarily
+- Don't modify system-wide PATH without understanding implications
+- Don't use relative paths
+
+```bash
+# Bad
+export PATH=".:$PATH"              # Security risk
+export PATH="$PATH:/usr/bin"       # Already there!
+export PATH="./bin:$PATH"          # Relative path breaks
+```
+
+---
+
+## Quick Reference
+
+```bash
+# View PATH
+echo $PATH
+echo $PATH | tr ':' '\n'
+
+# Find command location
+which command
+type command
+command -v command
+
+# Add to PATH (temporary)
+export PATH="/new/dir:$PATH"       # Add to beginning
+export PATH="$PATH:/new/dir"       # Add to end
+
+# Add to PATH (permanent)
+echo 'export PATH="/new/dir:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# Check what would run
+which -a command
+
+# Reset PATH (careful!)
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+```
+
+---
+
+## Summary
+
+**PATH** is a crucial environment variable that:
+- Tells the shell where to find executable programs
+- Contains a colon-separated (`:`) list of directories
+- Is searched from left to right, first match wins
+- Can be temporarily or permanently modified
+- Is essential for making commands available system-wide
+
+**Remember:** Without PATH, you'd need to type full paths to every command!
+
+```bash
+# Without PATH:
+/usr/bin/python3 /usr/bin/git /bin/ls
+
+# With PATH:
+python3 git ls
+```

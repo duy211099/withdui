@@ -1,0 +1,336 @@
+---
+title: Builtin Commands vs Executables in Shell
+slug: builtin-commands-vs-executables-in-shell
+date: '2025-12-24'
+excerpt: ''
+category: Shell
+tags:
+- shell
+- codecrafters
+author: ''
+published: true
+featured_image: ''
+---
+
+# Builtin Commands vs Executables in Shell
+
+## Overview
+
+When you type a command in your shell (like bash or zsh), it can be executed in two different ways: as a **builtin command** or as an **external executable**. Understanding the difference is crucial for shell scripting and system administration.
+
+---
+
+## Builtin Commands
+
+**Definition:** Commands that are built directly into the shell itself.
+
+**Characteristics:**
+- Part of the shell program
+- No separate executable file
+- Execute within the current shell process (no new process created)
+- Faster execution (no disk I/O or process creation overhead)
+- Can modify the shell's environment directly
+
+### Common Builtin Commands
+
+```bash
+cd          # Change directory
+echo        # Print text (bash has builtin, but also external)
+pwd         # Print working directory
+export      # Set environment variables
+source      # Execute commands from a file in current shell
+alias       # Create command aliases
+exit        # Exit the shell
+type        # Show command type
+history     # Command history
+read        # Read input
+```
+
+### Example: Why `cd` Must Be a Builtin
+
+```bash
+# If cd were an external program:
+cd /home/user  # Would change directory in a child process
+               # Parent shell would remain in original directory
+               # This is why cd MUST be builtin!
+```
+
+---
+
+## External Executables
+
+**Definition:** Separate program files stored on disk that the shell runs.
+
+**Characteristics:**
+- Standalone binary or script files
+- Located in directories listed in `$PATH`
+- Shell creates a new process to run them (fork + exec)
+- Slower than builtins (requires disk access and process creation)
+- Run in their own process space (cannot directly modify parent shell)
+
+### Common External Executables
+
+```bash
+ls          # List files
+grep        # Search text
+cat         # Concatenate/display files
+find        # Search for files
+python      # Python interpreter
+git         # Version control
+vim         # Text editor
+```
+
+### Where Are They Located?
+
+```bash
+# Check where an executable is located
+which ls        # /bin/ls
+which python3   # /usr/bin/python3
+which git       # /usr/local/bin/git
+
+# View your PATH
+echo $PATH
+# Output: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+```
+
+---
+
+## How to Check: Using `type`
+
+The `type` command (itself a builtin!) tells you what kind of command something is:
+
+```bash
+# Builtin commands
+type cd
+# cd is a shell builtin
+
+type export
+# export is a shell builtin
+
+# External executables
+type ls
+# ls is /bin/ls
+
+type python3
+# python3 is /usr/bin/python3
+
+# Check multiple at once
+type cd ls echo grep
+```
+
+### Other Checking Methods
+
+```bash
+# Using 'which' (only finds executables in PATH)
+which cd        # No output (builtin, not in PATH)
+which ls        # /bin/ls
+
+# Using 'command -v'
+command -v cd   # cd (builtin)
+command -v ls   # /bin/ls
+```
+
+---
+
+## Key Differences
+
+| Aspect | Builtin Commands | External Executables |
+|--------|------------------|---------------------|
+| **Location** | Inside the shell | Separate files on disk |
+| **Process** | Runs in current shell | Creates new process |
+| **Speed** | Faster | Slower |
+| **Can modify shell?** | Yes | No |
+| **Examples** | `cd`, `export`, `alias` | `ls`, `grep`, `cat` |
+| **In PATH?** | No | Yes |
+| **Found by `which`?** | No | Yes |
+
+---
+
+## Special Cases
+
+### Commands That Exist as Both
+
+Some commands exist as both builtins and external executables:
+
+```bash
+# echo exists as both
+type -a echo
+# echo is a shell builtin
+# echo is /bin/echo
+
+# printf exists as both
+type -a printf
+# printf is a shell builtin
+# printf is /usr/bin/printf
+
+# test ([) exists as both
+type -a test
+# test is a shell builtin
+# test is /usr/bin/test
+```
+
+**Why?** The builtin version is used by default for speed, but the external version exists for portability and when invoked explicitly.
+
+### Forcing External Executable
+
+```bash
+# Use builtin (default)
+echo "Hello"
+
+# Force external executable
+/bin/echo "Hello"
+
+# Or disable builtin temporarily
+command echo "Hello"  # Uses external if builtin exists
+```
+
+---
+
+## Performance Comparison
+
+```bash
+# Builtin (fast - no process creation)
+time for i in {1..1000}; do
+  cd /tmp >/dev/null
+  cd - >/dev/null
+done
+
+# External (slower - creates 1000 processes)
+time for i in {1..1000}; do
+  /bin/ls >/dev/null
+done
+```
+
+Builtins are significantly faster because they avoid:
+1. Searching PATH for the executable
+2. Loading the executable from disk
+3. Creating a new process (fork)
+4. Replacing process image (exec)
+
+---
+
+## Why This Matters
+
+### 1. Environment Variables
+
+```bash
+# This works (builtin can modify current shell)
+export MY_VAR="hello"
+echo $MY_VAR  # Outputs: hello
+
+# If export were external, this wouldn't work
+# because child processes can't modify parent environment
+```
+
+### 2. Changing Directories
+
+```bash
+# Works (builtin modifies current shell's directory)
+cd /tmp
+pwd  # /tmp
+
+# If cd were external, you'd always stay in the same directory!
+```
+
+### 3. Script Portability
+
+```bash
+# May behave differently on different systems
+echo "Hello"  # Might use builtin or external
+
+# Guaranteed to use external
+/bin/echo "Hello"
+
+# Guaranteed to use builtin (if it exists)
+builtin echo "Hello"
+```
+
+### 4. Performance in Scripts
+
+```bash
+# Slow (creates many processes)
+for file in *.txt; do
+  /bin/echo "Processing $file"
+done
+
+# Fast (uses builtin)
+for file in *.txt; do
+  echo "Processing $file"
+done
+```
+
+---
+
+## Commands to Explore Builtins
+
+```bash
+# List all builtin commands
+help           # In bash
+builtins       # In some shells
+
+# Get help on a specific builtin
+help cd
+help export
+
+# Check command type
+type <command>
+
+# Show all versions (builtin + external)
+type -a <command>
+
+# Force use of builtin
+builtin <command>
+
+# Force use of external
+command <command>
+```
+
+---
+
+## Practical Example
+
+```bash
+#!/bin/bash
+
+# This script demonstrates the difference
+
+# Builtin - modifies current shell environment
+export APP_NAME="MyApp"
+
+# Builtin - changes directory in current shell
+cd /tmp
+
+# External - runs in child process
+ls -la  # Creates new process, runs /bin/ls
+
+# Builtin - reads into current shell's variables
+read -p "Enter your name: " username
+
+# External - runs in child process
+echo "Processing..." | grep "Processing"
+
+# Builtin - exits current shell
+exit 0
+```
+
+---
+
+## Summary
+
+**Builtins:**
+- Built into the shell
+- Fast execution
+- Can modify shell state
+- Essential for shell functionality (cd, export, etc.)
+
+**Executables:**
+- Separate programs on disk
+- Slower (process creation overhead)
+- Run in isolation
+- More flexible and extensible
+
+**Remember:** Use `type` to check what kind of command you're dealing with!
+
+```bash
+type cd ls echo export grep
+```

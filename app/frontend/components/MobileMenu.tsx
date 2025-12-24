@@ -41,42 +41,38 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
         </SheetHeader>
 
         {/* Navigation links */}
-        <nav className="flex flex-col p-4 space-y-2">
-          <Link
-            href="/"
-            className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
-            onClick={onClose}
-          >
-            <Home className="h-5 w-5" />
-            <span>Home</span>
-          </Link>
-          <Link
-            href="/blog"
-            className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
-            onClick={onClose}
-          >
-            <BookOpen className="h-5 w-5" />
-            <span>{t('frontend.header.blog')}</span>
-          </Link>
-          <Link
-            href="/utils"
-            className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
-            onClick={onClose}
-          >
-            <Wrench className="h-5 w-5" />
-            <span>{t('frontend.header.utils')}</span>
-          </Link>
+        <nav className="flex flex-col p-4">
+          <div className="space-y-2">
+            <Link
+              href="/"
+              className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+              onClick={onClose}
+            >
+              <Home className="h-5 w-5" />
+              <span>Home</span>
+            </Link>
+            <Link
+              href="/blog"
+              className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+              onClick={onClose}
+            >
+              <BookOpen className="h-5 w-5" />
+              <span>{t('frontend.header.blog')}</span>
+            </Link>
+            <Link
+              href="/utils"
+              className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+              onClick={onClose}
+            >
+              <Wrench className="h-5 w-5" />
+              <span>{t('frontend.header.utils')}</span>
+            </Link>
+          </div>
 
           {/* Divider */}
-          <div className="border-t-2 border-border pt-4 space-y-4">
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-muted-foreground">
-                {t('frontend.header.language')}:
-              </span>
+          <div className="border-t-2 border-border py-4 mt-2">
+            <div className="flex gap-2">
               <LocaleSwitcher />
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-muted-foreground">{t('frontend.header.theme')}:</span>
               <ThemeSwitcher />
             </div>
           </div>

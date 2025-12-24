@@ -148,7 +148,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
                   onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
                   className="whitespace-normal h-auto min-h-8 py-2 max-w-[180px] text-left"
                 >
-                  <span className="line-clamp-2 break-words">
+                  <span className="line-clamp-2 wrap-break-word">
                     {tag} ({tagCounts[tag] || 0})
                   </span>
                 </Button>

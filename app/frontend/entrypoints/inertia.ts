@@ -25,7 +25,7 @@ createInertiaApp({
   // Set default page title
   // see https://inertia-rails.dev/guide/title-and-meta
   //
-  // title: title => title ? `${title} - App` : 'App',
+  title: (title) => (title ? `${title} - WithDui` : 'WithDui'),
 
   // Enable progress bar for page transitions
   // see https://inertia-rails.dev/guide/progress-indicators

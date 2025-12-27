@@ -31,6 +31,26 @@ export default defineConfig({
     sourcemap: false,
     // Use esbuild for minification (default, faster than terser)
     minify: 'esbuild',
+    // Optimize chunk size
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // Split vendor libraries into separate chunks for better caching
+          if (id.includes('node_modules')) {
+            // React and related libraries in their own chunk
+            if (id.includes('react') || id.includes('react-dom') || id.includes('@inertiajs')) {
+              return 'vendor-react'
+            }
+            // UI libraries (shadcn, radix, etc.) in their own chunk
+            if (id.includes('@radix-ui') || id.includes('class-variance-authority') || id.includes('clsx')) {
+              return 'vendor-ui'
+            }
+            // Everything else from node_modules goes to vendor
+            return 'vendor'
+          }
+        },
+      },
+    },
   },
   esbuild: {
     // Remove console.log, console.warn, console.error in production

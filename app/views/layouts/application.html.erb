@@ -19,10 +19,50 @@
     <%= vite_typescript_tag "inertia" %>
     <%= inertia_ssr_head %>
     <%= favicon_link_tag "/images/favicon.ico"  %>
+
+    <style>
+      /* Loading indicator - shown while JavaScript loads */
+      #app-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        z-index: 9999;
+      }
+
+      #app-loading .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Hide loading indicator once React hydrates */
+      #app:not(:empty) ~ #app-loading {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
     <%= yield %>
+
+    <!-- Loading indicator shown while JavaScript loads -->
+    <div id="app-loading">
+      <div class="spinner"></div>
+    </div>
 
     <!-- Analytics scripts deferred to end of body for better performance -->
     <!-- Google tag (gtag.js) - Deferred loading -->

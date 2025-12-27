@@ -27,10 +27,12 @@ createInertiaApp({
   //
   // title: title => title ? `${title} - App` : 'App',
 
-  // Disable progress bar
-  //
+  // Enable progress bar for page transitions
   // see https://inertia-rails.dev/guide/progress-indicators
-  // progress: false,
+  progress: {
+    color: '#6b7280', // Gray-500 color
+    showSpinner: true,
+  },
 
   resolve: (name) => {
     const pages = import.meta.glob<ResolvedComponent>('../pages/**/*.tsx', {

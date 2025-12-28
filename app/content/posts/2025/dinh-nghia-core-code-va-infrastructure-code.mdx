@@ -10,6 +10,8 @@ published: true
 featured_image: ''
 ---
 
+Core code của một ứng dụng là phần code có thể chạy được trong bất kỳ context (ngữ cảnh) nào mà không cần bất kỳ hệ thống bên ngoài hay môi trường đặc biệt nào hỗ trọ. Nói cách khác, core code hoàn toàn độc lập với CSDL, network, file system, framework,... Nếu bạn có thể lấy một đoạn code, đưa nó vào một script (JS, PHP,...) độc lập và chạy thành công với bộ nhớ CPU, thì đoạn code đó có khả năng là core code.
+
 Core code được định nghĩa thông qua hai quy tắc quan trọng:
-- Quy tắc 1:
-- Quy tắc 2:
+- Quy tắc 1: Không phụ thuộc trực tiếp vào các hệ thống bên ngoài. Core code không được gọi trực tiếp các thành phần bên ngoài ứng dụng, cũng như không phụ thuộc vào code được viết riêng để tương tác với một hệ thống ngoài cụ thể. Hệ thống bên ngoài ở đây bao gồm: CSDL, remote API, hệ thống file, system clock, thư viện gửi mail STMP,... Code lõi phải có khả năng chạy tốt mà không cần những thứ đó. Điều này không có nghĩa core code không được sử dụng abstraction nào: nó có thể gọi các interface, nhưng miễn là interface đó không tiết lộ chi tiết về hệ thống bên ngoài cụ thể. Nếu vi phạm quy tắc này, đoạn code sẽ được xem là infrastructure code.
+- Quy tắc 2: Không cần môi trường/ecosystem đặc biệt để chạy. Core code có thể chạy trong mọi bối cảnh, không đòi hỏi chỉ chạy trong web server hay CLI hay framework cụ thể nào. Ví dụ, một class core code không được giả định ràng nó đang chạy trong request web (không được dùng biến global của framework, không dùng HTTP POST trực tiếp, không phụ thuộc session,...) Tương tự, core code cũng không được phụ thuộc các extension hoặc library mà chỉ hoạt động trong môi trường cụ thể. Nếu để chạy hàm đó mà phải có framework (Laravel, .NET, Rails,...) khởi động container, hoặc phải có biến môi trường đặc biệt, thì hàm đó chưa phải core code thuần túy. Nếu một đoạn code tuân thủ cả hai quy tắc trên, ta có thể xem nó là core code. Ngược lại, bất kỳ code nào không thỏa mãn các quy tắc của core code đều được xem là infrastructure code.

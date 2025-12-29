@@ -10,4 +10,16 @@ published: true
 featured_image: ''
 ---
 
-#
+Infrastructure code, ngược lại, là bất kỳ code nào không thỏa mã tiêu chí core code. Nói một cách đơn giản, infrastructure code là phần code mà muốn chạy được thì phải có cái gì đó bên ngoài hỗ trợ: có thể là kết nối tới hệ thống khác, hoặc phải chạy trong một môi trường đặc thù.
+Infrastructure code là loại code kết nối logic lõi của ứng dụng với các hệ thống xung quanh như CSDL, Web Server, File System,... Nó thường bao gồm: code truy vấn và thao tác CSDL, code gọi đến dịch vụ web bên ngoài (thông qua HTTP, gRPC,...), code tương tác với hệ thống tập tin (đọc ghi file), code gửi email hoặc message, code ghi log ra hệ thống ngoài, và đương nhiên cả code thuộc về framework (vd: controller, model của framework nếu chúng gắn liền với ORM),... Một cách nhận biết: nếu bạn nhìn vào code và thấy nó chứa các chi tiết kỹ thuật về bên ngoài (chuỗi DSN kết nối DB, tên bảng, câu lệnh SQL, đường dẫn URL gọi API, tên file, query HTTP request,...) thì rất có thể đó là infrastructure code. Những chi tiết này cho thấy code đang tương tác với thứ gì ngoài bản thân nó.
+
+# Ví dụ về Infrastructure Code
+- Bất kỳ đoạn code nào thực hiện truy vấn SQL hoặc thao tác ORM.
+- Code gọi API ngoài, ví dụ sử dụng cURL hoặc HTTP Client để gửi request. Nếu API không chạy hoặc không có mạng, code sẽ không hoạt động. Những thao tác này rõ ràng phụ thuộc hệ thống ngoài (ở đây là dịch vụ HTTP bên thứ ba), nên chúng là insfrastructure
+- Code đọc ghi file
+- Phần lớn code thuộc framework
+- ...
+
+> Tóm lại, infrastructure code = (tổng code) - (core code). Bất cứ chỗ nào core code dừng lại, cần 'ra ngoài' để làm gì đó, thì phần 'ra ngoài' đó là hạ tầng. Chẳng hạn, core code quyết định 'gửi email xác nhận đơn hàng' - việc thực sự gửi email thông qua STMP hay API dịch vụ email là việc của infrastructure code. Core code quyết định 'lưu đơn hàng' - việc thực thi lưu (SQL Insert vào bảng, hay gọi repository cụ thể) là của infrastructure.
+
+**Một lưu ý quan trọng**: sự trừu tượng hóa (abstraction) không tự động biến code hạ tầng thành core code. Ví dụ, bạn có thể tạo ra một interface Mailer và code core gọi Mailer->send(message). Nếu implementation của Mailer dùng API hoặc STMP, rõ ràng đó là hạ tầng. Interface giúp ta tách bạch phụ thuộc, nhưng bản chất chức năng gửi email vẫn là một concern hạ tầng. Interface giúp ta tách bạch phụ thuộc, nhưng bản chất chức năng gửi mail vẫn là một concern hạ tầng. Do đó phần code thực thi (dù gián tiếp qua interface) vẫn thuộc infrastructure. Ví dụ, Connection interface có phương thức insert(table, data), dù class core User Registration gọi qua interface này thay vì gọi PDO trực tiếp, nó vẫn bị coi là đang phụ thuộc một thứ dành riêng cho DB (vì interface đó abstract một khái niệm thuộc về DB). Kết luận: registerUser() trong trường hợp này vẫn là infrastructure code chứ không phải core code, do nó vướng phải chi tiết về DB (bảng users). Do vậy, đừng lẫn lộn: chỉ khi abstraction đủ tách rời khỏi chi tiết kỹ thuật bên dưới thì code dùng abstraction đó mới thoát khỏi hạ tầng. Nếu interface quá sát với hà tầng (như interface kết nối DB, interface gọi HTTP client), thì code dùng nó vẫn gián tiếp mang tính hạ tầng

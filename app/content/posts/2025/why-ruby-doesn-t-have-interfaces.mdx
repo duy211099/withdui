@@ -11,5 +11,158 @@ published: true
 featured_image: ''
 ---
 
-Why Ruby Doesn't Have Interfaces
+# Why Ruby Doesn't Have Interfaces
 
+## The Short Answer
+
+Ruby doesn't have formal interfaces because it uses **duck typing** and prioritizes runtime flexibility over compile-time contracts. The language philosophy is "if it walks like a duck and quacks like a duck, it's a duck" — meaning objects are defined by what they can do, not by their declared type.
+
+## Ruby's Design Philosophy
+
+Ruby is a dynamically-typed language that emphasizes:
+
+- **Flexibility over rigidity**: Ruby trusts developers to use objects correctly rather than enforcing contracts at compile time
+- **Duck typing**: Objects are judged by their behavior (methods they respond to) rather than their class hierarchy
+- **Open classes**: You can modify any class at runtime, making strict interfaces less meaningful
+- **Simplicity**: Adding interfaces would increase language complexity without providing significant value in Ruby's dynamic context
+
+## What Ruby Uses Instead
+
+### 1. Duck Typing
+
+Ruby doesn't care about an object's type — only whether it responds to the needed methods:
+
+```ruby
+def process_data(processor)
+  processor.process  # Works with any object that has a .process method
+end
+```
+
+### 2. Informal Protocols
+
+Ruby developers rely on documentation and conventions rather than enforced contracts:
+
+```ruby
+# This class follows the "Enumerable protocol"
+class MyCollection
+  include Enumerable
+  
+  def each
+    # Implementation
+  end
+end
+```
+
+### 3. Modules as Mixins
+
+Modules provide shared behavior and can act like interfaces with implementation:
+
+```ruby
+module Serializable
+  def to_json
+    # Default implementation
+  end
+  
+  def from_json(json)
+    # Default implementation
+  end
+end
+
+class User
+  include Serializable
+  # Now has to_json and from_json methods
+end
+```
+
+### 4. Abstract Base Classes (Informal)
+
+You can create abstract-like classes that raise errors for unimplemented methods:
+
+```ruby
+class Animal
+  def speak
+    raise NotImplementedError, "Subclasses must implement speak"
+  end
+end
+
+class Dog < Animal
+  def speak
+    "Woof!"
+  end
+end
+```
+
+### 5. Runtime Checking
+
+Ruby provides `respond_to?` to check if an object has a method:
+
+```ruby
+def save(object)
+  if object.respond_to?(:to_json)
+    File.write('data.json', object.to_json)
+  else
+    raise "Object must respond to to_json"
+  end
+end
+```
+
+## Advantages of Ruby's Approach
+
+- **Rapid development**: Less boilerplate code to write
+- **Flexibility**: Easy to swap implementations without formal type declarations
+- **Metaprogramming**: Dynamic method creation and modification
+- **Less ceremony**: Focus on behavior rather than type hierarchies
+
+## Disadvantages
+
+- **No compile-time guarantees**: Errors only appear at runtime
+- **Harder to understand contracts**: What methods does an object need to implement?
+- **Tool support**: IDEs can't easily provide autocomplete based on interface contracts
+- **Refactoring risk**: Changes may break code in non-obvious ways
+
+## Modern Alternatives
+
+If you want interface-like behavior in Ruby, consider:
+
+### Sorbet (Static Type Checker)
+
+```ruby
+# typed: true
+extend T::Sig
+
+module Drawable
+  extend T::Helpers
+  interface!
+  
+  sig { abstract.returns(String) }
+  def draw; end
+end
+
+class Circle
+  include Drawable
+  
+  sig { override.returns(String) }
+  def draw
+    "Drawing a circle"
+  end
+end
+```
+
+### RBS (Ruby Type Signatures)
+
+```rbs
+interface _Drawable
+  def draw: () -> String
+end
+
+class Circle
+  include _Drawable
+  def draw: () -> String
+end
+```
+
+## Conclusion
+
+Ruby doesn't have interfaces because its dynamic nature makes them largely unnecessary. The language trades compile-time safety for runtime flexibility, trusting developers to follow conventions and test their code thoroughly. This aligns with Ruby's philosophy of "optimizing for programmer happiness" by reducing boilerplate and formality.
+
+For projects that need more type safety, tools like Sorbet and RBS can provide interface-like contracts while maintaining Ruby's dynamic nature.

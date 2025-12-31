@@ -1,6 +1,8 @@
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, router } from '@inertiajs/react'
 import { Document } from 'flexsearch'
-import { useMemo, useState } from 'react'
+import { List, Network } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import BlogGraphView from '@/components/BlogGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -38,6 +40,33 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+
+  // Initialize view mode from URL params
+  const getInitialViewMode = (): 'list' | 'graph' => {
+    if (typeof window === 'undefined') return 'list'
+    const params = new URLSearchParams(window.location.search)
+    const view = params.get('view')
+    return view === 'graph' ? 'graph' : 'list'
+  }
+
+  const [viewMode, setViewMode] = useState<'list' | 'graph'>(getInitialViewMode)
+
+  // Update URL and localStorage when view mode changes
+  const handleViewModeChange = (newMode: 'list' | 'graph') => {
+    setViewMode(newMode)
+
+    // Save to localStorage for persistence
+    localStorage.setItem('blogViewMode', newMode)
+
+    // Update URL using Inertia router
+    router.visit('/blog', {
+      data: newMode === 'graph' ? { view: 'graph' } : {},
+      preserveState: true,
+      preserveScroll: true,
+      replace: true,
+      only: [], // Don't reload any data
+    })
+  }
 
   // Initialize search index
   const searchIndex = useMemo(() => {
@@ -93,14 +122,36 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
       <Head title="Notes" />
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
-          Notes
-          {(selectedCategory || selectedTag) && (
-            <span className="text-lg md:text-xl text-muted-foreground ml-2">
-              / {selectedCategory || ''} {selectedTag ? `#${selectedTag}` : ''}
-            </span>
-          )}
-        </h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+            Notes
+            {(selectedCategory || selectedTag) && (
+              <span className="text-lg md:text-xl text-muted-foreground ml-2">
+                / {selectedCategory || ''} {selectedTag ? `#${selectedTag}` : ''}
+              </span>
+            )}
+          </h1>
+
+          {/* View Toggle */}
+          <div className="flex gap-2">
+            <Button
+              variant={viewMode === 'list' ? 'default' : 'outline'}
+              onClick={() => handleViewModeChange('list')}
+              size="sm"
+            >
+              <List />
+              List
+            </Button>
+            <Button
+              variant={viewMode === 'graph' ? 'default' : 'outline'}
+              onClick={() => handleViewModeChange('graph')}
+              size="sm"
+            >
+              <Network />
+              Graph
+            </Button>
+          </div>
+        </div>
 
         {/* Search */}
         <div className="mb-8">
@@ -158,67 +209,74 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
           </div>
         )}
 
-        {/* Posts Grid */}
-        {filteredPosts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {filteredPosts.map((post) => (
-              <Link key={post.slug} href={post.url_path}>
-                <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                  {post.featured_image && (
-                    <img
-                      src={post.featured_image}
-                      alt={post.title}
-                      className="w-full h-40 sm:h-44 md:h-48 object-cover rounded-t-lg"
-                    />
-                  )}
-                  <CardHeader>
-                    <div className="text-sm text-muted-foreground mb-2">
-                      {new Date(post.date).toLocaleDateString()}
-                    </div>
-                    <CardTitle className="hover:text-primary transition-colors">
-                      {post.title}
-                    </CardTitle>
-                    <CardDescription>{post.excerpt}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex gap-2 flex-wrap">
-                      {post.tags.map((tag) => (
-                        <button
-                          key={tag}
-                          type="button"
-                          className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors"
-                          onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            setSelectedTag(tag)
-                          }}
-                        >
-                          {tag}
-                        </button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+        {/* Content - Graph or List View */}
+        {viewMode === 'graph' ? (
+          <BlogGraphView posts={filteredPosts.length > 0 ? filteredPosts : posts} />
         ) : (
-          <div className="text-center py-12 text-muted-foreground">
-            <p className="text-lg">No posts found</p>
-            {(searchQuery || selectedCategory || selectedTag) && (
-              <Button
-                variant="link"
-                onClick={() => {
-                  setSearchQuery('')
-                  setSelectedCategory(null)
-                  setSelectedTag(null)
-                }}
-                className="mt-2"
-              >
-                Clear filters
-              </Button>
+          <>
+            {/* Posts Grid */}
+            {filteredPosts.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                {filteredPosts.map((post) => (
+                  <Link key={post.slug} href={post.url_path}>
+                    <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                      {post.featured_image && (
+                        <img
+                          src={post.featured_image}
+                          alt={post.title}
+                          className="w-full h-40 sm:h-44 md:h-48 object-cover rounded-t-lg"
+                        />
+                      )}
+                      <CardHeader>
+                        <div className="text-sm text-muted-foreground mb-2">
+                          {new Date(post.date).toLocaleDateString()}
+                        </div>
+                        <CardTitle className="hover:text-primary transition-colors">
+                          {post.title}
+                        </CardTitle>
+                        <CardDescription>{post.excerpt}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex gap-2 flex-wrap">
+                          {post.tags.map((tag) => (
+                            <button
+                              key={tag}
+                              type="button"
+                              className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                setSelectedTag(tag)
+                              }}
+                            >
+                              {tag}
+                            </button>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 text-muted-foreground">
+                <p className="text-lg">No posts found</p>
+                {(searchQuery || selectedCategory || selectedTag) && (
+                  <Button
+                    variant="link"
+                    onClick={() => {
+                      setSearchQuery('')
+                      setSelectedCategory(null)
+                      setSelectedTag(null)
+                    }}
+                    className="mt-2"
+                  >
+                    Clear filters
+                  </Button>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </>

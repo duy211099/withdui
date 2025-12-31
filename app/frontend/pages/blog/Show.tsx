@@ -22,6 +22,12 @@ interface BlogShowProps {
 }
 
 export default function BlogShow({ post, related_posts }: BlogShowProps) {
+  // Preserve the view mode when going back
+  const getBackUrl = () => {
+    const savedView = typeof window !== 'undefined' ? localStorage.getItem('blogViewMode') : null
+    return savedView === 'graph' ? '/blog?view=graph' : '/blog'
+  }
+
   return (
     <>
       <Head title={post.title} />
@@ -29,7 +35,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
       <article className="container mx-auto px-3 sm:px-4 py-6 md:py-8 w-full max-w-4xl">
         {/* Header */}
         <header className="mb-8">
-          <Link href="/blog">
+          <Link href={getBackUrl()}>
             <Button variant="ghost" className="mb-4">
               ← Back to Blog
             </Button>

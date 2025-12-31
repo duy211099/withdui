@@ -31,12 +31,18 @@ export default function Category({
   const title = category ? `Category: ${category}` : `Tag: ${tag}`
   const filterType = category ? 'category' : 'tag'
 
+  // Preserve the view mode when going back
+  const getBackUrl = () => {
+    const savedView = typeof window !== 'undefined' ? localStorage.getItem('blogViewMode') : null
+    return savedView === 'graph' ? '/blog?view=graph' : '/blog'
+  }
+
   return (
     <>
       <Head title={title} />
 
       <div className="container mx-auto px-4 py-8">
-        <Link href="/blog">
+        <Link href={getBackUrl()}>
           <Button variant="ghost" className="mb-4">
             ← Back to Blog
           </Button>

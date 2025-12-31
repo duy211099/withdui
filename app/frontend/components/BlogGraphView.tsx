@@ -151,16 +151,17 @@ export default function BlogGraphView({ posts }: BlogGraphViewProps) {
   }, [])
 
   useEffect(() => {
-    // Auto-fit graph to container when data changes
+    // Auto-fit graph only on initial load
     if (graphRef.current && graphData.nodes.length > 0) {
       const timer = setTimeout(() => {
         if (graphRef.current && typeof graphRef.current.zoomToFit === 'function') {
           graphRef.current.zoomToFit(400, 50)
         }
-      }, 100)
+      }, 500) // Wait for physics to settle a bit
       return () => clearTimeout(timer)
     }
-  }, [graphData.nodes.length])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [graphData.nodes.length]) // Only when data initially loads
 
   const handleNodeClick = (node: any) => {
     window.location.href = node.url
@@ -239,11 +240,6 @@ export default function BlogGraphView({ posts }: BlogGraphViewProps) {
         onNodeClick={handleNodeClick}
         onNodeHover={handleNodeHover}
         cooldownTicks={100}
-        onEngineStop={() => {
-          if (graphRef.current && typeof graphRef.current.zoomToFit === 'function') {
-            graphRef.current.zoomToFit(400, 50)
-          }
-        }}
       />
 
       {/* Floating tooltip - always on top */}

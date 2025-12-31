@@ -1,7 +1,7 @@
 import { Head, Link, router } from '@inertiajs/react'
 import { Document } from 'flexsearch'
 import { List, Network } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import BlogGraphView from '@/components/BlogGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'

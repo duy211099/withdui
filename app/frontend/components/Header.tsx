@@ -2,17 +2,11 @@ import { Link, usePage } from '@inertiajs/react'
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from '@/contexts/I18nContext'
+import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
 import MobileMenu from './MobileMenu'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
-
-interface User {
-  id: number
-  email: string
-  name?: string
-  avatar_url?: string
-}
 
 export default function Header() {
   const { current_user } = usePage<{ current_user?: User }>().props
@@ -34,10 +28,10 @@ export default function Header() {
           </nav>
           <nav className="hidden md:flex items-center gap-6">
             <Link
-              href="/utils"
+              href="/moods"
               className="text-sm font-medium hover:text-primary transition-colors"
             >
-              {t('frontend.header.utils')}
+              Moods
             </Link>
           </nav>
         </div>

@@ -5,19 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-
-interface Post {
-  title: string
-  slug: string
-  date: string
-  excerpt: string
-  category: string
-  tags: string[]
-  author: string
-  published: boolean
-  featured_image?: string
-  content: string
-}
+import type { Post } from '@/types'
 
 interface EditProps {
   post: Post

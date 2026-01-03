@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # Public blog routes
   draw :blog
 
+  # Mood tracker routes
+  draw :moods
+
   # Locale switching
   post "locale/:locale", to: "locale#switch", as: :switch_locale
 

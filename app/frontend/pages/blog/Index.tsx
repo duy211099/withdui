@@ -6,17 +6,7 @@ import BlogGraphView from '@/components/BlogGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-
-interface Post {
-  title: string
-  slug: string
-  date: string
-  excerpt: string
-  category: string
-  tags: string[]
-  url_path: string
-  featured_image?: string
-}
+import type { PostListItem } from '@/types'
 
 interface SearchIndexItem {
   id: string
@@ -30,7 +20,7 @@ interface SearchIndexItem {
 }
 
 interface BlogIndexProps {
-  posts: Post[]
+  posts: PostListItem[]
   categories: string[]
   tags?: string[]
   search_index: SearchIndexItem[]

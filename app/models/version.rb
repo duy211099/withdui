@@ -10,7 +10,7 @@
 #  object     :text
 #  whodunnit  :string
 #  created_at :datetime
-#  item_id    :bigint           not null
+#  item_id    :string           not null
 #
 # Indexes
 #

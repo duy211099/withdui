@@ -1,20 +1,9 @@
 import { Head, Link } from '@inertiajs/react'
 import { lazy, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
+import type { Post } from '@/types'
 
 const MDXRenderer = lazy(() => import('@/components/blog/MDXRenderer'))
-
-interface Post {
-  title: string
-  date: string
-  category: string
-  tags: string[]
-  author: string | null
-  content: string
-  featured_image?: string
-  url_path: string
-  excerpt: string
-}
 
 interface BlogShowProps {
   post: Post

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Backend:**
 - Ruby 3.4.7 + Rails 8.1.1
-- SQLite3 database
+- PostgreSQL database with UUIDv7 primary keys
 - Puma web server
 
 **Frontend:**
@@ -125,6 +125,44 @@ bin/rails c                # Open Rails console
 - **React/TypeScript changes**: Auto-reload via Vite HMR
 - **CSS changes**: Auto-reload via Tailwind JIT
 - **Rails controller/model changes**: Require manual server restart
+
+## Database Configuration
+
+### UUIDv7 Primary Keys
+
+This application uses **UUIDv7** (time-ordered UUIDs) for all primary keys instead of traditional auto-incrementing integers.
+
+**Configuration:**
+- `config/application.rb` sets `primary_key_type: :uuid` for all generators
+- Ruby 3.3+ provides `SecureRandom.uuid_v7` for UUID generation
+- Rails 8.1 automatically generates UUIDs at the application level (no database default needed)
+
+**Benefits:**
+- **Time-ordered**: UUIDs are sortable by creation time (better B-tree index performance)
+- **Globally unique**: No ID conflicts when merging databases or in distributed systems
+- **Security**: Non-sequential IDs prevent enumeration attacks
+- **Privacy**: User IDs are not guessable
+
+**Creating new models:**
+```bash
+bin/rails generate model Article title:string
+# Automatically creates with UUID primary key
+```
+
+**Migration example:**
+```ruby
+create_table :articles, id: :uuid do |t|
+  t.uuid :author_id, null: false  # UUID foreign key
+  t.string :title
+  t.timestamps
+end
+add_foreign_key :articles, :users, column: :author_id
+```
+
+**Important notes:**
+- All new tables use UUID by default
+- Foreign keys to UUID tables must also be `:uuid` type
+- PaperTrail's `versions` table uses `string` type for `item_id` to support both integers and UUIDs
 
 ## Important Configuration Files
 

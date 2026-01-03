@@ -1,17 +1,10 @@
 import { Head, Link, router } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
-
-interface Post {
-  title: string
-  slug: string
-  date: string
-  published: boolean
-  category: string
-}
+import type { PostAdminListItem } from '@/types'
 
 interface AdminIndexProps {
-  posts: Post[]
+  posts: PostAdminListItem[]
 }
 
 export default function AdminIndex({ posts }: AdminIndexProps) {

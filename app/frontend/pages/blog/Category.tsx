@@ -1,22 +1,12 @@
 import { Head, Link } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-
-interface Post {
-  title: string
-  slug: string
-  date: string
-  excerpt: string
-  category: string
-  tags: string[]
-  url_path: string
-  featured_image?: string
-}
+import type { PostListItem } from '@/types'
 
 interface CategoryProps {
   category?: string
   tag?: string
-  posts: Post[]
+  posts: PostListItem[]
   all_categories?: string[]
   all_tags?: string[]
 }

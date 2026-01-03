@@ -1,17 +1,11 @@
 import { Link } from '@inertiajs/react'
-import { BookOpen, Home, Wrench, X } from 'lucide-react'
+import { BookOpen, Home, Smile, Wrench, X } from 'lucide-react'
 import { useTranslation } from '@/contexts/I18nContext'
+import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from './ui/sheet'
-
-interface User {
-  id: number
-  email: string
-  name?: string
-  avatar_url?: string
-}
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -67,6 +61,16 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
               <Wrench className="h-5 w-5" />
               <span>{t('frontend.header.utils')}</span>
             </Link>
+            {current_user && (
+              <Link
+                href="/moods"
+                className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+                onClick={onClose}
+              >
+                <Smile className="h-5 w-5" />
+                <span>Moods</span>
+              </Link>
+            )}
           </div>
 
           {/* Divider */}

@@ -1,29 +1,58 @@
-import type { PageProps as InertiaPageProps } from '@inertiajs/core'
-import { Head, usePage } from '@inertiajs/react'
+import { Head, Link, router, usePage } from '@inertiajs/react'
+import { Smile } from 'lucide-react'
+import { useState } from 'react'
+import MoodCalendar from '@/components/MoodCalendar'
+import MultiMoodModal from '@/components/MultiMoodModal'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
+import type { BasePageProps, Mood, MoodLevels, PostListItem } from '@/types'
 
-interface User {
-  id: number
-  email: string
-  name: string
-  avatar_url?: string
-}
-
-interface PageProps extends InertiaPageProps {
-  current_user: User | null
+interface HomePageProps extends BasePageProps {
+  posts: PostListItem[]
+  moods?: Mood[]
+  year?: number
+  month?: number
+  mood_levels?: MoodLevels
 }
 
 export default function Home() {
-  const { current_user } = usePage<PageProps>().props
+  const { current_user, moods, year, month, mood_levels } = usePage<HomePageProps>().props
   const { t } = useTranslation()
+  const [selectedDayMoods, setSelectedDayMoods] = useState<Mood[]>([])
+  const [isMultiMoodModalOpen, setIsMultiMoodModalOpen] = useState(false)
+
+  // Handle month navigation
+  const handleMonthChange = (newYear: number, newMonth: number) => {
+    router.visit('/', {
+      data: { year: newYear, month: newMonth },
+      preserveScroll: true,
+    })
+  }
+
+  // Handle day click - show all users' moods
+  const handleDayClick = (day: number, dayMoods: Mood[]) => {
+    const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+
+    // If there are no moods for this day, let user create one
+    if (dayMoods.length === 0) {
+      if (current_user) {
+        router.visit(`/moods/new?date=${date}`)
+      }
+      return
+    }
+
+    // Show all users' moods for this day
+    setSelectedDayMoods(dayMoods)
+    setIsMultiMoodModalOpen(true)
+  }
 
   return (
     <>
       <Head title={t('frontend.home.title')} />
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8">
-          <Card className="w-full max-w-2xl">
+        <main className="container mx-auto px-4 py-8 max-w-5xl">
+          <Card className="w-full mb-6 hover:translate-x-0 hover:translate-y-0">
             <CardHeader>
               <CardTitle>{t('frontend.home.welcome')}</CardTitle>
               <CardDescription>
@@ -52,8 +81,47 @@ export default function Home() {
               )}
             </CardContent>
           </Card>
+
+          {/* Mood Calendar - only show for logged-in users */}
+          {current_user && moods && year && month && mood_levels && (
+            <div className="w-full">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Smile className="h-6 w-6 text-primary" />
+                  <h2 className="text-2xl font-bold">Mood Tracker</h2>
+                </div>
+                <Link href="/moods">
+                  <Button variant="outline" size="sm">
+                    View Full Tracker
+                  </Button>
+                </Link>
+              </div>
+
+              <MoodCalendar
+                year={year}
+                month={month}
+                moods={moods}
+                onMonthChange={handleMonthChange}
+                onDayClick={handleDayClick}
+                showUserAvatars={true}
+              />
+
+              <p className="text-sm text-muted-foreground text-center mt-4">
+                Showing everyone's moods for this month. Click any day to see all moods or add your
+                own!
+              </p>
+            </div>
+          )}
         </main>
       </div>
+
+      {/* Multi-Mood Modal - Shows all users' moods for a day */}
+      <MultiMoodModal
+        isOpen={isMultiMoodModalOpen}
+        onClose={() => setIsMultiMoodModalOpen(false)}
+        moods={selectedDayMoods}
+        current_user={current_user}
+      />
     </>
   )
 }

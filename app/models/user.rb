@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
+#  id                     :uuid             not null, primary key
 #  avatar_url             :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
@@ -29,6 +29,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [ :google_oauth2 ]
+
+  # Associations
+  has_many :moods, dependent: :destroy
 
   # Role-based authorization (string enum)
   attribute :role, :string, default: "user"

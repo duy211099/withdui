@@ -1,16 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ForceGraph2D from 'react-force-graph-2d'
-
-interface Post {
-  title: string
-  slug: string
-  date: string
-  excerpt: string
-  category: string
-  tags: string[]
-  url_path: string
-  featured_image?: string
-}
+import type { PostListItem } from '@/types'
 
 interface GraphNode {
   id: string
@@ -33,10 +23,10 @@ interface GraphData {
 }
 
 interface BlogGraphViewProps {
-  posts: Post[]
+  posts: PostListItem[]
 }
 
-function buildGraphData(posts: Post[]): GraphData {
+function buildGraphData(posts: PostListItem[]): GraphData {
   // Extract unique categories and generate colors
   const uniqueCategories = Array.from(new Set(posts.map((p) => p.category)))
 
@@ -81,7 +71,7 @@ function buildGraphData(posts: Post[]): GraphData {
       acc[post.category].push(post)
       return acc
     },
-    {} as Record<string, Post[]>
+    {} as Record<string, PostListItem[]>
   )
 
   // Create links within each category to form clusters

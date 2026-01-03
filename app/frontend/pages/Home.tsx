@@ -83,7 +83,7 @@ export default function Home() {
           </Card>
 
           {/* Mood Calendar - only show for logged-in users */}
-          {current_user && moods && year && month && mood_levels && (
+          {moods && year && month && mood_levels && (
             <div className="w-full">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">

@@ -15,18 +15,22 @@ export default function Header() {
 
   return (
     <header className="border-b-2">
-      <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
+      <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between max-w-5xl">
         <div className="flex gap-4">
           <Link href="/" className="text-xl font-bold">
             {t('frontend.header.app_name')}
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
+            <Link
+              href="/about"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
+              {t('frontend.header.about')}
+            </Link>
             <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">
               {t('frontend.header.blog')}
             </Link>
-          </nav>
-          <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/moods"
               className="text-sm font-medium hover:text-primary transition-colors"

@@ -111,7 +111,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
     <>
       <Head title="Notes" />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 max-w-5xl">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
             Notes

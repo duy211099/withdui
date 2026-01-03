@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { BookOpen, Home, Smile, Wrench, X } from 'lucide-react'
+import { BookOpen, Home, Info, Smile, Wrench, X } from 'lucide-react'
 import { useTranslation } from '@/contexts/I18nContext'
 import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
@@ -52,6 +52,14 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
             >
               <BookOpen className="h-5 w-5" />
               <span>{t('frontend.header.blog')}</span>
+            </Link>
+            <Link
+              href="/about"
+              className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+              onClick={onClose}
+            >
+              <Info className="h-5 w-5" />
+              <span>{t('frontend.header.about')}</span>
             </Link>
             <Link
               href="/utils"

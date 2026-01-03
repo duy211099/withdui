@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   # Utils routes
   get "utils", to: "utils#index", as: :utils_index
+  get "about", to: "about#index", as: :about
 
   # Test routes (development only)
   if Rails.env.development?

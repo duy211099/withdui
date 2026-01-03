@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useI18n } from '@/contexts/I18nContext'
 import type { Mood } from '@/types'
 
 type MoodDetail = Omit<Mood, 'updated_at'>
@@ -25,12 +26,13 @@ export default function MoodDetailModal({
   onEdit,
   canEdit,
 }: MoodDetailModalProps) {
+  const { t, locale } = useI18n()
   if (!mood) return null
 
   // Format date for display
   const formatDate = (dateString: string) => {
     const date = new Date(`${dateString}T00:00:00`)
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locale, {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -41,7 +43,7 @@ export default function MoodDetailModal({
   // Format timestamp
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp)
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locale, {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
@@ -52,7 +54,7 @@ export default function MoodDetailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[calc(100%-2rem)] sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-3">
             <span
@@ -62,7 +64,9 @@ export default function MoodDetailModal({
               {mood.mood_emoji}
             </span>
             <div>
-              <div className="capitalize text-xl">{mood.mood_name}</div>
+              <div className="capitalize text-xl">
+                {t(`frontend.moods.levels.${mood.mood_name}`)}
+              </div>
               <div className="text-sm font-normal text-muted-foreground">
                 {formatDate(mood.entry_date)}
               </div>
@@ -83,7 +87,7 @@ export default function MoodDetailModal({
           <div>
             <div className="text-sm font-medium">{mood.user.name || mood.user.email}</div>
             <div className="text-xs text-muted-foreground">
-              Recorded on {formatTimestamp(mood.created_at)}
+              {t('frontend.moods.detail.recorded_on', { date: formatTimestamp(mood.created_at) })}
             </div>
           </div>
         </div>
@@ -99,19 +103,21 @@ export default function MoodDetailModal({
 
         {!mood.notes && (
           <div className="py-4 text-center">
-            <p className="text-sm text-muted-foreground italic">No notes for this entry</p>
+            <p className="text-sm text-muted-foreground italic">
+              {t('frontend.moods.detail.no_notes')}
+            </p>
           </div>
         )}
 
         {/* Actions */}
-        <div className="flex gap-2 justify-end pt-2">
+        <div className="flex flex-col sm:flex-row gap-2 justify-end pt-2">
           {canEdit && onEdit && (
             <Button variant="default" onClick={() => onEdit(mood.id)}>
-              Edit Entry
+              {t('frontend.moods.detail.edit_entry')}
             </Button>
           )}
           <Button variant="outline" onClick={onClose}>
-            Close
+            {t('frontend.moods.shared.close')}
           </Button>
         </div>
       </DialogContent>

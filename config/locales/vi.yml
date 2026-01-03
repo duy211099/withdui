@@ -26,6 +26,79 @@ vi:
       success_message: Bạn đã xác thực thành công với Google OAuth2.
       title: Trang chủ
       welcome: Chào mừng đến với Withdui
+    moods:
+      calendar:
+        future_date: '%{date}: Ngày trong tương lai (không chọn được)'
+        mood_entry: '%{date}: Mood %{mood}'
+        next_month: Tháng sau
+        no_entry: '%{date}: Chưa log Mood nào cả'
+        previous_month: Tháng trước
+      detail:
+        edit_entry: Chỉnh sửa
+        no_notes: Không có ghi chú cho bản ghi này
+        recorded_on: Đã ghi lại lúc %{date}
+      edit:
+        confirm_delete: Bạn có chắc muốn xóa Mood Entry này không?
+        delete_entry: Xóa Mood Entry
+        entry_created_on: Mood Entry được tạo lúc %{date}
+        heading: Chỉnh sửa Mood Entry
+        title: Chỉnh sửa Mood Entry
+      empty_state:
+        cta: Nhấn vào bất kỳ ngày nào trong lịch để ghi lại Mood đầu tiên của bạn!
+        no_entries: Chưa ai ghi lại Mood trong tháng này.
+        title: Chưa có Mood trong tháng này
+      form:
+        character_count: '%{count} / 10.000 ký tự'
+        future_date_edit: Bạn không thể chỉnh sửa Mood cho ngày trong tương lai
+        future_date_record: Bạn không thể ghi lại Mood cho ngày trong tương lai
+        how_feeling: Bạn cảm thấy thế nào?
+        notes_label: Ghi chú (tùy chọn)
+        notes_placeholder: Hãy kể cho tui chiện gì đã xảy ra...
+        save_mood: Lưu
+        saving: Đang lưu...
+        select_level: Vui lòng chọn mức Mood
+        select_mood: Chọn Mood %{mood}
+        update_mood: Cập nhật
+        updating: Đang cập nhật...
+      home:
+        summary_hint: Hiển thị Mood của mọi người trong tháng này. Nhấn vào một ngày để xem tất cả hoặc thêm của bạn!
+        view_full: Xem đầy đủ
+      index:
+        everyone_option: Mọi người (Tổng hợp)
+        record_today: Ghi lại hôm nay
+        title: Theo dõi
+        view_from: 'Xem Mood của:'
+      legend:
+        title: Mức Mood
+      levels:
+        bad: Ahu
+        good: Tạm tạm
+        great: Quá đã
+        okay: Cũng cũng
+        terrible: Như shit
+      multi:
+        add_my_mood: Thêm Mood của tôi
+        edit_my_mood: Sửa Mood của tôi
+        missing_mood: Bạn chưa ghi lại Mood cho ngày này
+        people_count:
+          one: Có %{count} người đã ghi lại Mood trong ngày này
+          other: Có %{count} người đã ghi lại Mood trong ngày này
+        title: Mood cho ngày %{date}
+        you: Bạn
+      new:
+        heading: Ghi lại Mood của bạn
+        tip: 'Mẹo: Theo dõi Mood hằng ngày giúp bạn nhận ra các mẫu và hiểu điều gì ảnh hưởng đến bạn.'
+        title: Ghi lại Mood
+      shared:
+        back_to_calendar: <- Quay lại lịch
+        cancel: Hủy
+        close: Đóng
+        not_available: Không có
+      summary:
+        average_mood: Trung bình
+        best_day: Ngày tuyệt nhất
+        total_entries: Tổng số
+        worst_day: Ngày tệ nhất
     locale:
       english: English
       switch_language: Chuyển đổi ngôn ngữ

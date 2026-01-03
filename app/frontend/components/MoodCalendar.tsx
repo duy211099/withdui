@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useI18n } from '@/contexts/I18nContext'
 import { isFutureDate, isToday } from '@/lib/utils'
 import type { Mood } from '@/types'
 
@@ -21,6 +22,7 @@ export default function MoodCalendar({
   onDayClick,
   showUserAvatars = false,
 }: MoodCalendarProps) {
+  const { t, locale } = useI18n()
   // Calculate calendar grid dimensions
   const firstDayOfMonth = new Date(year, month - 1, 1)
   const lastDayOfMonth = new Date(year, month, 0)
@@ -50,24 +52,20 @@ export default function MoodCalendar({
   const emptyEndCount = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7)
   const emptyEndCells = Array.from({ length: emptyEndCount }, (_, i) => `end-${i}`)
 
-  // Month names for display
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
-
-  // Day of week headers
-  const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const capitalizeFirst = (value: string) =>
+    value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : value
+  const monthLabelLong = new Intl.DateTimeFormat(locale, {
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(year, month - 1, 1))
+  const monthLabelShort = new Intl.DateTimeFormat(locale, {
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(year, month - 1, 1))
+  const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' })
+  const dayHeaders = Array.from({ length: 7 }, (_, i) =>
+    weekdayFormatter.format(new Date(2024, 0, 7 + i))
+  )
 
   // Handle month navigation
   const handlePrevMonth = () => {
@@ -86,21 +84,32 @@ export default function MoodCalendar({
     <Card className="p-4 sm:p-6 hover:translate-x-0 hover:translate-y-0">
       {/* Month navigation header */}
       <div className="flex items-center justify-between mb-6">
-        <Button variant="ghost" size="icon" onClick={handlePrevMonth} aria-label="Previous month">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handlePrevMonth}
+          aria-label={t('frontend.moods.calendar.previous_month')}
+        >
           <ChevronLeft className="h-5 w-5" />
         </Button>
 
-        <h2 className="text-xl sm:text-2xl font-bold">
-          {monthNames[month - 1]} {year}
+        <h2 className="text-lg sm:text-2xl font-bold text-center">
+          <span className="sm:hidden">{capitalizeFirst(monthLabelShort)}</span>
+          <span className="hidden sm:inline">{capitalizeFirst(monthLabelLong)}</span>
         </h2>
 
-        <Button variant="ghost" size="icon" onClick={handleNextMonth} aria-label="Next month">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleNextMonth}
+          aria-label={t('frontend.moods.calendar.next_month')}
+        >
           <ChevronRight className="h-5 w-5" />
         </Button>
       </div>
 
       {/* Day of week headers */}
-      <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-2">
+      <div className="grid grid-cols-7 gap-2 mb-2">
         {dayHeaders.map((day) => (
           <div
             key={day}
@@ -112,7 +121,7 @@ export default function MoodCalendar({
       </div>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 gap-1 sm:gap-2">
+      <div className="grid grid-cols-7 gap-2">
         {/* Empty cells before first day */}
         {emptyStartCells.map((key) => (
           <div key={`${year}-${month}-${key}`} className="aspect-square" />
@@ -126,6 +135,11 @@ export default function MoodCalendar({
           const hasMultipleMoods = dayMoods.length > 1
           const today = isToday(year, month, day)
           const isFuture = isFutureDate(year, month, day)
+          const dateLabel = new Intl.DateTimeFormat(locale, {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          }).format(new Date(year, month - 1, day))
 
           return (
             <button
@@ -147,18 +161,23 @@ export default function MoodCalendar({
               }}
               aria-label={
                 isFuture
-                  ? `${monthNames[month - 1]} ${day}, ${year}: Future date (disabled)`
+                  ? t('frontend.moods.calendar.future_date', { date: dateLabel })
                   : primaryMood
-                    ? `${monthNames[month - 1]} ${day}, ${year}: ${primaryMood.mood_name} mood`
-                    : `${monthNames[month - 1]} ${day}, ${year}: No entry`
+                    ? t('frontend.moods.calendar.mood_entry', {
+                        date: dateLabel,
+                        mood: t(`frontend.moods.levels.${primaryMood.mood_name}`),
+                      })
+                    : t('frontend.moods.calendar.no_entry', { date: dateLabel })
               }
             >
               {/* Day number */}
-              <span className="text-xs sm:text-sm font-medium text-foreground">{day}</span>
+              <span className="text-[11px] sm:text-sm font-medium text-foreground leading-none">
+                {day}
+              </span>
 
               {/* Mood emoji if exists */}
               {primaryMood && (
-                <span className="text-lg sm:text-2xl mt-0.5" aria-hidden="true">
+                <span className="hidden sm:block text-2xl mt-0.5" aria-hidden="true">
                   {primaryMood.mood_emoji}
                 </span>
               )}
@@ -169,7 +188,7 @@ export default function MoodCalendar({
                   src={primaryMood.user.avatar_url}
                   alt={primaryMood.user.name || primaryMood.user.email}
                   referrerPolicy="no-referrer"
-                  className="absolute bottom-1 right-1 h-6 w-6 rounded-full border-2 border-background shadow-md z-10"
+                  className="hidden sm:block absolute bottom-1 right-1 h-6 w-6 rounded-full border-2 border-background shadow-md z-10"
                   onError={(e) => {
                     console.log('Avatar failed to load:', primaryMood.user.avatar_url)
                     e.currentTarget.style.display = 'none'

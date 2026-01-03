@@ -51,7 +51,8 @@ export function isDateStringInFuture(dateString: string): boolean {
  */
 export function formatDate(
   dateString: string,
-  options?: Intl.DateTimeFormatOptions
+  options?: Intl.DateTimeFormatOptions,
+  locale: string = 'en-US'
 ): string {
   const dateObj = new Date(`${dateString}T00:00:00`)
   const defaultOptions: Intl.DateTimeFormatOptions = {
@@ -60,5 +61,5 @@ export function formatDate(
     month: 'long',
     day: 'numeric',
   }
-  return dateObj.toLocaleDateString('en-US', options || defaultOptions)
+  return dateObj.toLocaleDateString(locale, options || defaultOptions)
 }

@@ -88,11 +88,11 @@ export default function Home() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <Smile className="h-6 w-6 text-primary" />
-                  <h2 className="text-2xl font-bold">Mood Tracker</h2>
+                  <h2 className="text-2xl font-bold">{t('frontend.moods.index.title')}</h2>
                 </div>
                 <Link href="/moods">
                   <Button variant="outline" size="sm">
-                    View Full Tracker
+                    {t('frontend.moods.home.view_full')}
                   </Button>
                 </Link>
               </div>
@@ -107,8 +107,7 @@ export default function Home() {
               />
 
               <p className="text-sm text-muted-foreground text-center mt-4">
-                Showing everyone's moods for this month. Click any day to see all moods or add your
-                own!
+                {t('frontend.moods.home.summary_hint')}
               </p>
             </div>
           )}

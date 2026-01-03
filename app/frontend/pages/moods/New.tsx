@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { useI18n } from '@/contexts/I18nContext'
 import { formatDate, isDateStringInFuture } from '@/lib/utils'
 import type { MoodLevels } from '@/types'
 
@@ -13,6 +14,7 @@ interface NewProps {
 }
 
 export default function New({ date, mood_levels }: NewProps) {
+  const { t, locale } = useI18n()
   const { data, setData, post, processing, errors } = useForm({
     level: null as number | null,
     entry_date: date,
@@ -23,13 +25,13 @@ export default function New({ date, mood_levels }: NewProps) {
     e.preventDefault()
 
     if (data.level === null) {
-      alert('Please select a mood level')
+      alert(t('frontend.moods.form.select_level'))
       return
     }
 
     // Validate date is not in the future
     if (isDateStringInFuture(data.entry_date)) {
-      alert('You cannot record moods for future dates')
+      alert(t('frontend.moods.form.future_date_record'))
       return
     }
 
@@ -38,31 +40,35 @@ export default function New({ date, mood_levels }: NewProps) {
 
   return (
     <>
-      <Head title="Record Mood" />
+      <Head title={t('frontend.moods.new.title')} />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-2xl">
         <Link href="/moods">
           <Button variant="ghost" className="mb-4">
-            ← Back to Calendar
+            {t('frontend.moods.shared.back_to_calendar')}
           </Button>
         </Link>
 
         <div className="flex items-center gap-3 mb-6">
           <Calendar className="h-8 w-8 text-primary" />
-          <h1 className="text-2xl sm:text-3xl font-bold">Record Your Mood</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">{t('frontend.moods.new.heading')}</h1>
         </div>
 
         <Card className="hover:translate-x-0 hover:translate-y-0">
           <CardHeader>
-            <CardTitle className="text-lg text-muted-foreground">{formatDate(date)}</CardTitle>
+            <CardTitle className="text-lg text-muted-foreground">
+              {formatDate(date, undefined, locale)}
+            </CardTitle>
           </CardHeader>
 
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Mood Level Selector */}
               <div className="space-y-3">
-                <Label className="text-base font-semibold">How are you feeling?</Label>
-                <div className="grid grid-cols-5 gap-2 sm:gap-3">
+                <Label className="text-base font-semibold">
+                  {t('frontend.moods.form.how_feeling')}
+                </Label>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
                   {Object.entries(mood_levels).map(([level, config]) => {
                     const levelNum = parseInt(level, 10)
                     const isSelected = data.level === levelNum
@@ -88,12 +94,14 @@ export default function New({ date, mood_levels }: NewProps) {
                             '--tw-ring-color': isSelected ? config.color : undefined,
                           } as React.CSSProperties
                         }
-                        aria-label={`Select ${config.name} mood`}
+                        aria-label={t('frontend.moods.form.select_mood', {
+                          mood: t(`frontend.moods.levels.${config.name}`),
+                        })}
                         aria-pressed={isSelected}
                       >
                         <span className="text-3xl sm:text-4xl">{config.emoji}</span>
                         <span className="text-xs sm:text-sm font-medium capitalize">
-                          {config.name}
+                          {t(`frontend.moods.levels.${config.name}`)}
                         </span>
                       </button>
                     )
@@ -105,35 +113,37 @@ export default function New({ date, mood_levels }: NewProps) {
               {/* Notes */}
               <div className="space-y-2">
                 <Label htmlFor="notes" className="text-base font-semibold">
-                  Notes (optional)
+                  {t('frontend.moods.form.notes_label')}
                 </Label>
                 <Textarea
                   id="notes"
                   value={data.notes}
                   onChange={(e) => setData('notes', e.target.value)}
                   rows={6}
-                  placeholder="What made you feel this way? Any thoughts to capture..."
+                  placeholder={t('frontend.moods.form.notes_placeholder')}
                   className="resize-none"
                 />
                 <p className="text-sm text-muted-foreground">
-                  {data.notes.length} / 10,000 characters
+                  {t('frontend.moods.form.character_count', { count: data.notes.length })}
                 </p>
                 {errors.notes && <p className="text-destructive text-sm">{errors.notes}</p>}
               </div>
 
               {/* Submit */}
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button
                   type="submit"
                   disabled={processing || data.level === null}
                   size="lg"
                   className="flex-1"
                 >
-                  {processing ? 'Saving...' : 'Save Mood'}
+                  {processing
+                    ? t('frontend.moods.form.saving')
+                    : t('frontend.moods.form.save_mood')}
                 </Button>
                 <Link href="/moods">
-                  <Button type="button" variant="outline" size="lg">
-                    Cancel
+                  <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto">
+                    {t('frontend.moods.shared.cancel')}
                   </Button>
                 </Link>
               </div>
@@ -145,8 +155,7 @@ export default function New({ date, mood_levels }: NewProps) {
         <Card className="mt-4">
           <CardContent className="py-4">
             <p className="text-sm text-muted-foreground text-center">
-              💡 <strong>Tip:</strong> Tracking your mood daily can help you identify patterns and
-              understand what influences your wellbeing.
+              {t('frontend.moods.new.tip')}
             </p>
           </CardContent>
         </Card>

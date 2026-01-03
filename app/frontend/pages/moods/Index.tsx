@@ -7,6 +7,7 @@ import MultiMoodModal from '@/components/MultiMoodModal'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { useI18n } from '@/contexts/I18nContext'
 import type { BasePageProps, MonthlySummary, Mood, MoodLevels, User } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -31,6 +32,7 @@ export default function Index({
   can_edit,
 }: IndexProps) {
   const { current_user } = usePage<BasePageProps>().props
+  const { t, locale } = useI18n()
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null)
   const [selectedDayMoods, setSelectedDayMoods] = useState<Mood[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -87,9 +89,9 @@ export default function Index({
 
   // Format date for display
   const formatDate = (dateString: string | null) => {
-    if (!dateString) return 'N/A'
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    if (!dateString) return t('frontend.moods.shared.not_available')
+    const date = new Date(`${dateString}T00:00:00`)
+    return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' })
   }
 
   // Determine if showing multi-user view
@@ -101,17 +103,21 @@ export default function Index({
 
   return (
     <>
-      <Head title="Mood Tracker" />
+      <Head title={t('frontend.moods.index.title')} />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-5xl">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <Smile className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl sm:text-4xl font-bold">Mood Tracker</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold">{t('frontend.moods.index.title')}</h1>
           </div>
 
-          {can_edit && <Button onClick={() => router.visit('/moods/new')}>Record Today</Button>}
+          {can_edit && (
+            <Button className="w-full sm:w-auto" onClick={() => router.visit('/moods/new')}>
+              {t('frontend.moods.index.record_today')}
+            </Button>
+          )}
         </div>
 
         {/* User Filter Dropdown */}
@@ -119,7 +125,7 @@ export default function Index({
           <CardContent className="pt-6">
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <Label htmlFor="user-filter" className="text-base font-semibold whitespace-nowrap">
-                View moods from:
+                {t('frontend.moods.index.view_from')}
               </Label>
               <select
                 id="user-filter"
@@ -127,7 +133,7 @@ export default function Index({
                 value={viewing_user_id || 'all'}
                 onChange={(e) => handleUserFilterChange(e.target.value)}
               >
-                <option value="all">Everyone (Combined View)</option>
+                <option value="all">{t('frontend.moods.index.everyone_option')}</option>
                 {all_users.map((user) => (
                   <option key={user.id} value={user.id}>
                     {user.name || user.email}
@@ -144,7 +150,7 @@ export default function Index({
             <Card className="hover:translate-x-0 hover:translate-y-0">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Entries
+                  {t('frontend.moods.summary.total_entries')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -155,7 +161,7 @@ export default function Index({
             <Card className="hover:translate-x-0 hover:translate-y-0">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Average Mood
+                  {t('frontend.moods.summary.average_mood')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -169,7 +175,7 @@ export default function Index({
                     </span>
                   </div>
                 ) : (
-                  <p className="text-2xl font-bold">N/A</p>
+                  <p className="text-2xl font-bold">{t('frontend.moods.shared.not_available')}</p>
                 )}
               </CardContent>
             </Card>
@@ -177,7 +183,7 @@ export default function Index({
             <Card className="hover:translate-x-0 hover:translate-y-0">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Best Day
+                  {t('frontend.moods.summary.best_day')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -188,7 +194,7 @@ export default function Index({
             <Card className="hover:translate-x-0 hover:translate-y-0">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Worst Day
+                  {t('frontend.moods.summary.worst_day')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -213,11 +219,13 @@ export default function Index({
           <Card className="mt-6 hover:translate-x-0 hover:translate-y-0">
             <CardContent className="py-12 text-center">
               <Smile className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-              <h3 className="text-xl font-semibold mb-2">No moods recorded this month</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                {t('frontend.moods.empty_state.title')}
+              </h3>
               <p className="text-muted-foreground">
                 {can_edit
-                  ? 'Click any day in the calendar to record your first mood entry!'
-                  : 'No one has recorded their moods this month yet.'}
+                  ? t('frontend.moods.empty_state.cta')
+                  : t('frontend.moods.empty_state.no_entries')}
               </p>
             </CardContent>
           </Card>
@@ -226,10 +234,10 @@ export default function Index({
         {/* Mood Legend */}
         <Card className="mt-6 hover:translate-x-0 hover:translate-y-0">
           <CardHeader>
-            <CardTitle className="text-lg">Mood Levels</CardTitle>
+            <CardTitle className="text-lg">{t('frontend.moods.legend.title')}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-5 gap-2 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4">
               {Object.entries(mood_levels).map(([level, config]) => (
                 <div
                   key={level}
@@ -240,7 +248,9 @@ export default function Index({
                   }}
                 >
                   <span className="text-2xl sm:text-3xl">{config.emoji}</span>
-                  <span className="text-xs sm:text-sm font-medium capitalize">{config.name}</span>
+                  <span className="text-xs sm:text-sm font-medium capitalize">
+                    {t(`frontend.moods.levels.${config.name}`)}
+                  </span>
                 </div>
               ))}
             </div>

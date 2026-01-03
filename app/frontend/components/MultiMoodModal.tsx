@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useI18n } from '@/contexts/I18nContext'
 import type { Mood, User } from '@/types'
 
 interface MultiMoodModalProps {
@@ -26,23 +27,25 @@ export default function MultiMoodModal({
   current_user,
   canEdit = true,
 }: MultiMoodModalProps) {
+  const { t, locale } = useI18n()
   if (moods.length === 0) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="w-[calc(100%-2rem)] sm:max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
-            {`Moods for ${new Date(moods[0].entry_date).toLocaleDateString('en-US', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}`}
+            {t('frontend.moods.multi.title', {
+              date: new Date(`${moods[0].entry_date}T00:00:00`).toLocaleDateString(locale, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              }),
+            })}
           </DialogTitle>
           <DialogDescription>
-            {moods.length} {moods.length === 1 ? 'person' : 'people'} recorded their mood on this
-            day
+            {t('frontend.moods.multi.people_count', { count: moods.length })}
           </DialogDescription>
         </DialogHeader>
 
@@ -58,7 +61,7 @@ export default function MultiMoodModal({
                 }`}
               >
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
                     {/* User Avatar */}
                     <div className="shrink-0">
                       {mood.user.avatar_url ? (
@@ -83,7 +86,9 @@ export default function MultiMoodModal({
                         <span className="font-semibold">
                           {mood.user.name || mood.user.email}
                           {isCurrentUser && (
-                            <span className="ml-2 text-xs text-primary">(You)</span>
+                            <span className="ml-2 text-xs text-primary">
+                              ({t('frontend.moods.multi.you')})
+                            </span>
                           )}
                         </span>
                       </div>
@@ -95,10 +100,10 @@ export default function MultiMoodModal({
                             className="text-sm font-medium capitalize"
                             style={{ color: mood.mood_color }}
                           >
-                            {mood.mood_name}
+                            {t(`frontend.moods.levels.${mood.mood_name}`)}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            {new Date(mood.created_at).toLocaleTimeString('en-US', {
+                            {new Date(mood.created_at).toLocaleTimeString(locale, {
                               hour: '2-digit',
                               minute: '2-digit',
                             })}
@@ -122,7 +127,7 @@ export default function MultiMoodModal({
                               router.visit(`/moods/${mood.id}/edit`)
                             }}
                           >
-                            Edit My Mood
+                            {t('frontend.moods.multi.edit_my_mood')}
                           </Button>
                         </div>
                       )}
@@ -142,7 +147,7 @@ export default function MultiMoodModal({
                 <CardContent className="py-8 text-center">
                   <Smile className="h-12 w-12 mx-auto mb-3 text-muted-foreground" />
                   <p className="text-sm text-muted-foreground mb-4">
-                    You haven't recorded your mood for this day yet
+                    {t('frontend.moods.multi.missing_mood')}
                   </p>
                   <Button
                     onClick={() => {
@@ -151,7 +156,7 @@ export default function MultiMoodModal({
                       router.visit(`/moods/new?date=${date}`)
                     }}
                   >
-                    Add My Mood
+                    {t('frontend.moods.multi.add_my_mood')}
                   </Button>
                 </CardContent>
               </Card>

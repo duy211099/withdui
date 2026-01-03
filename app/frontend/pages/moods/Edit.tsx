@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { useI18n } from '@/contexts/I18nContext'
 import { formatDate, isDateStringInFuture } from '@/lib/utils'
 import type { Mood, MoodLevels } from '@/types'
 
@@ -13,6 +14,7 @@ interface EditProps {
 }
 
 export default function Edit({ mood, mood_levels }: EditProps) {
+  const { t, locale } = useI18n()
   const { data, setData, patch, processing, errors } = useForm({
     level: mood.level,
     entry_date: mood.entry_date,
@@ -23,13 +25,13 @@ export default function Edit({ mood, mood_levels }: EditProps) {
     e.preventDefault()
 
     if (data.level === null) {
-      alert('Please select a mood level')
+      alert(t('frontend.moods.form.select_level'))
       return
     }
 
     // Validate date is not in the future
     if (isDateStringInFuture(data.entry_date)) {
-      alert('You cannot edit moods for future dates')
+      alert(t('frontend.moods.form.future_date_edit'))
       return
     }
 
@@ -37,29 +39,34 @@ export default function Edit({ mood, mood_levels }: EditProps) {
   }
 
   const handleDelete = () => {
-    if (confirm('Are you sure you want to delete this mood entry?')) {
+    if (confirm(t('frontend.moods.edit.confirm_delete'))) {
       router.delete(`/moods/${mood.id}`)
     }
   }
 
   return (
     <>
-      <Head title="Edit Mood Entry" />
+      <Head title={t('frontend.moods.edit.title')} />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-2xl">
         <Link href="/moods">
           <Button variant="ghost" className="mb-4">
-            ← Back to Calendar
+            {t('frontend.moods.shared.back_to_calendar')}
           </Button>
         </Link>
 
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
             <Calendar className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl sm:text-3xl font-bold">Edit Mood Entry</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold">{t('frontend.moods.edit.heading')}</h1>
           </div>
 
-          <Button variant="destructive" size="icon" onClick={handleDelete} title="Delete entry">
+          <Button
+            variant="destructive"
+            size="icon"
+            onClick={handleDelete}
+            title={t('frontend.moods.edit.delete_entry')}
+          >
             <Trash2 className="h-5 w-5" />
           </Button>
         </div>
@@ -67,7 +74,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
         <Card className="hover:translate-x-0 hover:translate-y-0">
           <CardHeader>
             <CardTitle className="text-lg text-muted-foreground">
-              {formatDate(mood.entry_date)}
+              {formatDate(mood.entry_date, undefined, locale)}
             </CardTitle>
           </CardHeader>
 
@@ -75,8 +82,10 @@ export default function Edit({ mood, mood_levels }: EditProps) {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Mood Level Selector */}
               <div className="space-y-3">
-                <Label className="text-base font-semibold">How are you feeling?</Label>
-                <div className="grid grid-cols-5 gap-2 sm:gap-3">
+                <Label className="text-base font-semibold">
+                  {t('frontend.moods.form.how_feeling')}
+                </Label>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
                   {Object.entries(mood_levels).map(([level, config]) => {
                     const levelNum = parseInt(level, 10)
                     const isSelected = data.level === levelNum
@@ -102,12 +111,14 @@ export default function Edit({ mood, mood_levels }: EditProps) {
                             '--tw-ring-color': isSelected ? config.color : undefined,
                           } as React.CSSProperties
                         }
-                        aria-label={`Select ${config.name} mood`}
+                        aria-label={t('frontend.moods.form.select_mood', {
+                          mood: t(`frontend.moods.levels.${config.name}`),
+                        })}
                         aria-pressed={isSelected}
                       >
                         <span className="text-3xl sm:text-4xl">{config.emoji}</span>
                         <span className="text-xs sm:text-sm font-medium capitalize">
-                          {config.name}
+                          {t(`frontend.moods.levels.${config.name}`)}
                         </span>
                       </button>
                     )
@@ -119,35 +130,37 @@ export default function Edit({ mood, mood_levels }: EditProps) {
               {/* Notes */}
               <div className="space-y-2">
                 <Label htmlFor="notes" className="text-base font-semibold">
-                  Notes (optional)
+                  {t('frontend.moods.form.notes_label')}
                 </Label>
                 <Textarea
                   id="notes"
                   value={data.notes}
                   onChange={(e) => setData('notes', e.target.value)}
                   rows={6}
-                  placeholder="What made you feel this way? Any thoughts to capture..."
+                  placeholder={t('frontend.moods.form.notes_placeholder')}
                   className="resize-none"
                 />
                 <p className="text-sm text-muted-foreground">
-                  {data.notes.length} / 10,000 characters
+                  {t('frontend.moods.form.character_count', { count: data.notes.length })}
                 </p>
                 {errors.notes && <p className="text-destructive text-sm">{errors.notes}</p>}
               </div>
 
               {/* Submit */}
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button
                   type="submit"
                   disabled={processing || data.level === null}
                   size="lg"
                   className="flex-1"
                 >
-                  {processing ? 'Updating...' : 'Update Mood'}
+                  {processing
+                    ? t('frontend.moods.form.updating')
+                    : t('frontend.moods.form.update_mood')}
                 </Button>
                 <Link href="/moods">
-                  <Button type="button" variant="outline" size="lg">
-                    Cancel
+                  <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto">
+                    {t('frontend.moods.shared.cancel')}
                   </Button>
                 </Link>
               </div>
@@ -159,13 +172,14 @@ export default function Edit({ mood, mood_levels }: EditProps) {
         <Card className="mt-4">
           <CardContent className="py-4">
             <p className="text-sm text-muted-foreground text-center">
-              Entry created on{' '}
-              {new Date(mood.created_at).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
+              {t('frontend.moods.edit.entry_created_on', {
+                date: new Date(mood.created_at).toLocaleDateString(locale, {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                }),
               })}
             </p>
           </CardContent>

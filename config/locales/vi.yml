@@ -17,6 +17,8 @@ vi:
       sign_in: Đăng nhập
       sign_out: Đăng xuất
     home:
+      blog_graph_cta: Xem Notes
+      blog_graph_title: Notes
       email_label: 'Email:'
       name_label: 'Tên:'
       please_sign_in: Vui lòng đăng nhập để tiếp tục

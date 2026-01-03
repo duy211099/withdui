@@ -1,6 +1,7 @@
 import { Head, Link, router, usePage } from '@inertiajs/react'
 import { Smile } from 'lucide-react'
 import { useState } from 'react'
+import BlogGraphView from '@/components/BlogGraphView'
 import MoodCalendar from '@/components/MoodCalendar'
 import MultiMoodModal from '@/components/MultiMoodModal'
 import { Button } from '@/components/ui/button'
@@ -17,7 +18,7 @@ interface HomePageProps extends BasePageProps {
 }
 
 export default function Home() {
-  const { current_user, moods, year, month, mood_levels } = usePage<HomePageProps>().props
+  const { current_user, moods, year, month, mood_levels, posts } = usePage<HomePageProps>().props
   const { t } = useTranslation()
   const [selectedDayMoods, setSelectedDayMoods] = useState<Mood[]>([])
   const [isMultiMoodModalOpen, setIsMultiMoodModalOpen] = useState(false)
@@ -109,6 +110,20 @@ export default function Home() {
               <p className="text-sm text-muted-foreground text-center mt-4">
                 {t('frontend.moods.home.summary_hint')}
               </p>
+            </div>
+          )}
+
+          {posts && posts.length > 0 && (
+            <div className="w-full mt-10">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold">{t('frontend.home.blog_graph_title')}</h2>
+                <Link href="/blog?view=graph">
+                  <Button variant="outline" size="sm">
+                    {t('frontend.home.blog_graph_cta')}
+                  </Button>
+                </Link>
+              </div>
+              <BlogGraphView posts={posts} />
             </div>
           )}
         </main>

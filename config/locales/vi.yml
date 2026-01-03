@@ -19,29 +19,8 @@ vi:
       sign_out: Đăng xuất
     about:
       title: About
-      kicker: About
       heading: Duy Pham
       subheading: Software Engineer
-      hero_note: Portfolio
-      highlights_title: Điểm nổi bật
-      highlights_tagline: Dự án và hướng tập trung.
-      highlight_one: Placeholder dự án hoặc thành tựu
-      highlight_two: Placeholder dự án hoặc thành tựu
-      highlight_three: Placeholder dự án hoặc thành tựu
-      skills_title: Kỹ năng
-      skills_tagline: Công cụ và thế mạnh.
-      skill_one: Placeholder kỹ năng
-      skill_two: Placeholder kỹ năng
-      skill_three: Placeholder kỹ năng
-      skill_four: Placeholder kỹ năng
-      projects_title: Dự án
-      projects_tagline: Những thứ tôi đã làm.
-      project_one_title: Placeholder Project
-      project_one_body: Mô tả ngắn ở đây.
-      project_two_title: Placeholder Project
-      project_two_body: Mô tả ngắn ở đây.
-      project_three_title: Placeholder Project
-      project_three_body: Mô tả ngắn ở đây.
       poem_author: Văn Cao
       poem_quote: |-
         "Con thuyền đi qua
@@ -52,16 +31,6 @@ vi:
         để lại bóng
         Tôi không đi qua tôi
         để lại gì?"
-      contact_title: Liên hệ
-      contact_body: Liên hệ để hợp tác, công việc, hoặc chỉ để chào hỏi.
-      contact_email_label: Email
-      contact_email_value: placeholder@email.com
-      contact_social_label: Social
-      contact_social_value: placeholder.com
-      cta_title: Cùng làm điều ý nghĩa
-      cta_body: Kể cho tôi ý tưởng của bạn và tôi sẽ phản hồi sớm.
-      cta_primary: Liên hệ
-      cta_secondary: Xem Notes
     home:
       blog_graph_cta: Xem Notes
       blog_graph_title: Notes

@@ -21,6 +21,24 @@ type ResolvedComponent = {
   default: PageComponent
 }
 
+const MissingPage: PageComponent = () =>
+  createElement(
+    'div',
+    { className: 'min-h-screen bg-background' },
+    createElement(
+      'div',
+      { className: 'container mx-auto px-4 py-12 max-w-3xl space-y-3' },
+      createElement('h1', { className: 'text-2xl font-bold' }, 'Page not found'),
+      createElement(
+        'p',
+        { className: 'text-muted-foreground' },
+        'The page you requested is missing or not registered yet.'
+      )
+    )
+  )
+
+MissingPage.layout = (page) => createElement(Layout, null, page)
+
 createInertiaApp({
   // Set default page title
   // see https://inertia-rails.dev/guide/title-and-meta
@@ -41,6 +59,7 @@ createInertiaApp({
     const page = pages[`../pages/${name}.tsx`]
     if (!page) {
       console.error(`Missing Inertia page component: '${name}.tsx'`)
+      return { default: MissingPage }
     }
 
     // Use default layout for all pages (unless page specifies its own layout)
@@ -64,3 +83,13 @@ createInertiaApp({
     }
   },
 })
+
+const redirectToErrorPage = (event: Event) => {
+  const detail = (event as CustomEvent<{ response?: { status?: number } }>).detail
+  if (detail?.response?.status && detail.response.status >= 500) {
+    window.location.assign('/500.html')
+  }
+}
+
+document.addEventListener('inertia:exception', redirectToErrorPage)
+document.addEventListener('inertia:invalid', redirectToErrorPage)

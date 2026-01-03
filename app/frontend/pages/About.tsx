@@ -1,76 +1,70 @@
-import { Head, Link } from '@inertiajs/react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Head } from '@inertiajs/react'
+import { siFacebook, siGithub, siInstagram } from 'simple-icons/icons'
+import { Card, CardContent, CardDescription } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
 
 export default function About() {
   const { t } = useTranslation()
-  const contactEmail = t('frontend.about.contact_email_value')
-  const contactSocial = t('frontend.about.contact_social_value')
-
+  const socials = [
+    { name: 'GitHub', href: 'https://github.com/duy211099', icon: siGithub },
+    { name: 'Facebook', href: 'https://www.facebook.com/dingudimaaa/', icon: siFacebook },
+    { name: 'Instagram', href: 'https://www.instagram.com/duineeeeeee/', icon: siInstagram },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/duy211099/', icon: null },
+  ]
   return (
     <>
       <Head title={t('frontend.about.title')} />
-      <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-10 max-w-5xl">
-          <div className="space-y-10">
-            <header className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-              <div className="space-y-4">
-                <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-muted-foreground">
-                  {t('frontend.about.hero_note')}
-                </p>
-                <h1 className="text-3xl sm:text-4xl font-bold">{t('frontend.about.heading')}</h1>
-                <p className="text-lg text-muted-foreground max-w-3xl">
+      <div className="min-h-screen bg-background relative overflow-hidden">
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-muted/50 blur-3xl" />
+
+        <main className="container mx-auto px-4 py-12 sm:py-16 max-w-5xl relative">
+          <div className="space-y-12">
+            <header className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div className="space-y-5">
+                <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight font-serif">
+                  {t('frontend.about.heading')}
+                </h1>
+                <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl">
                   {t('frontend.about.subheading')}
                 </p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {socials.map((social) => (
+                    <a
+                      key={social.name}
+                      className="flex items-center gap-2 rounded-lg border border-border/70 bg-background/70 px-4 py-3 font-medium hover:bg-muted transition-colors"
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {social.icon && (
+                        <svg
+                          className="h-4 w-4"
+                          viewBox="0 0 24 24"
+                          role="img"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <title>{social.name}</title>
+                          <path d={social.icon?.path} fill="currentColor" />
+                        </svg>
+                      )}
+                      {social.name}
+                    </a>
+                  ))}
+                </div>
               </div>
-              <Card className="hover:translate-x-0 hover:translate-y-0">
-                <CardContent>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line">
+              <Card className="hover:translate-x-0 hover:translate-y-0 border-2 border-border/70 bg-card/80 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.4)]">
+                <CardContent className="space-y-3">
+                  <p className="text-sm sm:text-base text-muted-foreground whitespace-pre-line leading-relaxed">
                     {t('frontend.about.poem_quote')}
                   </p>
-                  <CardDescription>- {t('frontend.about.poem_author')}</CardDescription>
+                  <CardDescription className="text-right text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    {t('frontend.about.poem_author')}
+                  </CardDescription>
                 </CardContent>
               </Card>
             </header>
-
-            <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-              <Card className="hover:translate-x-0 hover:translate-y-0">
-                <CardHeader>
-                  <CardTitle>{t('frontend.about.contact_title')}</CardTitle>
-                  <CardDescription>{t('frontend.about.contact_body')}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      {t('frontend.about.contact_email_label')}
-                    </span>
-                    <span className="font-medium">{contactEmail}</span>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      {t('frontend.about.contact_social_label')}
-                    </span>
-                    <span className="font-medium">{contactSocial}</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <section className="border-2 border-border rounded-lg bg-card p-6 md:p-8 flex flex-col gap-4">
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold">{t('frontend.about.cta_title')}</h2>
-                  <p className="text-muted-foreground">{t('frontend.about.cta_body')}</p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild>
-                    <a href={`mailto:${contactEmail}`}>{t('frontend.about.cta_primary')}</a>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/blog">{t('frontend.about.cta_secondary')}</Link>
-                  </Button>
-                </div>
-              </section>
-            </section>
           </div>
         </main>
       </div>

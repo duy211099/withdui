@@ -197,11 +197,11 @@
           "how_feeling": "Bạn cảm thấy thế nào?",
           "notes_label": "Ghi chú (tùy chọn)",
           "notes_placeholder": "Hãy kể cho tui chiện gì đã xảy ra...",
-          "save_mood": "Lưu Mood",
+          "save_mood": "Lưu",
           "saving": "Đang lưu...",
           "select_level": "Vui lòng chọn mức Mood",
           "select_mood": "Chọn Mood %{mood}",
-          "update_mood": "Cập nhật Mood",
+          "update_mood": "Cập nhật",
           "updating": "Đang cập nhật..."
         },
         "home": {
@@ -211,8 +211,8 @@
         "index": {
           "everyone_option": "Mọi người (Tổng hợp)",
           "record_today": "Ghi lại hôm nay",
-          "title": "Theo dõi Mood",
-          "view_from": "Xem Mood từ:"
+          "title": "Mood Tracker",
+          "view_from": "Xem Mood của:"
         },
         "legend": {
           "title": "Mức Mood"
@@ -247,9 +247,9 @@
           "not_available": "Không có"
         },
         "summary": {
-          "average_mood": "Average Mood",
+          "average_mood": "Trung bình",
           "best_day": "Ngày tuyệt nhất",
-          "total_entries": "Tổng số Mood",
+          "total_entries": "Tổng số",
           "worst_day": "Ngày tệ nhất"
         }
       },

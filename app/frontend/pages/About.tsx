@@ -15,24 +15,24 @@ export default function About() {
     <>
       <Head title={t('frontend.about.title')} />
       <div className="min-h-screen bg-background relative overflow-hidden">
-        <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-muted/50 blur-3xl" />
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full" />
+        <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full" />
 
         <main className="container mx-auto px-4 py-12 sm:py-16 max-w-5xl relative">
           <div className="space-y-12">
-            <header className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-              <div className="space-y-5">
-                <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight font-serif">
+            <header className="flex flex-col lg:flex-row gap-8">
+              <div className="flex-1 space-y-5">
+                <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight font-serif text-center lg:text-left">
                   {t('frontend.about.heading')}
                 </h1>
-                <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl">
+                <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl text-center lg:text-left">
                   {t('frontend.about.subheading')}
                 </p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {socials.map((social) => (
                     <a
                       key={social.name}
-                      className="flex items-center gap-2 rounded-lg border border-border/70 bg-background/70 px-4 py-3 font-medium hover:bg-muted transition-colors"
+                      className="w-full sm:w-auto flex items-center gap-2 rounded-lg border border-border/70 bg-background/70 px-4 py-3 font-medium hover:bg-muted transition-colors"
                       href={social.href}
                       target="_blank"
                       rel="noreferrer"
@@ -54,7 +54,7 @@ export default function About() {
                   ))}
                 </div>
               </div>
-              <Card className="hover:translate-x-0 hover:translate-y-0 border-2 border-border/70 bg-card/80 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.4)]">
+              <Card className="hover:translate-x-0 hover:translate-y-0 border-2 border-border/70 bg-card/80 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.4)] h-fit">
                 <CardContent className="space-y-3">
                   <p className="text-sm sm:text-base text-muted-foreground whitespace-pre-line leading-relaxed">
                     {t('frontend.about.poem_quote')}

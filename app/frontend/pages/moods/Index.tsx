@@ -97,8 +97,8 @@ export default function Index({
   // Determine if showing multi-user view
   const isMultiUserView = !viewing_user_id
 
-  const isFilteredView = viewing_user_id !== null
-  // Prevent edits when viewing a filtered user's calendar
+  const isFilteredView = viewing_user_id !== null && viewing_user_id !== current_user?.id
+  // Prevent edits when viewing someone else's calendar
   const canEditMoods = Boolean(current_user && !isFilteredView && can_edit)
 
   return (

@@ -82,14 +82,16 @@ export default function Header() {
         </div>
 
         {/* Hamburger menu - visible only on mobile */}
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="icon-sm"
           onClick={() => setMobileMenuOpen(true)}
-          className="md:hidden p-2 -mr-2 hover:bg-muted rounded"
+          className="md:hidden -mr-2 rounded hover:bg-muted"
           aria-label="Open menu"
         >
           <Menu className="h-6 w-6" />
-        </button>
+        </Button>
       </div>
 
       {/* Mobile menu component */}

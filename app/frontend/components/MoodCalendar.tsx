@@ -144,14 +144,16 @@ export default function MoodCalendar({
           }).format(new Date(year, month - 1, day))
 
           return (
-            <button
+            <Button
               type="button"
               key={day}
+              variant="ghost"
               onClick={() => onDayClick(day, dayMoods)}
               disabled={isFuture}
               className={cn(
                 'aspect-square rounded-lg border-2 transition-all',
                 'flex flex-col items-center justify-center relative',
+                'w-full h-auto p-0',
                 today ? 'border-primary ring-2 ring-primary ring-offset-2' : 'border-border',
                 isFuture || !canEdit
                   ? 'cursor-not-allowed opacity-40 bg-muted/50'
@@ -207,7 +209,7 @@ export default function MoodCalendar({
               {hasMultipleMoods && (
                 <div className="absolute top-0.5 right-0.5 h-2 w-2 bg-primary rounded-full" />
               )}
-            </button>
+            </Button>
           )
         })}
 

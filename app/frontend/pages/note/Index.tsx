@@ -230,10 +230,11 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
                       <CardContent>
                         <div className="flex gap-2 flex-wrap">
                           {post.tags.map((tag) => (
-                            <button
+                            <Button
                               key={tag}
                               type="button"
-                              className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors"
+                              variant="ghost"
+                              className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors h-auto border-transparent"
                               onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
@@ -241,7 +242,7 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
                               }}
                             >
                               {tag}
-                            </button>
+                            </Button>
                           ))}
                         </div>
                       </CardContent>

@@ -32,14 +32,16 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           {/* Close button */}
           <div className="flex justify-end px-4 py-3 border-b-2 border-border">
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon-sm"
               onClick={onClose}
-              className="p-2 hover:bg-muted rounded"
+              className="rounded hover:bg-muted"
               aria-label="Close menu"
             >
               <X className="h-6 w-6" />
-            </button>
+            </Button>
           </div>
         </SheetHeader>
 

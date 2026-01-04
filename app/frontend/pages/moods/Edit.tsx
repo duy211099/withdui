@@ -92,13 +92,15 @@ export default function Edit({ mood, mood_levels }: EditProps) {
                     const isSelected = data.level === levelNum
 
                     return (
-                      <button
+                      <Button
                         key={level}
                         type="button"
+                        variant="ghost"
                         onClick={() => setData('level', levelNum)}
                         className={cn(
                           'flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2',
                           'transition-all hover:shadow-lg',
+                          'h-auto',
                           isSelected
                             ? 'shadow-lg ring-2 ring-offset-1'
                             : 'border-border hover:border-primary'
@@ -119,7 +121,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
                         <span className="text-xs sm:text-sm font-medium capitalize">
                           {t(`frontend.moods.levels.${config.name}`)}
                         </span>
-                      </button>
+                      </Button>
                     )
                   })}
                 </div>

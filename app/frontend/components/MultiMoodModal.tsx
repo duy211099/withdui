@@ -59,7 +59,7 @@ export default function MultiMoodModal({
                 key={mood.id}
                 className={cn(
                   'hover:translate-x-0 hover:translate-y-0',
-                  isCurrentUser && 'ring-2 ring-primary'
+                  isCurrentUser && 'ring-2 ring-primary ring-offset-2'
                 )}
               >
                 <CardContent className="pt-6">

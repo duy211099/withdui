@@ -34,13 +34,14 @@ export default function InertiaExample({ name }: { name: string }) {
           <Button variant={'default'} size={'lg'} onClick={() => setCount((count) => count + 1)}>
             count is {count}
           </Button>
-          <button
+          <Button
             type="button"
-            className={cs.button}
+            variant="ghost"
+            className={cn(cs.button, 'text-base font-medium h-auto')}
             onClick={() => setCount((count) => count + 1)}
           >
             count is {count}
-          </button>
+          </Button>
           <p>
             Edit <code>app/frontend/pages/InertiaExample.jsx</code> and save to test HMR
           </p>

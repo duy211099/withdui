@@ -67,7 +67,7 @@ en:
           what influences your wellbeing.'
         title: Record Mood
       shared:
-        back_to_calendar: "<- Back to Calendar"
+        back_to_calendar: "Back to Calendar"
         cancel: Cancel
         close: Close
         not_available: N/A

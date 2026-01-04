@@ -1,5 +1,4 @@
 import { Head, Link, router, usePage } from '@inertiajs/react'
-import { Smile } from 'lucide-react'
 import { useState } from 'react'
 import BlogGraphView from '@/components/BlogGraphView'
 import MoodCalendar from '@/components/MoodCalendar'

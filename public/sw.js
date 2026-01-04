@@ -1,5 +1,5 @@
-const STATIC_CACHE = 'withdui-static-v1'
-const STATIC_ASSETS = ['/', '/manifest.webmanifest', '/images/pwa-icon.svg']
+const STATIC_CACHE = 'withdui-static-v2'
+const STATIC_ASSETS = ['/manifest.webmanifest', '/images/pwa-icon.svg']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -25,6 +25,12 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return
   const url = new URL(event.request.url)
   if (url.origin !== self.location.origin) return
+
+  // for flash to work properly
+  if (event.request.mode === 'navigate') {
+    event.respondWith(fetch(event.request))
+    return
+  }
 
   if (STATIC_ASSETS.includes(url.pathname)) {
     event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)))

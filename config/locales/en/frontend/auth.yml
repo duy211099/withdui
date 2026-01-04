@@ -1,0 +1,12 @@
+---
+en:
+  frontend:
+    auth:
+      login:
+        continue_with_google: Continue with Google
+        csrf_console_error: CSRF token not found. Please refresh the page and try
+          again.
+        csrf_error: Security token not found. Please refresh the page and try again.
+        description: Sign in to your account with Google
+        heading: Welcome back
+        title: Sign In

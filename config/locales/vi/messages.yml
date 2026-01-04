@@ -1,0 +1,5 @@
+---
+vi:
+  messages:
+    auth_failed: Xác thực thất bại, vui lòng thử lại.
+    locale_switched: Đã chuyển đổi ngôn ngữ thành công

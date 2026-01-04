@@ -1,0 +1,5 @@
+---
+en:
+  messages:
+    auth_failed: Authentication failed, please try again.
+    locale_switched: Language switched successfully

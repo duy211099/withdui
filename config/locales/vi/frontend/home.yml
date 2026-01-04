@@ -1,0 +1,15 @@
+---
+vi:
+  frontend:
+    home:
+      blog_graph_cta: Xem Notes
+      blog_graph_title: Notes
+      email_label: 'Email:'
+      name_label: 'Tên:'
+      please_sign_in: Vui lòng đăng nhập để tiếp tục
+      sign_in_instruction: Nhấn vào nút Đăng nhập ở trên để xác thực với tài khoản
+        Google của bạn.
+      signed_in_as: Bạn đang đăng nhập với %{email}
+      success_message: Bạn đã xác thực thành công với Google OAuth2.
+      title: Trang chủ
+      welcome: Chào mừng đến với Withdui

@@ -1,0 +1,10 @@
+---
+vi:
+  frontend:
+    header:
+      about: About
+      app_name: WithDui
+      blog: Notes
+      sign_in: Đăng nhập
+      sign_out: Đăng xuất
+      utils: Tiện ích

@@ -1,0 +1,12 @@
+---
+vi:
+  frontend:
+    auth:
+      login:
+        continue_with_google: Tiếp tục với Google
+        csrf_console_error: Không tìm thấy CSRF token. Vui lòng làm mới trang và thử
+          lại.
+        csrf_error: Không tìm thấy mã bảo mật. Vui lòng làm mới trang và thử lại.
+        description: Đăng nhập vào tài khoản của bạn với Google
+        heading: Chào mừng trở lại
+        title: Đăng nhập

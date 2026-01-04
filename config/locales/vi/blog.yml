@@ -1,0 +1,8 @@
+---
+vi:
+  blog:
+    admin:
+      post_created: Đã tạo bài viết thành công
+      post_deleted: Đã xóa bài viết thành công
+      post_updated: Đã cập nhật bài viết thành công
+    post_not_found: Không tìm thấy bài viết

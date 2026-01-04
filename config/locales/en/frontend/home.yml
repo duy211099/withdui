@@ -1,0 +1,15 @@
+---
+en:
+  frontend:
+    home:
+      blog_graph_cta: View Graph
+      blog_graph_title: Blog Graph
+      email_label: 'Email:'
+      name_label: 'Name:'
+      please_sign_in: Please sign in to continue
+      sign_in_instruction: Click the Sign In button above to authenticate with your
+        Google account.
+      signed_in_as: You are signed in as %{email}
+      success_message: You have successfully authenticated with Google OAuth2.
+      title: Home
+      welcome: Welcome to Withdui

@@ -1,0 +1,8 @@
+---
+en:
+  frontend:
+    locale:
+      english: English
+      switch_language: Switch language
+      switch_success: Language switched successfully
+      vietnamese: Tiếng Việt

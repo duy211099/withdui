@@ -6,7 +6,7 @@ locales: [en, vi]
 
 data:
   read:
-    - config/locales/%{locale}.yml
+    - config/locales/**/*.yml
   write:
     - config/locales/%{locale}.yml
 

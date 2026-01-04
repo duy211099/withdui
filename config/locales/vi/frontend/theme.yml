@@ -1,0 +1,8 @@
+---
+vi:
+  frontend:
+    theme:
+      dark: Tối
+      light: Sáng
+      system: Hệ thống
+      toggle: Chuyển đổi giao diện

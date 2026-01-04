@@ -1,0 +1,8 @@
+---
+en:
+  frontend:
+    theme:
+      dark: Dark
+      light: Light
+      system: System
+      toggle: Toggle theme

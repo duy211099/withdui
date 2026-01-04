@@ -1,0 +1,17 @@
+---
+vi:
+  frontend:
+    about:
+      heading: Duy Pham
+      poem_author: Văn Cao
+      poem_quote: |-
+        "Con thuyền đi qua
+        để lại sóng
+        Đoàn tàu đi qua
+        để lại tiếng
+        Đoàn người đi qua
+        để lại bóng
+        Tôi không đi qua tôi
+        để lại gì?"
+      subheading: Software Engineer
+      title: About

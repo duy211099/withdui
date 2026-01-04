@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "ruby",
+      "name": "Debug Rails Server",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/rails",
+      "args": [
+        "server"
+      ],
+      "cwd": "${workspaceFolder}",
+      "useBundler": true
+    },
+    {
+      "type": "ruby",
+      "name": "Debug Rails Test (Current File)",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/rails",
+      "args": [
+        "test",
+        "${file}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "useBundler": true
+    }
+  ]
+}

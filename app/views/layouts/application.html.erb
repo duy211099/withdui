@@ -20,7 +20,9 @@
     <%= vite_client_tag %>
     <%= vite_typescript_tag "inertia" %>
     <%= inertia_ssr_head %>
-    <%= favicon_link_tag "/images/favicon.ico"  %>
+    <% favicon_path = Rails.root.join("public/images/favicon.ico") %>
+    <% favicon_version = File.exist?(favicon_path) ? File.mtime(favicon_path).to_i : nil %>
+    <%= favicon_link_tag "/images/favicon.ico#{favicon_version ? "?v=#{favicon_version}" : ""}" %>
 
     <style>
       /* Loading indicator - shown while JavaScript loads */

@@ -8,9 +8,11 @@ const STATIC_ASSETS = [
   '/images/icon-144x144.png',
   '/images/icon-152x152.png',
   '/images/icon-192x192.png',
+  '/images/icon-192x192-maskable.png',
   '/images/icon-256x256.png',
   '/images/icon-384x384.png',
   '/images/icon-512x512.png',
+  '/images/icon-512x512-maskable.png',
 ]
 
 self.addEventListener('install', (event) => {

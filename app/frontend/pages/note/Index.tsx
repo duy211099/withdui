@@ -2,12 +2,20 @@ import { Head, Link, router } from '@inertiajs/react'
 import { Document } from 'flexsearch'
 import { List, Network } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import LocalTime from '@/components/LocalTime'
 import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { note_index_path } from '@/lib/routes'
 import type { PostListItem } from '@/types'
+
+interface NoteIndexProps {
+  posts: PostListItem[]
+  categories: string[]
+  tags?: string[]
+  search_index: SearchIndexItem[]
+}
 
 interface SearchIndexItem {
   id: string
@@ -18,13 +26,6 @@ interface SearchIndexItem {
   tags: string[]
   url_path: string
   [key: string]: any
-}
-
-interface NoteIndexProps {
-  posts: PostListItem[]
-  categories: string[]
-  tags?: string[]
-  search_index: SearchIndexItem[]
 }
 
 export default function NoteIndex({ posts, categories, tags, search_index }: NoteIndexProps) {
@@ -220,7 +221,7 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
                       )}
                       <CardHeader>
                         <div className="text-sm text-muted-foreground mb-2">
-                          {new Date(post.date).toLocaleDateString()}
+                          <LocalTime dateTime={post.date} dateOnly />
                         </div>
                         <CardTitle className="hover:text-primary transition-colors">
                           {post.title}

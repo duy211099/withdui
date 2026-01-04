@@ -1,4 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react'
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { edit_note_admin_path, new_note_admin_path, note_index_path } from '@/lib/routes'
@@ -54,7 +55,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                         )}
                       </CardTitle>
                       <div className="text-sm text-muted-foreground">
-                        {new Date(post.date).toLocaleDateString()} • {post.category}
+                        <LocalTime dateTime={post.date} dateOnly /> • {post.category}
                       </div>
                     </div>
                     <div className="flex gap-2 shrink-0">

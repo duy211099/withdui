@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react'
 import { lazy, Suspense } from 'react'
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { note_category_path, note_index_path, note_tag_path } from '@/lib/routes'
 import type { Post } from '@/types'
@@ -42,7 +43,9 @@ export default function NoteShow({ post, related_posts }: NoteShowProps) {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{post.title}</h1>
 
           <div className="flex gap-4 text-muted-foreground text-sm mb-4 flex-wrap">
-            <span>{new Date(post.date).toLocaleDateString()}</span>
+            <span>
+              <LocalTime dateTime={post.date} dateOnly />
+            </span>
             <span>•</span>
             <span>{post.author || 'A Philosopher 🧙‍♂️'}</span>
             {post.category && (

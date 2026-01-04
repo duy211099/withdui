@@ -1,6 +1,7 @@
 import { Head, router, usePage } from '@inertiajs/react'
 import { Smile } from 'lucide-react'
 import { useState } from 'react'
+import LocalTime from '@/components/LocalTime'
 import MoodCalendar from '@/components/MoodCalendar'
 import MoodDetailModal from '@/components/MoodDetailModal'
 import MultiMoodModal from '@/components/MultiMoodModal'
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { useI18n } from '@/contexts/I18nContext'
+import { getShortDateFormat } from '@/lib/localTime'
 import type { BasePageProps, MonthlySummary, Mood, MoodLevels, User } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -85,13 +87,6 @@ export default function Index({
       },
       preserveScroll: true,
     })
-  }
-
-  // Format date for display
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return t('frontend.moods.shared.not_available')
-    const date = new Date(`${dateString}T00:00:00`)
-    return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' })
   }
 
   // Determine if showing multi-user view
@@ -187,7 +182,17 @@ export default function Index({
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold">{formatDate(summary.best_day)}</p>
+                <p className="text-2xl font-bold">
+                  {summary.best_day ? (
+                    <LocalTime
+                      dateTime={summary.best_day}
+                      dateOnly
+                      format={getShortDateFormat(locale)}
+                    />
+                  ) : (
+                    t('frontend.moods.shared.not_available')
+                  )}
+                </p>
               </CardContent>
             </Card>
 
@@ -198,7 +203,17 @@ export default function Index({
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold">{formatDate(summary.worst_day)}</p>
+                <p className="text-2xl font-bold">
+                  {summary.worst_day ? (
+                    <LocalTime
+                      dateTime={summary.worst_day}
+                      dateOnly
+                      format={getShortDateFormat(locale)}
+                    />
+                  ) : (
+                    t('frontend.moods.shared.not_available')
+                  )}
+                </p>
               </CardContent>
             </Card>
           </div>

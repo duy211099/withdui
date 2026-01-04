@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react'
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { note_category_path, note_index_path, note_tag_path } from '@/lib/routes'
@@ -92,7 +93,7 @@ export default function Category({
                   )}
                   <CardHeader>
                     <div className="text-sm text-muted-foreground mb-2">
-                      {new Date(post.date).toLocaleDateString()}
+                      <LocalTime dateTime={post.date} dateOnly />
                     </div>
                     <CardTitle className="hover:text-primary transition-colors">
                       {post.title}

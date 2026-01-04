@@ -1,5 +1,6 @@
 import { router } from '@inertiajs/react'
 import { Smile } from 'lucide-react'
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -10,6 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useI18n } from '@/contexts/I18nContext'
+import { getFullDateTimeFormat, getLongDateFormat } from '@/lib/localTime'
 import { cn } from '@/lib/utils'
 import type { Mood, User } from '@/types'
 
@@ -36,14 +38,13 @@ export default function MultiMoodModal({
       <DialogContent className="w-[calc(100%-2rem)] sm:max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
-            {t('frontend.moods.multi.title', {
-              date: new Date(`${moods[0].entry_date}T00:00:00`).toLocaleDateString(locale, {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              }),
-            })}
+            {t('frontend.moods.multi.title', { date: '' })}
+            <LocalTime
+              className="ml-1"
+              dateTime={moods[0].entry_date}
+              dateOnly
+              format={getLongDateFormat(locale)}
+            />
           </DialogTitle>
           <DialogDescription>
             {t('frontend.moods.multi.people_count', { count: moods.length })}
@@ -105,10 +106,10 @@ export default function MultiMoodModal({
                             {t(`frontend.moods.levels.${mood.mood_name}`)}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            {new Date(mood.created_at).toLocaleTimeString(locale, {
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            })}
+                            <LocalTime
+                              dateTime={mood.created_at}
+                              format={getFullDateTimeFormat(locale)}
+                            />
                           </p>
                         </div>
                       </div>

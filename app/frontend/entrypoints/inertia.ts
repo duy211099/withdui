@@ -3,7 +3,32 @@ import { createInertiaApp } from '@inertiajs/react'
 import axios from 'axios'
 import { createElement, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import Layout from '@/components/Layout'
+
+const showFatalError = (message: string) => {
+  const app = document.getElementById('app')
+  const loading = document.getElementById('app-loading')
+  if (loading) loading.style.display = 'none'
+  if (!app) return
+
+  app.innerHTML = `
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;">
+      <div style="max-width:560px;text-align:center;">
+        <h1 style="font-size:22px;margin:0 0 8px;">Something went wrong</h1>
+        <p style="margin:0;color:#6b7280;">${message}</p>
+      </div>
+    </div>
+  `
+}
+
+window.addEventListener('error', (event) => {
+  showFatalError(event.message || 'Check the browser console for details.')
+})
+
+window.addEventListener('unhandledrejection', () => {
+  showFatalError('Check the browser console for details.')
+})
 
 // Configure axios to include CSRF token in all requests
 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
@@ -73,7 +98,7 @@ createInertiaApp({
 
   setup({ el, App, props }) {
     if (el) {
-      createRoot(el).render(createElement(App, props))
+      createRoot(el).render(createElement(ErrorBoundary, null, createElement(App, props)))
     } else {
       console.error(
         'Missing root element.\n\n' +

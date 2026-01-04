@@ -45,21 +45,3 @@ export function isDateStringInFuture(dateString: string): boolean {
   const checkDate = normalizeDateToMidnight(new Date(`${dateString}T00:00:00`))
   return checkDate > today
 }
-
-/**
- * Format a date string (YYYY-MM-DD) to a human-readable format
- */
-export function formatDate(
-  dateString: string,
-  options?: Intl.DateTimeFormatOptions,
-  locale: string = 'en-US'
-): string {
-  const dateObj = new Date(`${dateString}T00:00:00`)
-  const defaultOptions: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }
-  return dateObj.toLocaleDateString(locale, options || defaultOptions)
-}

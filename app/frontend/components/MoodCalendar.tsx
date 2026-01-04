@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useI18n } from '@/contexts/I18nContext'
+import { formatLocalDate, getLongDateFormat, getWeekdayShortNames } from '@/lib/localTime'
 import { cn, isFutureDate, isToday } from '@/lib/utils'
 import type { Mood } from '@/types'
 
@@ -56,18 +57,13 @@ export default function MoodCalendar({
 
   const capitalizeFirst = (value: string) =>
     value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : value
-  const monthLabelLong = new Intl.DateTimeFormat(locale, {
-    month: 'long',
-    year: 'numeric',
-  }).format(new Date(year, month - 1, 1))
-  const monthLabelShort = new Intl.DateTimeFormat(locale, {
-    month: 'short',
-    year: 'numeric',
-  }).format(new Date(year, month - 1, 1))
-  const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' })
-  const dayHeaders = Array.from({ length: 7 }, (_, i) =>
-    weekdayFormatter.format(new Date(2024, 0, 7 + i))
-  )
+  const monthLabelLong = formatLocalDate(new Date(year, month - 1, 1), 'MMMM - yyyy', locale)
+  const monthLabelShort = formatLocalDate(new Date(year, month - 1, 1), 'MMM - yyyy', locale)
+  const weekdayNames = getWeekdayShortNames(locale)
+  const dayHeaders =
+    weekdayNames.length === 7
+      ? weekdayNames
+      : Array.from({ length: 7 }, (_, i) => formatLocalDate(new Date(2024, 0, 7 + i), '%a', locale))
 
   // Handle month navigation
   const handlePrevMonth = () => {
@@ -137,11 +133,11 @@ export default function MoodCalendar({
           const hasMultipleMoods = dayMoods.length > 1
           const today = isToday(year, month, day)
           const isFuture = isFutureDate(year, month, day)
-          const dateLabel = new Intl.DateTimeFormat(locale, {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          }).format(new Date(year, month - 1, day))
+          const dateLabel = formatLocalDate(
+            new Date(year, month - 1, day),
+            getLongDateFormat(locale),
+            locale
+          )
 
           return (
             <Button

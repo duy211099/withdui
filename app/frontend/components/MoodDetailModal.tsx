@@ -1,3 +1,4 @@
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -7,6 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useI18n } from '@/contexts/I18nContext'
+import { getFullDateTimeFormat, getLongDateFormat } from '@/lib/localTime'
 import type { Mood } from '@/types'
 
 type MoodDetail = Omit<Mood, 'updated_at'>
@@ -29,29 +31,6 @@ export default function MoodDetailModal({
   const { t, locale } = useI18n()
   if (!mood) return null
 
-  // Format date for display
-  const formatDate = (dateString: string) => {
-    const date = new Date(`${dateString}T00:00:00`)
-    return date.toLocaleDateString(locale, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
-
-  // Format timestamp
-  const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp)
-    return date.toLocaleDateString(locale, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-    })
-  }
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="w-[calc(100%-2rem)] sm:max-w-md">
@@ -68,7 +47,7 @@ export default function MoodDetailModal({
                 {t(`frontend.moods.levels.${mood.mood_name}`)}
               </div>
               <div className="text-sm font-normal text-muted-foreground">
-                {formatDate(mood.entry_date)}
+                <LocalTime dateTime={mood.entry_date} dateOnly format={getLongDateFormat(locale)} />
               </div>
             </div>
           </DialogTitle>
@@ -87,7 +66,12 @@ export default function MoodDetailModal({
           <div>
             <div className="text-sm font-medium">{mood.user.name || mood.user.email}</div>
             <div className="text-xs text-muted-foreground">
-              {t('frontend.moods.detail.recorded_on', { date: formatTimestamp(mood.created_at) })}
+              {t('frontend.moods.detail.recorded_on', { date: '' })}
+              <LocalTime
+                className="ml-1"
+                dateTime={mood.created_at}
+                format={getFullDateTimeFormat(locale)}
+              />
             </div>
           </div>
         </div>

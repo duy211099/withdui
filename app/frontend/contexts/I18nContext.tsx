@@ -1,6 +1,7 @@
 import { usePage } from '@inertiajs/react'
 import { createContext, type ReactNode, useContext, useMemo } from 'react'
 import i18n, { setLocale } from '@/lib/i18n'
+import { normalizeLocale } from '@/lib/localTime'
 
 interface I18nContextType {
   t: (key: string, options?: Record<string, unknown>) => string
@@ -23,8 +24,9 @@ export function I18nProvider({ children }: I18nProviderProps) {
 
   // Sync i18n locale with Rails locale synchronously during render
   // This ensures translations work correctly on first render
-  if (props.locale && i18n.locale !== props.locale) {
-    setLocale(props.locale)
+  const activeLocale = normalizeLocale(props.locale)
+  if (i18n.locale !== activeLocale) {
+    setLocale(activeLocale)
   }
 
   // Use useMemo to recreate context value when locale changes
@@ -32,11 +34,11 @@ export function I18nProvider({ children }: I18nProviderProps) {
   const value: I18nContextType = useMemo(
     () => ({
       t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
-      locale: props.locale || 'vi',
+      locale: activeLocale,
       availableLocales: props.available_locales || ['vi', 'en'],
       setLocale,
     }),
-    [props.locale, props.available_locales]
+    [activeLocale, props.available_locales]
   )
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>

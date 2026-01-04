@@ -1,12 +1,14 @@
 import { Head, Link, useForm } from '@inertiajs/react'
-import { Calendar } from 'lucide-react'
+import { ArrowLeft, Calendar } from 'lucide-react'
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
+import { getLongDateFormat } from '@/lib/localTime'
 import { moods_path } from '@/lib/routes'
-import { cn, formatDate, isDateStringInFuture } from '@/lib/utils'
+import { cn, isDateStringInFuture } from '@/lib/utils'
 import type { MoodLevels } from '@/types'
 
 interface NewProps {
@@ -46,6 +48,7 @@ export default function New({ date, mood_levels }: NewProps) {
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-2xl">
         <Link href={moods_path()}>
           <Button variant="ghost" className="mb-4">
+            <ArrowLeft className="h-4 w-4" />
             {t('frontend.moods.shared.back_to_calendar')}
           </Button>
         </Link>
@@ -58,7 +61,7 @@ export default function New({ date, mood_levels }: NewProps) {
         <Card className="hover:translate-x-0 hover:translate-y-0">
           <CardHeader>
             <CardTitle className="text-lg text-muted-foreground">
-              {formatDate(date, undefined, locale)}
+              <LocalTime dateTime={date} dateOnly format={getLongDateFormat(locale)} />
             </CardTitle>
           </CardHeader>
 

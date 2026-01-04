@@ -1,12 +1,14 @@
 import { Head, Link, router, useForm } from '@inertiajs/react'
-import { Calendar, Trash2 } from 'lucide-react'
+import { ArrowLeft, Calendar, Trash2 } from 'lucide-react'
+import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
+import { getDateTimeFormat, getLongDateFormat } from '@/lib/localTime'
 import { moods_path } from '@/lib/routes'
-import { cn, formatDate, isDateStringInFuture } from '@/lib/utils'
+import { cn, isDateStringInFuture } from '@/lib/utils'
 import type { Mood, MoodLevels } from '@/types'
 
 interface EditProps {
@@ -52,6 +54,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-2xl">
         <Link href={moods_path()}>
           <Button variant="ghost" className="mb-4">
+            <ArrowLeft className="h-4 w-4" />
             {t('frontend.moods.shared.back_to_calendar')}
           </Button>
         </Link>
@@ -75,7 +78,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
         <Card className="hover:translate-x-0 hover:translate-y-0">
           <CardHeader>
             <CardTitle className="text-lg text-muted-foreground">
-              {formatDate(mood.entry_date, undefined, locale)}
+              <LocalTime dateTime={mood.entry_date} dateOnly format={getLongDateFormat(locale)} />
             </CardTitle>
           </CardHeader>
 
@@ -173,15 +176,12 @@ export default function Edit({ mood, mood_levels }: EditProps) {
         <Card className="mt-4">
           <CardContent className="py-4">
             <p className="text-sm text-muted-foreground text-center">
-              {t('frontend.moods.edit.entry_created_on', {
-                date: new Date(mood.created_at).toLocaleDateString(locale, {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                }),
-              })}
+              {t('frontend.moods.edit.entry_created_on', { date: '' })}
+              <LocalTime
+                className="ml-1"
+                dateTime={mood.created_at}
+                format={getDateTimeFormat(locale)}
+              />
             </p>
           </CardContent>
         </Card>

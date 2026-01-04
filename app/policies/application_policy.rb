@@ -4,7 +4,7 @@
 # All policies should inherit from this class
 class ApplicationPolicy < ActionPolicy::Base
   # Configure authorization context
-  # This allows us to use `user` in our policy rules
+  # This allows us to use `user` in my policy rules
   authorize :user, allow_nil: true
 
   # Default rules - deny everything by default for security

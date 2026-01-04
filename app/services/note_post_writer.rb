@@ -1,4 +1,4 @@
-class BlogPostWriter
+class NotePostWriter
   CONTENT_DIR = Rails.root.join("app", "content", "posts")
 
   class << self
@@ -28,7 +28,7 @@ class BlogPostWriter
     def update(slug, params)
       return { success: false, error: "Invalid slug" } unless valid_slug?(slug)
 
-      post = BlogPost.find_by_slug(slug)
+      post = NotePost.find_by_slug(slug)
       return { success: false, error: "Post not found" } unless post
 
       # If slug changed, rename file
@@ -52,7 +52,7 @@ class BlogPostWriter
     def delete(slug)
       return { success: false, error: "Invalid slug" } unless valid_slug?(slug)
 
-      post = BlogPost.find_by_slug(slug)
+      post = NotePost.find_by_slug(slug)
       return { success: false, error: "Post not found" } unless post
 
       File.delete(post.file_path)

@@ -1,4 +1,4 @@
-class BlogPost
+class NotePost
   include ActiveModel::Model
 
   attr_accessor :title, :slug, :date, :excerpt, :category, :tags,
@@ -9,7 +9,7 @@ class BlogPost
 
   class << self
     def all
-      Rails.cache.fetch("blog_posts_all", expires_in: 1.hour, race_condition_ttl: 5.seconds) do
+      Rails.cache.fetch("note_posts_all", expires_in: 1.hour, race_condition_ttl: 5.seconds) do
         load_posts
       end
     end
@@ -43,8 +43,8 @@ class BlogPost
     end
 
     def reload!
-      Rails.cache.delete("blog_posts_all")
-      Rails.cache.delete("blog_search_index")
+      Rails.cache.delete("note_posts_all")
+      Rails.cache.delete("note_search_index")
       @all = nil
       all
     end
@@ -97,7 +97,7 @@ class BlogPost
 
   def url_path
     return nil unless date && slug
-    "/blog/#{date.year}/#{slug}"
+    "/note/#{date.year}/#{slug}"
   end
 
   def to_json_hash

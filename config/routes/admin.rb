@@ -10,10 +10,10 @@ authenticate :user, ->(user) { user.admin? } do
   mount Sidekiq::Web => "/sidekiq"
 end
 
-# Blog admin routes - must come before public blog routes
-get "blog/admin", to: "blog_admin#index", as: :blog_admin_index
-get "blog/admin/new", to: "blog_admin#new", as: :new_blog_admin
-post "blog/admin", to: "blog_admin#create"
-get "blog/admin/:slug/edit", to: "blog_admin#edit", as: :edit_blog_admin
-patch "blog/admin/:slug", to: "blog_admin#update"
-delete "blog/admin/:slug", to: "blog_admin#destroy"
+# Note admin routes - must come before public note routes
+get "note/admin", to: "note_admin#index", as: :note_admin_index
+get "note/admin/new", to: "note_admin#new", as: :new_note_admin
+post "note/admin", to: "note_admin#create"
+get "note/admin/:slug/edit", to: "note_admin#edit", as: :edit_note_admin
+patch "note/admin/:slug", to: "note_admin#update"
+delete "note/admin/:slug", to: "note_admin#destroy"

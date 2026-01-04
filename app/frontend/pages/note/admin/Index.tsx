@@ -10,30 +10,30 @@ interface AdminIndexProps {
 export default function AdminIndex({ posts }: AdminIndexProps) {
   const handleDelete = (slug: string, title: string) => {
     if (confirm(`Are you sure you want to delete "${title}"?`)) {
-      router.delete(`/blog/admin/${slug}`)
+      router.delete(`/note/admin/${slug}`)
     }
   }
 
   return (
     <>
-      <Head title="Manage Blog Posts" />
+      <Head title="Manage Notes" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Manage Blog Posts</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Manage Notes</h1>
             <p className="text-muted-foreground mt-2">
-              {posts.length} total post{posts.length !== 1 ? 's' : ''}
+              {posts.length} total note{posts.length !== 1 ? 's' : ''}
             </p>
           </div>
-          <Link href="/blog/admin/new">
-            <Button size="lg">Create New Post</Button>
+          <Link href="/note/admin/new">
+            <Button size="lg">Create New Note</Button>
           </Link>
         </div>
 
         <div className="mb-4">
-          <Link href="/blog">
-            <Button variant="outline">View Blog</Button>
+          <Link href="/note">
+            <Button variant="outline">View Notes</Button>
           </Link>
         </div>
 
@@ -57,7 +57,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                       </div>
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      <Link href={`/blog/admin/${post.slug}/edit`}>
+                      <Link href={`/note/admin/${post.slug}/edit`}>
                         <Button variant="outline" size="sm">
                           Edit
                         </Button>
@@ -77,9 +77,9 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
           </div>
         ) : (
           <div className="text-center py-12 border-2 border-dashed rounded-lg">
-            <p className="text-lg text-muted-foreground mb-4">No blog posts yet</p>
-            <Link href="/blog/admin/new">
-              <Button>Create your first post</Button>
+            <p className="text-lg text-muted-foreground mb-4">No notes yet</p>
+            <Link href="/note/admin/new">
+              <Button>Create your first note</Button>
             </Link>
           </div>
         )}

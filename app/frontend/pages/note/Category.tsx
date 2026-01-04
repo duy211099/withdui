@@ -23,8 +23,8 @@ export default function Category({
 
   // Preserve the view mode when going back
   const getBackUrl = () => {
-    const savedView = typeof window !== 'undefined' ? localStorage.getItem('blogViewMode') : null
-    return savedView === 'graph' ? '/blog?view=graph' : '/blog'
+    const savedView = typeof window !== 'undefined' ? localStorage.getItem('noteViewMode') : null
+    return savedView === 'graph' ? '/note?view=graph' : '/note'
   }
 
   return (
@@ -34,7 +34,7 @@ export default function Category({
       <div className="container mx-auto px-4 py-8">
         <Link href={getBackUrl()}>
           <Button variant="ghost" className="mb-4">
-            ← Back to Blog
+            ← Back to Notes
           </Button>
         </Link>
 
@@ -52,7 +52,7 @@ export default function Category({
             {all_categories
               .filter((c) => c !== category)
               .map((cat) => (
-                <Link key={cat} href={`/blog/category/${cat}`}>
+                <Link key={cat} href={`/note/category/${cat}`}>
                   <Button variant="outline" size="sm">
                     {cat}
                   </Button>
@@ -67,7 +67,7 @@ export default function Category({
             {all_tags
               .filter((t) => t !== tag)
               .map((t) => (
-                <Link key={t} href={`/blog/tag/${t}`}>
+                <Link key={t} href={`/note/tag/${t}`}>
                   <Button variant="outline" size="sm">
                     #{t}
                   </Button>
@@ -117,7 +117,7 @@ export default function Category({
         ) : (
           <div className="text-center py-12 text-muted-foreground">
             <p className="text-lg">No posts found in this {filterType}</p>
-            <Link href="/blog">
+            <Link href="/note">
               <Button variant="link" className="mt-2">
                 View all posts
               </Button>

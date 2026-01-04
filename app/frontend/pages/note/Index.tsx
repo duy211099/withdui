@@ -2,7 +2,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import { Document } from 'flexsearch'
 import { List, Network } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import BlogGraphView from '@/components/BlogGraphView'
+import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -19,14 +19,14 @@ interface SearchIndexItem {
   [key: string]: any
 }
 
-interface BlogIndexProps {
+interface NoteIndexProps {
   posts: PostListItem[]
   categories: string[]
   tags?: string[]
   search_index: SearchIndexItem[]
 }
 
-export default function BlogIndex({ posts, categories, tags, search_index }: BlogIndexProps) {
+export default function NoteIndex({ posts, categories, tags, search_index }: NoteIndexProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
@@ -46,10 +46,10 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
     setViewMode(newMode)
 
     // Save to localStorage for persistence
-    localStorage.setItem('blogViewMode', newMode)
+    localStorage.setItem('noteViewMode', newMode)
 
     // Update URL using Inertia router
-    router.visit('/blog', {
+    router.visit('/note', {
       data: newMode === 'graph' ? { view: 'graph' } : {},
       preserveState: true,
       preserveScroll: true,
@@ -201,7 +201,7 @@ export default function BlogIndex({ posts, categories, tags, search_index }: Blo
 
         {/* Content - Graph or List View */}
         {viewMode === 'graph' ? (
-          <BlogGraphView posts={filteredPosts.length > 0 ? filteredPosts : posts} />
+          <NoteGraphView posts={filteredPosts.length > 0 ? filteredPosts : posts} />
         ) : (
           <>
             {/* Posts Grid */}

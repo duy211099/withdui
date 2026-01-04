@@ -1,4 +1,4 @@
-# Watch content files for changes and reload blog cache in development
+# Watch content files for changes and reload note cache in development
 if Rails.env.development?
   require "listen"
 
@@ -6,9 +6,9 @@ if Rails.env.development?
 
   listener = Listen.to(content_path) do |modified, added, removed|
     if (modified + added + removed).any? { |f| f.end_with?(".mdx") }
-      Rails.logger.info "📝 Content changed, reloading blog cache..."
-      BlogPost.reload!
-      BlogSearchIndex.reload! if defined?(BlogSearchIndex)
+      Rails.logger.info "📝 Content changed, reloading note cache..."
+      NotePost.reload!
+      NoteSearchIndex.reload! if defined?(NoteSearchIndex)
     end
   end
 

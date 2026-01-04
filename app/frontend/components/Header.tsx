@@ -28,7 +28,7 @@ export default function Header() {
             >
               {t('frontend.header.about')}
             </Link>
-            <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link href="/note" className="text-sm font-medium hover:text-primary transition-colors">
               {t('frontend.header.blog')}
             </Link>
             <Link

@@ -3,18 +3,18 @@ import { lazy, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import type { Post } from '@/types'
 
-const MDXRenderer = lazy(() => import('@/components/blog/MDXRenderer'))
+const MDXRenderer = lazy(() => import('@/components/note/MDXRenderer'))
 
-interface BlogShowProps {
+interface NoteShowProps {
   post: Post
   related_posts: Post[]
 }
 
-export default function BlogShow({ post, related_posts }: BlogShowProps) {
+export default function NoteShow({ post, related_posts }: NoteShowProps) {
   // Preserve the view mode when going back
   const getBackUrl = () => {
-    const savedView = typeof window !== 'undefined' ? localStorage.getItem('blogViewMode') : null
-    return savedView === 'graph' ? '/blog?view=graph' : '/blog'
+    const savedView = typeof window !== 'undefined' ? localStorage.getItem('noteViewMode') : null
+    return savedView === 'graph' ? '/note?view=graph' : '/note'
   }
 
   return (
@@ -26,7 +26,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
         <header className="mb-8">
           <Link href={getBackUrl()}>
             <Button variant="ghost" className="mb-4">
-              ← Back to Blog
+              ← Back to Notes
             </Button>
           </Link>
 
@@ -48,7 +48,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
               <>
                 <span>•</span>
                 <Link
-                  href={`/blog/category/${post.category}`}
+                  href={`/note/category/${post.category}`}
                   className="hover:underline hover:text-primary"
                 >
                   {post.category}
@@ -60,7 +60,7 @@ export default function BlogShow({ post, related_posts }: BlogShowProps) {
           {post.tags && post.tags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {post.tags.map((tag) => (
-                <Link key={tag} href={`/blog/tag/${tag}`}>
+                <Link key={tag} href={`/note/tag/${tag}`}>
                   <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm hover:bg-secondary/80 transition-colors">
                     #{tag}
                   </span>

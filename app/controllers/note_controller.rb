@@ -1,15 +1,15 @@
-class BlogController < ApplicationController
-  # Public blog - no authentication required
+class NoteController < ApplicationController
+  # Public note - no authentication required
   skip_before_action :authenticate_user!, if: :devise_controller_defined?, raise: false
 
   def index
-    posts = BlogPost.published
+    posts = NotePost.published
 
-    render inertia: "blog/Index", props: {
+    render inertia: "note/Index", props: {
       posts: posts.map(&:to_json_hash),
-      categories: BlogPost.categories,
-      tags: BlogPost.all_tags,
-      search_index: BlogSearchIndex.build
+      categories: NotePost.categories,
+      tags: NotePost.all_tags,
+      search_index: NoteSearchIndex.build
     }
   end
 
@@ -17,21 +17,21 @@ class BlogController < ApplicationController
     year = params[:year]
     slug = params[:slug]
 
-    Rails.logger.debug "=== Blog Post Lookup ==="
+    Rails.logger.debug "=== Note Lookup ==="
     Rails.logger.debug "Looking for: year=#{year}, slug=#{slug}"
 
-    post = BlogPost.find_by_path(year, slug)
+    post = NotePost.find_by_path(year, slug)
 
     Rails.logger.debug "Found post: #{post&.title || 'nil'}"
     Rails.logger.debug "Published: #{post&.published}"
     Rails.logger.debug "======================="
 
     if post.nil? || !post.published
-      redirect_to blog_index_path, alert: t("blog.post_not_found")
+      redirect_to note_index_path, alert: t("blog.post_not_found")
       return
     end
 
-    render inertia: "blog/Show", props: {
+    render inertia: "note/Show", props: {
       post: post.to_json_hash,
       related_posts: find_related_posts(post).map(&:to_json_hash)
     }
@@ -39,23 +39,23 @@ class BlogController < ApplicationController
 
   def category
     category = params[:category]
-    posts = BlogPost.by_category(category)
+    posts = NotePost.by_category(category)
 
-    render inertia: "blog/Category", props: {
+    render inertia: "note/Category", props: {
       category: category,
       posts: posts.map(&:to_json_hash),
-      all_categories: BlogPost.categories
+      all_categories: NotePost.categories
     }
   end
 
   def tag
     tag = params[:tag]
-    posts = BlogPost.by_tag(tag)
+    posts = NotePost.by_tag(tag)
 
-    render inertia: "blog/Category", props: {
+    render inertia: "note/Category", props: {
       tag: tag,
       posts: posts.map(&:to_json_hash),
-      all_tags: BlogPost.all_tags
+      all_tags: NotePost.all_tags
     }
   end
 
@@ -63,7 +63,7 @@ class BlogController < ApplicationController
 
   def find_related_posts(post)
     # Find posts with same category or overlapping tags
-    BlogPost.published
+    NotePost.published
       .select { |p| p.slug != post.slug }
       .select { |p| p.category == post.category || (p.tags & post.tags).any? }
       .take(3)

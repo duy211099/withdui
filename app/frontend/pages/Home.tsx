@@ -1,8 +1,8 @@
 import { Head, Link, router, usePage } from '@inertiajs/react'
 import { useState } from 'react'
-import BlogGraphView from '@/components/BlogGraphView'
 import MoodCalendar from '@/components/MoodCalendar'
 import MultiMoodModal from '@/components/MultiMoodModal'
+import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
@@ -115,13 +115,13 @@ export default function Home() {
             <div className="w-full mt-10">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold">{t('frontend.home.blog_graph_title')}</h2>
-                <Link href="/blog?view=graph">
+                <Link href="/note?view=graph">
                   <Button variant="outline" size="sm">
                     {t('frontend.home.blog_graph_cta')}
                   </Button>
                 </Link>
               </div>
-              <BlogGraphView posts={posts} />
+              <NoteGraphView posts={posts} />
             </div>
           )}
         </main>

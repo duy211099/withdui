@@ -22,7 +22,7 @@ interface GraphData {
   categoryColors: Record<string, string>
 }
 
-interface BlogGraphViewProps {
+interface NoteGraphViewProps {
   posts: PostListItem[]
 }
 
@@ -98,7 +98,7 @@ function buildGraphData(posts: PostListItem[]): GraphData {
   return { nodes, links, categoryColors }
 }
 
-export default function BlogGraphView({ posts }: BlogGraphViewProps) {
+export default function NoteGraphView({ posts }: NoteGraphViewProps) {
   const graphRef = useRef<any>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [graphData, setGraphData] = useState<GraphData>({

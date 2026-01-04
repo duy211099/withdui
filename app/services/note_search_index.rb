@@ -1,7 +1,7 @@
-class BlogSearchIndex
+class NoteSearchIndex
   class << self
     def build
-      Rails.cache.fetch("blog_search_index", expires_in: 1.hour, race_condition_ttl: 5.seconds) do
+      Rails.cache.fetch("note_search_index", expires_in: 1.hour, race_condition_ttl: 5.seconds) do
         generate_index
       end
     end
@@ -9,7 +9,7 @@ class BlogSearchIndex
     private
 
     def generate_index
-      BlogPost.published.map do |post|
+      NotePost.published.map do |post|
         {
           id: post.slug,
           title: post.title,

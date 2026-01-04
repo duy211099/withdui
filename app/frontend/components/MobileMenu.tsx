@@ -46,7 +46,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
               <span>Home</span>
             </Link>
             <Link
-              href="/blog"
+              href="/note"
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >

@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   # Authentication routes
   draw :devise
 
-  # Admin-only routes (Sidekiq, Blog Admin)
+  # Admin-only routes (Sidekiq, Note Admin)
   draw :admin
 
-  # Public blog routes
-  draw :blog
+  # Public note routes
+  draw :note
 
   # Mood tracker routes
   draw :moods

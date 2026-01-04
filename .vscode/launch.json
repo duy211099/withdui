@@ -2,27 +2,35 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "ruby",
+      "type": "ruby_lsp",
       "name": "Debug Rails Server",
       "request": "launch",
-      "program": "${workspaceFolder}/bin/rails",
-      "args": [
-        "server"
-      ],
-      "cwd": "${workspaceFolder}",
-      "useBundler": true
+      "program": "bin/rails server -p 3100"
     },
     {
-      "type": "ruby",
+      "type": "ruby_lsp",
       "name": "Debug Rails Test (Current File)",
       "request": "launch",
-      "program": "${workspaceFolder}/bin/rails",
-      "args": [
-        "test",
-        "${file}"
-      ],
-      "cwd": "${workspaceFolder}",
-      "useBundler": true
+      "program": "bin/rails test ${relativeFile}"
+    },
+    {
+      "type": "ruby_lsp",
+      "name": "Debug Current Ruby File",
+      "request": "launch",
+      "program": "ruby ${file}"
+    },
+    {
+      "type": "ruby_lsp",
+      "name": "Attach to Existing Server",
+      "request": "attach"
+    },
+    {
+      "type": "chrome",
+      "name": "Debug React (Chrome)",
+      "request": "launch",
+      "url": "http://localhost:3100",
+      "webRoot": "${workspaceFolder}/app/frontend",
+      "sourceMaps": true
     }
   ]
 }

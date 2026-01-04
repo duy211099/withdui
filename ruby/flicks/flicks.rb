@@ -41,10 +41,11 @@
 # ___________________________________________________________
 
 # ___________________________________________________________
-# Classes
-# ___________________________________________________________
-
+# Classes & Attributes
 class Movie
+  attr_accessor :title
+  attr_reader :rank
+
   def initialize(title, rank = 5)
     @title=title
     @rank=rank
@@ -66,6 +67,10 @@ movie = Movie.new("Dui", 10)
 puts movie
 movie.like
 puts movie
+puts movie.title
+movie.title = "DUI NEWW"
+puts movie.title
+puts movie.rank
 
 movie2 = Movie.new("Dui2", 21)
 puts movie2
@@ -74,3 +79,4 @@ puts movie2
 
 movie2 = Movie.new("Dui3")
 puts movie2
+# ___________________________________________________________

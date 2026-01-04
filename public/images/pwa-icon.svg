@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Withdui">
-  <rect width="512" height="512" rx="96" fill="#0f172a"/>
-  <path d="M136 176h84c56 0 92 32 92 80s-36 80-92 80h-44v80h-40V176zm80 120c32 0 52-16 52-40s-20-40-52-40h-40v80h40z" fill="#f8fafc"/>
-  <path d="M300 176h40l36 152 36-152h40l-56 224h-40l-56-224z" fill="#f8fafc"/>
-</svg>

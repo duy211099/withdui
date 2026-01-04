@@ -1,5 +1,17 @@
 const STATIC_CACHE = 'withdui-static-v2'
-const STATIC_ASSETS = ['/manifest.webmanifest', '/images/pwa-icon.svg']
+const STATIC_ASSETS = [
+  '/manifest.webmanifest',
+  '/images/icon-48x48.png',
+  '/images/icon-72x72.png',
+  '/images/icon-96x96.png',
+  '/images/icon-128x128.png',
+  '/images/icon-144x144.png',
+  '/images/icon-152x152.png',
+  '/images/icon-192x192.png',
+  '/images/icon-256x256.png',
+  '/images/icon-384x384.png',
+  '/images/icon-512x512.png',
+]
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

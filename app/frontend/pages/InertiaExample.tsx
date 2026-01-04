@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import inertiaSvg from '/assets/inertia.svg'
 import reactSvg from '/assets/react.svg'
 import viteRubySvg from '/assets/vite_ruby.svg'
@@ -21,10 +22,10 @@ export default function InertiaExample({ name }: { name: string }) {
             <img className={cs.logo} src={inertiaSvg} alt="Inertia logo" />
           </a>
           <a href="https://vite-ruby.netlify.app" target="_blank" rel="noopener">
-            <img className={`${cs.logo} ${cs.vite}`} src={viteRubySvg} alt="Vite Ruby logo" />
+            <img className={cn(cs.logo, cs.vite)} src={viteRubySvg} alt="Vite Ruby logo" />
           </a>
           <a href="https://react.dev" target="_blank" rel="noopener">
-            <img className={`${cs.logo} ${cs.react}`} src={reactSvg} alt="React logo" />
+            <img className={cn(cs.logo, cs.react)} src={reactSvg} alt="React logo" />
           </a>
         </div>
 

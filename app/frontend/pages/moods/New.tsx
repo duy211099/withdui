@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
 import { moods_path } from '@/lib/routes'
-import { formatDate, isDateStringInFuture } from '@/lib/utils'
+import { cn, formatDate, isDateStringInFuture } from '@/lib/utils'
 import type { MoodLevels } from '@/types'
 
 interface NewProps {
@@ -79,15 +79,13 @@ export default function New({ date, mood_levels }: NewProps) {
                         key={level}
                         type="button"
                         onClick={() => setData('level', levelNum)}
-                        className={`
-                          flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2
-                          transition-all hover:shadow-lg
-                          ${
-                            isSelected
-                              ? 'shadow-lg ring-2 ring-offset-1'
-                              : 'border-border hover:border-primary'
-                          }
-                        `}
+                        className={cn(
+                          'flex flex-col items-center gap-2 p-3 sm:p-4 rounded-lg border-2',
+                          'transition-all hover:shadow-lg',
+                          isSelected
+                            ? 'shadow-lg ring-2 ring-offset-1'
+                            : 'border-border hover:border-primary'
+                        )}
                         style={
                           {
                             backgroundColor: isSelected ? `${config.color}25` : `${config.color}10`,

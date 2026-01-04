@@ -52,7 +52,7 @@ export default function Index({
 
     // If there are no moods for this day
     if (dayMoods.length === 0) {
-      if (can_edit) {
+      if (canEditMoods) {
         router.visit(`/moods/new?date=${date}`)
       }
       return
@@ -97,9 +97,9 @@ export default function Index({
   // Determine if showing multi-user view
   const isMultiUserView = !viewing_user_id
 
-  // Determine if user can edit moods on the calendar
-  const canEditMoods =
-    current_user && (viewing_user_id === null || viewing_user_id === current_user.id) && can_edit
+  const isFilteredView = viewing_user_id !== null
+  // Prevent edits when viewing a filtered user's calendar
+  const canEditMoods = Boolean(current_user && !isFilteredView && can_edit)
 
   return (
     <>
@@ -113,7 +113,7 @@ export default function Index({
             <h1 className="text-3xl sm:text-4xl font-bold">{t('frontend.moods.index.title')}</h1>
           </div>
 
-          {can_edit && (
+          {canEditMoods && (
             <Button className="w-full sm:w-auto" onClick={() => router.visit('/moods/new')}>
               {t('frontend.moods.index.record_today')}
             </Button>
@@ -212,6 +212,7 @@ export default function Index({
           onMonthChange={handleMonthChange}
           onDayClick={handleDayClick}
           showUserAvatars={isMultiUserView}
+          canEdit={canEditMoods}
         />
 
         {/* Empty state */}
@@ -223,7 +224,7 @@ export default function Index({
                 {t('frontend.moods.empty_state.title')}
               </h3>
               <p className="text-muted-foreground">
-                {can_edit
+                {canEditMoods
                   ? t('frontend.moods.empty_state.cta')
                   : t('frontend.moods.empty_state.no_entries')}
               </p>
@@ -273,7 +274,7 @@ export default function Index({
         onClose={() => setIsMultiMoodModalOpen(false)}
         moods={selectedDayMoods}
         current_user={current_user}
-        canEdit={can_edit}
+        canEdit={canEditMoods}
       />
     </>
   )

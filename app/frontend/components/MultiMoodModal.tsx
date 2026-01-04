@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useI18n } from '@/contexts/I18nContext'
+import { cn } from '@/lib/utils'
 import type { Mood, User } from '@/types'
 
 interface MultiMoodModalProps {
@@ -56,9 +57,10 @@ export default function MultiMoodModal({
             return (
               <Card
                 key={mood.id}
-                className={`hover:translate-x-0 hover:translate-y-0 ${
-                  isCurrentUser ? 'ring-2 ring-primary' : ''
-                }`}
+                className={cn(
+                  'hover:translate-x-0 hover:translate-y-0',
+                  isCurrentUser && 'ring-2 ring-primary'
+                )}
               >
                 <CardContent className="pt-6">
                   <div className="flex flex-col sm:flex-row items-start gap-4">

@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useI18n } from '@/contexts/I18nContext'
-import { isFutureDate, isToday } from '@/lib/utils'
+import { cn, isFutureDate, isToday } from '@/lib/utils'
 import type { Mood } from '@/types'
 
 interface MoodCalendarProps {
@@ -12,6 +12,7 @@ interface MoodCalendarProps {
   onMonthChange: (year: number, month: number) => void
   onDayClick: (day: number, moods: Mood[]) => void
   showUserAvatars?: boolean
+  canEdit?: boolean
 }
 
 export default function MoodCalendar({
@@ -21,6 +22,7 @@ export default function MoodCalendar({
   onMonthChange,
   onDayClick,
   showUserAvatars = false,
+  canEdit = true,
 }: MoodCalendarProps) {
   const { t, locale } = useI18n()
   // Calculate calendar grid dimensions
@@ -147,14 +149,19 @@ export default function MoodCalendar({
               key={day}
               onClick={() => onDayClick(day, dayMoods)}
               disabled={isFuture}
-              className={`
-                aspect-square rounded-lg border-2 transition-all
-                flex flex-col items-center justify-center
-                relative
-                ${today ? 'border-primary ring-2 ring-primary ring-offset-2' : 'border-border'}
-                ${isFuture ? 'cursor-not-allowed opacity-40 bg-muted/50' : 'hover:border-primary hover:shadow-md'}
-                ${primaryMood && !isFuture ? 'cursor-pointer' : !isFuture ? 'cursor-pointer hover:bg-muted' : ''}
-              `}
+              className={cn(
+                'aspect-square rounded-lg border-2 transition-all',
+                'flex flex-col items-center justify-center relative',
+                today ? 'border-primary ring-2 ring-primary ring-offset-2' : 'border-border',
+                isFuture || !canEdit
+                  ? 'cursor-not-allowed opacity-40 bg-muted/50'
+                  : 'hover:border-primary hover:shadow-md',
+                primaryMood && !isFuture && canEdit
+                  ? 'cursor-pointer'
+                  : !isFuture && canEdit
+                    ? 'cursor-pointer hover:bg-muted'
+                    : ''
+              )}
               style={{
                 backgroundColor: primaryMood ? `${primaryMood.mood_color}15` : undefined,
                 borderColor: primaryMood ? primaryMood.mood_color : undefined,

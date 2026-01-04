@@ -1,6 +1,15 @@
 import { Link } from '@inertiajs/react'
 import { BookOpen, Home, Info, Smile, Wrench, X } from 'lucide-react'
 import { useTranslation } from '@/contexts/I18nContext'
+import {
+  about_path,
+  destroy_user_session_path,
+  moods_path,
+  new_user_session_path,
+  note_index_path,
+  root_path,
+  utils_index_path,
+} from '@/lib/routes'
 import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -38,7 +47,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
         <nav className="flex flex-col p-4">
           <div className="space-y-2">
             <Link
-              href="/"
+              href={root_path()}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
@@ -46,7 +55,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
               <span>Home</span>
             </Link>
             <Link
-              href="/note"
+              href={note_index_path()}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
@@ -54,7 +63,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
               <span>{t('frontend.header.blog')}</span>
             </Link>
             <Link
-              href="/about"
+              href={about_path()}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
@@ -62,7 +71,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
               <span>{t('frontend.header.about')}</span>
             </Link>
             <Link
-              href="/utils"
+              href={utils_index_path()}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
@@ -71,7 +80,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
             </Link>
             {current_user && (
               <Link
-                href="/moods"
+                href={moods_path()}
                 className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
                 onClick={onClose}
               >
@@ -106,14 +115,14 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
                   </span>
                 </div>
                 <Button variant="outline" size="sm" asChild className="w-full">
-                  <Link href="/users/sign_out" method="delete" as="button">
+                  <Link href={destroy_user_session_path()} method="delete" as="button">
                     {t('frontend.header.sign_out')}
                   </Link>
                 </Button>
               </div>
             ) : (
               <Button variant="default" size="default" asChild className="w-full">
-                <Link href="/users/sign_in">{t('frontend.header.sign_in')}</Link>
+                <Link href={new_user_session_path()}>{t('frontend.header.sign_in')}</Link>
               </Button>
             )}
           </div>

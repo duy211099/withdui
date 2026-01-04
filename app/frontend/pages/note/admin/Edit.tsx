@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
+import { note_admin_index_path } from '@/lib/routes'
 import type { Post } from '@/types'
 
 interface EditProps {
@@ -49,7 +50,7 @@ export default function Edit({ post, categories }: EditProps) {
       <Head title={`Edit: ${post.title}`} />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 w-full max-w-4xl">
-        <Link href="/note/admin">
+        <Link href={note_admin_index_path()}>
           <Button variant="ghost" className="mb-4">
             ← Back to Admin
           </Button>
@@ -213,7 +214,7 @@ export default function Edit({ post, categories }: EditProps) {
             <Button type="submit" disabled={processing} size="lg">
               {processing ? 'Saving...' : 'Save Changes'}
             </Button>
-            <Link href="/note/admin">
+            <Link href={note_admin_index_path()}>
               <Button type="button" variant="outline" size="lg">
                 Cancel
               </Button>

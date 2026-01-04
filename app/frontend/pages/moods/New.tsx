@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
+import { moods_path } from '@/lib/routes'
 import { formatDate, isDateStringInFuture } from '@/lib/utils'
 import type { MoodLevels } from '@/types'
 
@@ -35,7 +36,7 @@ export default function New({ date, mood_levels }: NewProps) {
       return
     }
 
-    post('/moods')
+    post(moods_path())
   }
 
   return (
@@ -43,7 +44,7 @@ export default function New({ date, mood_levels }: NewProps) {
       <Head title={t('frontend.moods.new.title')} />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-2xl">
-        <Link href="/moods">
+        <Link href={moods_path()}>
           <Button variant="ghost" className="mb-4">
             {t('frontend.moods.shared.back_to_calendar')}
           </Button>
@@ -141,7 +142,7 @@ export default function New({ date, mood_levels }: NewProps) {
                     ? t('frontend.moods.form.saving')
                     : t('frontend.moods.form.save_mood')}
                 </Button>
-                <Link href="/moods">
+                <Link href={moods_path()}>
                   <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto">
                     {t('frontend.moods.shared.cancel')}
                   </Button>

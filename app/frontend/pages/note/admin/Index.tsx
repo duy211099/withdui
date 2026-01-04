@@ -1,6 +1,7 @@
 import { Head, Link, router } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
+import { edit_note_admin_path, new_note_admin_path, note_index_path } from '@/lib/routes'
 import type { PostAdminListItem } from '@/types'
 
 interface AdminIndexProps {
@@ -26,13 +27,13 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
               {posts.length} total note{posts.length !== 1 ? 's' : ''}
             </p>
           </div>
-          <Link href="/note/admin/new">
+          <Link href={new_note_admin_path()}>
             <Button size="lg">Create New Note</Button>
           </Link>
         </div>
 
         <div className="mb-4">
-          <Link href="/note">
+          <Link href={note_index_path()}>
             <Button variant="outline">View Notes</Button>
           </Link>
         </div>
@@ -57,7 +58,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                       </div>
                     </div>
                     <div className="flex gap-2 shrink-0">
-                      <Link href={`/note/admin/${post.slug}/edit`}>
+                      <Link href={edit_note_admin_path(post.slug)}>
                         <Button variant="outline" size="sm">
                           Edit
                         </Button>
@@ -78,7 +79,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
         ) : (
           <div className="text-center py-12 border-2 border-dashed rounded-lg">
             <p className="text-lg text-muted-foreground mb-4">No notes yet</p>
-            <Link href="/note/admin/new">
+            <Link href={new_note_admin_path()}>
               <Button>Create your first note</Button>
             </Link>
           </div>

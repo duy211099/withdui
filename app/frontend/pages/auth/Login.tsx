@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
-import { user_google_oauth2_omniauth_authorize } from '@/lib/routes'
+import { user_google_oauth2_omniauth_authorize_path } from '@/lib/routes'
 
 export default function Login() {
   const { t } = useTranslation()
@@ -20,7 +20,7 @@ export default function Login() {
     // Create and submit form with CSRF token
     const form = document.createElement('form')
     form.method = 'POST'
-    form.action = user_google_oauth2_omniauth_authorize()
+    form.action = user_google_oauth2_omniauth_authorize_path()
 
     const csrfInput = document.createElement('input')
     csrfInput.type = 'hidden'

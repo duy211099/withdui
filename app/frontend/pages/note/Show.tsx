@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import { lazy, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
+import { note_category_path, note_index_path, note_tag_path } from '@/lib/routes'
 import type { Post } from '@/types'
 
 const MDXRenderer = lazy(() => import('@/components/note/MDXRenderer'))
@@ -14,7 +15,7 @@ export default function NoteShow({ post, related_posts }: NoteShowProps) {
   // Preserve the view mode when going back
   const getBackUrl = () => {
     const savedView = typeof window !== 'undefined' ? localStorage.getItem('noteViewMode') : null
-    return savedView === 'graph' ? '/note?view=graph' : '/note'
+    return savedView === 'graph' ? note_index_path({ view: 'graph' }) : note_index_path()
   }
 
   return (
@@ -48,7 +49,7 @@ export default function NoteShow({ post, related_posts }: NoteShowProps) {
               <>
                 <span>•</span>
                 <Link
-                  href={`/note/category/${post.category}`}
+                  href={note_category_path(post.category)}
                   className="hover:underline hover:text-primary"
                 >
                   {post.category}
@@ -60,7 +61,7 @@ export default function NoteShow({ post, related_posts }: NoteShowProps) {
           {post.tags && post.tags.length > 0 && (
             <div className="flex gap-2 flex-wrap">
               {post.tags.map((tag) => (
-                <Link key={tag} href={`/note/tag/${tag}`}>
+                <Link key={tag} href={note_tag_path(tag)}>
                   <span className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm hover:bg-secondary/80 transition-colors">
                     #{tag}
                   </span>

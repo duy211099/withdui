@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
+import { moods_path } from '@/lib/routes'
 import { formatDate, isDateStringInFuture } from '@/lib/utils'
 import type { Mood, MoodLevels } from '@/types'
 
@@ -35,12 +36,12 @@ export default function Edit({ mood, mood_levels }: EditProps) {
       return
     }
 
-    patch(`/moods/${mood.id}`)
+    patch(moods_path(mood.id))
   }
 
   const handleDelete = () => {
     if (confirm(t('frontend.moods.edit.confirm_delete'))) {
-      router.delete(`/moods/${mood.id}`)
+      router.delete(moods_path(mood.id))
     }
   }
 
@@ -49,7 +50,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
       <Head title={t('frontend.moods.edit.title')} />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 md:py-8 max-w-2xl">
-        <Link href="/moods">
+        <Link href={moods_path()}>
           <Button variant="ghost" className="mb-4">
             {t('frontend.moods.shared.back_to_calendar')}
           </Button>
@@ -158,7 +159,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
                     ? t('frontend.moods.form.updating')
                     : t('frontend.moods.form.update_mood')}
                 </Button>
-                <Link href="/moods">
+                <Link href={moods_path()}>
                   <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto">
                     {t('frontend.moods.shared.cancel')}
                   </Button>

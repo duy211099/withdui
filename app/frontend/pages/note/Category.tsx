@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { note_category_path, note_index_path, note_tag_path } from '@/lib/routes'
 import type { PostListItem } from '@/types'
 
 interface CategoryProps {
@@ -24,7 +25,7 @@ export default function Category({
   // Preserve the view mode when going back
   const getBackUrl = () => {
     const savedView = typeof window !== 'undefined' ? localStorage.getItem('noteViewMode') : null
-    return savedView === 'graph' ? '/note?view=graph' : '/note'
+    return savedView === 'graph' ? note_index_path({ view: 'graph' }) : note_index_path()
   }
 
   return (
@@ -52,7 +53,7 @@ export default function Category({
             {all_categories
               .filter((c) => c !== category)
               .map((cat) => (
-                <Link key={cat} href={`/note/category/${cat}`}>
+                <Link key={cat} href={note_category_path(cat)}>
                   <Button variant="outline" size="sm">
                     {cat}
                   </Button>
@@ -67,7 +68,7 @@ export default function Category({
             {all_tags
               .filter((t) => t !== tag)
               .map((t) => (
-                <Link key={t} href={`/note/tag/${t}`}>
+                <Link key={t} href={note_tag_path(t)}>
                   <Button variant="outline" size="sm">
                     #{t}
                   </Button>
@@ -117,7 +118,7 @@ export default function Category({
         ) : (
           <div className="text-center py-12 text-muted-foreground">
             <p className="text-lg">No posts found in this {filterType}</p>
-            <Link href="/note">
+            <Link href={note_index_path()}>
               <Button variant="link" className="mt-2">
                 View all posts
               </Button>

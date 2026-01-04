@@ -2,6 +2,14 @@ import { Link, usePage } from '@inertiajs/react'
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from '@/contexts/I18nContext'
+import {
+  about_path,
+  destroy_user_session_path,
+  moods_path,
+  new_user_session_path,
+  note_index_path,
+  root_path,
+} from '@/lib/routes'
 import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
 import MobileMenu from './MobileMenu'
@@ -17,22 +25,25 @@ export default function Header() {
     <header className="border-b-2">
       <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between max-w-5xl">
         <div className="flex gap-4">
-          <Link href="/" className="text-xl font-bold">
+          <Link href={root_path()} className="text-xl font-bold">
             {t('frontend.header.app_name')}
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             <Link
-              href="/about"
+              href={about_path()}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.about')}
             </Link>
-            <Link href="/note" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link
+              href={note_index_path()}
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               {t('frontend.header.blog')}
             </Link>
             <Link
-              href="/moods"
+              href={moods_path()}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               Moods
@@ -58,14 +69,14 @@ export default function Header() {
                 {current_user.name || current_user.email}
               </span>
               <Button variant="outline" size="sm" asChild>
-                <Link href="/users/sign_out" method="delete" as="button">
+                <Link href={destroy_user_session_path()} method="delete" as="button">
                   {t('frontend.header.sign_out')}
                 </Link>
               </Button>
             </div>
           ) : (
             <Button variant="default" size="sm" asChild>
-              <Link href="/users/sign_in">{t('frontend.header.sign_in')}</Link>
+              <Link href={new_user_session_path()}>{t('frontend.header.sign_in')}</Link>
             </Button>
           )}
         </div>

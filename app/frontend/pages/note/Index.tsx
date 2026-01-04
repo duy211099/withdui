@@ -6,6 +6,7 @@ import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { note_index_path } from '@/lib/routes'
 import type { PostListItem } from '@/types'
 
 interface SearchIndexItem {
@@ -49,7 +50,7 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
     localStorage.setItem('noteViewMode', newMode)
 
     // Update URL using Inertia router
-    router.visit('/note', {
+    router.visit(note_index_path(), {
       data: newMode === 'graph' ? { view: 'graph' } : {},
       preserveState: true,
       preserveScroll: true,

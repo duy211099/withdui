@@ -22,6 +22,7 @@
         "about": "About",
         "app_name": "WithDui",
         "blog": "Notes",
+        "moods": "Moods",
         "sign_in": "Sign In",
         "sign_out": "Sign Out",
         "utils": "Utils"
@@ -163,6 +164,7 @@
         "about": "About",
         "app_name": "WithDui",
         "blog": "Notes",
+        "moods": "Moods",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "utils": "Tiện ích"

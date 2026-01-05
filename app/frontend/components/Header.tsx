@@ -46,7 +46,7 @@ export default function Header() {
               href={moods_path()}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
-              Moods
+              {t('frontend.header.moods')}
             </Link>
           </nav>
         </div>

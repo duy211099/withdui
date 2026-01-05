@@ -80,3 +80,58 @@ puts movie2
 movie2 = Movie.new("Dui3")
 puts movie2
 # ___________________________________________________________
+
+# ___________________________________________________________
+# Symbols
+_symbols_is_not_string = "title" != :title
+
+
+# ___________________________________________________________
+# Conditions
+
+if true
+  # ...
+elsif false
+  # ...
+else
+  # ...
+end
+
+case
+when true
+  # ...
+when 1..2
+  # ...
+else
+  # ...
+end
+
+# ___________________________________________________________
+# Array
+seats = [ "kermit", "fozzie", "gonzo" ]
+seats[0]
+seats[1]
+seats[2]
+seats[3]
+seats[10] = "hi"
+seats.size
+seats.empty?
+seats.append("hello")
+seats.pop
+seats.shift
+seats.compact
+seats.compact!
+seats.sample
+
+movies = [ movie, movie2 ]
+
+puts "\nBefore watching:"
+puts movies
+
+movies.each do |movie|
+  movie.like
+  puts movie
+end
+
+# ___________________________________________________________
+# Objects Collaborating

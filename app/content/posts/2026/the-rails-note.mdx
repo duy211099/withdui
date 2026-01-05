@@ -1,0 +1,28 @@
+---
+title: The Rails Note
+slug: the-rails-note
+date: '2026-01-05'
+excerpt: ''
+category: Rails
+tags:
+- web
+- rails
+author: ''
+published: true
+featured_image: ''
+---
+
+# Views and Controllers
+1. Web browser issues a request and an incoming url
+2. Web server receives the request and pass it onto the Router
+3. Router then dispatch the request to a specific Action in a Controller 
+  - The Controller (simply, is a Ruby class) & an Action (is a Ruby method, we write to) handle the request
+4. The Controller then interacts with Models (Ruby classes) to access data from the database
+5. The Controller then passes the data to a ViewTemplate
+6. The ViewTemplate then generates HTML necessary to display the data, then send back to the Web browser as a response
+
+> MVC design
+
+```
+ rails g controller events  
+```

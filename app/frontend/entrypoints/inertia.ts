@@ -77,6 +77,12 @@ createInertiaApp({
     showSpinner: true,
   },
 
+  defaults: {
+    future: {
+      useScriptElementForInitialPage: true,
+    },
+  },
+
   resolve: (name) => {
     const pages = import.meta.glob<ResolvedComponent>('../pages/**/*.tsx', {
       eager: true,

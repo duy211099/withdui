@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   draw :admin
 
   # Public note routes
-  draw :note
+  draw :notes
 
   # Mood tracker routes
   draw :moods
+
+  # Event routes
+  draw :events
 
   # Locale switching
   post "locale/:locale", to: "locale#switch", as: :switch_locale

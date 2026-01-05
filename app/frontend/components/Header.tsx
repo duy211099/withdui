@@ -5,6 +5,7 @@ import { useTranslation } from '@/contexts/I18nContext'
 import {
   about_path,
   destroy_user_session_path,
+  events_path,
   moods_path,
   new_user_session_path,
   note_index_path,
@@ -47,6 +48,12 @@ export default function Header() {
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.moods')}
+            </Link>
+            <Link
+              href={events_path()}
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
+              {t('frontend.header.events')}
             </Link>
           </nav>
         </div>

@@ -64,21 +64,21 @@ end
 
 
 movie = Movie.new("Dui", 10)
-puts movie
+# puts movie
 movie.like
-puts movie
-puts movie.title
+# puts movie
+# puts movie.title
 movie.title = "DUI NEWW"
-puts movie.title
-puts movie.rank
+# puts movie.title
+# puts movie.rank
 
 movie2 = Movie.new("Dui2", 21)
-puts movie2
+# puts movie2
 movie2.unlike
-puts movie2
+# puts movie2
 
 movie2 = Movie.new("Dui3")
-puts movie2
+# puts movie2
 # ___________________________________________________________
 
 # ___________________________________________________________
@@ -125,13 +125,73 @@ seats.sample
 
 movies = [ movie, movie2 ]
 
-puts "\nBefore watching:"
-puts movies
+# puts "\nBefore watching:"
+# puts movies
 
 movies.each do |movie|
   movie.like
-  puts movie
+  # puts movie
 end
 
 # ___________________________________________________________
-# Objects Collaborating
+# Self
+
+# ___________________________________________________________
+# Block
+9.times do |num|
+  # puts num
+end
+
+# ___________________________________________________________
+# Struct
+
+Snack = Struct.new(:name, :price)
+
+popcorn = Snack.new("popcorn", 3)
+Snack.new("candy", 1)
+
+puts popcorn.name
+
+# ___________________________________________________________
+# Struct
+
+# ___________________________________________________________
+# Module
+
+# ___________________________________________________________
+# Hash
+snacks = { popcorn: 3, candy: 1 }
+# snacks = { "popcorn"=>3, "candy"=>1 }
+snacks["popcorn"]
+snacks[:nacho] = 5
+snacks.empty?
+snacks.size
+snacks.has_key?("popcorn")
+snacks.keys
+snacks.values
+puts snacks
+snacks.each { |name, price| puts "#{name}: #{price}" }
+
+
+# ___________________________________________________________
+# Enumerable
+# .each
+# .select
+# .reject
+# .partition
+# .map
+# .sort_by
+
+# ___________________________________________________________
+# Exceptions
+def hi
+  begin
+    # ...
+  rescue => e
+    put e.message
+  end
+end
+
+# ___________________________________________________________
+# Rich Inheritance
+#

@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: events
+#
+#  id         :uuid             not null, primary key
+#  location   :string
+#  name       :string
+#  price      :decimal(, )
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+one:
+  name: MyString
+  location: MyString
+  price: 9.99
+
+two:
+  name: MyString
+  location: MyString
+  price: 9.99

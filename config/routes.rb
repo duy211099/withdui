@@ -2,11 +2,25 @@ Rails.application.routes.draw do
   # Authentication routes
   draw :devise
 
-  # Subdomain-specific routes (constraints live in the route files)
-  draw :admin
-  draw :notes
-  draw :moods
-  draw :events
+  constraints subdomain: "admin" do
+    # Admin-only routes (Sidekiq, Note Admin)
+    draw :admin
+  end
+
+  constraints subdomain: "notes" do
+    # Public note routes
+    draw :notes
+  end
+
+  constraints subdomain: "moods" do
+    # Mood tracker routes
+    draw :moods
+  end
+
+  constraints subdomain: "events" do
+    # Event routes
+    draw :events
+  end
 
   # Locale switching (available on all subdomains)
   post "locale/:locale", to: "locale#switch", as: :switch_locale

@@ -46,3 +46,9 @@ export interface Post {
   content: string
   url_path: string
 }
+
+export interface Event {
+  name: string
+  price: number
+  location: string
+}

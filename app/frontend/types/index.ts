@@ -6,7 +6,13 @@
 // Inertia types
 export type { BasePageProps, InertiaPageProps } from './inertia'
 // Model types
-export type { Mood, Post, User } from './models'
+export type {
+  Event,
+  Mood,
+  Post,
+  User,
+} from './models'
+
 // UI types
 export type {
   MonthlySummary,

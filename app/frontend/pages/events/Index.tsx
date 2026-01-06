@@ -1,7 +1,7 @@
-import type { BasePageProps } from '@/types'
+import type { BasePageProps, Event } from '@/types'
 
 interface IndexProps extends BasePageProps {
-  events: string[]
+  events: Event[]
 }
 
 export default function Index({ events }: IndexProps) {
@@ -9,8 +9,14 @@ export default function Index({ events }: IndexProps) {
     <div>
       <h1>Dui's age: {Math.floor(Math.random() * 100)}</h1>
       <ul>
-        {events.map((item, index) => {
-          return <li key={index.toString()}>{item}</li>
+        {events.map((event, index) => {
+          return (
+            <div key={index.toString()}>
+              <span>
+                {event.name} in {event.location}, ${event.price}
+              </span>
+            </div>
+          )
         })}
       </ul>
     </div>

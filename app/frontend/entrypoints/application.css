@@ -203,6 +203,10 @@
 
 /* Syntax highlighting for code blocks */
 @layer base {
+  .prose pre code {
+    padding: 0 !important;
+  }
+
   /* Light mode syntax highlighting */
   .hljs {
     background: transparent;

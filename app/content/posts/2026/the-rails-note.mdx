@@ -24,7 +24,7 @@ featured_image: ''
 > MVC design
 
 ```
- rails g controller events  
+rails g controller events
 ```
 
 # Models
@@ -35,27 +35,21 @@ end
 ```
 
 ```
-  rails g model event name:string location:string price:decimal
-  rails db:migrate:status
-  rails db:migrate
+rails g model event name:string location:string price:decimal
+rails db:migrate:status
+rails db:migrate
 ```
 
 ```
-  e = Event.new
-  e.name = "Hi"
-  e.save
+e = Event.new
+e.name = "Hi"
+e.save
 
-  # ===
+e = Event.new(name: "Hackathon", location: "Austin, TX", price: 15.00)
 
-  e = Event.new(name: "Hackathon", location: "Austin, TX", price: 15.00)
+e = Event.create(name: "Kata Camp", location: "Dallas, TX", price: 75.00)
 
-  # === 
-
-  e = Event.create(name: "Kata Camp", location: "Dallas, TX", price: 75.00)
-
-  # === 
-
-  e.find_by(name: "Doomed")
-  e.update(name: "Hi")
-  e.destroy
+e.find_by(name: "Doomed")
+e.update(name: "Hi")
+e.destroy
 ```

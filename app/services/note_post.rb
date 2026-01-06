@@ -97,7 +97,7 @@ class NotePost
 
   def url_path
     return nil unless date && slug
-    "/note/#{date.year}/#{slug}"
+    "/#{date.year}/#{slug}"
   end
 
   def to_json_hash

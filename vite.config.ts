@@ -11,7 +11,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     mdx({
       remarkPlugins: [remarkGfm],
@@ -44,4 +44,14 @@ export default defineConfig({
     // Remove console.log, console.warn, console.error in production
     drop: ['console', 'debugger'],
   },
-})
+  server: mode === 'development'
+    ? {
+        host: '0.0.0.0',
+        hmr: {
+          host: 'lvh.me',
+          port: 3036,
+          protocol: 'ws',
+        },
+      }
+    : undefined,
+}))

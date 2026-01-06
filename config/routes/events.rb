@@ -1,1 +1,1 @@
-resources :events
+resources :events, path: ""

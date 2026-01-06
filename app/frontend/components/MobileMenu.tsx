@@ -6,12 +6,13 @@ import {
   destroy_user_session_path,
   moods_path,
   new_user_session_path,
-  note_index_path,
   root_path,
   utils_index_path,
 } from '@/lib/routes'
+import { moodsUrl, notesUrl, rootUrl } from '@/lib/subdomainRoutes'
 import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
+import SubdomainLink from './SubdomainLink'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from './ui/sheet'
@@ -48,47 +49,47 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
         {/* Navigation links */}
         <nav className="flex flex-col p-4">
           <div className="space-y-2">
-            <Link
-              href={root_path()}
+            <SubdomainLink
+              href={rootUrl(root_path())}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
               <Home className="h-5 w-5" />
               <span>Home</span>
-            </Link>
-            <Link
-              href={note_index_path()}
+            </SubdomainLink>
+            <SubdomainLink
+              href={notesUrl('/')}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
               <BookOpen className="h-5 w-5" />
               <span>{t('frontend.header.blog')}</span>
-            </Link>
-            <Link
-              href={about_path()}
+            </SubdomainLink>
+            <SubdomainLink
+              href={rootUrl(about_path())}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
               <Info className="h-5 w-5" />
               <span>{t('frontend.header.about')}</span>
-            </Link>
-            <Link
-              href={utils_index_path()}
+            </SubdomainLink>
+            <SubdomainLink
+              href={rootUrl(utils_index_path())}
               className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
               onClick={onClose}
             >
               <Wrench className="h-5 w-5" />
               <span>{t('frontend.header.utils')}</span>
-            </Link>
+            </SubdomainLink>
             {current_user && (
-              <Link
-                href={moods_path()}
+              <SubdomainLink
+                href={moodsUrl(moods_path())}
                 className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
                 onClick={onClose}
               >
                 <Smile className="h-5 w-5" />
                 <span>Moods</span>
-              </Link>
+              </SubdomainLink>
             )}
           </div>
 
@@ -124,7 +125,9 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
               </div>
             ) : (
               <Button variant="default" size="default" asChild className="w-full">
-                <Link href={new_user_session_path()}>{t('frontend.header.sign_in')}</Link>
+                <SubdomainLink href={rootUrl(new_user_session_path())}>
+                  {t('frontend.header.sign_in')}
+                </SubdomainLink>
               </Button>
             )}
           </div>

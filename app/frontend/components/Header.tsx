@@ -8,12 +8,13 @@ import {
   events_path,
   moods_path,
   new_user_session_path,
-  note_index_path,
   root_path,
 } from '@/lib/routes'
+import { eventsUrl, moodsUrl, notesUrl, rootUrl } from '@/lib/subdomainRoutes'
 import type { User } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
 import MobileMenu from './MobileMenu'
+import SubdomainLink from './SubdomainLink'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
 
@@ -26,35 +27,35 @@ export default function Header() {
     <header className="border-b-2">
       <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between max-w-5xl">
         <div className="flex gap-4">
-          <Link href={root_path()} className="text-xl font-bold">
+          <SubdomainLink href={rootUrl(root_path())} className="text-xl font-bold">
             {t('frontend.header.app_name')}
-          </Link>
+          </SubdomainLink>
 
           <nav className="hidden md:flex items-center gap-6">
-            <Link
-              href={about_path()}
+            <SubdomainLink
+              href={rootUrl(about_path())}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.about')}
-            </Link>
-            <Link
-              href={note_index_path()}
+            </SubdomainLink>
+            <SubdomainLink
+              href={notesUrl('/')}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.blog')}
-            </Link>
-            <Link
-              href={moods_path()}
+            </SubdomainLink>
+            <SubdomainLink
+              href={moodsUrl(moods_path())}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.moods')}
-            </Link>
-            <Link
-              href={events_path()}
+            </SubdomainLink>
+            <SubdomainLink
+              href={eventsUrl(events_path())}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.events')}
-            </Link>
+            </SubdomainLink>
           </nav>
         </div>
 
@@ -83,7 +84,9 @@ export default function Header() {
             </div>
           ) : (
             <Button variant="default" size="sm" asChild>
-              <Link href={new_user_session_path()}>{t('frontend.header.sign_in')}</Link>
+              <SubdomainLink href={rootUrl(new_user_session_path())}>
+                {t('frontend.header.sign_in')}
+              </SubdomainLink>
             </Button>
           )}
         </div>

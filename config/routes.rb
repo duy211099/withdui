@@ -2,32 +2,42 @@ Rails.application.routes.draw do
   # Authentication routes
   draw :devise
 
-  # Admin-only routes (Sidekiq, Note Admin)
-  draw :admin
+  constraints subdomain: "admin" do
+    # Admin-only routes (Sidekiq, Note Admin)
+    draw :admin
+  end
 
-  # Public note routes
-  draw :notes
+  constraints subdomain: "notes" do
+    # Public note routes
+    draw :notes
+  end
 
-  # Mood tracker routes
-  draw :moods
+  constraints subdomain: "moods" do
+    # Mood tracker routes
+    draw :moods
+  end
 
-  # Event routes
-  draw :events
+  constraints subdomain: "events" do
+    # Event routes
+    draw :events
+  end
 
-  # Locale switching
+  # Locale switching (available on all subdomains)
   post "locale/:locale", to: "locale#switch", as: :switch_locale
 
-  # Inertia example routes
-  get "inertia-example", to: "inertia_example#index"
-  get "hello", to: "inertia_example#hello"
+  constraints ->(req) { req.subdomain.blank? } do
+    # Inertia example routes
+    get "inertia-example", to: "inertia_example#index"
+    get "hello", to: "inertia_example#hello"
 
-  # Utils routes
-  get "utils", to: "utils#index", as: :utils_index
+    # Utils routes
+    get "utils", to: "utils#index", as: :utils_index
 
-  # About page
-  get "about", to: "about#index", as: :about
-  # Defines the root path route ("/")
-  root "home#index"
+    # About page
+    get "about", to: "about#index", as: :about
+    # Defines the root path route ("/")
+    root "home#index"
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

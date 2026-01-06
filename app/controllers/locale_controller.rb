@@ -17,7 +17,7 @@ class LocaleController < ApplicationController
       Rails.logger.debug "Set I18n.locale to: #{I18n.locale}"
 
       # Set cookie (valid for 1 year)
-      cookies[:locale] = { value: locale.to_s, expires: 1.year.from_now }
+      cookies[:locale] = { value: locale.to_s, expires: 1.year.from_now, **cookie_domain_options }
       Rails.logger.debug "Set cookie to: #{cookies[:locale]}"
 
       # Get the flash message in the NEW locale

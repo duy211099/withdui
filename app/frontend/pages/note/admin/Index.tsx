@@ -3,6 +3,7 @@ import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { edit_note_admin_path, new_note_admin_path, note_index_path } from '@/lib/routes'
+import { notesUrl } from '@/lib/subdomainRoutes'
 import type { PostAdminListItem } from '@/types'
 
 interface AdminIndexProps {
@@ -34,7 +35,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
         </div>
 
         <div className="mb-4">
-          <Link href={note_index_path()}>
+          <Link href={notesUrl(note_index_path())}>
             <Button variant="outline">View Notes</Button>
           </Link>
         </div>

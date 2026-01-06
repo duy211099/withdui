@@ -51,4 +51,5 @@ export interface Event {
   name: string
   price: number
   location: string
+  description: string
 }

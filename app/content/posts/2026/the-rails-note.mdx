@@ -53,3 +53,11 @@ e.find_by(name: "Doomed")
 e.update(name: "Hi")
 e.destroy
 ```
+
+# Migrations
+
+```
+rails g migration
+rails g migration AddFieldsToEvents starts_at:datetime description:text
+rails db:migrate
+```

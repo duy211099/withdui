@@ -4,7 +4,7 @@ import type { ComponentProps, ReactNode } from 'react'
 type SubdomainLinkProps = {
   href: string
   children: ReactNode
-} & Omit<ComponentProps<'a'>, 'href'>
+} & Omit<ComponentProps<typeof Link>, 'href'>
 
 const isSameOrigin = (href: string) => {
   if (typeof window === 'undefined') {
@@ -33,7 +33,7 @@ export default function SubdomainLink({ href, children, ...props }: SubdomainLin
   }
 
   return (
-    <a href={href} {...props}>
+    <a href={href} {...(props as ComponentProps<'a'>)}>
       {children}
     </a>
   )

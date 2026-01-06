@@ -72,11 +72,6 @@ Rails.application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  # Allow session cookies to be shared across subdomains when configured.
-  if ENV["COOKIE_TLD_LENGTH"].present?
-    config.action_dispatch.tld_length = ENV["COOKIE_TLD_LENGTH"].to_i
-  end
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 

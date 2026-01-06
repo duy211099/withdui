@@ -2,7 +2,6 @@ import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 import Flash from '@/components/Flash'
 import Header from '@/components/Header'
-import ThemeCookieSync from '@/components/ThemeCookieSync'
 import { Toaster } from '@/components/ui/sonner'
 import { I18nProvider } from '@/contexts/I18nContext'
 
@@ -14,7 +13,6 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <I18nProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <ThemeCookieSync />
         <Toaster />
         <Flash />
         <Header />

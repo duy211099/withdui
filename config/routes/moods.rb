@@ -2,4 +2,4 @@
 
 # Mood tracker routes
 # Requires authentication
-resources :moods, path: "", except: [ :show ]
+resources :moods, except: [ :show ]

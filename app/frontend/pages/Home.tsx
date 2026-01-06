@@ -6,8 +6,7 @@ import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
-import { moods_path, new_mood_path, note_index_path } from '@/lib/routes'
-import { moodsUrl, notesUrl } from '@/lib/subdomainRoutes'
+import { moods_path, note_index_path } from '@/lib/routes'
 import type { BasePageProps, Mood, MoodLevels, PostListItem } from '@/types'
 
 interface HomePageProps extends BasePageProps {
@@ -39,7 +38,7 @@ export default function Home() {
     // If there are no moods for this day, let user create one
     if (dayMoods.length === 0) {
       if (current_user) {
-        router.visit(moodsUrl(new_mood_path({ date })))
+        router.visit(`/moods/new?date=${date}`)
       }
       return
     }
@@ -91,7 +90,7 @@ export default function Home() {
                 <div className="flex items-center gap-2">
                   <h2 className="text-2xl font-bold">{t('frontend.moods.index.title')}</h2>
                 </div>
-                <Link href={moodsUrl(moods_path())}>
+                <Link href={moods_path()}>
                   <Button variant="outline" size="sm">
                     {t('frontend.moods.home.view_full')}
                   </Button>
@@ -117,7 +116,7 @@ export default function Home() {
             <div className="w-full mt-10">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold">{t('frontend.home.blog_graph_title')}</h2>
-                <Link href={notesUrl(note_index_path({ view: 'graph' }))}>
+                <Link href={note_index_path({ view: 'graph' })}>
                   <Button variant="outline" size="sm">
                     {t('frontend.home.blog_graph_cta')}
                   </Button>

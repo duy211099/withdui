@@ -46,15 +46,8 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  # Use lvh.me for subdomain-friendly local development.
-  config.action_mailer.default_url_options = { host: "lvh.me", port: 3000 }
-  config.action_controller.default_url_options = { host: "lvh.me", port: 3000 }
-
-  config.hosts << "lvh.me"
-  config.hosts << "notes.lvh.me"
-  config.hosts << "moods.lvh.me"
-  config.hosts << "events.lvh.me"
-  config.hosts << /\A.*\.lvh\.me\z/
+  # Set localhost to be used by links generated in mailer templates.
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -82,9 +75,6 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-
-  # Allow session cookies to be shared across *.localhost subdomains in dev.
-  config.action_dispatch.tld_length = 1
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true

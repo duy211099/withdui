@@ -53,21 +53,6 @@ class ApplicationController < ActionController::Base
     Rails.logger.debug "======================="
   end
 
-  def cookie_domain_options
-    if Rails.env.production?
-      domain = ENV["COOKIE_DOMAIN"]
-      tld_length = ENV["COOKIE_TLD_LENGTH"]&.to_i
-    else
-      domain = ENV["COOKIE_DOMAIN"] || ".lvh.me"
-      tld_length = nil
-    end
-
-    options = {}
-    options[:domain] = domain if domain
-    options[:tld_length] = tld_length if tld_length
-    options
-  end
-
   def locale_from_cookie
     return unless cookies[:locale].present?
     locale = cookies[:locale].to_sym

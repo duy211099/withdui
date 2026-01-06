@@ -8,7 +8,6 @@ import {
   events_path,
   moods_path,
   new_user_session_path,
-  note_index_path,
   root_path,
 } from '@/lib/routes'
 import { eventsUrl, moodsUrl, notesUrl, rootUrl } from '@/lib/subdomainRoutes'
@@ -40,7 +39,7 @@ export default function Header() {
               {t('frontend.header.about')}
             </SubdomainLink>
             <SubdomainLink
-              href={notesUrl(note_index_path())}
+              href={notesUrl('/')}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.blog')}

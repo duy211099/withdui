@@ -10,7 +10,7 @@ namespace :js do
 
     # Generate the routes file
     generated_routes = JsRoutes.generate
-    File.write(output_file, generated_routes)
+    File.write(output_file, "// @ts-nocheck\n#{generated_routes}")
 
     # Append *_path aliases for convenience in TS/JS imports.
     route_names = generated_routes.scan(/^export const (\w+) =/).flatten

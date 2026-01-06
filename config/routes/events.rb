@@ -1,1 +1,3 @@
-resources :events, path: ""
+constraints subdomain: "events" do
+  resources :events, path: ""
+end

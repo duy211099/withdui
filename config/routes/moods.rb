@@ -2,4 +2,6 @@
 
 # Mood tracker routes
 # Requires authentication
-resources :moods, path: "", except: [ :show ]
+constraints subdomain: "moods" do
+  resources :moods, path: "", except: [ :show ]
+end

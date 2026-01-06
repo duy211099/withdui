@@ -50,7 +50,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "lvh.me", port: 3000 }
   config.action_controller.default_url_options = { host: "lvh.me", port: 3000 }
 
-  config.hosts << "lvh.me"
+  config.hosts << ".lvh.me"
   config.hosts << "notes.lvh.me"
   config.hosts << "moods.lvh.me"
   config.hosts << "events.lvh.me"

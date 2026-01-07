@@ -40,7 +40,8 @@
 				"recommended": true
 			},
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noDoubleEquals": "off"
 			}
 		}
 	},

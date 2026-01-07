@@ -61,3 +61,14 @@ rails g migration
 rails g migration AddFieldsToEvents starts_at:datetime description:text
 rails db:migrate
 ```
+
+# Routes
+```
+resources :events
+
+get "events" => "events#index"
+
+# get "events/1" => "events#show"
+get "events/:id" => "events#show"
+
+```

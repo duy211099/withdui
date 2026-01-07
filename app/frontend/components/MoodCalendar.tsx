@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useI18n } from '@/contexts/I18nContext'
 import { formatLocalDate, getLongDateFormat, getWeekdayShortNames } from '@/lib/localTime'
-import { cn, isFutureDate, isToday } from '@/lib/utils'
+import { cn, isFutureDate, isToday } from '@/lib/utils/utils'
 import type { Mood } from '@/types'
 
 interface MoodCalendarProps {

@@ -48,6 +48,7 @@ export interface Post {
 }
 
 export interface Event {
+  id: string
   name: string
   price: number
   location: string

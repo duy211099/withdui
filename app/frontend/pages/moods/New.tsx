@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
 import { getLongDateFormat } from '@/lib/localTime'
 import { moods_path } from '@/lib/routes'
-import { cn, isDateStringInFuture } from '@/lib/utils'
+import { cn, isDateStringInFuture } from '@/lib/utils/utils'
 import type { MoodLevels } from '@/types'
 
 interface NewProps {

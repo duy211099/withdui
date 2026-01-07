@@ -1,3 +1,6 @@
+import { Link } from '@inertiajs/react'
+import { Card } from '@/components/ui/card'
+import { event_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -7,16 +10,21 @@ interface IndexProps extends BasePageProps {
 export default function Index({ events }: IndexProps) {
   return (
     <div>
-      <h1>Dui's age: {Math.floor(Math.random() * 100)}</h1>
       <ul className="space-y-2">
         {events.map((event, index) => {
           return (
-            <div className="container p-4 border rounded" key={index.toString()}>
-              <span>
-                {event.name} in {event.location}, ${event.price}
-              </span>
-              <p>{event.description}</p>
-            </div>
+            <Link href={event_path(event.id)} key={index.toString()} className="block">
+              <Card className="p-4">
+                <span>
+                  <span className="text-lg font-semibold">{event.name}</span> in{' '}
+                  <span className="text-lg font-semibold">{event.location}</span> ,{' '}
+                  <span className="text-lg font-semibold">
+                    {event.price == 0 ? 'Free' : `$${event.price}`}
+                  </span>
+                </span>
+                <p>{event.description}</p>
+              </Card>
+            </Link>
           )
         })}
       </ul>

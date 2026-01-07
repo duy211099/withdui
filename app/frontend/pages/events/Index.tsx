@@ -1,5 +1,7 @@
 import { Link } from '@inertiajs/react'
+import useSWR from 'swr'
 import { Card } from '@/components/ui/card'
+import { fetcher } from '@/lib/fetcher'
 import { event_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
@@ -7,9 +9,25 @@ interface IndexProps extends BasePageProps {
   events: Event[]
 }
 
+interface RandomResponse {
+  value: string
+  generated_at: string
+}
+
 export default function Index({ events }: IndexProps) {
+  const { data: randomData, isLoading, error } = useSWR<RandomResponse>('/random', fetcher)
+
   return (
     <div>
+      {isLoading && <div className="mb-3 text-sm text-muted-foreground">Random: Loading...</div>}
+      {error && !isLoading && (
+        <div className="mb-3 text-sm text-muted-foreground">Random: Error!</div>
+      )}
+      {randomData && !isLoading && !error && (
+        <div className="mb-3 text-sm text-muted-foreground">
+          Random: <span className="font-medium text-foreground">{randomData.value}</span>
+        </div>
+      )}
       <ul className="space-y-2">
         {events.map((event, index) => {
           return (

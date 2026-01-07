@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   # About page
   get "about", to: "about#index", as: :about
+  get "random", to: "home#random", as: :random
   # Defines the root path route ("/")
   root "home#index"
 

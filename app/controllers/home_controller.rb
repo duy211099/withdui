@@ -19,4 +19,13 @@ class HomeController < ApplicationController
       mood_levels: Mood::MOOD_LEVELS
     }
   end
+
+  def random
+    if rand < 0.5
+      render json: { message: "Random fetch failed" }, status: :internal_server_error
+      return
+    end
+
+    render json: { value: SecureRandom.hex(4), generated_at: Time.current.iso8601 }
+  end
 end

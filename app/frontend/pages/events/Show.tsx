@@ -10,7 +10,7 @@ interface IndexProps extends BasePageProps {
 
 export default function Show({ event }: IndexProps) {
   return (
-    <div className="min-h-[calc(100vh-120px)] bg-gradient-to-b from-background via-background to-muted/40">
+    <div className="min-h-[calc(100vh-120px)] bg-linear-to-b from-background via-background to-muted/40">
       <div className="container mx-auto px-4 py-10 max-w-3xl">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div>

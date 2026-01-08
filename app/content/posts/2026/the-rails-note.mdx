@@ -72,5 +72,10 @@ get "events/1" => "events#show"
 get "events/:id" => "events#show"
 get "events/:id" => "events#show", as: "event"
 
-get "events/:id/edit" => "events#edit", as "edit_event"
+get "events/:id/edit" => "events#edit", as "edit_event
+
+post "events/new" => "events#new"
+"
 ```
+
+# Partials

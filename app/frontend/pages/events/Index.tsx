@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { fetcher } from '@/lib/fetcher'
-import { event_path } from '@/lib/routes'
+import { event_path, new_event_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -19,7 +19,7 @@ export default function Index({ events }: IndexProps) {
   const { data: randomData, isLoading, error } = useSWR<RandomResponse>('/random', fetcher)
 
   return (
-    <div className="min-h-[calc(100vh-120px)] bg-gradient-to-b from-background via-background to-muted/40">
+    <div className="min-h-[calc(100vh-120px)] bg-linear-to-b from-background via-background to-muted/40">
       <div className="container mx-auto px-4 py-10 max-w-5xl">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
@@ -27,6 +27,9 @@ export default function Index({ events }: IndexProps) {
             <h1 className="text-3xl sm:text-4xl font-bold">Upcoming events</h1>
             <p className="text-muted-foreground mt-1">Browse what’s happening and RSVP.</p>
           </div>
+          <Link href={new_event_path()}>
+            <Button>Create</Button>
+          </Link>
           <div className="text-right">
             <p className="text-xs uppercase tracking-widest text-muted-foreground">Pulse</p>
             {isLoading && <p className="text-sm text-muted-foreground">Random: Loading...</p>}

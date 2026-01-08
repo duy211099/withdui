@@ -1,14 +1,14 @@
 import { useForm } from '@inertiajs/react'
 import EventForm from '@/components/events/EventForm'
-import { event_path } from '@/lib/routes'
+import { events_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
 interface IndexProps extends BasePageProps {
   event: Event
 }
 
-export default function Edit({ event }: IndexProps) {
-  const { data, setData, patch, processing } = useForm({
+export default function New({ event }: IndexProps) {
+  const { data, setData, post, processing } = useForm({
     name: event.name,
     location: event.location,
     price: event.price ?? 0,
@@ -17,13 +17,13 @@ export default function Edit({ event }: IndexProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    patch(event_path(event.id))
+    post(events_path())
   }
 
   return (
     <EventForm
-      title="Edit Event"
-      submitLabel="Save changes"
+      title="New Event"
+      submitLabel="Create event"
       data={data}
       processing={processing}
       onSubmit={handleSubmit}

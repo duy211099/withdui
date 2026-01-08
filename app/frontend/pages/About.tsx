@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react'
-import { siFacebook, siGithub, siInstagram } from 'simple-icons/icons'
+import { siFacebook, siGithub, siInstagram } from 'simple-icons'
 import { Card, CardContent, CardDescription } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
 

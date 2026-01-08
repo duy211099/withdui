@@ -74,7 +74,7 @@ createInertiaApp({
   // see https://inertia-rails.dev/guide/progress-indicators
   progress: {
     color: '#6b7280', // Gray-500 color
-    showSpinner: true,
+    // showSpinner: true,
   },
 
   defaults: {

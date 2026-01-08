@@ -125,10 +125,11 @@ const redirectToErrorPage = (event: Event) => {
 document.addEventListener('inertia:exception', redirectToErrorPage)
 document.addEventListener('inertia:invalid', redirectToErrorPage)
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch((error) => {
-      console.warn('Service worker registration failed', error)
-    })
-  })
-}
+// Temporarily disable service worker registration to simplify debugging.
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register('/sw.js').catch((error) => {
+//       console.warn('Service worker registration failed', error)
+//     })
+//   })
+// }

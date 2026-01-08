@@ -1,6 +1,7 @@
 import { usePage } from '@inertiajs/react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 
 interface FlashMessages {
   notice?: string
@@ -62,5 +63,5 @@ export default function Flash() {
     return () => clearTimeout(timer)
   }, [flash, mounted])
 
-  return null
+  return <Toaster />
 }

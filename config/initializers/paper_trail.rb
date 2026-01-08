@@ -6,8 +6,10 @@
 PaperTrail.config.enabled = true
 
 # Track who made changes (current user ID)
+# Also track what changed (object_changes column)
 PaperTrail.config.has_paper_trail_defaults = {
-  on: [ :create, :update, :destroy ]
+  on: [ :create, :update, :destroy ],
+  save_changes: true  # Enable tracking of changes in object_changes column
 }
 
 # Set whodunnit to current user ID (works with Devise)

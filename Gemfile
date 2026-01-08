@@ -84,6 +84,9 @@ gem "action_policy", "~> 0.7"
 # Audit trail and versioning
 gem "paper_trail", "~> 17.0"
 
+# Pagination
+gem "pagy", "~> 9.3"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", "~> 1.11", platforms: %i[ mri windows ]

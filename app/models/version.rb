@@ -4,13 +4,14 @@
 #
 # Table name: versions
 #
-#  id         :bigint           not null, primary key
-#  event      :string           not null
-#  item_type  :string           not null
-#  object     :text
-#  whodunnit  :string
-#  created_at :datetime
-#  item_id    :string           not null
+#  id             :bigint           not null, primary key
+#  event          :string           not null
+#  item_type      :string           not null
+#  object         :text
+#  object_changes :text
+#  whodunnit      :string
+#  created_at     :datetime
+#  item_id        :string           not null
 #
 # Indexes
 #

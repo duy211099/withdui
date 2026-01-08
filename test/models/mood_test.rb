@@ -16,6 +16,10 @@
 #  index_moods_on_level                   (level)
 #  index_moods_on_user_id_and_entry_date  (user_id,entry_date) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 require "test_helper"
 
 class MoodTest < ActiveSupport::TestCase

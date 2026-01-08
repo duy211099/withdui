@@ -2,7 +2,6 @@ class MoodsController < ApplicationController
   # Require authentication for create/update/delete only (index is public)
   before_action :authenticate_user!, except: [ :index ]
   before_action :set_mood, only: [ :edit, :update, :destroy ]
-  before_action :authorize_mood, only: [ :edit, :update, :destroy ]
 
   # GET /moods
   # Calendar view with month navigation (public - anyone can view)
@@ -85,6 +84,8 @@ class MoodsController < ApplicationController
 
   # GET /moods/:id/edit
   def edit
+    authorize! @mood, to: :edit?
+
     render inertia: "moods/Edit", props: {
       mood: @mood.to_json_hash,
       mood_levels: Mood::MOOD_LEVELS
@@ -93,6 +94,8 @@ class MoodsController < ApplicationController
 
   # PATCH /moods/:id
   def update
+    authorize! @mood, to: :update?
+
     if @mood.update(mood_params)
       redirect_to moods_path(
         year: @mood.entry_date.year,
@@ -106,6 +109,8 @@ class MoodsController < ApplicationController
 
   # DELETE /moods/:id
   def destroy
+    authorize! @mood, to: :destroy?
+
     entry_date = @mood.entry_date
     @mood.destroy
 
@@ -119,13 +124,6 @@ class MoodsController < ApplicationController
 
   def set_mood
     @mood = Mood.find(params[:id])
-  end
-
-  def authorize_mood
-    # Ensure user can only access their own moods
-    unless @mood.user_id == current_user.id
-      redirect_to moods_path, alert: "You don't have permission to access this mood entry."
-    end
   end
 
   def mood_params

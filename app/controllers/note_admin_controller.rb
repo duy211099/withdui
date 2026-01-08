@@ -1,15 +1,21 @@
 class NoteAdminController < ApplicationController
   # Require authentication and admin authorization
   before_action :authenticate_user!, if: -> { defined?(Devise) }
-  before_action :require_admin!
+
+  # Verify admin access for all actions
+  verify_authorized
 
   def index
+    authorize! :admin, to: :index?
+
     render inertia: "note/admin/Index", props: {
       posts: NotePost.all.map(&:to_json_hash)
     }
   end
 
   def new
+    authorize! :admin, to: :create?
+
     render inertia: "note/admin/New", props: {
       categories: NotePost.categories,
       tags: NotePost.all_tags
@@ -17,6 +23,8 @@ class NoteAdminController < ApplicationController
   end
 
   def create
+    authorize! :admin, to: :create?
+
     result = NotePostWriter.create(post_params)
 
     if result[:success]
@@ -28,6 +36,8 @@ class NoteAdminController < ApplicationController
   end
 
   def edit
+    authorize! :admin, to: :update?
+
     post = NotePost.find_by_slug(params[:slug])
 
     unless post
@@ -43,6 +53,8 @@ class NoteAdminController < ApplicationController
   end
 
   def update
+    authorize! :admin, to: :update?
+
     result = NotePostWriter.update(params[:slug], post_params)
 
     if result[:success]
@@ -54,6 +66,8 @@ class NoteAdminController < ApplicationController
   end
 
   def destroy
+    authorize! :admin, to: :destroy?
+
     result = NotePostWriter.delete(params[:slug])
 
     if result[:success]

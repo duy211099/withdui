@@ -10,9 +10,12 @@
 # Admin-only: This is a demo/educational page for understanding serializers
 class SerializerDemoController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin!
+
+  # Verify admin access for all actions
+  verify_authorized
 
   def index
+    authorize! :admin, to: :index?
     # Get first 5 users for demo
     users = User.limit(5)
 

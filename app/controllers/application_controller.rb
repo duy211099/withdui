@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   # Ensure CSRF protection is enabled with exception strategy
   protect_from_forgery with: :exception, prepend: true
 
+  # Handle authorization failures
+  rescue_from ActionPolicy::Unauthorized do |exception|
+    respond_to_unauthorized(exception)
+  end
+
   # Set current user for request-scoped access
   before_action :set_current_user
 
@@ -25,7 +30,7 @@ class ApplicationController < ActionController::Base
         flash: flash.to_hash,
         locale: I18n.locale.to_s,
         available_locales: I18n.available_locales.map(&:to_s)
-      }
+     }
   end
 
   private
@@ -67,12 +72,21 @@ class ApplicationController < ActionController::Base
     accepted_locales.find { |locale| I18n.available_locales.include?(locale) }
   end
 
-  # Admin authorization helper
-  # Redirects to homepage if user is not an admin
-  def require_admin!
-    unless current_user&.admin?
-      redirect_to root_path, alert: "You don't have permission to access this page."
+  # Handle ActionPolicy authorization failures
+  def respond_to_unauthorized(exception)
+    # Determine appropriate redirect location based on policy type
+    policy_class = exception.policy.to_s
+
+    redirect_location = case policy_class
+    when "MoodPolicy"
+      moods_path
+    when "AdminPolicy"
+      root_path
+    else
+      root_path
     end
+
+    redirect_to redirect_location, alert: "You don't have permission to access this page."
   end
 
   # PaperTrail: Track who made the change

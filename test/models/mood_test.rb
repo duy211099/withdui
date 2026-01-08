@@ -38,13 +38,13 @@ class MoodTest < ActiveSupport::TestCase
     mood = Mood.new(
       user: @user,
       level: 3,
-      entry_date: Date.today
+      entry_date: Date.current
     )
     assert mood.valid?
   end
 
   test "requires level" do
-    mood = Mood.new(user: @user, entry_date: Date.today)
+    mood = Mood.new(user: @user, entry_date: Date.current)
     assert_not mood.valid?
     assert_includes mood.errors[:level], "can't be blank"
   end
@@ -56,7 +56,7 @@ class MoodTest < ActiveSupport::TestCase
   end
 
   test "requires level to be integer" do
-    mood = Mood.new(user: @user, level: 3.5, entry_date: Date.today)
+    mood = Mood.new(user: @user, level: 3.5, entry_date: Date.current)
     assert_not mood.valid?
     assert_includes mood.errors[:level], "must be an integer"
   end
@@ -99,7 +99,7 @@ class MoodTest < ActiveSupport::TestCase
     mood = Mood.new(
       user: @user,
       level: 3,
-      entry_date: Date.tomorrow
+      entry_date: 1.day.from_now.to_date
     )
     assert_not mood.valid?
     assert_includes mood.errors[:entry_date], "cannot be in the future"
@@ -109,7 +109,7 @@ class MoodTest < ActiveSupport::TestCase
     mood = Mood.new(
       user: @user,
       level: 3,
-      entry_date: Date.today
+      entry_date: Date.current
     )
     assert mood.valid?
   end
@@ -127,7 +127,7 @@ class MoodTest < ActiveSupport::TestCase
     mood = Mood.new(
       user: @user,
       level: 3,
-      entry_date: Date.today,
+      entry_date: Date.current,
       notes: "a" * 10_001
     )
     assert_not mood.valid?
@@ -138,7 +138,7 @@ class MoodTest < ActiveSupport::TestCase
     mood = Mood.new(
       user: @user,
       level: 3,
-      entry_date: Date.today,
+      entry_date: Date.current,
       notes: "a" * 10_000
     )
     assert mood.valid?
@@ -237,13 +237,13 @@ class MoodTest < ActiveSupport::TestCase
 
   test "month_summary returns statistics" do
     user = users(:two) # Use different user to avoid conflicts
-    year = Date.today.year
-    month = Date.today.month
+    year = Date.current.year
+    month = Date.current.month
 
     # Create some moods for the month with unique dates
-    user.moods.create!(level: 5, entry_date: Date.today - 5.days)
-    user.moods.create!(level: 4, entry_date: Date.today - 6.days)
-    user.moods.create!(level: 3, entry_date: Date.today - 7.days)
+    user.moods.create!(level: 5, entry_date: Date.current - 5.days)
+    user.moods.create!(level: 4, entry_date: Date.current - 6.days)
+    user.moods.create!(level: 3, entry_date: Date.current - 7.days)
 
     summary = Mood.month_summary(user, year, month)
 

@@ -12,7 +12,7 @@ interface AdminIndexProps {
 export default function AdminIndex({ posts }: AdminIndexProps) {
   const handleDelete = (slug: string, title: string) => {
     if (confirm(`Are you sure you want to delete "${title}"?`)) {
-      router.delete(`/note/admin/${slug}`)
+      router.delete(`/note/me/${slug}`)
     }
   }
 

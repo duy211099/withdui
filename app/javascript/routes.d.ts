@@ -143,7 +143,7 @@ export const edit_mood: ((
 
 /**
  * Generates rails route to
- * /note/admin/:slug/edit(.:format)
+ * /note/me/:slug/edit(.:format)
  * @param {any} slug
  * @param {object | undefined} options
  * @returns {string} route path
@@ -259,7 +259,7 @@ export const new_mood: ((
 
 /**
  * Generates rails route to
- * /note/admin/new(.:format)
+ * /note/me/new(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
@@ -299,7 +299,7 @@ export const new_user_session: ((
 
 /**
  * Generates rails route to
- * /note/admin(.:format)
+ * /note/me(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
@@ -309,7 +309,7 @@ export const note_admin: ((
 
 /**
  * Generates rails route to
- * /note/admin(.:format)
+ * /note/me(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */

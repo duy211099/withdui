@@ -1,8 +1,18 @@
 import { Head, Link, router, useForm } from '@inertiajs/react'
 import { ArrowLeft, Calendar, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
@@ -18,6 +28,7 @@ interface EditProps {
 
 export default function Edit({ mood, mood_levels }: EditProps) {
   const { t, locale } = useI18n()
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const { data, setData, patch, processing, errors } = useForm({
     level: mood.level,
     entry_date: mood.entry_date,
@@ -42,9 +53,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
   }
 
   const handleDelete = () => {
-    if (confirm(t('frontend.moods.edit.confirm_delete'))) {
-      router.delete(mood_path(mood.id))
-    }
+    setIsDeleteOpen(true)
   }
 
   return (
@@ -185,6 +194,25 @@ export default function Edit({ mood, mood_levels }: EditProps) {
             </p>
           </CardContent>
         </Card>
+
+        <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{t('frontend.moods.edit.delete_entry')}</DialogTitle>
+              <DialogDescription>{t('frontend.moods.edit.confirm_delete')}</DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">{t('frontend.moods.shared.cancel')}</Button>
+              </DialogClose>
+              <DialogClose asChild>
+                <Button variant="destructive" onClick={() => router.delete(mood_path(mood.id))}>
+                  {t('frontend.moods.edit.delete_entry')}
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   )

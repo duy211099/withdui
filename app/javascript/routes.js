@@ -587,12 +587,12 @@ export const edit_mood = /*#__PURE__*/ __jsr.r({"id":{"r":true},"format":{}}, [2
 
 /**
  * Generates rails route to
- * /note/admin/:slug/edit(.:format)
+ * /note/me/:slug/edit(.:format)
  * @param {any} slug
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const edit_note_admin = /*#__PURE__*/ __jsr.r({"slug":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"admin"],[2,[7,"/"],[2,[3,"slug"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]]]);
+export const edit_note_admin = /*#__PURE__*/ __jsr.r({"slug":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"me"],[2,[7,"/"],[2,[3,"slug"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]]]);
 
 /**
  * Generates rails route to
@@ -678,11 +678,11 @@ export const new_mood = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"m
 
 /**
  * Generates rails route to
- * /note/admin/new(.:format)
+ * /note/me/new(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const new_note_admin = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"admin"],[2,[7,"/"],[2,[6,"new"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
+export const new_note_admin = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"me"],[2,[7,"/"],[2,[6,"new"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
 
 /**
  * Generates rails route to
@@ -710,19 +710,19 @@ export const new_user_session = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],
 
 /**
  * Generates rails route to
- * /note/admin(.:format)
+ * /note/me(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const note_admin = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"admin"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+export const note_admin = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"me"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to
- * /note/admin(.:format)
+ * /note/me(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const note_admin_index = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"admin"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+export const note_admin_index = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"note"],[2,[7,"/"],[2,[6,"me"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to
@@ -848,4 +848,3 @@ export const user_session = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[
  * @returns {string} route path
  */
 export const utils_index = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"utils"],[1,[2,[8,"."],[3,"format"]]]]]);
-

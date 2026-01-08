@@ -39,7 +39,7 @@ export default function Edit({ post, categories }: EditProps) {
       .filter(Boolean)
 
     // Submit with parsed tags included
-    router.patch(`/note/admin/${post.slug}`, {
+    router.patch(`/note/me/${post.slug}`, {
       ...data,
       tags: parsedTags,
     })

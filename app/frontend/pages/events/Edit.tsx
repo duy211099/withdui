@@ -10,9 +10,9 @@ interface IndexProps extends BasePageProps {
 
 export default function Edit({ event }: IndexProps) {
   const { t } = useI18n()
-  const { data, setData, patch, processing } = useForm({
-    name: event.name,
-    location: event.location,
+  const { data, setData, patch, processing, errors } = useForm({
+    name: event.name ?? '',
+    location: event.location ?? '',
     price: event.price ?? 0,
     description: event.description ?? '',
   })
@@ -27,6 +27,7 @@ export default function Edit({ event }: IndexProps) {
       title={t('frontend.events.form.edit_title')}
       submitLabel={t('frontend.events.form.submit_edit')}
       data={data}
+      errors={errors}
       processing={processing}
       onSubmit={handleSubmit}
       setData={setData}

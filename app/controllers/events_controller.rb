@@ -21,7 +21,9 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       redirect_to event_path(@event), notice: I18n.t("frontend.events.flash.updated")
     else
-      render inertia: "events/Edit", props: { event: @event }
+      render inertia: "events/Edit",
+             props: { event: @event, errors: form_errors(@event) },
+             status: :unprocessable_entity
     end
   end
 
@@ -42,7 +44,9 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to event_path(@event), notice: I18n.t("frontend.events.flash.created")
     else
-      render inertia: "events/New", props: { event: @event }
+      render inertia: "events/New",
+             props: { event: @event, errors: form_errors(@event) },
+             status: :unprocessable_entity
     end
   end
 
@@ -50,5 +54,9 @@ class EventsController < ApplicationController
 
   def event_params
     params.fetch(:event, params).permit(:name, :location, :price, :description)
+  end
+
+  def form_errors(record)
+    record.errors.to_hash(true).transform_values { |messages| Array(messages).first }
   end
 end

@@ -10,9 +10,9 @@ interface IndexProps extends BasePageProps {
 
 export default function New({ event }: IndexProps) {
   const { t } = useI18n()
-  const { data, setData, post, processing } = useForm({
-    name: event.name,
-    location: event.location,
+  const { data, setData, post, processing, errors } = useForm({
+    name: event.name ?? '',
+    location: event.location ?? '',
     price: event.price ?? 0,
     description: event.description ?? '',
   })
@@ -27,6 +27,7 @@ export default function New({ event }: IndexProps) {
       title={t('frontend.events.form.new_title')}
       submitLabel={t('frontend.events.form.submit_new')}
       data={data}
+      errors={errors}
       processing={processing}
       onSubmit={handleSubmit}
       setData={setData}

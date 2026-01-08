@@ -1,0 +1,21 @@
+---
+en:
+  activerecord:
+    models:
+      event: "Event"
+    attributes:
+      event:
+        name: "Name"
+        description: "Description"
+        location: "Location"
+        price: "Price"
+    errors:
+      models:
+        event:
+          attributes:
+            name:
+              blank: "can't be blank"
+            description:
+              too_short: "is too short (minimum is %{count} characters)"
+            price:
+              greater_than_or_equal_to: "must be greater than or equal to %{count}"

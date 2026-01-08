@@ -17,6 +17,7 @@ interface EventFormProps {
   submitLabel: string
   data: EventFormData
   processing: boolean
+  errors?: Partial<Record<keyof EventFormData, string>>
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   setData: <K extends keyof EventFormData>(key: K, value: EventFormData[K]) => void
 }
@@ -26,6 +27,7 @@ export default function EventForm({
   submitLabel,
   data,
   processing,
+  errors,
   onSubmit,
   setData,
 }: EventFormProps) {
@@ -49,6 +51,7 @@ export default function EventForm({
                 value={data.name}
                 onChange={(e) => setData('name', e.target.value)}
               />
+              {errors?.name && <p className="text-sm text-destructive">{errors.name}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="event-location">{t('frontend.events.form.location')}</Label>
@@ -59,6 +62,7 @@ export default function EventForm({
                 value={data.location}
                 onChange={(e) => setData('location', e.target.value)}
               />
+              {errors?.location && <p className="text-sm text-destructive">{errors.location}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="event-price">{t('frontend.events.form.price')}</Label>
@@ -73,6 +77,7 @@ export default function EventForm({
                   setData('price', Number.isNaN(nextValue) ? 0 : Math.max(0, nextValue))
                 }}
               />
+              {errors?.price && <p className="text-sm text-destructive">{errors.price}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="event-description">{t('frontend.events.form.description')}</Label>
@@ -83,6 +88,9 @@ export default function EventForm({
                 onChange={(e) => setData('description', e.target.value)}
                 rows={4}
               />
+              {errors?.description && (
+                <p className="text-sm text-destructive">{errors.description}</p>
+              )}
             </div>
             <Button type="submit" disabled={processing}>
               {submitLabel}

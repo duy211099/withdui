@@ -1,0 +1,21 @@
+---
+vi:
+  activerecord:
+    models:
+      event: "Sự kiện"
+    attributes:
+      event:
+        name: "Tên"
+        description: "Mô tả"
+        location: "Địa điểm"
+        price: "Giá"
+    errors:
+      models:
+        event:
+          attributes:
+            name:
+              blank: "không được để trống"
+            description:
+              too_short: "quá ngắn (tối thiểu %{count} ký tự)"
+            price:
+              greater_than_or_equal_to: "phải lớn hơn hoặc bằng %{count}"

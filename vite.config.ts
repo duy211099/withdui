@@ -26,6 +26,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './app/frontend'),
     },
   },
+  optimizeDeps: {
+    // Exclude force-graph from pre-bundling - it has complex Canvas/WebGL dependencies
+    exclude: ['force-graph', 'react-force-graph-2d'],
+  },
   build: {
     // Disable source maps in production to prevent source code exposure
     sourcemap: false,
@@ -59,8 +63,13 @@ export default defineConfig({
               id.includes('node_modules/class-variance-authority') || id.includes('node_modules/date-fns')) {
             return 'vendor-common'
           }
-          // Don't bundle heavy specialized libraries - let them load with their pages
-          // force-graph, flexsearch, etc. will be bundled with the pages that use them
+          // Force-graph: Keep it and its dependencies together
+          // This prevents the "xr is not a function" error from splitting Canvas/WebGL code
+          if (id.includes('node_modules/force-graph') || id.includes('node_modules/react-force-graph')) {
+            return 'vendor-force-graph'
+          }
+          // Don't bundle other heavy specialized libraries - let them load with their pages
+          // flexsearch, etc. will be bundled with the pages that use them
         },
       },
     },

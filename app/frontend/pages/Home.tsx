@@ -1,13 +1,15 @@
 import { Head, Link, router, usePage } from '@inertiajs/react'
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import MoodCalendar from '@/components/MoodCalendar'
 import MultiMoodModal from '@/components/MultiMoodModal'
-import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
 import { moods_path, note_index_path } from '@/lib/routes'
 import type { BasePageProps, Mood, MoodLevels, PostListItem } from '@/types'
+
+// Lazy load NoteGraphView to keep force-graph library in a separate chunk
+const NoteGraphView = lazy(() => import('@/components/NoteGraphView'))
 
 interface HomePageProps extends BasePageProps {
   posts: PostListItem[]
@@ -122,7 +124,15 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-              <NoteGraphView posts={posts} />
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center p-8 bg-muted/30 rounded-lg">
+                    <div className="animate-pulse text-muted-foreground">Loading graph...</div>
+                  </div>
+                }
+              >
+                <NoteGraphView posts={posts} />
+              </Suspense>
             </div>
           )}
         </main>

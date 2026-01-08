@@ -1,14 +1,16 @@
 import { Head, Link, router } from '@inertiajs/react'
 import { Document } from 'flexsearch'
 import { List, Network } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import LocalTime from '@/components/LocalTime'
-import NoteGraphView from '@/components/NoteGraphView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { note_index_path } from '@/lib/routes'
 import type { PostListItem } from '@/types'
+
+// Lazy load NoteGraphView to keep force-graph library in a separate chunk
+const NoteGraphView = lazy(() => import('@/components/NoteGraphView'))
 
 interface NoteIndexProps {
   posts: PostListItem[]
@@ -203,7 +205,15 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
 
         {/* Content - Graph or List View */}
         {viewMode === 'graph' ? (
-          <NoteGraphView posts={filteredPosts.length > 0 ? filteredPosts : posts} />
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center p-12 bg-muted/30 rounded-lg">
+                <div className="animate-pulse text-muted-foreground">Loading graph...</div>
+              </div>
+            }
+          >
+            <NoteGraphView posts={filteredPosts.length > 0 ? filteredPosts : posts} />
+          </Suspense>
         ) : (
           <>
             {/* Posts Grid */}

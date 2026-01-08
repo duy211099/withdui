@@ -10,6 +10,11 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
+    # Reset locale to English after each test to prevent test pollution
+    teardown do
+      I18n.locale = :en
+    end
+
     # Add more helper methods to be used by all tests here...
   end
 end

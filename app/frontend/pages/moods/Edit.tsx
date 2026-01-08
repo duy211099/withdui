@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
 import { getDateTimeFormat, getLongDateFormat } from '@/lib/localTime'
-import { moods_path } from '@/lib/routes'
+import { mood_path, moods_path } from '@/lib/routes'
 import { cn, isDateStringInFuture } from '@/lib/utils/utils'
 import type { Mood, MoodLevels } from '@/types'
 
@@ -38,12 +38,12 @@ export default function Edit({ mood, mood_levels }: EditProps) {
       return
     }
 
-    patch(moods_path(mood.id))
+    patch(mood_path(mood.id))
   }
 
   const handleDelete = () => {
     if (confirm(t('frontend.moods.edit.confirm_delete'))) {
-      router.delete(moods_path(mood.id))
+      router.delete(mood_path(mood.id))
     }
   }
 

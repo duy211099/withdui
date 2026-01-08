@@ -5,12 +5,14 @@
 
 require "sidekiq/web"
 
-# Admin-only routes
-authenticate :user, ->(user) { user.admin? } do
-  # Sidekiq web UI
-  mount Sidekiq::Web => "/sidekiq"
+# Admin-only routes - Protected by ActionPolicy in controllers
+authenticate :user do
+  # Sidekiq web UI - requires admin (checked via constraint)
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
-  # Audit logs (PaperTrail versions)
+  # Audit logs (PaperTrail versions) - admin check in controller via VersionPolicy
   get "admin/versions", to: "admin/versions#index", as: :admin_versions
 
   # Serializer demo (for development and admin testing)

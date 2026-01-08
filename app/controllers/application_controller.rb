@@ -80,13 +80,22 @@ class ApplicationController < ActionController::Base
     redirect_location = case policy_class
     when "MoodPolicy"
       moods_path
+    when "VersionPolicy"
+      root_path
     when "AdminPolicy"
       root_path
     else
       root_path
     end
 
-    redirect_to redirect_location, alert: "You don't have permission to access this page."
+    # Customize message for admin-only pages
+    alert_message = if %w[VersionPolicy AdminPolicy].include?(policy_class)
+                      "Admin access required to view this page."
+    else
+                      "You don't have permission to access this page."
+    end
+
+    redirect_to redirect_location, alert: alert_message
   end
 
   # PaperTrail: Track who made the change

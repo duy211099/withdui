@@ -14,11 +14,15 @@
 #  updated_at  :datetime         not null
 #
 one:
-  name: MyString
-  location: MyString
+  name: Test Event One
+  description: This is a valid test event description with enough characters to pass validation
+  location: Test Location One
   price: 9.99
+  starts_at: <%= 1.week.from_now %>
 
 two:
-  name: MyString
-  location: MyString
-  price: 9.99
+  name: Test Event Two
+  description: This is another valid test event description meeting the minimum length requirement
+  location: Test Location Two
+  price: 19.99
+  starts_at: <%= 2.weeks.from_now %>

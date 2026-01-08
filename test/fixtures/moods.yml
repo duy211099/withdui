@@ -1,0 +1,38 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+# == Schema Information
+#
+# Table name: moods
+#
+#  id         :uuid             not null, primary key
+#  entry_date :date             not null
+#  level      :integer          not null
+#  notes      :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :uuid             not null
+#
+# Indexes
+#
+#  index_moods_on_entry_date              (entry_date)
+#  index_moods_on_level                   (level)
+#  index_moods_on_user_id_and_entry_date  (user_id,entry_date) UNIQUE
+#
+
+one:
+  user: one
+  level: 4
+  entry_date: <%= 1.day.ago.to_date %>
+  notes: "Had a good day today"
+
+two:
+  user: one
+  level: 3
+  entry_date: <%= 2.days.ago.to_date %>
+  notes: "Just an okay day"
+
+admin_mood:
+  user: admin
+  level: 5
+  entry_date: <%= Date.today %>
+  notes: "Excellent day!"

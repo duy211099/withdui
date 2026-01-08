@@ -62,4 +62,7 @@ Rails.application.configure do
   # Suppress Devise deprecation warnings from Rails 8.2 (gem needs to be updated)
   # These are internal to Devise gem, not our application code
   config.active_support.deprecation = :silence
+
+  # Use English locale for tests to simplify assertions
+  config.i18n.default_locale = :en
 end

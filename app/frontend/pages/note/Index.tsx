@@ -245,7 +245,7 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
                               key={tag}
                               type="button"
                               variant="ghost"
-                              className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors h-auto border-transparent"
+                              className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors h-auto border-transparent w-fit max-w-fit whitespace-normal break-normal hyphens-auto text-left self-start"
                               onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()

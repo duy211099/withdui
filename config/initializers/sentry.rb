@@ -7,7 +7,5 @@ unless Rails.env.test?
     config.profiles_sample_rate = 1.0
     config.send_default_pii = true
     config.debug = true
-    config.logger = Logger.new($stdout)
-    config.logger.level = Logger::DEBUG
   end
 end

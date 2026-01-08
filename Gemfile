@@ -94,6 +94,9 @@ group :development, :test do
 
   # Annotate models with schema information
   gem "annotaterb", "~> 4.20"
+
+  # Pin minitest to 5.x until Rails 8.1.1 compatibility with 6.0 is fixed
+  gem "minitest", "~> 5.0"
 end
 
 group :development do

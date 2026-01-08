@@ -20,4 +20,4 @@ pre-push:
     check:
       run: npm run check
     test:
-      run: bundle exec rails test
+      run: bin/rails test

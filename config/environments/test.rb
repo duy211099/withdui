@@ -5,9 +5,11 @@
 
 Rails.application.configure do
   config.after_initialize do
-    Bullet.enable        = true
-    Bullet.bullet_logger = true
-    Bullet.raise         = true # raise an error if n+1 query occurs
+    if defined?(Bullet)
+      Bullet.enable        = true
+      Bullet.bullet_logger = true
+      Bullet.raise         = true # raise an error if n+1 query occurs
+    end
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -56,4 +58,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Suppress Devise deprecation warnings from Rails 8.2 (gem needs to be updated)
+  # These are internal to Devise gem, not our application code
+  config.active_support.deprecation = :silence
 end

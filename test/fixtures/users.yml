@@ -1,8 +1,4 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
 #
 # == Schema Information
 #
@@ -29,8 +25,21 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_role                  (role)
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+
+one:
+  email: user_one@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  name: User One
+  role: user
+
+two:
+  email: user_two@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  name: User Two
+  role: user
+
+admin:
+  email: admin@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  name: Admin User
+  role: admin

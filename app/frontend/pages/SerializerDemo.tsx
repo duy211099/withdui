@@ -31,7 +31,7 @@ export default function SerializerDemo({
           {current_user_data.avatar_url && (
             <img
               src={current_user_data.avatar_url}
-              alt={current_user_data.name}
+              alt={current_user_data.name || 'User avatar'}
               className="w-16 h-16 rounded-full"
             />
           )}

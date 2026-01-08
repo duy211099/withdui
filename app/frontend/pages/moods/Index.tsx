@@ -19,7 +19,7 @@ interface IndexProps extends BasePageProps {
   summary: MonthlySummary
   mood_levels: MoodLevels
   all_users: User[]
-  viewing_user_id: number | null
+  viewing_user_id: string | null
   can_edit: boolean
 }
 

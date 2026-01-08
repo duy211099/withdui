@@ -1,5 +1,6 @@
 import { Head, router } from '@inertiajs/react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react'
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -47,6 +48,20 @@ interface VersionsProps {
 }
 
 export default function Versions({ versions, pagy }: VersionsProps) {
+  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set())
+
+  const toggleRow = (id: number) => {
+    setExpandedRows((prev) => {
+      const newSet = new Set(prev)
+      if (newSet.has(id)) {
+        newSet.delete(id)
+      } else {
+        newSet.add(id)
+      }
+      return newSet
+    })
+  }
+
   const handlePageChange = (page: number) => {
     router.visit(`/admin/versions?page=${page}`, {
       preserveScroll: true,
@@ -78,6 +93,77 @@ export default function Versions({ versions, pagy }: VersionsProps) {
     }).format(date)
   }
 
+  const parseChanges = (objectChanges: string | null) => {
+    if (!objectChanges) return null
+    try {
+      return JSON.parse(objectChanges)
+    } catch {
+      return null
+    }
+  }
+
+  const formatValue = (value: any) => {
+    if (value === null || value === undefined) {
+      return <span className="text-muted-foreground italic">null</span>
+    }
+    if (typeof value === 'boolean') {
+      return value ? 'true' : 'false'
+    }
+    if (typeof value === 'object') {
+      return JSON.stringify(value)
+    }
+    return String(value)
+  }
+
+  const renderChanges = (version: Version) => {
+    const changes = parseChanges(version.object_changes)
+
+    if (!changes || Object.keys(changes).length === 0) {
+      return (
+        <div className="text-sm text-muted-foreground italic">No detailed changes available</div>
+      )
+    }
+
+    // Filter out system fields that aren't interesting to users
+    const systemFields = ['updated_at', 'created_at']
+    const filteredChanges = Object.entries(changes).filter(
+      ([field]) => !systemFields.includes(field)
+    )
+
+    if (filteredChanges.length === 0) {
+      return (
+        <div className="text-sm text-muted-foreground italic">Only system fields were updated</div>
+      )
+    }
+
+    return (
+      <div className="space-y-2">
+        {filteredChanges.map(([field, value]) => {
+          // PaperTrail stores changes as [old_value, new_value]
+          const changeArray = Array.isArray(value) ? value : [null, value]
+          const [oldValue, newValue] = changeArray
+
+          return (
+            <div key={field} className="grid grid-cols-[120px_1fr_1fr] gap-4 text-sm">
+              <div className="font-medium text-muted-foreground">{field}:</div>
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="font-mono text-xs">
+                  {formatValue(oldValue)}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-muted-foreground">→</span>
+                <Badge variant="secondary" className="font-mono text-xs">
+                  {formatValue(newValue)}
+                </Badge>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   return (
     <>
       <Head title="Audit Logs" />
@@ -96,6 +182,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-[50px]"></TableHead>
                   <TableHead>Event</TableHead>
                   <TableHead>Model</TableHead>
                   <TableHead>ID</TableHead>
@@ -106,31 +193,70 @@ export default function Versions({ versions, pagy }: VersionsProps) {
               <TableBody>
                 {versions.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center text-muted-foreground">
                       No audit logs found
                     </TableCell>
                   </TableRow>
                 ) : (
-                  versions.map((version) => (
-                    <TableRow key={version.id}>
-                      <TableCell>{getEventBadge(version.event)}</TableCell>
-                      <TableCell className="font-medium">{version.item_type}</TableCell>
-                      <TableCell className="font-mono text-xs">{version.item_id}</TableCell>
-                      <TableCell>
-                        {version.user ? (
-                          <div>
-                            <div className="font-medium">{version.user.name || 'Unknown'}</div>
-                            <div className="text-xs text-muted-foreground">
-                              {version.user.email}
-                            </div>
-                          </div>
-                        ) : (
-                          <span className="text-muted-foreground">System</span>
+                  versions.map((version) => {
+                    const isExpanded = expandedRows.has(version.id)
+                    // Check if there are meaningful changes (not just system fields)
+                    const changes = parseChanges(version.object_changes)
+                    const systemFields = ['updated_at', 'created_at']
+                    const hasChanges =
+                      changes && Object.keys(changes).some((field) => !systemFields.includes(field))
+
+                    return (
+                      <>
+                        <TableRow key={version.id} className="group">
+                          <TableCell>
+                            {hasChanges && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => toggleRow(version.id)}
+                                className="h-8 w-8 p-0"
+                              >
+                                {isExpanded ? (
+                                  <ChevronUp className="h-4 w-4" />
+                                ) : (
+                                  <ChevronDown className="h-4 w-4" />
+                                )}
+                              </Button>
+                            )}
+                          </TableCell>
+                          <TableCell>{getEventBadge(version.event)}</TableCell>
+                          <TableCell className="font-medium">{version.item_type}</TableCell>
+                          <TableCell className="font-mono text-xs">{version.item_id}</TableCell>
+                          <TableCell>
+                            {version.user ? (
+                              <div>
+                                <div className="font-medium">{version.user.name || 'Unknown'}</div>
+                                <div className="text-xs text-muted-foreground">
+                                  {version.user.email}
+                                </div>
+                              </div>
+                            ) : (
+                              <span className="text-muted-foreground">System</span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-sm">
+                            {formatDate(version.created_at)}
+                          </TableCell>
+                        </TableRow>
+                        {isExpanded && hasChanges && (
+                          <TableRow key={`${version.id}-details`}>
+                            <TableCell colSpan={6} className="bg-muted/50 p-6">
+                              <div className="space-y-3">
+                                <h4 className="font-semibold text-sm">Changes:</h4>
+                                {renderChanges(version)}
+                              </div>
+                            </TableCell>
+                          </TableRow>
                         )}
-                      </TableCell>
-                      <TableCell className="text-sm">{formatDate(version.created_at)}</TableCell>
-                    </TableRow>
-                  ))
+                      </>
+                    )
+                  })
                 )}
               </TableBody>
             </Table>
@@ -146,7 +272,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handlePageChange(pagy.prev!)}
+                    onClick={() => pagy.prev && handlePageChange(pagy.prev)}
                     disabled={!pagy.prev}
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -184,7 +310,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handlePageChange(pagy.next!)}
+                    onClick={() => pagy.next && handlePageChange(pagy.next)}
                     disabled={!pagy.next}
                   >
                     Next

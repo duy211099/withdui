@@ -12,6 +12,9 @@
 #  updated_at  :datetime         not null
 #
 class Event < ApplicationRecord
+  # Enable PaperTrail for audit logging
+  has_paper_trail
+
   validates :name, presence: true
   validates :description, length: { minimum: 25 }
   validates :price, numericality: { greater_than_or_equal_to: 0 }

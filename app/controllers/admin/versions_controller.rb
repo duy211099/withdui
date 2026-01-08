@@ -28,8 +28,8 @@ module Admin
           item_type: version.item_type,
           item_id: version.item_id,
           whodunnit: version.whodunnit, # User ID who made the change
-          object: version.object, # Previous state (JSON)
-          object_changes: version.object_changes, # Changes made (JSON)
+          object: version.object, # Previous state (JSON string)
+          object_changes: version.object_changes, # Changes made (JSON string)
           created_at: version.created_at.iso8601,
           # Try to get the user who made the change
           user: user_info(version.whodunnit)

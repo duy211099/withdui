@@ -5,6 +5,9 @@
 
 PaperTrail.config.enabled = true
 
+# Use JSON serializer instead of YAML for cleaner data storage
+PaperTrail.serializer = PaperTrail::Serializers::JSON
+
 # Track who made changes (current user ID)
 # Also track what changed (object_changes column)
 PaperTrail.config.has_paper_trail_defaults = {

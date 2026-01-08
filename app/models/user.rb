@@ -24,6 +24,9 @@
 #  index_users_on_role                  (role)
 #
 class User < ApplicationRecord
+  # Enable PaperTrail for audit logging
+  has_paper_trail
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

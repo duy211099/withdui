@@ -1,18 +1,10 @@
 import { Head, Link, router, useForm } from '@inertiajs/react'
 import { ArrowLeft, Calendar, Trash2 } from 'lucide-react'
 import { useState } from 'react'
+import DeleteDialog from '@/components/DeleteDialog'
 import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
@@ -195,24 +187,15 @@ export default function Edit({ mood, mood_levels }: EditProps) {
           </CardContent>
         </Card>
 
-        <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>{t('frontend.moods.edit.delete_entry')}</DialogTitle>
-              <DialogDescription>{t('frontend.moods.edit.confirm_delete')}</DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">{t('frontend.moods.shared.cancel')}</Button>
-              </DialogClose>
-              <DialogClose asChild>
-                <Button variant="destructive" onClick={() => router.delete(mood_path(mood.id))}>
-                  {t('frontend.moods.edit.delete_entry')}
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <DeleteDialog
+          open={isDeleteOpen}
+          onOpenChange={setIsDeleteOpen}
+          title={t('frontend.moods.edit.delete_entry')}
+          description={t('frontend.moods.edit.confirm_delete')}
+          cancelLabel={t('frontend.moods.shared.cancel')}
+          confirmLabel={t('frontend.moods.edit.delete_entry')}
+          onConfirm={() => router.delete(mood_path(mood.id))}
+        />
       </div>
     </>
   )

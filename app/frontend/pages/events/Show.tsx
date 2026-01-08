@@ -1,9 +1,9 @@
-import { Link } from '@inertiajs/react'
-import DeleteEventDialog from '@/components/events/DeleteEventDialog'
+import { Link, router } from '@inertiajs/react'
+import DeleteDialog from '@/components/DeleteDialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useI18n } from '@/contexts/I18nContext'
-import { edit_event_path, events_path } from '@/lib/routes'
+import { edit_event_path, event_path, events_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -48,7 +48,16 @@ export default function Show({ event }: IndexProps) {
               <Button asChild>
                 <Link href={edit_event_path(event)}>{t('frontend.events.show.edit')}</Link>
               </Button>
-              <DeleteEventDialog event={event} />
+              <DeleteDialog
+                trigger={
+                  <Button variant="destructive">{t('frontend.events.delete.trigger')}</Button>
+                }
+                title={t('frontend.events.delete.title')}
+                description={t('frontend.events.delete.description')}
+                cancelLabel={t('frontend.events.delete.cancel')}
+                confirmLabel={t('frontend.events.delete.confirm')}
+                onConfirm={() => router.delete(event_path(event.id))}
+              />
             </div>
           </CardContent>
         </Card>

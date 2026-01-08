@@ -51,16 +51,16 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
 
   test "new redirects to edit if mood exists for date" do
     sign_in @user
-    existing_mood = @user.moods.create!(level: 4, entry_date: Date.today)
+    existing_mood = @user.moods.create!(level: 4, entry_date: Date.current)
 
-    get new_mood_path(date: Date.today)
+    get new_mood_path(date: Date.current)
     assert_redirected_to edit_mood_path(existing_mood)
   end
 
   # Create tests
   test "create requires authentication" do
     assert_no_difference "Mood.count" do
-      post moods_path, params: { level: 4, entry_date: Date.today }
+      post moods_path, params: { level: 4, entry_date: Date.current }
     end
     assert_redirected_to new_user_session_path
   end
@@ -88,11 +88,11 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Mood.count" do
       post moods_path, params: {
         level: 10, # Invalid level
-        entry_date: Date.today
+        entry_date: Date.current
       }
     end
 
-    assert_redirected_to new_mood_path(date: Date.today)
+    assert_redirected_to new_mood_path(date: Date.current)
   end
 
   # Edit tests

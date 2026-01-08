@@ -1,15 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.after_initialize do
-    Bullet.enable        = true
-    Bullet.alert         = true
-    Bullet.bullet_logger = true
-    Bullet.console       = true
-    Bullet.rails_logger  = true
-    Bullet.add_footer    = true
-  end
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.
@@ -86,10 +77,17 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
 
   # Bullet configuration for N+1 query detection
+  # Non-blocking notifications - no more annoying browser alerts!
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = true
-    Bullet.console = true
-    Bullet.rails_logger = true
+
+    # Visual footer in page (non-blocking)
+    Bullet.add_footer = true           # Adds footer to bottom of HTML page
+
+    # Logging (for deeper analysis)
+    Bullet.console = true              # Shows in Rails server console
+    Bullet.rails_logger = true         # Logs to log/development.log
+
+    # NEVER use Bullet.alert = true (it blocks the entire browser!)
   end
 end

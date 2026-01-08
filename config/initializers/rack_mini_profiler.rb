@@ -8,13 +8,13 @@ if Rails.env.development?
     c.position = "bottom-left"
 
     # Enable advanced debugging tools (flamegraph, memory profiling)
-    c.enable_advanced_debugging_tools = true
+    c.enable_advanced_debugging_tools = false
 
     # Use memory store for lightweight development profiling
     c.storage = Rack::MiniProfiler::MemoryStore
 
     # Show detailed results by default (easier debugging)
-    c.collapse_results = false
+    c.collapse_results = true
 
     # Skip paths that don't need profiling (assets, dev tools)
     c.skip_paths = [

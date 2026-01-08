@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react'
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from '@/contexts/I18nContext'
+import useScrollHide from '@/hooks/useScrollHide'
 import {
   about_path,
   destroy_user_session_path,
@@ -21,9 +22,15 @@ export default function Header() {
   const { current_user } = usePage<{ current_user?: User }>().props
   const { t } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const hidden = useScrollHide({ threshold: 80 })
 
   return (
-    <header className="border-b-2">
+    <header
+      className={[
+        'sticky top-0 z-40 border-b-2 bg-background/90 backdrop-blur transition-transform duration-300',
+        hidden ? '-translate-y-full' : 'translate-y-0',
+      ].join(' ')}
+    >
       <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between max-w-5xl">
         <div className="flex gap-4">
           <Link href={root_path()} className="text-xl font-bold">

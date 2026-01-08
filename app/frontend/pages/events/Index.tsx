@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react'
 import useSWR from 'swr'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useI18n } from '@/contexts/I18nContext'
 import { fetcher } from '@/lib/fetcher'
 import { event_path, new_event_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
@@ -16,6 +17,7 @@ interface RandomResponse {
 }
 
 export default function Index({ events }: IndexProps) {
+  const { t } = useI18n()
   const { data: randomData, isLoading, error } = useSWR<RandomResponse>('/random', fetcher)
 
   return (
@@ -23,20 +25,34 @@ export default function Index({ events }: IndexProps) {
       <div className="container mx-auto px-4 py-10 max-w-5xl">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
-            <p className="text-sm uppercase tracking-widest text-muted-foreground">Events</p>
-            <h1 className="text-3xl sm:text-4xl font-bold">Upcoming events</h1>
-            <p className="text-muted-foreground mt-1">Browse what’s happening and RSVP.</p>
+            <p className="text-sm uppercase tracking-widest text-muted-foreground">
+              {t('frontend.events.index.title')}
+            </p>
+            <h1 className="text-3xl sm:text-4xl font-bold">
+              {t('frontend.events.index.subtitle')}
+            </h1>
+            <p className="text-muted-foreground mt-1">{t('frontend.events.index.description')}</p>
           </div>
           <Link href={new_event_path()}>
-            <Button>Create</Button>
+            <Button>{t('frontend.events.form.submit_new')}</Button>
           </Link>
           <div className="text-right">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground">Pulse</p>
-            {isLoading && <p className="text-sm text-muted-foreground">Random: Loading...</p>}
-            {error && !isLoading && <p className="text-sm text-muted-foreground">Random: Error!</p>}
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              {t('frontend.events.index.pulse')}
+            </p>
+            {isLoading && (
+              <p className="text-sm text-muted-foreground">
+                {t('frontend.events.index.random.loading')}
+              </p>
+            )}
+            {error && !isLoading && (
+              <p className="text-sm text-muted-foreground">
+                {t('frontend.events.index.random.error')}
+              </p>
+            )}
             {randomData && !isLoading && !error && (
               <p className="text-sm text-muted-foreground">
-                Random: <span className="font-medium text-foreground">{randomData.value}</span>
+                {t('frontend.events.index.random.value', { value: randomData.value })}
               </p>
             )}
           </div>
@@ -45,7 +61,7 @@ export default function Index({ events }: IndexProps) {
         {events.length === 0 ? (
           <Card>
             <CardContent className="py-10 text-center text-muted-foreground">
-              No events yet.
+              {t('frontend.events.index.empty')}
             </CardContent>
           </Card>
         ) : (
@@ -64,10 +80,12 @@ export default function Index({ events }: IndexProps) {
                       </p>
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-semibold">
-                          {event.price == 0 ? 'Free' : `$${event.price}`}
+                          {event.price == 0
+                            ? t('frontend.events.index.price_free')
+                            : `$${event.price}`}
                         </span>
                         <Button variant="outline" size="sm">
-                          View details
+                          {t('frontend.events.index.view_details')}
                         </Button>
                       </div>
                     </CardContent>

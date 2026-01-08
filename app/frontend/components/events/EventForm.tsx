@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { useI18n } from '@/contexts/I18nContext'
 
 type EventFormData = {
   name: string
@@ -28,17 +29,19 @@ export default function EventForm({
   onSubmit,
   setData,
 }: EventFormProps) {
+  const { t } = useI18n()
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
       <h1 className="text-2xl font-semibold mb-6">{title}</h1>
       <Card>
         <CardHeader>
-          <CardTitle>Event details</CardTitle>
+          <CardTitle>{t('frontend.events.form.details_title')}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="event-name">Name</Label>
+              <Label htmlFor="event-name">{t('frontend.events.form.name')}</Label>
               <Input
                 id="event-name"
                 type="text"
@@ -48,7 +51,7 @@ export default function EventForm({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="event-location">Location</Label>
+              <Label htmlFor="event-location">{t('frontend.events.form.location')}</Label>
               <Input
                 id="event-location"
                 type="text"
@@ -58,7 +61,7 @@ export default function EventForm({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="event-price">Price</Label>
+              <Label htmlFor="event-price">{t('frontend.events.form.price')}</Label>
               <Input
                 id="event-price"
                 type="number"
@@ -72,7 +75,7 @@ export default function EventForm({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="event-description">Description</Label>
+              <Label htmlFor="event-description">{t('frontend.events.form.description')}</Label>
               <Textarea
                 id="event-description"
                 name="description"

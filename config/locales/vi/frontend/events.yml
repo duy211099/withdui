@@ -1,0 +1,42 @@
+---
+vi:
+  frontend:
+    events:
+      index:
+        title: Sự kiện
+        subtitle: Sự kiện sắp diễn ra
+        description: Khám phá những sự kiện sắp tới và đăng ký tham gia.
+        pulse: Nhịp
+        random:
+          loading: "Random: Đang tải..."
+          error: "Random: Lỗi!"
+          value: "Random: %{value}"
+        empty: Chưa có sự kiện nào.
+        view_details: Xem chi tiết
+        price_free: Miễn phí
+      show:
+        label: Sự kiện
+        price_label: Giá
+        about_title: Giới thiệu sự kiện
+        back: Quay lại danh sách
+        edit: Chỉnh sửa
+      form:
+        new_title: Tạo sự kiện
+        edit_title: Chỉnh sửa sự kiện
+        details_title: Thông tin sự kiện
+        name: Tên
+        location: Địa điểm
+        price: Giá
+        description: Mô tả
+        submit_new: Tạo sự kiện
+        submit_edit: Lưu thay đổi
+      delete:
+        trigger: Xóa sự kiện
+        title: Xóa sự kiện này?
+        description: Hành động này không thể hoàn tác. Sự kiện sẽ bị xóa vĩnh viễn.
+        cancel: Hủy
+        confirm: Xóa sự kiện
+      flash:
+        created: Đã tạo sự kiện.
+        updated: Đã cập nhật sự kiện.
+        deleted: Đã xóa sự kiện.

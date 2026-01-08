@@ -1,0 +1,42 @@
+---
+en:
+  frontend:
+    events:
+      index:
+        title: Events
+        subtitle: Upcoming events
+        description: Browse what's happening and RSVP.
+        pulse: Pulse
+        random:
+          loading: "Random: Loading..."
+          error: "Random: Error!"
+          value: "Random: %{value}"
+        empty: No events yet.
+        view_details: View details
+        price_free: Free
+      show:
+        label: Event
+        price_label: Price
+        about_title: About this event
+        back: Back to events
+        edit: Edit event
+      form:
+        new_title: New Event
+        edit_title: Edit Event
+        details_title: Event details
+        name: Name
+        location: Location
+        price: Price
+        description: Description
+        submit_new: Create event
+        submit_edit: Save changes
+      delete:
+        trigger: Delete event
+        title: Delete this event?
+        description: This action cannot be undone. The event will be permanently removed.
+        cancel: Cancel
+        confirm: Delete event
+      flash:
+        created: Event created.
+        updated: Event updated.
+        deleted: Event deleted.

@@ -1,5 +1,6 @@
 import { useForm } from '@inertiajs/react'
 import EventForm from '@/components/events/EventForm'
+import { useI18n } from '@/contexts/I18nContext'
 import { event_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
@@ -8,6 +9,7 @@ interface IndexProps extends BasePageProps {
 }
 
 export default function Edit({ event }: IndexProps) {
+  const { t } = useI18n()
   const { data, setData, patch, processing } = useForm({
     name: event.name,
     location: event.location,
@@ -22,8 +24,8 @@ export default function Edit({ event }: IndexProps) {
 
   return (
     <EventForm
-      title="Edit Event"
-      submitLabel="Save changes"
+      title={t('frontend.events.form.edit_title')}
+      submitLabel={t('frontend.events.form.submit_edit')}
       data={data}
       processing={processing}
       onSubmit={handleSubmit}

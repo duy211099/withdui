@@ -19,7 +19,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update(event_params)
-      redirect_to event_path(@event), notice: "Event updated."
+      redirect_to event_path(@event), notice: I18n.t("frontend.events.flash.updated")
     else
       render inertia: "events/Edit", props: { event: @event }
     end
@@ -28,7 +28,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to events_path, notice: "Event deleted."
+    redirect_to events_path, notice: I18n.t("frontend.events.flash.deleted")
   end
 
   def new
@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to event_path(@event), notice: "Event created."
+      redirect_to event_path(@event), notice: I18n.t("frontend.events.flash.created")
     else
       render inertia: "events/New", props: { event: @event }
     end

@@ -60,6 +60,7 @@ e.destroy
 rails g migration
 rails g migration AddFieldsToEvents starts_at:datetime description:text
 rails db:migrate
+rails db:rollback
 ```
 
 # Routes
@@ -79,3 +80,8 @@ post "events/new" => "events#new"
 ```
 
 # Partials
+
+# Model Validations
+```
+  validates :name, presence: true
+```

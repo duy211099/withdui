@@ -1,5 +1,6 @@
 import { useForm } from '@inertiajs/react'
 import EventForm from '@/components/events/EventForm'
+import { useI18n } from '@/contexts/I18nContext'
 import { events_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
@@ -8,6 +9,7 @@ interface IndexProps extends BasePageProps {
 }
 
 export default function New({ event }: IndexProps) {
+  const { t } = useI18n()
   const { data, setData, post, processing } = useForm({
     name: event.name,
     location: event.location,
@@ -22,8 +24,8 @@ export default function New({ event }: IndexProps) {
 
   return (
     <EventForm
-      title="New Event"
-      submitLabel="Create event"
+      title={t('frontend.events.form.new_title')}
+      submitLabel={t('frontend.events.form.submit_new')}
       data={data}
       processing={processing}
       onSubmit={handleSubmit}

@@ -11,6 +11,9 @@ export type {
   Mood,
   Post,
   User,
+  UserBasic,
+  UserDetailed,
+  UserMinimal,
 } from './models'
 
 // UI types

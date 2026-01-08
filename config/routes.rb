@@ -14,23 +14,11 @@ Rails.application.routes.draw do
   # Event routes
   draw :events
 
-  # Locale switching
-  post "locale/:locale", to: "locale#switch", as: :switch_locale
-
-  # Inertia example routes
-  get "inertia-example", to: "inertia_example#index"
-  get "hello", to: "inertia_example#hello"
-
   # Utils routes
-  get "utils", to: "utils#index", as: :utils_index
+  draw :utils
 
-  # About page
-  get "about", to: "about#index", as: :about
-  get "random", to: "home#random", as: :random
-  # Defines the root path route ("/")
-  root "home#index"
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Public routes (home, about, locale switching)
+  draw :public
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -38,9 +26,4 @@ Rails.application.routes.draw do
 
   # Serve empty responses for all /.well-known/* paths to prevent unnecessary 404 errors in logs.
   match "/.well-known/*path", to: proc { [ 204, {}, [ "" ] ] }, via: :all
-
-  # Test routes (development only)
-  if Rails.env.development?
-    get "test/sentry", to: "test#sentry"
-  end
 end

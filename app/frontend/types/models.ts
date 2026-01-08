@@ -3,13 +3,60 @@
  */
 
 /**
- * User model - represents authenticated users
+ * User model - Complete database representation
+ * Matches app/models/user.rb schema
+ *
+ * NOTE: Use serialized types (UserBasic, UserDetailed, UserMinimal) in your
+ * component props instead of this complete type for better type safety.
  */
 export interface User {
-  id: number
+  id: string // UUIDv7
   email: string
   name: string | null
-  avatar_url?: string | null
+  avatar_url: string | null
+  provider: string | null
+  uid: string | null
+  role: string
+  created_at: string
+  updated_at: string
+}
+
+/**
+ * Serialized User types - Match app/serializers/user_serializer.rb
+ * These types represent the actual data sent to the frontend.
+ */
+
+/**
+ * UserBasic - Basic user info from UserSerializer#as_json
+ * Use this for most common cases (profiles, comments, etc.)
+ */
+export interface UserBasic {
+  id: string
+  name: string | null
+  email: string
+  avatar_url: string | null
+  role: string
+  created_at: string
+}
+
+/**
+ * UserDetailed - Extended info from UserSerializer#as_detailed_json
+ * Use this for admin views or OAuth-related displays
+ */
+export interface UserDetailed extends UserBasic {
+  provider: string | null
+  uid: string | null
+  updated_at: string
+}
+
+/**
+ * UserMinimal - Lightweight info from UserSerializer#as_minimal_json
+ * Use this for lists, dropdowns, or performance-critical components
+ */
+export interface UserMinimal {
+  id: string
+  name: string | null
+  avatar_url: string | null
 }
 
 /**

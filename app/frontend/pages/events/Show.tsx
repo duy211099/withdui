@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react'
+import DeleteEventDialog from '@/components/events/DeleteEventDialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { edit_event_path, events_path } from '@/lib/routes'
@@ -40,6 +41,7 @@ export default function Show({ event }: IndexProps) {
               <Button asChild>
                 <Link href={edit_event_path(event)}>Edit event</Link>
               </Button>
+              <DeleteEventDialog event={event} />
             </div>
           </CardContent>
         </Card>

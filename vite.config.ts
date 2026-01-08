@@ -26,10 +26,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './app/frontend'),
     },
   },
-  optimizeDeps: {
-    // Exclude force-graph from pre-bundling - it has complex Canvas/WebGL dependencies
-    exclude: ['force-graph', 'react-force-graph-2d'],
-  },
   build: {
     // Disable source maps in production to prevent source code exposure
     sourcemap: false,

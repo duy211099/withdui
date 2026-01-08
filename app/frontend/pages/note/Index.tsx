@@ -245,14 +245,16 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
                               key={tag}
                               type="button"
                               variant="ghost"
-                              className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded hover:bg-secondary/80 transition-colors h-auto border-transparent w-fit max-w-fit whitespace-normal break-normal hyphens-auto text-left self-start"
+                              className="group h-auto border-transparent bg-transparent p-0 text-left self-start hover:bg-transparent max-w-full whitespace-normal break-words break-all hyphens-auto shrink"
                               onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 setSelectedTag(tag)
                               }}
                             >
-                              {tag}
+                              <span className="inline-block max-w-full box-decoration-clone rounded bg-secondary px-2 py-1 text-xs text-secondary-foreground whitespace-normal break-all hyphens-auto transition-colors group-hover:bg-secondary/80">
+                                {tag}
+                              </span>
                             </Button>
                           ))}
                         </div>

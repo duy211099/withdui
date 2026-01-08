@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -32,6 +33,27 @@ export default function EventForm({
   setData,
 }: EventFormProps) {
   const { t } = useI18n()
+  const fieldOrder: Array<{ key: keyof EventFormData; id: string }> = [
+    { key: 'name', id: 'event-name' },
+    { key: 'location', id: 'event-location' },
+    { key: 'price', id: 'event-price' },
+    { key: 'description', id: 'event-description' },
+  ]
+
+  useEffect(() => {
+    if (!errors) return
+
+    const firstError = fieldOrder.find(({ key }) => errors[key])
+    if (!firstError) return
+
+    const element = document.getElementById(firstError.id)
+    if (!element) return
+
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    if (element instanceof HTMLElement) {
+      element.focus()
+    }
+  }, [errors])
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
@@ -48,6 +70,7 @@ export default function EventForm({
                 id="event-name"
                 type="text"
                 name="name"
+                aria-invalid={Boolean(errors?.name)}
                 value={data.name}
                 onChange={(e) => setData('name', e.target.value)}
               />
@@ -59,6 +82,7 @@ export default function EventForm({
                 id="event-location"
                 type="text"
                 name="location"
+                aria-invalid={Boolean(errors?.location)}
                 value={data.location}
                 onChange={(e) => setData('location', e.target.value)}
               />
@@ -71,6 +95,7 @@ export default function EventForm({
                 type="number"
                 name="price"
                 min={0}
+                aria-invalid={Boolean(errors?.price)}
                 value={data.price}
                 onChange={(e) => {
                   const nextValue = Number(e.target.value)
@@ -84,6 +109,7 @@ export default function EventForm({
               <Textarea
                 id="event-description"
                 name="description"
+                aria-invalid={Boolean(errors?.description)}
                 value={data.description}
                 onChange={(e) => setData('description', e.target.value)}
                 rows={4}

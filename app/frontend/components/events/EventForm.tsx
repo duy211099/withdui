@@ -71,10 +71,15 @@ export default function EventForm({
                 type="text"
                 name="name"
                 aria-invalid={Boolean(errors?.name)}
+                aria-describedby={errors?.name ? 'event-name-error' : undefined}
                 value={data.name}
                 onChange={(e) => setData('name', e.target.value)}
               />
-              {errors?.name && <p className="text-sm text-destructive">{errors.name}</p>}
+              {errors?.name && (
+                <p id="event-name-error" className="text-sm text-destructive">
+                  {errors.name}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="event-location">{t('frontend.events.form.location')}</Label>
@@ -83,10 +88,15 @@ export default function EventForm({
                 type="text"
                 name="location"
                 aria-invalid={Boolean(errors?.location)}
+                aria-describedby={errors?.location ? 'event-location-error' : undefined}
                 value={data.location}
                 onChange={(e) => setData('location', e.target.value)}
               />
-              {errors?.location && <p className="text-sm text-destructive">{errors.location}</p>}
+              {errors?.location && (
+                <p id="event-location-error" className="text-sm text-destructive">
+                  {errors.location}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="event-price">{t('frontend.events.form.price')}</Label>
@@ -96,13 +106,18 @@ export default function EventForm({
                 name="price"
                 min={0}
                 aria-invalid={Boolean(errors?.price)}
+                aria-describedby={errors?.price ? 'event-price-error' : undefined}
                 value={data.price}
                 onChange={(e) => {
                   const nextValue = Number(e.target.value)
                   setData('price', Number.isNaN(nextValue) ? 0 : Math.max(0, nextValue))
                 }}
               />
-              {errors?.price && <p className="text-sm text-destructive">{errors.price}</p>}
+              {errors?.price && (
+                <p id="event-price-error" className="text-sm text-destructive">
+                  {errors.price}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="event-description">{t('frontend.events.form.description')}</Label>
@@ -110,12 +125,15 @@ export default function EventForm({
                 id="event-description"
                 name="description"
                 aria-invalid={Boolean(errors?.description)}
+                aria-describedby={errors?.description ? 'event-description-error' : undefined}
                 value={data.description}
                 onChange={(e) => setData('description', e.target.value)}
                 rows={4}
               />
               {errors?.description && (
-                <p className="text-sm text-destructive">{errors.description}</p>
+                <p id="event-description-error" className="text-sm text-destructive">
+                  {errors.description}
+                </p>
               )}
             </div>
             <Button type="submit" disabled={processing}>

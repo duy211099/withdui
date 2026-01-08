@@ -1,0 +1,39 @@
+---
+title: The FrontEnd Note
+slug: the-frontend-note
+date: '2026-01-08'
+excerpt: ''
+category: Web Architecture
+tags:
+- web
+- frontend
+author: ''
+published: true
+featured_image: ''
+---
+
+# aria-invalid
+
+ARIA attribute that indicates whether a form input has failed validation.
+
+## Values
+- `true` - Input is invalid
+- `false` - Input is valid (default)
+- `grammar` - Grammatical error detected
+- `spelling` - Spelling error detected
+
+## Example
+```html
+<input 
+  type="email" 
+  aria-invalid="true"
+  aria-describedby="error-msg"
+>
+<span id="error-msg">Invalid email address</span>
+```
+
+## Best Practices
+- Pair with `aria-describedby` to reference error messages
+- Toggle with JavaScript after validation
+- Essential for accessibility (WCAG compliance)
+- Helps screen reader users understand validation errors

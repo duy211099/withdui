@@ -83,15 +83,18 @@ createInertiaApp({
     },
   },
 
-  resolve: (name) => {
-    const pages = import.meta.glob<ResolvedComponent>('../pages/**/*.tsx', {
-      eager: true,
-    })
-    const page = pages[`../pages/${name}.tsx`]
-    if (!page) {
+  resolve: async (name) => {
+    // Lazy load pages for automatic code splitting
+    // Each page becomes its own chunk, loaded only when needed
+    const pages = import.meta.glob<ResolvedComponent>('../pages/**/*.tsx')
+    const pageLoader = pages[`../pages/${name}.tsx`]
+
+    if (!pageLoader) {
       console.error(`Missing Inertia page component: '${name}.tsx'`)
       return { default: MissingPage }
     }
+
+    const page = await pageLoader()
 
     // Use default layout for all pages (unless page specifies its own layout)
     // see https://inertia-rails.dev/guide/pages#default-layouts

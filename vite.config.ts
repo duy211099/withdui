@@ -31,12 +31,37 @@ export default defineConfig({
     sourcemap: false,
     // Use esbuild for minification (default, faster than terser)
     minify: 'esbuild',
-    // Let Vite handle automatic code splitting (safer than manual chunks)
+    // Code splitting configuration
     rollupOptions: {
       output: {
         // Optimize chunk size thresholds for better caching
         chunkFileNames: 'assets/[name]-[hash].js',
-        manualChunks: undefined, // Use Vite's automatic chunking
+        // Split vendor libraries into separate chunks for better caching
+        manualChunks: (id) => {
+          // React ecosystem - changes rarely, cache aggressively
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'vendor-react'
+          }
+          // Inertia - changes rarely
+          if (id.includes('node_modules/@inertiajs')) {
+            return 'vendor-inertia'
+          }
+          // MDX - heavy compiler, only loaded when needed
+          if (id.includes('node_modules/@mdx-js') || id.includes('node_modules/remark-') || id.includes('node_modules/rehype-')) {
+            return 'vendor-mdx'
+          }
+          // Heavy UI libraries that are used globally
+          if (id.includes('node_modules/@radix-ui') || id.includes('node_modules/lucide-react')) {
+            return 'vendor-ui'
+          }
+          // Common utilities used across many pages
+          if (id.includes('node_modules/axios') || id.includes('node_modules/clsx') ||
+              id.includes('node_modules/class-variance-authority') || id.includes('node_modules/date-fns')) {
+            return 'vendor-common'
+          }
+          // Don't bundle heavy specialized libraries - let them load with their pages
+          // force-graph, flexsearch, etc. will be bundled with the pages that use them
+        },
       },
     },
   },

@@ -37,6 +37,9 @@ gem "sentry-ruby", "~> 6.2"
 gem "sentry-rails", "~> 6.2"
 gem "sentry-sidekiq", "~> 6.2"
 
+# Profiling for Sentry
+gem "stackprof", "~> 0.2"
+
 # Logging
 gem "lograge", "~> 0.14"
 

@@ -462,6 +462,7 @@ GEM
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
     sorbet-runtime (0.6.12869)
+    stackprof (0.2.27)
     store_attribute (2.0.1)
       activerecord (>= 6.1)
     store_model (4.4.0)
@@ -558,6 +559,7 @@ DEPENDENCIES
   sentry-ruby (~> 6.2)
   sentry-sidekiq (~> 6.2)
   sidekiq (~> 7.0)
+  stackprof (~> 0.2)
   store_attribute (~> 2.0)
   store_model (~> 4.4)
   tzinfo-data

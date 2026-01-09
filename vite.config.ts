@@ -31,6 +31,9 @@ export default defineConfig({
     sourcemap: false,
     // Use esbuild for minification (default, faster than terser)
     minify: 'esbuild',
+    // Increase chunk size warning to 700kb since MDX compiler is legitimately large
+    // (202kb gzipped is acceptable for a full markdown processor)
+    chunkSizeWarningLimit: 700,
     // Code splitting configuration
     rollupOptions: {
       output: {
@@ -46,9 +49,13 @@ export default defineConfig({
           if (id.includes('node_modules/@inertiajs')) {
             return 'vendor-inertia'
           }
-          // MDX - heavy compiler, only loaded when needed
-          if (id.includes('node_modules/@mdx-js') || id.includes('node_modules/remark-') || id.includes('node_modules/rehype-')) {
-            return 'vendor-mdx'
+          // MDX runtime (smaller) - for rendering MDX
+          if (id.includes('node_modules/@mdx-js/react') || id.includes('node_modules/@mdx-js/mdx/lib/run')) {
+            return 'vendor-mdx-runtime'
+          }
+          // MDX compiler (larger) - separate chunk for compile-time processing
+          if (id.includes('node_modules/@mdx-js') || id.includes('node_modules/remark-') || id.includes('node_modules/rehype-') || id.includes('node_modules/unified') || id.includes('node_modules/micromark')) {
+            return 'vendor-mdx-compiler'
           }
           // Heavy UI libraries that are used globally
           if (id.includes('node_modules/@radix-ui') || id.includes('node_modules/lucide-react')) {

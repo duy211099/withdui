@@ -1,29 +1,36 @@
 version: '3.8'
 
 services:
+  # Rails web server
   web:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    command: bin/dev
-    volumes:
-      # Mount source code for hot reload
-      - .:/rails
-      # Persist gems and node_modules
-      - bundle_cache:/usr/local/bundle
-      - node_modules:/rails/node_modules
-      # Persist SQLite database
-      - ./db:/rails/db
-    ports:
-      - "3000:3000"  # Rails server
-      - "3036:3036"  # Vite dev server
+      dockerfile: Dockerfile
+    command: bundle exec puma -C config/puma.rb
     environment:
-      - RAILS_ENV=development
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_LOG_TO_STDOUT: "true"
     env_file:
-      - .env  # Load environment variables from .env file (Google OAuth, etc.)
-    stdin_open: true
-    tty: true
+      - .env
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/up"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-volumes:
-  bundle_cache:
-  node_modules:
+  # Solid Queue jobs worker
+  jobs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rake solid_queue:start
+    environment:
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: "true"
+    env_file:
+      - .env
+    restart: unless-stopped

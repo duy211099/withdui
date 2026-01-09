@@ -21,8 +21,8 @@
     <%= vite_typescript_tag "inertia" %>
     <%= inertia_ssr_head %>
 
-    <!-- Favicon - standard location that browsers auto-detect -->
-    <%= favicon_link_tag "favicon.ico" %>
+    <!-- Favicon - served from public/ directory -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- PWA icons for mobile devices -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-192x192.png">

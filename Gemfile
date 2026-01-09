@@ -26,8 +26,14 @@ gem "i18n-js", "~> 4.2"
 # js-routes for exposing Rails routes to JavaScript
 gem "js-routes", "~> 2.3"
 
-# Background jobs
-gem "sidekiq", "~> 7.0"
+# Background jobs (uses PostgreSQL instead of Redis)
+gem "solid_queue", "~> 1.0"
+
+# Web UI for managing background jobs
+gem "mission_control-jobs", "~> 1.1"
+
+# Propshaft for serving Mission Control assets (recommended for Vite apps)
+gem "propshaft"
 
 # Fast JSON parsing and generation
 gem "oj", "~> 3.16"
@@ -35,7 +41,6 @@ gem "oj", "~> 3.16"
 # Error tracking
 gem "sentry-ruby", "~> 6.2"
 gem "sentry-rails", "~> 6.2"
-gem "sentry-sidekiq", "~> 6.2"
 
 # Profiling for Sentry
 gem "stackprof", "~> 0.2"
@@ -43,7 +48,7 @@ gem "stackprof", "~> 0.2"
 # Logging
 gem "lograge", "~> 0.14"
 
-# Redis for Sidekiq/caching/Action Cable
+# Redis for Action Cable and caching only (Solid Queue uses PostgreSQL)
 gem "redis", "~> 5.4"
 
 # Security

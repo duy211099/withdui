@@ -49,8 +49,10 @@ Rails.application.configure do
   # Use Redis for caching
   config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1") }
 
-  # Use Sidekiq for background jobs
-  config.active_job.queue_adapter = :sidekiq
+  # Use Solid Queue for background jobs (uses PostgreSQL)
+  config.active_job.queue_adapter = :solid_queue
+  # Use main database for Solid Queue (configure separate DB if needed for production scale)
+  # config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

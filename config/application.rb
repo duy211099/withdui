@@ -33,6 +33,10 @@ module Withdui
       g.orm :active_record, primary_key_type: :uuid
     end
 
+    # Mission Control - Jobs configuration (must be before Rails initializes)
+    config.mission_control.jobs.base_controller_class = "MissionControlBaseController"
+    config.mission_control.jobs.http_basic_auth_enabled = false
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -3,13 +3,12 @@
 # Admin-only routes
 # Requires admin role for access
 
-require "sidekiq/web"
+# Mission Control - Jobs dashboard (authentication handled by MissionControlBaseController)
+mount MissionControl::Jobs::Engine, at: "/admin/jobs"
 
 # Admin-only routes - Protected by ActionPolicy in controllers
 authenticate :user do
-  # Sidekiq web UI - requires admin (checked via constraint)
   authenticate :user, ->(user) { user.admin? } do
-    mount Sidekiq::Web => "/sidekiq"
   end
 
   # Audit logs (PaperTrail versions) - admin check in controller via VersionPolicy

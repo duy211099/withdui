@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.4.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.2"
 
 # Use PostgreSQL as the database for Active Record
 gem "pg", "~> 1.5"
@@ -15,10 +15,10 @@ gem "puma", ">= 5.0"
 gem "jbuilder", "~> 2.14"
 
 # Vite integration for Rails
-gem "vite_rails", "~> 3.0"
+gem "vite_rails", "~> 3.0.20"
 
 # Inertia.js adapter for Rails
-gem "inertia_rails", "~> 3.15"
+gem "inertia_rails", "~> 3.16"
 
 # i18n-js for exporting Rails translations to JavaScript
 gem "i18n-js", "~> 4.2"
@@ -71,7 +71,7 @@ gem "omniauth-rails_csrf_protection", "~> 2.0"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", "~> 1.18", require: false
+gem "bootsnap", "~> 1.20", require: false
 
 # Cloudflare R2 storage (S3-compatible)
 gem "aws-sdk-s3", "~> 1.208", require: false

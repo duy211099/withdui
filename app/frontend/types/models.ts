@@ -101,3 +101,66 @@ export interface Event {
   location: string
   description: string
 }
+
+/**
+ * Gamification Models
+ */
+
+/**
+ * UserStats - User's gamification profile and progress
+ * Contains points, levels, streaks, and activity counters
+ */
+export interface UserStats {
+  total_points: number
+  current_level: number
+  points_to_next_level: number
+  level_progress: number
+  current_mood_streak: number
+  longest_mood_streak: number
+  current_writing_streak: number
+  longest_writing_streak: number
+  total_moods_logged: number
+  total_posts_written: number
+  total_events_attended: number
+  total_great_moods: number
+  total_notes_with_details: number
+}
+
+/**
+ * Achievement - Badge/achievement definition
+ * Defines unlock criteria, rewards, and display info
+ */
+export interface Achievement {
+  id: string
+  key: string
+  name: string
+  description: string
+  category: string
+  icon: string
+  tier: 'bronze' | 'silver' | 'gold' | 'platinum'
+  points_reward: number
+  hidden: boolean
+}
+
+/**
+ * UserAchievement - User's unlocked achievement
+ * Links user to achievement with unlock timestamp
+ */
+export interface UserAchievement {
+  id: string
+  achievement: Achievement
+  unlocked_at: string
+  progress: number
+}
+
+/**
+ * GamificationEvent - Audit log of point-earning actions
+ * Records all gamification activity for transparency
+ */
+export interface GamificationEvent {
+  id: string
+  event_type: string
+  points_earned: number
+  created_at: string
+  metadata?: Record<string, any>
+}

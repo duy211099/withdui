@@ -71,6 +71,10 @@ class MoodsController < ApplicationController
     mood = current_user.moods.build(mood_params)
 
     if mood.save
+      # === GAMIFICATION HOOKS ===
+      gamify_mood_creation(mood)
+      # === END GAMIFICATION ===
+
       redirect_to moods_path(
         year: mood.entry_date.year,
         month: mood.entry_date.month
@@ -128,5 +132,28 @@ class MoodsController < ApplicationController
 
   def mood_params
     params.permit(:level, :entry_date, :notes)
+  end
+
+  # Gamification logic for mood creation
+  def gamify_mood_creation(mood)
+    # Award base points for logging mood
+    current_user.award_points(:mood_logged, source: mood)
+
+    # Award bonus points for adding notes
+    current_user.award_points(:mood_with_notes, source: mood) if mood.notes.present?
+
+    # Award bonus points for "great" mood (level 5)
+    current_user.award_points(:great_mood_logged, source: mood) if mood.level == 5
+
+    # Check for time-based achievements
+    current_user.award_points(:mood_logged, source: mood, metadata: { time: Time.current })
+
+    # Update mood streak
+    current_user.update_mood_streak(mood.entry_date)
+
+    # Update activity counters
+    current_user.user_stat.increment!(:total_moods_logged)
+    current_user.user_stat.increment!(:total_great_moods) if mood.level == 5
+    current_user.user_stat.increment!(:total_notes_with_details) if mood.notes.present?
   end
 end

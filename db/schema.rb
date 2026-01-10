@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_08_151557) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_10_054944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "achievements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "category", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "display_order", default: 0
+    t.boolean "hidden", default: false
+    t.string "icon"
+    t.string "key", null: false
+    t.string "name", null: false
+    t.integer "points_reward", default: 0
+    t.string "tier"
+    t.jsonb "unlock_criteria"
+    t.datetime "updated_at", null: false
+    t.index [ "key" ], name: "index_achievements_on_key", unique: true
+  end
+
+  create_table "daily_streaks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "completed", default: true
+    t.datetime "created_at", null: false
+    t.date "streak_date", null: false
+    t.string "streak_type", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index [ "user_id", "streak_type", "streak_date" ], name: "index_daily_streaks_unique", unique: true
+  end
 
   create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +49,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_151557) do
     t.decimal "price"
     t.datetime "starts_at"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gamification_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "event_type", null: false
+    t.jsonb "metadata"
+    t.integer "points_earned", default: 0
+    t.uuid "source_id"
+    t.string "source_type"
+    t.uuid "user_id", null: false
+    t.index [ "source_type", "source_id" ], name: "index_gamification_events_on_source_type_and_source_id"
+    t.index [ "user_id", "created_at" ], name: "index_gamification_events_on_user_id_and_created_at"
   end
 
   create_table "moods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -158,6 +196,38 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_151557) do
     t.index [ "key" ], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "user_achievements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "achievement_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "progress", default: 0
+    t.datetime "unlocked_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index [ "unlocked_at" ], name: "index_user_achievements_on_unlocked_at"
+    t.index [ "user_id", "achievement_id" ], name: "index_user_achievements_on_user_id_and_achievement_id", unique: true
+  end
+
+  create_table "user_stats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "current_level", default: 1, null: false
+    t.integer "current_mood_streak", default: 0, null: false
+    t.integer "current_writing_streak", default: 0, null: false
+    t.date "last_mood_entry_date"
+    t.date "last_post_date"
+    t.integer "longest_mood_streak", default: 0, null: false
+    t.integer "longest_writing_streak", default: 0, null: false
+    t.integer "points_to_next_level", default: 100, null: false
+    t.integer "total_events_attended", default: 0, null: false
+    t.integer "total_great_moods", default: 0, null: false
+    t.integer "total_moods_logged", default: 0, null: false
+    t.integer "total_notes_with_details", default: 0, null: false
+    t.integer "total_points", default: 0, null: false
+    t.integer "total_posts_written", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index [ "user_id" ], name: "index_user_stats_on_user_id", unique: true
+  end
+
   create_table "users", id: :uuid, default: nil, force: :cascade do |t|
     t.string "avatar_url"
     t.datetime "created_at", null: false
@@ -188,6 +258,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_151557) do
     t.index [ "item_type", "item_id" ], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "daily_streaks", "users"
+  add_foreign_key "gamification_events", "users"
   add_foreign_key "moods", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
@@ -195,4 +267,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_08_151557) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "user_achievements", "achievements"
+  add_foreign_key "user_achievements", "users"
+  add_foreign_key "user_stats", "users"
 end

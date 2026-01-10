@@ -22,7 +22,7 @@ export default function Index({ events }: IndexProps) {
 
   return (
     <div className="min-h-[calc(100vh-120px)] bg-linear-to-b from-background via-background to-muted/40">
-      <div className="container mx-auto px-4 py-10 max-w-5xl">
+      <div className="container mx-auto px-4 py-10 max-w-6xl">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
             <p className="text-sm uppercase tracking-widest text-muted-foreground">

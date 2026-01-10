@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Event routes
   draw :events
 
+  # Gamification routes
+  draw :gamification
+
   # Utils routes
   draw :utils
 

@@ -1,12 +1,13 @@
 import { Head, Link, router, usePage } from '@inertiajs/react'
 import { lazy, Suspense, useState } from 'react'
+import StreakCounter from '@/components/gamification/StreakCounter'
 import MoodCalendar from '@/components/MoodCalendar'
 import MultiMoodModal from '@/components/MultiMoodModal'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslation } from '@/contexts/I18nContext'
-import { moods_path, note_index_path } from '@/lib/routes'
-import type { BasePageProps, Mood, MoodLevels, PostListItem } from '@/types'
+import { gamification_dashboard_path, moods_path, note_index_path } from '@/lib/routes'
+import type { BasePageProps, Mood, MoodLevels, PostListItem, UserStats } from '@/types'
 
 // Lazy load NoteGraphView to keep force-graph library in a separate chunk
 const NoteGraphView = lazy(() => import('@/components/NoteGraphView'))
@@ -20,7 +21,9 @@ interface HomePageProps extends BasePageProps {
 }
 
 export default function Home() {
-  const { current_user, moods, year, month, mood_levels, posts } = usePage<HomePageProps>().props
+  const { current_user, moods, year, month, mood_levels, posts, user_stats } = usePage<
+    HomePageProps & { user_stats?: UserStats }
+  >().props
   const { t } = useTranslation()
   const [selectedDayMoods, setSelectedDayMoods] = useState<Mood[]>([])
   const [isMultiMoodModalOpen, setIsMultiMoodModalOpen] = useState(false)
@@ -54,7 +57,7 @@ export default function Home() {
     <>
       <Head title={t('frontend.home.title')} />
       <div className="min-h-screen bg-background">
-        <main className="container mx-auto px-4 py-8 max-w-5xl">
+        <main className="container mx-auto px-4 py-8 max-w-6xl">
           <Card className="w-full mb-6 hover:translate-x-0 hover:translate-y-0">
             <CardHeader>
               <CardTitle>{t('frontend.home.welcome')}</CardTitle>
@@ -107,6 +110,20 @@ export default function Home() {
                 onDayClick={handleDayClick}
                 showUserAvatars={true}
               />
+
+              {user_stats && user_stats.current_mood_streak > 0 && (
+                <div className="mt-4 max-w-xs mx-auto">
+                  <Link href={gamification_dashboard_path()}>
+                    <StreakCounter
+                      currentStreak={user_stats.current_mood_streak}
+                      longestStreak={user_stats.longest_mood_streak}
+                      type="mood"
+                      label="Current Mood Streak"
+                      className="cursor-pointer hover:shadow-lg transition-shadow"
+                    />
+                  </Link>
+                </div>
+              )}
 
               <p className="text-sm text-muted-foreground text-center mt-4">
                 {t('frontend.moods.home.summary_hint')}

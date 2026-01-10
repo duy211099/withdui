@@ -29,6 +29,11 @@ class NoteAdminController < ApplicationController
 
     if result[:success]
       NotePost.reload!
+
+      # === GAMIFICATION HOOKS ===
+      gamify_post_creation(post_params)
+      # === END GAMIFICATION ===
+
       redirect_to note_admin_index_path, notice: t("blog.admin.post_created")
     else
       redirect_to new_note_admin_path, alert: result[:error]
@@ -86,5 +91,36 @@ class NoteAdminController < ApplicationController
       :title, :slug, :date, :excerpt, :category, :author,
       :published, :featured_image, :content, tags: []
     )
+  end
+
+  # Gamification logic for post creation
+  def gamify_post_creation(post_data)
+    # Award base points for creating a post
+    current_user.award_points(:post_created)
+
+    # Award bonus points for publishing
+    if post_data[:published] == "true" || post_data[:published] == true
+      current_user.award_points(:post_published)
+    end
+
+    # Award bonus points for adding tags
+    if post_data[:tags].present? && post_data[:tags].any?
+      current_user.award_points(:post_with_tags)
+    end
+
+    # Award bonus points for long posts (> 1000 words)
+    if post_data[:content].present?
+      word_count = post_data[:content].split.size
+      if word_count > 1000
+        current_user.award_points(:long_post_bonus)
+      end
+    end
+
+    # Update writing streak
+    post_date = Date.parse(post_data[:date]) rescue Date.today
+    current_user.update_writing_streak(post_date)
+
+    # Update activity counter
+    current_user.user_stat.increment!(:total_posts_written)
   end
 end

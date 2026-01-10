@@ -18,7 +18,7 @@ export default function About() {
         <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full" />
         <div className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full" />
 
-        <main className="container mx-auto px-4 py-12 sm:py-16 max-w-5xl relative">
+        <main className="container mx-auto px-4 py-12 sm:py-16 max-w-6xl relative">
           <div className="space-y-12">
             <header className="flex flex-col lg:flex-row gap-8">
               <div className="flex-1 space-y-5">

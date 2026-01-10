@@ -7,13 +7,17 @@
 export type { BasePageProps, InertiaPageProps } from './inertia'
 // Model types
 export type {
+  Achievement,
   Event,
+  GamificationEvent,
   Mood,
   Post,
   User,
+  UserAchievement,
   UserBasic,
   UserDetailed,
   UserMinimal,
+  UserStats,
 } from './models'
 
 // UI types

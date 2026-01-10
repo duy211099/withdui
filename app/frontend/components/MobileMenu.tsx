@@ -1,16 +1,17 @@
 import { Link } from '@inertiajs/react'
-import { BookOpen, Home, Info, Smile, Wrench, X } from 'lucide-react'
+import { BookOpen, Home, Info, Smile, Trophy, Wrench, X } from 'lucide-react'
 import { useTranslation } from '@/contexts/I18nContext'
 import {
   about_path,
   destroy_user_session_path,
+  gamification_dashboard_path,
   moods_path,
   new_user_session_path,
   note_index_path,
   root_path,
   utils_index_path,
 } from '@/lib/routes'
-import type { User } from '@/types'
+import type { User, UserStats } from '@/types'
 import LocaleSwitcher from './LocaleSwitcher'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
@@ -20,9 +21,10 @@ interface MobileMenuProps {
   isOpen: boolean
   onClose: () => void
   current_user?: User | null
+  user_stats?: UserStats | null
 }
 
-export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenuProps) {
+export default function MobileMenu({ isOpen, onClose, current_user, user_stats }: MobileMenuProps) {
   const { t } = useTranslation()
 
   return (
@@ -104,6 +106,7 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
           <div className="border-t-2 border-border pt-4">
             {current_user ? (
               <div className="space-y-3">
+                {/* User info */}
                 <div className="flex items-center gap-2">
                   {current_user.avatar_url && (
                     <img
@@ -116,6 +119,35 @@ export default function MobileMenu({ isOpen, onClose, current_user }: MobileMenu
                     {current_user.name || current_user.email}
                   </span>
                 </div>
+
+                {/* Gamification level indicator */}
+                {user_stats && (
+                  <Link
+                    href={gamification_dashboard_path()}
+                    onClick={onClose}
+                    className="flex items-center justify-between p-3 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Trophy className="h-5 w-5 text-primary" />
+                      <div>
+                        <div className="text-sm font-semibold text-primary">
+                          Level {user_stats.current_level}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {user_stats.total_points} points
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {user_stats.current_mood_streak > 0 && (
+                        <span className="flex items-center gap-1">
+                          🔥 {user_stats.current_mood_streak}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                )}
+
                 <Button variant="outline" size="sm" asChild className="w-full">
                   <Link href={destroy_user_session_path()} method="delete" as="button">
                     {t('frontend.header.sign_out')}

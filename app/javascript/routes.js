@@ -637,19 +637,19 @@ export const events = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"eve
 
 /**
  * Generates rails route to
- * /gamification/dashboard(.:format)
+ * /stats/dashboard(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const gamification_dashboard = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"gamification"],[2,[7,"/"],[2,[6,"dashboard"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+export const gamification_dashboard = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"stats"],[2,[7,"/"],[2,[6,"dashboard"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to
- * /gamification/leaderboard(.:format)
+ * /stats/leaderboard(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const gamification_leaderboard = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"gamification"],[2,[7,"/"],[2,[6,"leaderboard"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+export const gamification_leaderboard = /*#__PURE__*/ __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"stats"],[2,[7,"/"],[2,[6,"leaderboard"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to

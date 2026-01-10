@@ -207,7 +207,7 @@ export const events: ((
 
 /**
  * Generates rails route to
- * /gamification/dashboard(.:format)
+ * /stats/dashboard(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */
@@ -217,7 +217,7 @@ export const gamification_dashboard: ((
 
 /**
  * Generates rails route to
- * /gamification/leaderboard(.:format)
+ * /stats/leaderboard(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
  */

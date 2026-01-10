@@ -394,4 +394,21 @@
   .brutalist-border-thick {
     border-width: 3px;
   }
+
+  @keyframes streak-flame-grow {
+    from {
+      transform: scaleY(0.2);
+      opacity: 0;
+    }
+
+    to {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-grow {
+    transform-origin: bottom;
+    animation: streak-flame-grow 0.35s ease-out forwards;
+  }
 }

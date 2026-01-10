@@ -20,7 +20,8 @@ if Rails.env.development?
       config.output_dir = Rails.root.join("app", "frontend", "types", "serializers")
 
       # Custom types directory (for manually defined types like RegistrationEvent)
-      config.custom_types_dir = Rails.root.join("app", "frontend", "types")
+      # Keep this aligned with output_dir so generated imports stay in the same folder
+      config.custom_types_dir = config.output_dir
 
       # Transform snake_case keys to camelCase in generated TypeScript
       # This ensures frontend uses idiomatic JavaScript naming (createdAt instead of created_at)

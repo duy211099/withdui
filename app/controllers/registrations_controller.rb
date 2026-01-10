@@ -3,14 +3,14 @@ class RegistrationsController < ApplicationController
   before_action :set_registration, only: [ :edit, :update, :destroy ]
 
   def index
-    registrations = @event.registrations
+    @registrations = @event.registrations
 
     render inertia: "Registrations/Index", props: {
       event: {
         id: @event.id,
         name: @event.name
       },
-      registrations: RegistrationSerializer.many(registrations)
+      registrations: RegistrationSerializer.many(@registrations)
     }
   end
 

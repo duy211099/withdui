@@ -46,13 +46,10 @@ class RegistrationSerializer < BaseSerializer
   object_as :registration, model: :Registration
 
   # Full serialization - includes event details
-  attributes :id, :name, :email, :how_heard
-
-  # Format timestamps as ISO8601 strings for JavaScript
-  attribute :created_at do
-    item.created_at.iso8601
-  end
+  attributes :id, :name, :email, :how_heard, :created_at
 
   # Nested event serialization - uses EventSerializer for auto-generated types
-  attribute :event, serializer: EventSerializer
+  attribute :event, type: "Event" do
+    EventSerializer.render(registration.event)
+  end
 end

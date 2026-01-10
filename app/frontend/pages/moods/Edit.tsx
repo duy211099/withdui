@@ -23,7 +23,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const { data, setData, patch, processing, errors } = useForm({
     level: mood.level,
-    entry_date: mood.entry_date,
+    entryDate: mood.entryDate,
     notes: mood.notes || '',
   })
 
@@ -36,7 +36,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
     }
 
     // Validate date is not in the future
-    if (isDateStringInFuture(data.entry_date)) {
+    if (isDateStringInFuture(data.entryDate)) {
       alert(t('frontend.moods.form.future_date_edit'))
       return
     }
@@ -79,7 +79,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
         <Card className="hover:translate-x-0 hover:translate-y-0">
           <CardHeader>
             <CardTitle className="text-lg text-muted-foreground">
-              <LocalTime dateTime={mood.entry_date} dateOnly format={getLongDateFormat(locale)} />
+              <LocalTime dateTime={mood.entryDate} dateOnly format={getLongDateFormat(locale)} />
             </CardTitle>
           </CardHeader>
 
@@ -180,7 +180,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
               {t('frontend.moods.edit.entry_created_on', { date: '' })}
               <LocalTime
                 className="ml-1"
-                dateTime={mood.created_at}
+                dateTime={mood.createdAt}
                 format={getDateTimeFormat(locale)}
               />
             </p>

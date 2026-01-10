@@ -49,16 +49,16 @@ export default function Dashboard({
           <div className="md:col-span-2">
             <LevelIndicator
               className="h-full"
-              level={stats.current_level}
-              currentPoints={stats.total_points}
-              pointsToNextLevel={stats.points_to_next_level}
-              progressPercentage={stats.level_progress}
+              level={stats.currentLevel}
+              currentPoints={stats.totalPoints}
+              pointsToNextLevel={stats.pointsToNextLevel}
+              progressPercentage={stats.levelProgress}
             />
           </div>
           <div className="space-y-4">
             <StreakCounter
-              currentStreak={stats.current_mood_streak}
-              longestStreak={stats.longest_mood_streak}
+              currentStreak={stats.currentMoodStreak}
+              longestStreak={stats.longestMoodStreak}
               type="mood"
               label={t('frontend.gamification.dashboard.mood_streak_label')}
             />
@@ -74,7 +74,7 @@ export default function Dashboard({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.total_moods_logged}</div>
+              <div className="text-2xl font-bold">{stats.totalMoodsLogged}</div>
             </CardContent>
           </Card>
           <Card>
@@ -84,7 +84,7 @@ export default function Dashboard({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.total_posts_written}</div>
+              <div className="text-2xl font-bold">{stats.totalPostsWritten}</div>
             </CardContent>
           </Card>
           <Card>
@@ -94,7 +94,7 @@ export default function Dashboard({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.total_great_moods}</div>
+              <div className="text-2xl font-bold">{stats.totalGreatMoods}</div>
             </CardContent>
           </Card>
           <Card>
@@ -104,7 +104,7 @@ export default function Dashboard({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.total_events_attended}</div>
+              <div className="text-2xl font-bold">{stats.totalEventsAttended}</div>
             </CardContent>
           </Card>
         </div>

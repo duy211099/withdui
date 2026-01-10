@@ -1,11 +1,16 @@
-import type { Mood, Post } from './models'
-
 /**
- * UI and configuration types
+ * UI configuration types
+ *
+ * NOTE: Database model types are now auto-generated from serializers.
+ * See: app/frontend/types/serializers/
+ *
+ * This file contains only UI-specific configuration types that are not
+ * derived from database models (e.g., constants, UI state, etc.)
  */
 
 /**
  * Single mood level configuration
+ * Matches Mood::MOOD_LEVELS constant from app/models/mood.rb
  */
 export interface MoodLevel {
   name: string
@@ -15,6 +20,7 @@ export interface MoodLevel {
 
 /**
  * Collection of mood levels indexed by level number (1-5)
+ * Used for mood selection UI and display configuration
  */
 export interface MoodLevels {
   [key: number]: MoodLevel
@@ -22,6 +28,7 @@ export interface MoodLevels {
 
 /**
  * Monthly mood summary statistics
+ * Returned from Mood.month_summary class method
  */
 export interface MonthlySummary {
   total_entries: number
@@ -30,22 +37,3 @@ export interface MonthlySummary {
   best_day: string | null
   worst_day: string | null
 }
-
-/**
- * Utility types for different view contexts
- */
-
-/** Mood detail for modal display (without updated_at) */
-export type MoodDetail = Omit<Mood, 'updated_at'>
-
-/** Post list item for blog index, category, and graph views */
-export type PostListItem = Pick<
-  Post,
-  'title' | 'slug' | 'date' | 'excerpt' | 'category' | 'tags' | 'url_path' | 'featured_image'
->
-
-/** Post detail for show page (without published flag) */
-export type PostDetail = Omit<Post, 'published'>
-
-/** Post list item for admin index */
-export type PostAdminListItem = Pick<Post, 'title' | 'slug' | 'date' | 'published' | 'category'>

@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
-# UserSerializer - Demonstrates controlled serialization of User data
+# UserSerializer - Standard user serialization with all public fields
 #
-# Benefits:
-# 1. Security: Explicitly excludes sensitive fields (encrypted_password, reset_token)
-# 2. Reusability: Same serialization logic across multiple controllers
-# 3. Maintainability: Single source of truth for User JSON structure
-# 4. Flexibility: Easy to add computed fields or conditional logic
+# DEPRECATED: Use UserBasicSerializer or UserDetailedSerializer instead.
+# This class is maintained for backward compatibility.
+#
+# Benefits of using Oj::Serializer-based serializers:
+# 1. Performance: Uses Oj (Optimized JSON) for fast serialization
+# 2. Type Safety: Automatic TypeScript type generation
+# 3. Consistency: Same DSL across all serializers
+# 4. Reusability: Easy to compose with other serializers
+#
 # == Schema Information
 #
 # Table name: users
@@ -32,45 +36,13 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_role                  (role)
 #
-class UserSerializer
-  attr_reader :user
-
-  def initialize(user)
-    @user = user
-  end
+class UserSerializer < BaseSerializer
+  object_as :user, model: :User
 
   # Basic serialization - safe for public display
-  def as_json
-    {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      avatar_url: user.avatar_url,
-      role: user.role,
-      created_at: user.created_at
-    }
-  end
+  attributes :id, :name, :email, :avatar_url, :role
 
-  # Detailed serialization - includes auth provider info
-  def as_detailed_json
-    as_json.merge(
-      provider: user.provider,
-      uid: user.uid,
-      updated_at: user.updated_at
-    )
-  end
-
-  # Minimal serialization - just the essentials for UI display
-  def as_minimal_json
-    {
-      id: user.id,
-      name: user.name,
-      avatar_url: user.avatar_url
-    }
-  end
-
-  # Class method for serializing collections efficiently
-  def self.collection(users)
-    users.map { |user| new(user).as_json }
+  attribute :created_at do
+    item.created_at.iso8601
   end
 end

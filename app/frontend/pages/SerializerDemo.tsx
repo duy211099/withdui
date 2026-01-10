@@ -28,9 +28,9 @@ export default function SerializerDemo({
           Current User (Serialized)
         </h2>
         <div className="flex items-center gap-4">
-          {current_user_data.avatar_url && (
+          {current_user_data.avatarUrl && (
             <img
-              src={current_user_data.avatar_url}
+              src={current_user_data.avatarUrl}
               alt={current_user_data.name || 'User avatar'}
               className="w-16 h-16 rounded-full"
             />

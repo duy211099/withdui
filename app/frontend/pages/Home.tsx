@@ -111,12 +111,12 @@ export default function Home() {
                 showUserAvatars={true}
               />
 
-              {user_stats && user_stats.current_mood_streak > 0 && (
+              {user_stats && user_stats.currentMoodStreak > 0 && (
                 <div className="mt-4 max-w-xs mx-auto">
                   <Link href={gamification_dashboard_path()}>
                     <StreakCounter
-                      currentStreak={user_stats.current_mood_streak}
-                      longestStreak={user_stats.longest_mood_streak}
+                      currentStreak={user_stats.currentMoodStreak}
+                      longestStreak={user_stats.longestMoodStreak}
                       type="mood"
                       label="Current Mood Streak"
                       className="cursor-pointer hover:shadow-lg transition-shadow"

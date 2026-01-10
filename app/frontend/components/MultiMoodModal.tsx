@@ -41,7 +41,7 @@ export default function MultiMoodModal({
             {t('frontend.moods.multi.title', { date: '' })}
             <LocalTime
               className="ml-1"
-              dateTime={moods[0].entry_date}
+              dateTime={moods[0].entryDate}
               dateOnly
               format={getLongDateFormat(locale)}
             />
@@ -67,9 +67,9 @@ export default function MultiMoodModal({
                   <div className="flex flex-col sm:flex-row items-start gap-4">
                     {/* User Avatar */}
                     <div className="shrink-0">
-                      {mood.user.avatar_url ? (
+                      {mood.user.avatarUrl ? (
                         <img
-                          src={mood.user.avatar_url}
+                          src={mood.user.avatarUrl}
                           referrerPolicy="no-referrer"
                           alt={mood.user.name || mood.user.email}
                           className="h-12 w-12 rounded-full border-2 border-border"
@@ -97,17 +97,17 @@ export default function MultiMoodModal({
                       </div>
 
                       <div className="flex items-center gap-3 mb-3">
-                        <span className="text-3xl">{mood.mood_emoji}</span>
+                        <span className="text-3xl">{mood.moodEmoji}</span>
                         <div>
                           <p
                             className="text-sm font-medium capitalize"
-                            style={{ color: mood.mood_color }}
+                            style={{ color: mood.moodColor }}
                           >
-                            {t(`frontend.moods.levels.${mood.mood_name}`)}
+                            {t(`frontend.moods.levels.${mood.moodName}`)}
                           </p>
                           <p className="text-xs text-muted-foreground">
                             <LocalTime
-                              dateTime={mood.created_at}
+                              dateTime={mood.createdAt}
                               format={getFullDateTimeFormat(locale)}
                             />
                           </p>
@@ -154,7 +154,7 @@ export default function MultiMoodModal({
                   </p>
                   <Button
                     onClick={() => {
-                      const date = moods[0].entry_date
+                      const date = moods[0].entryDate
                       onClose()
                       router.visit(`/moods/new?date=${date}`)
                     }}

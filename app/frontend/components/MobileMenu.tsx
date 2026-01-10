@@ -108,9 +108,9 @@ export default function MobileMenu({ isOpen, onClose, current_user, user_stats }
               <div className="space-y-3">
                 {/* User info */}
                 <div className="flex items-center gap-2">
-                  {current_user.avatar_url && (
+                  {current_user.avatarUrl && (
                     <img
-                      src={current_user.avatar_url}
+                      src={current_user.avatarUrl}
                       alt={current_user.name || current_user.email}
                       className="h-8 w-8 rounded-full"
                     />
@@ -131,17 +131,17 @@ export default function MobileMenu({ isOpen, onClose, current_user, user_stats }
                       <Trophy className="h-5 w-5 text-primary" />
                       <div>
                         <div className="text-sm font-semibold text-primary">
-                          Level {user_stats.current_level}
+                          Level {user_stats.currentLevel}
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          {user_stats.total_points} points
+                          {user_stats.totalPoints} points
                         </div>
                       </div>
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {user_stats.current_mood_streak > 0 && (
+                      {user_stats.currentMoodStreak > 0 && (
                         <span className="flex items-center gap-1">
-                          🔥 {user_stats.current_mood_streak}
+                          🔥 {user_stats.currentMoodStreak}
                         </span>
                       )}
                     </div>

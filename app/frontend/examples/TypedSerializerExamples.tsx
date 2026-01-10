@@ -92,8 +92,8 @@ export function UserList({ users }: UserListProps) {
     <div className="grid grid-cols-4 gap-4">
       {users.map((user) => (
         <div key={user.id} className="flex items-center gap-2">
-          {user.avatar_url && (
-            <img src={user.avatar_url} alt={user.name || 'User'} className="w-8 h-8 rounded-full" />
+          {user.avatarUrl && (
+            <img src={user.avatarUrl} alt={user.name || 'User'} className="w-8 h-8 rounded-full" />
           )}
           <span>{user.name}</span>
           {/* TypeScript will ERROR if you try to access user.email */}
@@ -152,9 +152,9 @@ export function UserAvatar<T extends UserMinimal>({ user, size = 'md' }: UserAva
     lg: 'w-16 h-16',
   }
 
-  return user.avatar_url ? (
+  return user.avatarUrl ? (
     <img
-      src={user.avatar_url}
+      src={user.avatarUrl}
       alt={user.name || 'User'}
       className={`${sizeClasses[size]} rounded-full`}
     />

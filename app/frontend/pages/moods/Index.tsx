@@ -72,7 +72,8 @@ export default function Index({
   }
 
   // Handle edit from modal
-  const handleEdit = (moodId: number) => {
+  const handleEdit = (moodId: string) => {
+    // UUID string
     setIsModalOpen(false)
     router.visit(`/moods/${moodId}/edit`)
   }

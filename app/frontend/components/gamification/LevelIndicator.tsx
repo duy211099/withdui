@@ -32,7 +32,7 @@ export default function LevelIndicator({
               {t('frontend.gamification.level.title', { level })}
             </h3>
             <p className="text-sm text-muted-foreground">
-              {t('frontend.gamification.level.total_points', {
+              {t('frontend.gamification.level.totalPoints', {
                 points: currentPoints.toLocaleString(locale),
               })}
             </p>

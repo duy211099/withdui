@@ -17,7 +17,7 @@ interface MoodDetailModalProps {
   mood: MoodDetail | null
   isOpen: boolean
   onClose: () => void
-  onEdit?: (moodId: number) => void
+  onEdit?: (moodId: string) => void // UUID string
   canEdit: boolean
 }
 
@@ -38,16 +38,16 @@ export default function MoodDetailModal({
           <DialogTitle className="flex items-center gap-3">
             <span
               className="text-4xl p-2 rounded-lg"
-              style={{ backgroundColor: `${mood.mood_color}20` }}
+              style={{ backgroundColor: `${mood.moodColor}20` }}
             >
-              {mood.mood_emoji}
+              {mood.moodEmoji}
             </span>
             <div>
               <div className="capitalize text-xl">
-                {t(`frontend.moods.levels.${mood.mood_name}`)}
+                {t(`frontend.moods.levels.${mood.moodName}`)}
               </div>
               <div className="text-sm font-normal text-muted-foreground">
-                <LocalTime dateTime={mood.entry_date} dateOnly format={getLongDateFormat(locale)} />
+                <LocalTime dateTime={mood.entryDate} dateOnly format={getLongDateFormat(locale)} />
               </div>
             </div>
           </DialogTitle>
@@ -55,9 +55,9 @@ export default function MoodDetailModal({
 
         {/* User Info */}
         <div className="flex items-center gap-2 py-2 border-y">
-          {mood.user.avatar_url && (
+          {mood.user.avatarUrl && (
             <img
-              src={mood.user.avatar_url}
+              src={mood.user.avatarUrl}
               alt={mood.user.name || mood.user.email}
               referrerPolicy="no-referrer"
               className="h-8 w-8 rounded-full"
@@ -69,7 +69,7 @@ export default function MoodDetailModal({
               {t('frontend.moods.detail.recorded_on', { date: '' })}
               <LocalTime
                 className="ml-1"
-                dateTime={mood.created_at}
+                dateTime={mood.createdAt}
                 format={getFullDateTimeFormat(locale)}
               />
             </div>

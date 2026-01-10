@@ -1,8 +1,15 @@
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, router } from '@inertiajs/react'
+import DeleteDialog from '@/components/DeleteDialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { event_path } from '@/lib/routes'
-import type { BasePageProps, Registration } from '@/types'
+import {
+  edit_event_registration_path,
+  event_path,
+  event_registration_path,
+  new_event_registration_path,
+} from '@/lib/routes'
+import type { BasePageProps } from '@/types'
+import type { Registration } from '@/types/serializers'
 
 interface IndexProps extends BasePageProps {
   event: {
@@ -13,8 +20,8 @@ interface IndexProps extends BasePageProps {
 }
 
 export default function Index({ event, registrations }: IndexProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
+  const formatDate = (dateString: string | Date) => {
+    const date = typeof dateString === 'string' ? new Date(dateString) : dateString
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -48,9 +55,14 @@ export default function Index({ event, registrations }: IndexProps) {
               <p className="text-muted-foreground mt-1">All registrations for this event</p>
             </div>
             <div className="flex flex-col items-end gap-3">
-              <Button asChild variant="outline" size="sm">
-                <Link href={event_path(event.id)}>Back to Event</Link>
-              </Button>
+              <div className="flex gap-2">
+                <Button asChild size="sm">
+                  <Link href={new_event_registration_path(event.id)}>New Registration</Link>
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <Link href={event_path(event.id)}>Back to Event</Link>
+                </Button>
+              </div>
               <div className="text-right">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">
                   Total Registrations
@@ -78,7 +90,7 @@ export default function Index({ event, registrations }: IndexProps) {
                           <p className="text-sm text-muted-foreground mt-1">{registration.email}</p>
                         </div>
                         <div className="text-sm text-muted-foreground">
-                          Registered {formatDate(registration.created_at)}
+                          Registered {formatDate(registration.createdAt)}
                         </div>
                       </div>
                     </CardHeader>
@@ -95,15 +107,37 @@ export default function Index({ event, registrations }: IndexProps) {
                             {registration.event.name}
                           </Link>
                           <p className="text-sm text-muted-foreground">
-                            {formatEventDate(registration.event.starts_at)}
+                            {formatEventDate(registration.event.startsAt ?? null)}
                           </p>
                         </div>
                         <div>
                           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
                             How They Heard
                           </p>
-                          <p className="font-medium">{registration.how_heard}</p>
+                          <p className="font-medium">{registration.howHeard}</p>
                         </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 pt-2 border-t">
+                        <Button asChild variant="outline" size="sm">
+                          <Link href={edit_event_registration_path(event.id, registration.id)}>
+                            Edit
+                          </Link>
+                        </Button>
+                        <DeleteDialog
+                          trigger={
+                            <Button variant="destructive" size="sm">
+                              Delete
+                            </Button>
+                          }
+                          title="Delete Registration"
+                          description="Are you sure you want to delete this registration? This action cannot be undone."
+                          cancelLabel="Cancel"
+                          confirmLabel="Delete"
+                          onConfirm={() =>
+                            router.delete(event_registration_path(event.id, registration.id))
+                          }
+                        />
                       </div>
                     </CardContent>
                   </Card>

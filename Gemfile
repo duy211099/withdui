@@ -37,6 +37,10 @@ gem "propshaft"
 
 # Fast JSON parsing and generation
 gem "oj", "~> 3.16"
+gem "oj_serializers", "~> 2.0"
+
+# Generate TypeScript types from serializers
+gem "types_from_serializers", "~> 2.5", group: :development
 
 # Error tracking
 gem "sentry-ruby", "~> 6.2"

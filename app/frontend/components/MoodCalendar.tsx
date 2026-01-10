@@ -35,10 +35,10 @@ export default function MoodCalendar({
   // For multi-user view, we need to group moods by date since multiple users can have moods on the same day
   const moodsByDate = moods.reduce(
     (acc, mood) => {
-      if (!acc[mood.entry_date]) {
-        acc[mood.entry_date] = []
+      if (!acc[mood.entryDate]) {
+        acc[mood.entryDate] = []
       }
-      acc[mood.entry_date].push(mood)
+      acc[mood.entryDate].push(mood)
       return acc
     },
     {} as Record<string, Mood[]>
@@ -161,8 +161,8 @@ export default function MoodCalendar({
                     : ''
               )}
               style={{
-                backgroundColor: primaryMood ? `${primaryMood.mood_color}15` : undefined,
-                borderColor: primaryMood ? primaryMood.mood_color : undefined,
+                backgroundColor: primaryMood ? `${primaryMood.moodColor}15` : undefined,
+                borderColor: primaryMood ? primaryMood.moodColor : undefined,
               }}
               aria-label={
                 isFuture
@@ -170,7 +170,7 @@ export default function MoodCalendar({
                   : primaryMood
                     ? t('frontend.moods.calendar.mood_entry', {
                         date: dateLabel,
-                        mood: t(`frontend.moods.levels.${primaryMood.mood_name}`),
+                        mood: t(`frontend.moods.levels.${primaryMood.moodName}`),
                       })
                     : t('frontend.moods.calendar.no_entry', { date: dateLabel })
               }
@@ -183,19 +183,19 @@ export default function MoodCalendar({
               {/* Mood emoji if exists */}
               {primaryMood && (
                 <span className="hidden sm:block text-2xl mt-0.5" aria-hidden="true">
-                  {primaryMood.mood_emoji}
+                  {primaryMood.moodEmoji}
                 </span>
               )}
 
               {/* Show user avatar for multi-user view */}
-              {showUserAvatars && primaryMood?.user?.avatar_url && (
+              {showUserAvatars && primaryMood?.user?.avatarUrl && (
                 <img
-                  src={primaryMood.user.avatar_url}
+                  src={primaryMood.user.avatarUrl}
                   alt={primaryMood.user.name || primaryMood.user.email}
                   referrerPolicy="no-referrer"
                   className="hidden sm:block absolute bottom-1 right-1 h-6 w-6 rounded-full border-2 border-background shadow-md z-10"
                   onError={(e) => {
-                    console.log('Avatar failed to load:', primaryMood.user.avatar_url)
+                    console.log('Avatar failed to load:', primaryMood.user.avatarUrl)
                     e.currentTarget.style.display = 'none'
                   }}
                 />

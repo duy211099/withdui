@@ -1,5 +1,5 @@
 import type { PageProps as InertiaPageProps } from '@inertiajs/core'
-import type { User } from './models'
+import type { User } from './serializers'
 
 /**
  * Inertia.js specific types

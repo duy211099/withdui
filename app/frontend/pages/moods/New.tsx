@@ -20,7 +20,7 @@ export default function New({ date, mood_levels }: NewProps) {
   const { t, locale } = useI18n()
   const { data, setData, post, processing, errors } = useForm({
     level: null as number | null,
-    entry_date: date,
+    entryDate: date,
     notes: '',
   })
 
@@ -33,7 +33,7 @@ export default function New({ date, mood_levels }: NewProps) {
     }
 
     // Validate date is not in the future
-    if (isDateStringInFuture(data.entry_date)) {
+    if (isDateStringInFuture(data.entryDate)) {
       alert(t('frontend.moods.form.future_date_record'))
       return
     }

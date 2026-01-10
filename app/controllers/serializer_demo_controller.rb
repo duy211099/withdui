@@ -23,17 +23,17 @@ class SerializerDemoController < ApplicationController
       # Approach 1: Inline serialization (what you're doing now)
       inline_serialized: inline_serialize_users(users),
 
-      # Approach 2: Using serializer class
-      serializer_basic: UserSerializer.collection(users),
+      # Approach 2: Using serializer class (Oj::Serializer)
+      serializer_basic: UserSerializer.many(users),
 
       # Approach 3: Detailed serialization with serializer
-      serializer_detailed: users.map { |user| UserSerializer.new(user).as_detailed_json },
+      serializer_detailed: UserDetailedSerializer.many(users),
 
       # Approach 4: Minimal serialization for performance
-      serializer_minimal: users.map { |user| UserSerializer.new(user).as_minimal_json },
+      serializer_minimal: UserMinimalSerializer.many(users),
 
       # Single current user example
-      current_user_data: UserSerializer.new(current_user).as_json
+      current_user_data: UserSerializer.one(current_user)
     }
   end
 

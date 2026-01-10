@@ -241,7 +241,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                             )}
                           </TableCell>
                           <TableCell className="text-sm">
-                            {formatDate(version.created_at)}
+                            {formatDate(version.created_at)} {/* PaperTrail Version model */}
                           </TableCell>
                         </TableRow>
                         {isExpanded && hasChanges && (

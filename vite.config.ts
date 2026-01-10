@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import RubyPlugin from 'vite-plugin-ruby'
+import FullReload from 'vite-plugin-full-reload'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import mdx from '@mdx-js/rollup'
@@ -20,6 +21,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
     RubyPlugin(),
+    // Auto-reload when serializers change (triggers TypeScript type regeneration)
+    FullReload(['app/serializers/**/*.rb'], { delay: 200 }),
   ],
   resolve: {
     alias: {

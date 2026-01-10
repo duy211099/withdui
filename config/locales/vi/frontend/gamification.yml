@@ -1,0 +1,60 @@
+---
+vi:
+  frontend:
+    gamification:
+      dashboard:
+        title: Bảng gamification
+        heading: Tiến độ của bạn
+        mood_streak_label: Chuỗi ngày ghi nhận cảm xúc
+        writing_streak_label: Chuỗi ngày viết bài
+        quick_stats:
+          moods_logged: Số lần ghi nhận cảm xúc
+          posts_written: Số bài viết
+          great_moods: Số lần cảm xúc tuyệt vời
+          events_attended: Số sự kiện tham gia
+        tabs:
+          unlocked: "Đã mở khóa (%{count})"
+          available: "Có thể mở khóa (%{count})"
+          empty: Chưa có huy hiệu nào được mở khóa. Tiếp tục ghi cảm xúc và viết bài để nhận huy hiệu!
+        recent_activity:
+          title: Hoạt động gần đây
+          description: Những hành động giúp bạn kiếm điểm mới nhất
+          none: Chưa có hoạt động
+          points: "+%{points} điểm"
+      level:
+        title: "Cấp %{level}"
+        total_points: "%{points} điểm"
+        points_to_next: "Còn %{points} điểm để lên cấp %{level}"
+        max_level: Đã đạt cấp tối đa!
+      streak:
+        day:
+          one: ngày
+          other: ngày
+        best:
+          one: "Kỷ lục: %{count} ngày"
+          other: "Kỷ lục: %{count} ngày"
+      badge:
+        unlocked_on: "Mở khóa %{date}"
+        points: "+%{points} điểm"
+        tiers:
+          bronze: Đồng
+          silver: Bạc
+          gold: Vàng
+          platinum: Bạch kim
+      events:
+        mood_logged: Ghi nhận cảm xúc
+        mood_with_notes: Ghi cảm xúc kèm ghi chú
+        mood_streak_bonus: Điểm thưởng chuỗi cảm xúc
+        great_mood_logged: Ghi nhận cảm xúc tuyệt vời
+        post_created: Tạo bài viết
+        post_published: Xuất bản bài viết
+        post_with_tags: Bài viết có gắn thẻ
+        long_post_bonus: Điểm thưởng bài viết dài
+        event_attended: Tham gia sự kiện
+        event_created: Tạo sự kiện
+        profile_view: Lượt xem hồ sơ
+        post_read: Lượt đọc bài viết
+        achievement_unlocked_bronze: Mở khóa huy hiệu Đồng
+        achievement_unlocked_silver: Mở khóa huy hiệu Bạc
+        achievement_unlocked_gold: Mở khóa huy hiệu Vàng
+        achievement_unlocked_platinum: Mở khóa huy hiệu Bạch kim

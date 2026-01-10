@@ -5,6 +5,7 @@ import LevelIndicator from '@/components/gamification/LevelIndicator'
 import StreakCounter from '@/components/gamification/StreakCounter'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useI18n } from '@/contexts/I18nContext'
 import type {
   Achievement,
   BasePageProps,
@@ -26,15 +27,21 @@ export default function Dashboard({
   available_achievements,
   recent_events,
 }: DashboardProps) {
+  const { t, locale } = useI18n()
+  const formatEventType = (eventType: string) =>
+    t(`frontend.gamification.events.${eventType}`, {
+      defaultValue: eventType.replace(/_/g, ' '),
+    })
+
   return (
     <>
-      <Head title="Gamification Dashboard" />
+      <Head title={t('frontend.gamification.dashboard.title')} />
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Trophy className="h-8 w-8 text-primary" />
-          <h1 className="text-4xl font-bold">Your Progress</h1>
+          <h1 className="text-4xl font-bold">{t('frontend.gamification.dashboard.heading')}</h1>
         </div>
 
         {/* Level & Streaks Section */}
@@ -53,7 +60,7 @@ export default function Dashboard({
               currentStreak={stats.current_mood_streak}
               longestStreak={stats.longest_mood_streak}
               type="mood"
-              label="Mood Streak"
+              label={t('frontend.gamification.dashboard.mood_streak_label')}
             />
           </div>
         </div>
@@ -63,7 +70,7 @@ export default function Dashboard({
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Moods Logged
+                {t('frontend.gamification.dashboard.quick_stats.moods_logged')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -73,7 +80,7 @@ export default function Dashboard({
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Posts Written
+                {t('frontend.gamification.dashboard.quick_stats.posts_written')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -83,7 +90,7 @@ export default function Dashboard({
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Great Moods
+                {t('frontend.gamification.dashboard.quick_stats.great_moods')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -93,7 +100,7 @@ export default function Dashboard({
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
-                Events Attended
+                {t('frontend.gamification.dashboard.quick_stats.events_attended')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -107,11 +114,15 @@ export default function Dashboard({
           <TabsList className="w-full justify-start">
             <TabsTrigger value="unlocked" className="flex items-center gap-2">
               <Award className="h-4 w-4" />
-              Unlocked ({unlocked_achievements.length})
+              {t('frontend.gamification.dashboard.tabs.unlocked', {
+                count: unlocked_achievements.length,
+              })}
             </TabsTrigger>
             <TabsTrigger value="available" className="flex items-center gap-2">
               <Target className="h-4 w-4" />
-              Available ({available_achievements.length})
+              {t('frontend.gamification.dashboard.tabs.available', {
+                count: available_achievements.length,
+              })}
             </TabsTrigger>
           </TabsList>
 
@@ -131,9 +142,7 @@ export default function Dashboard({
               <Card>
                 <CardContent className="p-6 text-center text-muted-foreground">
                   <Target className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                  <p>
-                    No achievements unlocked yet. Keep logging moods and writing to earn badges!
-                  </p>
+                  <p>{t('frontend.gamification.dashboard.tabs.empty')}</p>
                 </CardContent>
               </Card>
             )}
@@ -153,9 +162,11 @@ export default function Dashboard({
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Zap className="h-5 w-5" />
-              Recent Activity
+              {t('frontend.gamification.dashboard.recent_activity.title')}
             </CardTitle>
-            <CardDescription>Your latest point-earning actions</CardDescription>
+            <CardDescription>
+              {t('frontend.gamification.dashboard.recent_activity.description')}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {recent_events.length > 0 ? (
@@ -165,22 +176,24 @@ export default function Dashboard({
                     key={event.id || index}
                     className="flex justify-between items-center py-2 border-b last:border-0"
                   >
-                    <span className="text-sm capitalize">
-                      {event.event_type.replace(/_/g, ' ')}
-                    </span>
+                    <span className="text-sm capitalize">{formatEventType(event.event_type)}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground">
-                        {new Date(event.created_at).toLocaleDateString()}
+                        {new Date(event.created_at).toLocaleDateString(locale)}
                       </span>
                       <span className="text-sm font-semibold text-primary">
-                        +{event.points_earned} pts
+                        {t('frontend.gamification.dashboard.recent_activity.points', {
+                          points: event.points_earned.toLocaleString(locale),
+                        })}
                       </span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-center text-muted-foreground py-4">No recent activity</p>
+              <p className="text-center text-muted-foreground py-4">
+                {t('frontend.gamification.dashboard.recent_activity.none')}
+              </p>
             )}
           </CardContent>
         </Card>

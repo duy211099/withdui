@@ -64,6 +64,75 @@
           "price_label": "Price"
         }
       },
+      "gamification": {
+        "badge": {
+          "points": "+%{points} pts",
+          "tiers": {
+            "bronze": "Bronze",
+            "gold": "Gold",
+            "platinum": "Platinum",
+            "silver": "Silver"
+          },
+          "unlocked_on": "Unlocked %{date}"
+        },
+        "dashboard": {
+          "heading": "Your Progress",
+          "mood_streak_label": "Mood Streak",
+          "quick_stats": {
+            "events_attended": "Events Attended",
+            "great_moods": "Great Moods",
+            "moods_logged": "Moods Logged",
+            "posts_written": "Posts Written"
+          },
+          "recent_activity": {
+            "description": "Your latest point-earning actions",
+            "none": "No recent activity",
+            "points": "+%{points} pts",
+            "title": "Recent Activity"
+          },
+          "tabs": {
+            "available": "Available (%{count})",
+            "empty": "No achievements unlocked yet. Keep logging moods and writing to earn badges!",
+            "unlocked": "Unlocked (%{count})"
+          },
+          "title": "Gamification Dashboard",
+          "writing_streak_label": "Writing Streak"
+        },
+        "events": {
+          "achievement_unlocked_bronze": "Bronze achievement unlocked",
+          "achievement_unlocked_gold": "Gold achievement unlocked",
+          "achievement_unlocked_platinum": "Platinum achievement unlocked",
+          "achievement_unlocked_silver": "Silver achievement unlocked",
+          "event_attended": "Event attended",
+          "event_created": "Event created",
+          "great_mood_logged": "Great mood logged",
+          "long_post_bonus": "Long post bonus",
+          "mood_logged": "Mood logged",
+          "mood_streak_bonus": "Mood streak bonus",
+          "mood_with_notes": "Mood with notes",
+          "post_created": "Post created",
+          "post_published": "Post published",
+          "post_read": "Post read",
+          "post_with_tags": "Post with tags",
+          "profile_view": "Profile view"
+        },
+        "level": {
+          "max_level": "Max level reached!",
+          "points_to_next": "%{points} points to Level %{level}",
+          "title": "Level %{level}",
+          "total_points": "%{points} total points"
+        },
+        "streak": {
+          "best": {
+            "one": "Best: %{count} day",
+            "other": "Best: %{count} days"
+          },
+          "day": {
+            "one": "day",
+            "other": "days"
+          }
+        }
+      },
       "header": {
         "about": "About",
         "app_name": "WithDui",
@@ -251,6 +320,75 @@
           "edit": "Chỉnh sửa",
           "label": "Sự kiện",
           "price_label": "Giá"
+        }
+      },
+      "gamification": {
+        "badge": {
+          "points": "+%{points} điểm",
+          "tiers": {
+            "bronze": "Đồng",
+            "gold": "Vàng",
+            "platinum": "Bạch kim",
+            "silver": "Bạc"
+          },
+          "unlocked_on": "Mở khóa %{date}"
+        },
+        "dashboard": {
+          "heading": "Tiến độ của bạn",
+          "mood_streak_label": "Chuỗi ngày ghi nhận cảm xúc",
+          "quick_stats": {
+            "events_attended": "Số sự kiện tham gia",
+            "great_moods": "Số lần cảm xúc tuyệt vời",
+            "moods_logged": "Số lần ghi nhận cảm xúc",
+            "posts_written": "Số bài viết"
+          },
+          "recent_activity": {
+            "description": "Những hành động giúp bạn kiếm điểm mới nhất",
+            "none": "Chưa có hoạt động",
+            "points": "+%{points} điểm",
+            "title": "Hoạt động gần đây"
+          },
+          "tabs": {
+            "available": "Có thể mở khóa (%{count})",
+            "empty": "Chưa có huy hiệu nào được mở khóa. Tiếp tục ghi cảm xúc và viết bài để nhận huy hiệu!",
+            "unlocked": "Đã mở khóa (%{count})"
+          },
+          "title": "Bảng gamification",
+          "writing_streak_label": "Chuỗi ngày viết bài"
+        },
+        "events": {
+          "achievement_unlocked_bronze": "Mở khóa huy hiệu Đồng",
+          "achievement_unlocked_gold": "Mở khóa huy hiệu Vàng",
+          "achievement_unlocked_platinum": "Mở khóa huy hiệu Bạch kim",
+          "achievement_unlocked_silver": "Mở khóa huy hiệu Bạc",
+          "event_attended": "Tham gia sự kiện",
+          "event_created": "Tạo sự kiện",
+          "great_mood_logged": "Ghi nhận cảm xúc tuyệt vời",
+          "long_post_bonus": "Điểm thưởng bài viết dài",
+          "mood_logged": "Ghi nhận cảm xúc",
+          "mood_streak_bonus": "Điểm thưởng chuỗi cảm xúc",
+          "mood_with_notes": "Ghi cảm xúc kèm ghi chú",
+          "post_created": "Tạo bài viết",
+          "post_published": "Xuất bản bài viết",
+          "post_read": "Lượt đọc bài viết",
+          "post_with_tags": "Bài viết có gắn thẻ",
+          "profile_view": "Lượt xem hồ sơ"
+        },
+        "level": {
+          "max_level": "Đã đạt cấp tối đa!",
+          "points_to_next": "Còn %{points} điểm để lên cấp %{level}",
+          "title": "Cấp %{level}",
+          "total_points": "%{points} điểm"
+        },
+        "streak": {
+          "best": {
+            "one": "Kỷ lục: %{count} ngày",
+            "other": "Kỷ lục: %{count} ngày"
+          },
+          "day": {
+            "one": "ngày",
+            "other": "ngày"
+          }
         }
       },
       "header": {

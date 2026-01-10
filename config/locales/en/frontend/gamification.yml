@@ -1,0 +1,60 @@
+---
+en:
+  frontend:
+    gamification:
+      dashboard:
+        title: Gamification Dashboard
+        heading: Your Progress
+        mood_streak_label: Mood Streak
+        writing_streak_label: Writing Streak
+        quick_stats:
+          moods_logged: Moods Logged
+          posts_written: Posts Written
+          great_moods: Great Moods
+          events_attended: Events Attended
+        tabs:
+          unlocked: "Unlocked (%{count})"
+          available: "Available (%{count})"
+          empty: No achievements unlocked yet. Keep logging moods and writing to earn badges!
+        recent_activity:
+          title: Recent Activity
+          description: Your latest point-earning actions
+          none: No recent activity
+          points: "+%{points} pts"
+      level:
+        title: "Level %{level}"
+        total_points: "%{points} total points"
+        points_to_next: "%{points} points to Level %{level}"
+        max_level: Max level reached!
+      streak:
+        day:
+          one: day
+          other: days
+        best:
+          one: "Best: %{count} day"
+          other: "Best: %{count} days"
+      badge:
+        unlocked_on: "Unlocked %{date}"
+        points: "+%{points} pts"
+        tiers:
+          bronze: Bronze
+          silver: Silver
+          gold: Gold
+          platinum: Platinum
+      events:
+        mood_logged: Mood logged
+        mood_with_notes: Mood with notes
+        mood_streak_bonus: Mood streak bonus
+        great_mood_logged: Great mood logged
+        post_created: Post created
+        post_published: Post published
+        post_with_tags: Post with tags
+        long_post_bonus: Long post bonus
+        event_attended: Event attended
+        event_created: Event created
+        profile_view: Profile view
+        post_read: Post read
+        achievement_unlocked_bronze: Bronze achievement unlocked
+        achievement_unlocked_silver: Silver achievement unlocked
+        achievement_unlocked_gold: Gold achievement unlocked
+        achievement_unlocked_platinum: Platinum achievement unlocked

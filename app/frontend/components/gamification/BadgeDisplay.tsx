@@ -1,6 +1,7 @@
 import { Lock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { useI18n } from '@/contexts/I18nContext'
 import { cn } from '@/lib/utils'
 
 interface Achievement {
@@ -28,6 +29,7 @@ export default function BadgeDisplay({
   unlockedAt,
   className,
 }: BadgeDisplayProps) {
+  const { t, locale } = useI18n()
   const tierColors = {
     bronze: 'border-amber-700 bg-amber-50 dark:bg-amber-950 dark:border-amber-600',
     silver: 'border-gray-400 bg-gray-50 dark:bg-gray-900 dark:border-gray-500',
@@ -75,17 +77,23 @@ export default function BadgeDisplay({
               unlocked ? tierTextColors[achievement.tier as keyof typeof tierTextColors] : ''
             )}
           >
-            {achievement.tier}
+            {t(`frontend.gamification.badge.tiers.${achievement.tier}`, {
+              defaultValue: achievement.tier,
+            })}
           </Badge>
           {unlocked && achievement.points_reward > 0 && (
             <Badge variant="outline" className="text-xs">
-              +{achievement.points_reward} pts
+              {t('frontend.gamification.badge.points', {
+                points: achievement.points_reward.toLocaleString(locale),
+              })}
             </Badge>
           )}
         </div>
         {unlocked && unlockedAt && (
           <p className="text-xs text-muted-foreground mt-2">
-            Unlocked {new Date(unlockedAt).toLocaleDateString()}
+            {t('frontend.gamification.badge.unlocked_on', {
+              date: new Date(unlockedAt).toLocaleDateString(locale),
+            })}
           </p>
         )}
       </CardContent>

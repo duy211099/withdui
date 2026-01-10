@@ -41,6 +41,7 @@ export default function Dashboard({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="md:col-span-2">
             <LevelIndicator
+              className="h-full"
               level={stats.current_level}
               currentPoints={stats.total_points}
               pointsToNextLevel={stats.points_to_next_level}

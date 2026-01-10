@@ -67,7 +67,7 @@ end
 
 ```typescript
 // app/frontend/pages/Posts/Index.tsx
-import type { Post } from '@/types/serializers'
+import type { Post } from '@/types'
 
 interface IndexProps {
   posts: Post[]

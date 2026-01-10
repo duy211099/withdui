@@ -6,8 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { event_registration_path, event_registrations_path } from '@/lib/routes'
-import type { BasePageProps } from '@/types'
-import type { RegistrationForm } from '@/types/serializers'
+import type { BasePageProps, RegistrationForm } from '@/types'
 
 interface FormProps extends BasePageProps {
   event: {

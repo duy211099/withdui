@@ -8,8 +8,7 @@ import {
   event_registration_path,
   new_event_registration_path,
 } from '@/lib/routes'
-import type { BasePageProps } from '@/types'
-import type { Registration } from '@/types/serializers'
+import type { BasePageProps, Registration } from '@/types'
 
 interface IndexProps extends BasePageProps {
   event: {

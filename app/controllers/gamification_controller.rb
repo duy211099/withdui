@@ -23,9 +23,9 @@ class GamificationController < ApplicationController
 
     render inertia: "gamification/Dashboard", props: {
       stats: @stats ? UserStatsSerializer.one(@stats) : default_stats,
-      unlocked_achievements: @unlocked_achievements.map(&:to_json_hash),
-      available_achievements: @available_achievements.map(&:to_json_hash),
-      recent_events: @recent_events.map(&:to_json_hash)
+      unlocked_achievements: UserAchievementSerializer.many(@unlocked_achievements),
+      available_achievements: AchievementSerializer.many(@available_achievements),
+      recent_events: GamificationEventSerializer.many(@recent_events)
     }
   end
 
@@ -45,7 +45,7 @@ class GamificationController < ApplicationController
     render inertia: "gamification/Leaderboard", props: {
       leaderboard: @top_users.map do |stat|
         {
-          user: stat.user.as_json(only: [ :id, :name, :email, :avatar_url ]),
+          user: UserMinimalSerializer.one(stat.user),
           stats: UserStatsSerializer.one(stat)
         }
       end,

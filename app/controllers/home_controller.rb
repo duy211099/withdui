@@ -13,7 +13,7 @@ class HomeController < ApplicationController
 
     render inertia: "Home", props: {
       posts: posts,
-      moods: moods.map { |m| m.to_json_hash.merge(user: m.user.as_json(only: [ :id, :name, :email, :avatar_url ])) },
+      moods: MoodSerializer.many(moods),
       year: year,
       month: month,
       mood_levels: Mood::MOOD_LEVELS

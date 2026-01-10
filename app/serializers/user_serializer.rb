@@ -40,9 +40,5 @@ class UserSerializer < BaseSerializer
   object_as :user, model: :User
 
   # Basic serialization - safe for public display
-  attributes :id, :name, :email, :avatar_url, :role
-
-  attribute :created_at do
-    item.created_at.iso8601
-  end
+  attributes :id, :name, :email, :avatar_url, :role, :created_at
 end

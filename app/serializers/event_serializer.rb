@@ -18,15 +18,10 @@
 class EventSerializer < BaseSerializer
   object_as :event, model: :Event
 
-  attributes :id, :name, :location, :description
+  attributes :id, :name, :location, :description, :starts_at
 
   # Explicitly type price as number for TypeScript
   attribute :price, type: :number do
     item.price
-  end
-
-  # Format datetime as ISO8601 string
-  attribute :starts_at do
-    item.starts_at&.iso8601
   end
 end

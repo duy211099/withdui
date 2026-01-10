@@ -22,7 +22,7 @@ class GamificationController < ApplicationController
     @recent_events = current_user.gamification_events.recent.limit(20)
 
     render inertia: "gamification/Dashboard", props: {
-      stats: @stats&.to_json_hash || default_stats,
+      stats: @stats ? UserStatsSerializer.one(@stats) : default_stats,
       unlocked_achievements: @unlocked_achievements.map(&:to_json_hash),
       available_achievements: @available_achievements.map(&:to_json_hash),
       recent_events: @recent_events.map(&:to_json_hash)
@@ -46,11 +46,11 @@ class GamificationController < ApplicationController
       leaderboard: @top_users.map do |stat|
         {
           user: stat.user.as_json(only: [ :id, :name, :email, :avatar_url ]),
-          stats: stat.to_json_hash
+          stats: UserStatsSerializer.one(stat)
         }
       end,
       current_user_rank: @current_user_rank,
-      current_user_stats: @current_user_stats&.to_json_hash
+      current_user_stats: @current_user_stats ? UserStatsSerializer.one(@current_user_stats) : nil
     }
   end
 
@@ -66,19 +66,19 @@ class GamificationController < ApplicationController
   # Default stats for users without user_stat record
   def default_stats
     {
-      total_points: 0,
-      current_level: 1,
-      points_to_next_level: 100,
-      level_progress: 0,
-      current_mood_streak: 0,
-      longest_mood_streak: 0,
-      current_writing_streak: 0,
-      longest_writing_streak: 0,
-      total_moods_logged: 0,
-      total_posts_written: 0,
-      total_events_attended: 0,
-      total_great_moods: 0,
-      total_notes_with_details: 0
+      totalPoints: 0,
+      currentLevel: 1,
+      pointsToNextLevel: 100,
+      levelProgress: 0,
+      currentMoodStreak: 0,
+      longestMoodStreak: 0,
+      currentWritingStreak: 0,
+      longestWritingStreak: 0,
+      totalMoodsLogged: 0,
+      totalPostsWritten: 0,
+      totalEventsAttended: 0,
+      totalGreatMoods: 0,
+      totalNotesWithDetails: 0
     }
   end
 end

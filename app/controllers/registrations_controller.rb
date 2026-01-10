@@ -6,25 +6,17 @@ class RegistrationsController < ApplicationController
     @registrations = @event.registrations
 
     render inertia: "Registrations/Index", props: {
-      event: {
-        id: @event.id,
-        name: @event.name
-      },
+      event: EventSerializer.one(@event),
       registrations: RegistrationSerializer.many(@registrations)
     }
   end
 
   def new
+    registration = @event.registrations.build
+
     render inertia: "Registrations/Form", props: {
-      event: {
-        id: @event.id,
-        name: @event.name
-      },
-      registration: {
-        name: "",
-        email: "",
-        how_heard: ""
-      },
+      event: EventSerializer.one(@event),
+      registration: RegistrationFormSerializer.one(registration),
       how_heard_options: Registration::HOW_HEARD_OPTIONS,
       is_edit: false
     }
@@ -42,10 +34,7 @@ class RegistrationsController < ApplicationController
 
   def edit
     render inertia: "Registrations/Form", props: {
-      event: {
-        id: @event.id,
-        name: @event.name
-      },
+      event: EventSerializer.one(@event),
       registration: RegistrationFormSerializer.one(@registration),
       how_heard_options: Registration::HOW_HEARD_OPTIONS,
       is_edit: true

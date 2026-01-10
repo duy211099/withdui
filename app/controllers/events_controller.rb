@@ -1,18 +1,24 @@
 class EventsController < ApplicationController
   def index
     @events = Event.all
-    render inertia: "events/Index", props: { events: @events }
+    render inertia: "events/Index", props: {
+      events: EventSerializer.many(@events)
+    }
   end
 
   def show
     @event = Event.find(params[:id])
-    render inertia: "events/Show", props: { event: @event }
+    render inertia: "events/Show", props: {
+      event: EventSerializer.one(@event)
+    }
   end
 
   def edit
     @event = Event.find(params[:id])
 
-    render inertia: "events/Edit", props: { event: @event }
+    render inertia: "events/Edit", props: {
+      event: EventSerializer.one(@event)
+    }
   end
 
   def update
@@ -22,7 +28,7 @@ class EventsController < ApplicationController
       redirect_to event_path(@event), notice: I18n.t("frontend.events.flash.updated")
     else
       render inertia: "events/Edit",
-             props: { event: @event, errors: form_errors(@event) },
+             props: { event: EventSerializer.one(@event), errors: form_errors(@event) },
              status: :unprocessable_entity
     end
   end
@@ -36,7 +42,9 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
 
-    render inertia: "events/New", props: { event: @event }
+    render inertia: "events/New", props: {
+      event: EventSerializer.one(@event)
+    }
   end
 
   def create
@@ -45,7 +53,7 @@ class EventsController < ApplicationController
       redirect_to event_path(@event), notice: I18n.t("frontend.events.flash.created")
     else
       render inertia: "events/New",
-             props: { event: @event, errors: form_errors(@event) },
+             props: { event: EventSerializer.one(@event), errors: form_errors(@event) },
              status: :unprocessable_entity
     end
   end

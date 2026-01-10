@@ -21,10 +21,10 @@ export function t(key: string, options?: Record<string, unknown>) {
 
 // Helper to set the current locale
 export function setLocale(locale: string) {
-  console.log('setLocale called:', { requestedLocale: locale, currentLocale: i18n.locale })
+  // console.log('setLocale called:', { requestedLocale: locale, currentLocale: i18n.locale })
   if (['en', 'vi'].includes(locale)) {
     i18n.locale = locale
-    console.log('setLocale success:', { newLocale: i18n.locale })
+    // console.log('setLocale success:', { newLocale: i18n.locale })
   } else {
     console.warn('setLocale rejected:', { invalidLocale: locale })
   }

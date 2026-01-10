@@ -33,6 +33,8 @@ export default function Dashboard({
       defaultValue: eventType.replace(/_/g, ' '),
     })
 
+  console.log(stats)
+
   return (
     <>
       <Head title={t('frontend.gamification.dashboard.title')} />

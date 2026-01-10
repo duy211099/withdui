@@ -14,7 +14,7 @@ class MoodsController < ApplicationController
     if params[:user_id].present?
       # Filter by specific user
       user = User.find(params[:user_id])
-      moods = user.moods.for_month(@year, @month)
+      moods = user.moods.for_month(@year, @month).includes(:user)
       summary = Mood.month_summary(user, @year, @month)
       viewing_user = user
     else
@@ -31,15 +31,15 @@ class MoodsController < ApplicationController
     end
 
     # Get all users for the filter dropdown
-    all_users = User.select(:id, :name, :email).order(:name, :email)
+    all_users = User.all
 
     render inertia: "moods/Index", props: {
-      moods: moods.map { |m| m.to_json_hash.merge(user: m.user.as_json(only: [ :id, :name, :email, :avatar_url ])) },
+      moods: MoodSerializer.many(moods),
       year: @year,
       month: @month,
       summary: summary,
       mood_levels: Mood::MOOD_LEVELS,
-      all_users: all_users.as_json(only: [ :id, :name, :email ]),
+      all_users: UserMinimalSerializer.many(all_users),
       viewing_user_id: viewing_user&.id,
       can_edit: current_user.present?
     }
@@ -91,7 +91,7 @@ class MoodsController < ApplicationController
     authorize! @mood, to: :edit?
 
     render inertia: "moods/Edit", props: {
-      mood: @mood.to_json_hash,
+      mood: MoodSerializer.one(@mood),
       mood_levels: Mood::MOOD_LEVELS
     }
   end

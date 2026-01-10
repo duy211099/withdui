@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   inertia_share do
      {
         current_user: current_user&.as_json(only: [ :id, :email, :name, :avatar_url ]),
-        user_stats: current_user&.user_stat&.to_json_hash,
+        user_stats: current_user&.user_stat ? UserStatsSerializer.one(current_user.user_stat) : nil,
         is_admin: current_user&.admin? || false,
         flash: flash.to_hash,
         locale: I18n.locale.to_s,

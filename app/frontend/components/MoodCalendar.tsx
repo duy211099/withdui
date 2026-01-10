@@ -195,7 +195,7 @@ export default function MoodCalendar({
                   referrerPolicy="no-referrer"
                   className="hidden sm:block absolute bottom-1 right-1 h-6 w-6 rounded-full border-2 border-background shadow-md z-10"
                   onError={(e) => {
-                    console.log('Avatar failed to load:', primaryMood.user.avatarUrl)
+                    // console.log('Avatar failed to load:', primaryMood.user.avatarUrl)
                     e.currentTarget.style.display = 'none'
                   }}
                 />

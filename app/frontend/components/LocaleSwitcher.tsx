@@ -12,14 +12,14 @@ export default function LocaleSwitcher() {
   const { locale, availableLocales, t } = useI18n()
 
   // Debug: log current state
-  console.log('LocaleSwitcher state:', { locale, availableLocales, localeType: typeof locale })
+  // console.log('LocaleSwitcher state:', { locale, availableLocales, localeType: typeof locale })
 
   const switchLocale = (newLocale: string) => {
-    console.log('Switching locale to:', {
-      newLocale,
-      currentLocale: locale,
-      url: `/locale/${newLocale}`,
-    })
+    // console.log('Switching locale to:', {
+    //   newLocale,
+    //   currentLocale: locale,
+    //   url: `/locale/${newLocale}`,
+    // })
     if (newLocale === locale) return
 
     // POST to the locale switching endpoint
@@ -36,7 +36,7 @@ export default function LocaleSwitcher() {
   const getLocaleName = (loc: string) => {
     const key = loc === 'en' ? 'english' : 'vietnamese'
     const name = t(`frontend.locale.${key}`)
-    console.log('getLocaleName:', { loc, key, name })
+    // console.log('getLocaleName:', { loc, key, name })
     return name
   }
 

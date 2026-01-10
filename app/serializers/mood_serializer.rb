@@ -30,20 +30,7 @@
 class MoodSerializer < BaseSerializer
   object_as :mood, model: :Mood
 
-  attributes :id, :level, :notes
-
-  # Format dates as ISO8601 strings
-  attribute :entry_date do
-    item.entry_date.to_s
-  end
-
-  attribute :created_at do
-    item.created_at.iso8601
-  end
-
-  attribute :updated_at do
-    item.updated_at.iso8601
-  end
+  attributes :id, :level, :notes, :entry_date, :created_at, :updated_at
 
   # Computed mood attributes from MOOD_LEVELS constant
   # Explicitly type these as :string for TypeScript generation
@@ -60,5 +47,7 @@ class MoodSerializer < BaseSerializer
   end
 
   # Nested user data - use UserMinimalSerializer for lightweight serialization
-  attribute :user, serializer: UserMinimalSerializer
+  attribute :user do
+    UserMinimalSerializer.render(item.user)
+  end
 end

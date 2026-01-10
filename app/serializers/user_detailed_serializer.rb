@@ -6,13 +6,5 @@
 class UserDetailedSerializer < BaseSerializer
   object_as :user, model: :User
 
-  attributes :id, :name, :email, :avatar_url, :role, :provider, :uid
-
-  attribute :created_at do
-    item.created_at.iso8601
-  end
-
-  attribute :updated_at do
-    item.updated_at.iso8601
-  end
+  attributes :id, :name, :email, :avatar_url, :role, :provider, :uid, :created_at, :updated_at
 end

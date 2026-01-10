@@ -42,7 +42,7 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
     # Log first mood
     mood = @user.moods.create!(
       level: 4,
-      entry_date: Date.today,
+      entry_date: Date.current,
       notes: "Feeling good today!"
     )
 
@@ -67,7 +67,7 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "logging moods for 7 consecutive days unlocks Week Warrior" do
-    starting_date = Date.today - 6.days
+    starting_date = Date.current - 6.days
 
     # Log moods for 7 consecutive days
     7.times do |i|
@@ -93,7 +93,7 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
   test "missing a day resets streak" do
     # Log mood for 3 days
     3.times do |i|
-      mood_date = Date.today - 6.days + i.days
+      mood_date = Date.current - 6.days + i.days
       mood = @user.moods.create!(level: 3, entry_date: mood_date)
       @user.update_mood_streak(mood.entry_date)
     end
@@ -101,7 +101,7 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
     assert_equal 3, @user.user_stat.reload.current_mood_streak
 
     # Skip a day and log again
-    mood = @user.moods.create!(level: 3, entry_date: Date.today)
+    mood = @user.moods.create!(level: 3, entry_date: Date.current)
     @user.update_mood_streak(mood.entry_date)
 
     # Streak should reset to 1
@@ -111,7 +111,7 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
   test "logging mood in early morning unlocks Early Bird" do
     early_morning = Time.zone.local(2026, 1, 10, 5, 30, 0)
 
-    mood = @user.moods.create!(level: 3, entry_date: Date.today)
+    mood = @user.moods.create!(level: 3, entry_date: Date.current)
 
     # Update stats FIRST, then award points
     @user.user_stat.increment!(:total_moods_logged)
@@ -198,7 +198,7 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
     3.times do |i|
       mood = @user.moods.create!(
         level: 5,
-        entry_date: Date.today - (2 - i).days,
+        entry_date: Date.current - (2 - i).days,
         notes: "Note #{i}"
       )
       @user.award_points(:mood_logged, source: mood)

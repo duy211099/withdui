@@ -87,7 +87,7 @@ class GamificationServiceTest < ActiveSupport::TestCase
   end
 
   test "should handle source parameter" do
-    mood = @user.moods.create!(level: 3, entry_date: Date.today)
+    mood = @user.moods.create!(level: 3, entry_date: Date.current)
 
     @service.award_points(:mood_logged, source: mood)
 
@@ -107,7 +107,7 @@ class GamificationServiceTest < ActiveSupport::TestCase
   end
 
   test "update_mood_streak should delegate to StreakCalculator" do
-    mood_date = Date.today
+    mood_date = Date.current
 
     streak = @service.update_mood_streak(mood_date)
 
@@ -116,7 +116,7 @@ class GamificationServiceTest < ActiveSupport::TestCase
   end
 
   test "update_writing_streak should delegate to StreakCalculator" do
-    post_date = Date.today
+    post_date = Date.current
 
     streak = @service.update_writing_streak(post_date)
 

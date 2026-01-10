@@ -61,6 +61,8 @@ rails g migration
 rails g migration AddFieldsToEvents starts_at:datetime description:text
 rails db:migrate
 rails db:rollback
+
+rails g resource registration name:string email:string how_heard:string event:references
 ```
 
 # Routes
@@ -85,3 +87,23 @@ post "events/new" => "events#new"
 ```
   validates :name, presence: true
 ```
+
+# One to Many | Belongs to
+```
+class Registration < ApplicationRecord
+  belongs_to :event
+end
+
+Registration.first.event
+```
+
+# One to Many | Has many
+```
+class Event < ApplicationRecord
+  has_many :registrations
+end
+
+Event.first.registrations
+```
+
+# One to Many | Nested Resouces

@@ -15,6 +15,8 @@ class Event < ApplicationRecord
   # Enable PaperTrail for audit logging
   has_paper_trail
 
+  has_many :registrations, dependent: :destroy
+
   validates :name, presence: true
   validates :description, length: { minimum: 25 }
   validates :price, numericality: { greater_than_or_equal_to: 0 }

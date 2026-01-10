@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: achievements
+#
+#  id              :uuid             not null, primary key
+#  category        :string           not null
+#  description     :text
+#  display_order   :integer          default(0)
+#  hidden          :boolean          default(FALSE)
+#  icon            :string
+#  key             :string           not null
+#  name            :string           not null
+#  points_reward   :integer          default(0)
+#  tier            :string
+#  unlock_criteria :jsonb
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_achievements_on_key  (key) UNIQUE
+#
 require "test_helper"
 
 class AchievementTest < ActiveSupport::TestCase

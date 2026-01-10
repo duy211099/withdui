@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: registrations
+#
+#  id         :uuid             not null, primary key
+#  email      :string
+#  how_heard  :string
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  event_id   :uuid             not null
+#
+# Indexes
+#
+#  index_registrations_on_event_id  (event_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (event_id => events.id)
+#
+one:
+  name: MyString
+  email: MyString
+  how_heard: MyString
+  event: one
+
+two:
+  name: MyString
+  email: MyString
+  how_heard: MyString
+  event: two

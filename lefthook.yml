@@ -20,4 +20,4 @@ pre-push:
     check:
       run: npm run check
     test:
-      run: env RAILS_ENV=test bin/vite build && env RAILS_ENV=test bin/rails test
+      run: env RAILS_ENV=test bin/vite build && env RAILS_ENV=test bin/rails test -v

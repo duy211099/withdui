@@ -100,6 +100,20 @@ export interface Event {
   price: number
   location: string
   description: string
+  starts_at?: string
+}
+
+export interface Registration {
+  id: string
+  name: string
+  email: string
+  how_heard: string
+  created_at: string
+  event: {
+    id: string
+    name: string
+    starts_at: string | null
+  }
 }
 
 /**

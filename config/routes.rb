@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :registrations
   # Authentication routes
   draw :devise
 
@@ -12,7 +11,7 @@ Rails.application.routes.draw do
   # Mood tracker routes
   draw :moods
 
-  # Event routes
+  # Event routes | registrations
   draw :events
 
   # Gamification routes

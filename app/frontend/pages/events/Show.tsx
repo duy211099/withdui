@@ -3,7 +3,7 @@ import DeleteDialog from '@/components/DeleteDialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useI18n } from '@/contexts/I18nContext'
-import { edit_event_path, event_path, events_path } from '@/lib/routes'
+import { edit_event_path, event_path, event_registrations_path, events_path } from '@/lib/routes'
 import type { BasePageProps, Event } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -44,6 +44,9 @@ export default function Show({ event }: IndexProps) {
             <div className="flex flex-wrap gap-3">
               <Button asChild variant="outline">
                 <Link href={events_path()}>{t('frontend.events.show.back')}</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href={event_registrations_path(event.id)}>View Registrations</Link>
               </Button>
               <Button asChild>
                 <Link href={edit_event_path(event)}>{t('frontend.events.show.edit')}</Link>

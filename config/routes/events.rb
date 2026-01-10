@@ -1,1 +1,3 @@
-resources :events
+resources :events do
+  resources :registrations
+end

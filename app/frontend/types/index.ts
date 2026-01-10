@@ -12,6 +12,7 @@ export type {
   GamificationEvent,
   Mood,
   Post,
+  Registration,
   User,
   UserAchievement,
   UserBasic,

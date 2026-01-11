@@ -118,8 +118,10 @@
         },
         "level": {
           "max_level": "Max level reached!",
+          "pointsToNext": "%{points} points to Level %{level}",
           "points_to_next": "%{points} points to Level %{level}",
           "title": "Level %{level}",
+          "totalPoints": "%{points} total points",
           "total_points": "%{points} total points"
         },
         "streak": {
@@ -376,8 +378,10 @@
         },
         "level": {
           "max_level": "Đã đạt cấp tối đa!",
+          "pointsToNext": "Còn %{points} điểm để lên cấp %{level}",
           "points_to_next": "Còn %{points} điểm để lên cấp %{level}",
           "title": "Cấp %{level}",
+          "totalPoints": "%{points} điểm",
           "total_points": "%{points} điểm"
         },
         "streak": {

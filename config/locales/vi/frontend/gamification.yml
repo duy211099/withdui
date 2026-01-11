@@ -24,7 +24,9 @@ vi:
       level:
         title: "Cấp %{level}"
         total_points: "%{points} điểm"
+        totalPoints: "%{points} điểm"
         points_to_next: "Còn %{points} điểm để lên cấp %{level}"
+        pointsToNext: "Còn %{points} điểm để lên cấp %{level}"
         max_level: Đã đạt cấp tối đa!
       streak:
         day:

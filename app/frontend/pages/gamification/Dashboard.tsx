@@ -36,8 +36,6 @@ export default function Dashboard({
     })
   }
 
-  console.log(stats)
-
   return (
     <>
       <Head title={t('frontend.gamification.dashboard.title')} />

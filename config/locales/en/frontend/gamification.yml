@@ -24,7 +24,9 @@ en:
       level:
         title: "Level %{level}"
         total_points: "%{points} total points"
+        totalPoints: "%{points} total points"
         points_to_next: "%{points} points to Level %{level}"
+        pointsToNext: "%{points} points to Level %{level}"
         max_level: Max level reached!
       streak:
         day:

@@ -3,18 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { useI18n } from '@/contexts/I18nContext'
 import { cn } from '@/lib/utils'
-
-interface Achievement {
-  id: string
-  key: string
-  name: string
-  description: string
-  icon: string
-  tier: string
-  category: string
-  points_reward: number
-  hidden: boolean
-}
+import type { Achievement } from '@/types'
 
 interface BadgeDisplayProps {
   achievement: Achievement
@@ -81,10 +70,10 @@ export default function BadgeDisplay({
               defaultValue: achievement.tier,
             })}
           </Badge>
-          {unlocked && achievement.points_reward > 0 && (
+          {unlocked && achievement.pointsReward > 0 && (
             <Badge variant="outline" className="text-xs">
               {t('frontend.gamification.badge.points', {
-                points: achievement.points_reward.toLocaleString(locale),
+                points: achievement.pointsReward.toLocaleString(locale),
               })}
             </Badge>
           )}

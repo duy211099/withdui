@@ -24,11 +24,14 @@ export type {
 // These represent the actual data shape sent from backend to frontend
 // ⭐ Use these types in your components for type-safety
 export type {
+  Achievement,
   Event,
+  GamificationEvent,
   Mood,
   Registration,
   RegistrationForm,
   User,
+  UserAchievement,
   UserBasic,
   UserDetailed,
   UserMinimal,

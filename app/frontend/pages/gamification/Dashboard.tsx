@@ -6,21 +6,26 @@ import StreakCounter from '@/components/gamification/StreakCounter'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useI18n } from '@/contexts/I18nContext'
-import type { BasePageProps, UserStats } from '@/types'
-import type { Achievement, GamificationEvent, UserAchievement } from '@/types/serializers'
+import type {
+  Achievement,
+  BasePageProps,
+  GamificationEvent,
+  UserAchievement,
+  UserStats,
+} from '@/types'
 
 interface DashboardProps extends BasePageProps {
   stats: UserStats
-  unlocked_achievements: UserAchievement[]
-  available_achievements: Achievement[]
-  recent_events: GamificationEvent[]
+  unlockedAchievements: UserAchievement[]
+  availableAchievements: Achievement[]
+  recentEvents: GamificationEvent[]
 }
 
 export default function Dashboard({
   stats,
-  unlocked_achievements,
-  available_achievements,
-  recent_events,
+  unlockedAchievements,
+  availableAchievements,
+  recentEvents,
 }: DashboardProps) {
   const { t, locale } = useI18n()
   const formatEventType = (eventType?: string) => {
@@ -115,26 +120,26 @@ export default function Dashboard({
             <TabsTrigger value="unlocked" className="flex items-center gap-2">
               <Award className="h-4 w-4" />
               {t('frontend.gamification.dashboard.tabs.unlocked', {
-                count: unlocked_achievements.length,
+                count: unlockedAchievements.length,
               })}
             </TabsTrigger>
             <TabsTrigger value="available" className="flex items-center gap-2">
               <Target className="h-4 w-4" />
               {t('frontend.gamification.dashboard.tabs.available', {
-                count: available_achievements.length,
+                count: availableAchievements.length,
               })}
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="unlocked" className="mt-6">
-            {unlocked_achievements.length > 0 ? (
+            {unlockedAchievements.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {unlocked_achievements.map((ua) => (
+                {unlockedAchievements.map((ua) => (
                   <BadgeDisplay
                     key={ua.achievement.id}
                     achievement={ua.achievement}
                     unlocked={true}
-                    unlockedAt={ua.unlocked_at}
+                    unlockedAt={ua.unlockedAt}
                   />
                 ))}
               </div>
@@ -150,7 +155,7 @@ export default function Dashboard({
 
           <TabsContent value="available" className="mt-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {available_achievements.map((achievement) => (
+              {availableAchievements.map((achievement) => (
                 <BadgeDisplay key={achievement.id} achievement={achievement} unlocked={false} />
               ))}
             </div>
@@ -169,9 +174,9 @@ export default function Dashboard({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {recent_events.length > 0 ? (
+            {recentEvents.length > 0 ? (
               <div className="space-y-2">
-                {recent_events.map((event, index) => (
+                {recentEvents.map((event, index) => (
                   <div
                     key={event.id || index}
                     className="flex justify-between items-center py-2 border-b last:border-0"

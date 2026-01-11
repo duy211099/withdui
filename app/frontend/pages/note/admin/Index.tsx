@@ -2,6 +2,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
+import { useTranslation } from '@/contexts/I18nContext'
 import { edit_note_admin_path, new_note_admin_path, note_index_path } from '@/lib/routes'
 import type { PostAdminListItem } from '@/types'
 
@@ -10,32 +11,35 @@ interface AdminIndexProps {
 }
 
 export default function AdminIndex({ posts }: AdminIndexProps) {
+  const { t } = useTranslation()
   const handleDelete = (slug: string, title: string) => {
-    if (confirm(`Are you sure you want to delete "${title}"?`)) {
+    if (confirm(t('frontend.note.admin.delete_confirm', { title }))) {
       router.delete(`/note/me/${slug}`)
     }
   }
 
   return (
     <>
-      <Head title="Manage Notes" />
+      <Head title={t('frontend.note.admin.title')} />
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Manage Notes</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+              {t('frontend.note.admin.heading')}
+            </h1>
             <p className="text-muted-foreground mt-2">
-              {posts.length} total note{posts.length !== 1 ? 's' : ''}
+              {t('frontend.note.admin.total', { count: posts.length })}
             </p>
           </div>
           <Link href={new_note_admin_path()}>
-            <Button size="lg">Create New Note</Button>
+            <Button size="lg">{t('frontend.note.admin.create')}</Button>
           </Link>
         </div>
 
         <div className="mb-4">
           <Link href={note_index_path()}>
-            <Button variant="outline">View Notes</Button>
+            <Button variant="outline">{t('frontend.note.admin.view_public')}</Button>
           </Link>
         </div>
 
@@ -50,7 +54,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                         {post.title}
                         {!post.published && (
                           <span className="ml-3 text-sm font-normal text-destructive bg-destructive/10 px-2 py-1 rounded">
-                            Draft
+                            {t('frontend.note.admin.draft')}
                           </span>
                         )}
                       </CardTitle>
@@ -61,7 +65,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                     <div className="flex gap-2 shrink-0">
                       <Link href={edit_note_admin_path(post.slug)}>
                         <Button variant="outline" size="sm">
-                          Edit
+                          {t('frontend.note.admin.edit')}
                         </Button>
                       </Link>
                       <Button
@@ -69,7 +73,7 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
                         size="sm"
                         onClick={() => handleDelete(post.slug, post.title)}
                       >
-                        Delete
+                        {t('frontend.note.admin.delete')}
                       </Button>
                     </div>
                   </div>
@@ -79,9 +83,9 @@ export default function AdminIndex({ posts }: AdminIndexProps) {
           </div>
         ) : (
           <div className="text-center py-12 border-2 border-dashed rounded-lg">
-            <p className="text-lg text-muted-foreground mb-4">No notes yet</p>
+            <p className="text-lg text-muted-foreground mb-4">{t('frontend.note.admin.empty')}</p>
             <Link href={new_note_admin_path()}>
-              <Button>Create your first note</Button>
+              <Button>{t('frontend.note.admin.create_first')}</Button>
             </Link>
           </div>
         )}

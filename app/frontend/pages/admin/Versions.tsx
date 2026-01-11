@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { useTranslation } from '@/contexts/I18nContext'
 import type { PagyMetadata, Version } from '@/types'
 
 interface VersionsProps {
@@ -20,6 +21,7 @@ interface VersionsProps {
 }
 
 export default function Versions({ versions, pagy }: VersionsProps) {
+  const { t } = useTranslation()
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
 
   const toggleRow = (id: string) => {
@@ -49,17 +51,17 @@ export default function Versions({ versions, pagy }: VersionsProps) {
 
     return (
       <Badge variant={variants[event as keyof typeof variants] || 'outline'}>
-        {event.toUpperCase()}
+        {t(`frontend.admin.versions.events.${event}`)}
       </Badge>
     )
   }
 
   const formatDate = (dateString?: string | Date) => {
-    if (!dateString) return 'N/A'
+    if (!dateString) return t('frontend.admin.versions.na')
 
     const date = typeof dateString === 'string' ? new Date(dateString) : dateString
 
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -96,7 +98,9 @@ export default function Versions({ versions, pagy }: VersionsProps) {
 
     if (!changes || Object.keys(changes).length === 0) {
       return (
-        <div className="text-sm text-muted-foreground italic">No detailed changes available</div>
+        <div className="text-sm text-muted-foreground italic">
+          {t('frontend.admin.versions.no_changes')}
+        </div>
       )
     }
 
@@ -108,7 +112,9 @@ export default function Versions({ versions, pagy }: VersionsProps) {
 
     if (filteredChanges.length === 0) {
       return (
-        <div className="text-sm text-muted-foreground italic">Only system fields were updated</div>
+        <div className="text-sm text-muted-foreground italic">
+          {t('frontend.admin.versions.only_system')}
+        </div>
       )
     }
 
@@ -142,35 +148,39 @@ export default function Versions({ versions, pagy }: VersionsProps) {
 
   return (
     <>
-      <Head title="Audit Logs" />
+      <Head title={t('frontend.admin.versions.title')} />
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Audit Logs</h1>
-          <p className="text-muted-foreground">Track all changes made across the system</p>
+          <h1 className="text-3xl font-bold tracking-tight">
+            {t('frontend.admin.versions.heading')}
+          </h1>
+          <p className="text-muted-foreground">{t('frontend.admin.versions.subtitle')}</p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Activity History ({pagy.count} total changes)</CardTitle>
+            <CardTitle>
+              {t('frontend.admin.versions.activity_title', { count: pagy.count })}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-12.5"></TableHead>
-                  <TableHead>Event</TableHead>
-                  <TableHead>Model</TableHead>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Changed By</TableHead>
-                  <TableHead>When</TableHead>
+                  <TableHead>{t('frontend.admin.versions.table.event')}</TableHead>
+                  <TableHead>{t('frontend.admin.versions.table.model')}</TableHead>
+                  <TableHead>{t('frontend.admin.versions.table.id')}</TableHead>
+                  <TableHead>{t('frontend.admin.versions.table.changed_by')}</TableHead>
+                  <TableHead>{t('frontend.admin.versions.table.when')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {versions.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} className="text-center text-muted-foreground">
-                      No audit logs found
+                      {t('frontend.admin.versions.empty')}
                     </TableCell>
                   </TableRow>
                 ) : (
@@ -207,7 +217,9 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                           <TableCell className="font-mono text-xs">{version.itemId}</TableCell>
                           <TableCell>
                             <div>
-                              <div className="font-medium">{version.user?.name || 'Unknown'}</div>
+                              <div className="font-medium">
+                                {version.user?.name || t('frontend.admin.versions.unknown_user')}
+                              </div>
                               {version.user?.email && (
                                 <div className="text-xs text-muted-foreground">
                                   {version.user.email}
@@ -223,7 +235,9 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                           <TableRow key={`${version.id}-details`}>
                             <TableCell colSpan={6} className="bg-muted/50 p-6">
                               <div className="space-y-3">
-                                <h4 className="font-semibold text-sm">Changes:</h4>
+                                <h4 className="font-semibold text-sm">
+                                  {t('frontend.admin.versions.changes')}
+                                </h4>
                                 {renderChanges(version)}
                               </div>
                             </TableCell>
@@ -240,7 +254,11 @@ export default function Versions({ versions, pagy }: VersionsProps) {
             {pagy.pages > 1 && (
               <div className="flex items-center justify-between mt-4 pt-4 border-t">
                 <div className="text-sm text-muted-foreground">
-                  Showing {pagy.from} to {pagy.to} of {pagy.count} entries
+                  {t('frontend.admin.versions.pagination.summary', {
+                    from: pagy.from,
+                    to: pagy.to,
+                    count: pagy.count,
+                  })}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -251,7 +269,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                     disabled={!pagy.prev}
                   >
                     <ChevronLeft className="h-4 w-4" />
-                    Previous
+                    {t('frontend.admin.versions.pagination.prev')}
                   </Button>
 
                   <div className="flex items-center gap-1">
@@ -288,7 +306,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                     onClick={() => pagy.next && handlePageChange(pagy.next)}
                     disabled={!pagy.next}
                   >
-                    Next
+                    {t('frontend.admin.versions.pagination.next')}
                     <ChevronRight className="h-4 w-4" />
                   </Button>
                 </div>

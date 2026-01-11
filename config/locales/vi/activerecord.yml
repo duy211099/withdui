@@ -2,7 +2,7 @@
 vi:
   activerecord:
     models:
-      event: "Sự kiện"
+      event: "Note"
     attributes:
       event:
         name: "Tên"

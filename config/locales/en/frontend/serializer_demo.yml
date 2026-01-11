@@ -1,0 +1,37 @@
+---
+en:
+  frontend:
+    serializer_demo:
+      title: Serializer Demo
+      heading: "Serializer Demo: Different Approaches"
+      current_user: Current User (Serialized)
+      role: "Role: %{role}"
+      inline:
+        title: "1. Inline Serialization"
+        description: Controller method - Simple but repetitive
+      basic:
+        title: "2. UserSerializer (Basic)"
+        description: Reusable class - Clean & DRY
+      detailed:
+        title: "3. UserSerializer (Detailed)"
+        description: More fields for admin views
+      minimal:
+        title: "4. UserSerializer (Minimal)"
+        description: Lightweight for lists/dropdowns
+      why_serializers:
+        title: Why Use Serializers?
+        security:
+          title: "Security:"
+          body: Prevents accidentally exposing sensitive fields (passwords, tokens)
+        dry:
+          title: "DRY:"
+          body: Reuse the same serialization logic across controllers
+        maintainability:
+          title: "Maintainability:"
+          body: Change JSON structure in one place
+        flexibility:
+          title: "Flexibility:"
+          body: Multiple serialization strategies (minimal, detailed)
+        testing:
+          title: "Testing:"
+          body: Easy to test serialization logic independently

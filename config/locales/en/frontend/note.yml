@@ -1,0 +1,45 @@
+---
+en:
+  frontend:
+    note:
+      index:
+        title: Notes
+        view:
+          list: List
+          graph: Graph
+        search_placeholder: Search posts...
+        filter_all: All
+        filter_by_tag: Filter by Tag
+        graph_loading: Loading graph...
+        empty: No posts found
+        clear_filters: Clear filters
+      category:
+        category_title: "Category: %{category}"
+        tag_title: "Tag: %{tag}"
+        back: "← Back to Notes"
+        count:
+          one: "%{count} post"
+          other: "%{count} posts"
+        other_categories: "Other categories:"
+        other_tags: "Other tags:"
+        category: category
+        tag: tag
+        empty: "No posts found in this %{filterType}"
+        view_all: View all posts
+      show:
+        back: "← Back to Notes"
+        author_fallback: A Philosopher 🧙‍♂️
+        loading: Loading content...
+        related_posts: Related Posts
+      admin:
+        title: Manage Notes
+        heading: Manage Notes
+        total: "%{count} total notes"
+        create: Create New Note
+        view_public: View Notes
+        draft: Draft
+        edit: Edit
+        delete: Delete
+        delete_confirm: "Are you sure you want to delete \"%{title}\"?"
+        empty: No notes yet
+        create_first: Create your first note

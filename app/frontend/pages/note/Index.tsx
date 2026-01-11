@@ -6,6 +6,7 @@ import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { useTranslation } from '@/contexts/I18nContext'
 import { note_index_path } from '@/lib/routes'
 import type { PostListItem } from '@/types'
 
@@ -31,6 +32,7 @@ interface SearchIndexItem {
 }
 
 export default function NoteIndex({ posts, categories, tags, searchIndex }: NoteIndexProps) {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
@@ -117,12 +119,12 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
 
   return (
     <>
-      <Head title="Notes" />
+      <Head title={t('frontend.note.index.title')} />
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
-            Notes
+            {t('frontend.note.index.title')}
             {(selectedCategory || selectedTag) && (
               <span className="text-lg md:text-xl text-muted-foreground ml-2">
                 / {selectedCategory || ''} {selectedTag ? `#${selectedTag}` : ''}
@@ -138,7 +140,7 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
               size="sm"
             >
               <List />
-              List
+              {t('frontend.note.index.view.list')}
             </Button>
             <Button
               variant={viewMode === 'graph' ? 'default' : 'outline'}
@@ -146,7 +148,7 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
               size="sm"
             >
               <Network />
-              Graph
+              {t('frontend.note.index.view.graph')}
             </Button>
           </div>
         </div>
@@ -155,7 +157,7 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
         <div className="mb-8">
           <Input
             type="search"
-            placeholder="Search posts..."
+            placeholder={t('frontend.note.index.search_placeholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full max-w-md"
@@ -171,7 +173,7 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
               setSelectedTag(null)
             }}
           >
-            All
+            {t('frontend.note.index.filter_all')}
           </Button>
           {categories.map((cat) => (
             <Button
@@ -187,7 +189,9 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
         {/* Tags */}
         {tags && tags.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold mb-3 text-muted-foreground">Filter by Tag</h2>
+            <h2 className="text-sm font-semibold mb-3 text-muted-foreground">
+              {t('frontend.note.index.filter_by_tag')}
+            </h2>
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Button
@@ -212,7 +216,9 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
           <Suspense
             fallback={
               <div className="flex items-center justify-center p-12 bg-muted/30 rounded-lg">
-                <div className="animate-pulse text-muted-foreground">Loading graph...</div>
+                <div className="animate-pulse text-muted-foreground">
+                  {t('frontend.note.index.graph_loading')}
+                </div>
               </div>
             }
           >
@@ -269,7 +275,7 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
               </div>
             ) : (
               <div className="text-center py-12 text-muted-foreground">
-                <p className="text-lg">No posts found</p>
+                <p className="text-lg">{t('frontend.note.index.empty')}</p>
                 {(searchQuery || selectedCategory || selectedTag) && (
                   <Button
                     variant="link"
@@ -280,7 +286,7 @@ export default function NoteIndex({ posts, categories, tags, searchIndex }: Note
                     }}
                     className="mt-2"
                   >
-                    Clear filters
+                    {t('frontend.note.index.clear_filters')}
                   </Button>
                 )}
               </div>

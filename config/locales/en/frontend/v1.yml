@@ -1,0 +1,6 @@
+---
+en:
+  frontend:
+    v1:
+      hello:
+        greeting: Hello

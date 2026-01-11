@@ -1,0 +1,29 @@
+---
+en:
+  frontend:
+    admin:
+      versions:
+        title: Audit Logs
+        heading: Audit Logs
+        subtitle: Track all changes made across the system
+        activity_title: "Activity History (%{count} total changes)"
+        table:
+          event: Event
+          model: Model
+          id: ID
+          changed_by: Changed By
+          when: When
+        empty: No audit logs found
+        changes: "Changes:"
+        no_changes: No detailed changes available
+        only_system: Only system fields were updated
+        unknown_user: Unknown
+        na: N/A
+        events:
+          create: CREATE
+          update: UPDATE
+          destroy: DESTROY
+        pagination:
+          summary: "Showing %{from} to %{to} of %{count} entries"
+          prev: Previous
+          next: Next

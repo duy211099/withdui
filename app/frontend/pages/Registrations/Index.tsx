@@ -2,6 +2,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import DeleteDialog from '@/components/DeleteDialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useTranslation } from '@/contexts/I18nContext'
 import {
   edit_event_registration_path,
   event_path,
@@ -20,9 +21,10 @@ interface IndexProps extends BasePageProps {
 }
 
 export default function Index({ event, registrations }: IndexProps) {
+  const { t } = useTranslation()
   const formatDate = (dateString: string | Date) => {
     const date = typeof dateString === 'string' ? new Date(dateString) : dateString
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -32,9 +34,9 @@ export default function Index({ event, registrations }: IndexProps) {
   }
 
   const formatEventDate = (dateString: string | null) => {
-    if (!dateString) return 'Date TBD'
+    if (!dateString) return t('frontend.events.registrations.date_tbd')
     const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -43,29 +45,35 @@ export default function Index({ event, registrations }: IndexProps) {
 
   return (
     <>
-      <Head title={`Registrations - ${event.name}`} />
+      <Head title={t('frontend.events.registrations.title', { event: event.name })} />
       <div className="min-h-[calc(100vh-120px)] bg-linear-to-b from-background via-background to-muted/40">
         <div className="container mx-auto px-4 py-10 max-w-6xl">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
             <div className="flex-1">
               <p className="text-sm uppercase tracking-widest text-muted-foreground">
-                Event Registrations
+                {t('frontend.events.registrations.kicker')}
               </p>
               <h1 className="text-3xl sm:text-4xl font-bold">{event.name}</h1>
-              <p className="text-muted-foreground mt-1">All registrations for this event</p>
+              <p className="text-muted-foreground mt-1">
+                {t('frontend.events.registrations.subtitle')}
+              </p>
             </div>
             <div className="flex flex-col items-end gap-3">
               <div className="flex gap-2">
                 <Button asChild size="sm">
-                  <Link href={new_event_registration_path(event.slug)}>New Registration</Link>
+                  <Link href={new_event_registration_path(event.slug)}>
+                    {t('frontend.events.registrations.new')}
+                  </Link>
                 </Button>
                 <Button asChild variant="outline" size="sm">
-                  <Link href={event_path(event.slug)}>Back to Event</Link>
+                  <Link href={event_path(event.slug)}>
+                    {t('frontend.events.registrations.back_to_event')}
+                  </Link>
                 </Button>
               </div>
               <div className="text-right">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">
-                  Total Registrations
+                  {t('frontend.events.registrations.total_label')}
                 </p>
                 <p className="text-2xl font-bold">{registrations.length}</p>
               </div>
@@ -75,7 +83,7 @@ export default function Index({ event, registrations }: IndexProps) {
           {registrations.length === 0 ? (
             <Card>
               <CardContent className="py-10 text-center text-muted-foreground">
-                No registrations yet. Check back soon!
+                {t('frontend.events.registrations.empty')}
               </CardContent>
             </Card>
           ) : (
@@ -100,7 +108,7 @@ export default function Index({ event, registrations }: IndexProps) {
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div>
                           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                            Event
+                            {t('frontend.events.registrations.event')}
                           </p>
                           <Link
                             href={event_path(registration.event.slug)}
@@ -114,7 +122,7 @@ export default function Index({ event, registrations }: IndexProps) {
                         </div>
                         <div>
                           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
-                            How They Heard
+                            {t('frontend.events.registrations.how_heard')}
                           </p>
                           <p className="font-medium">{registration.howHeard}</p>
                         </div>
@@ -123,19 +131,19 @@ export default function Index({ event, registrations }: IndexProps) {
                       <div className="flex flex-wrap gap-2 pt-2 border-t">
                         <Button asChild variant="outline" size="sm">
                           <Link href={edit_event_registration_path(event.slug, registration.id)}>
-                            Edit
+                            {t('frontend.events.registrations.edit')}
                           </Link>
                         </Button>
                         <DeleteDialog
                           trigger={
                             <Button variant="destructive" size="sm">
-                              Delete
+                              {t('frontend.events.registrations.delete')}
                             </Button>
                           }
-                          title="Delete Registration"
-                          description="Are you sure you want to delete this registration? This action cannot be undone."
-                          cancelLabel="Cancel"
-                          confirmLabel="Delete"
+                          title={t('frontend.events.registrations.delete_title')}
+                          description={t('frontend.events.registrations.delete_description')}
+                          cancelLabel={t('frontend.events.registrations.cancel')}
+                          confirmLabel={t('frontend.events.registrations.delete')}
                           onConfirm={() =>
                             router.delete(event_registration_path(event.slug, registration.id))
                           }

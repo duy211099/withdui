@@ -11,5 +11,7 @@ vi:
         Google của bạn.
       signed_in_as: Bạn đang đăng nhập với %{email}
       success_message: Bạn đã xác thực thành công với Google OAuth2.
+      current_mood_streak: Mood Streak
+      graph_loading: Đang tải biểu đồ...
       title: Trang chủ
       welcome: Chào mừng đến với Withdui

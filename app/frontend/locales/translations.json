@@ -8,6 +8,37 @@
         "subheading": "Software Engineer",
         "title": "About"
       },
+      "admin": {
+        "versions": {
+          "activity_title": "Activity History (%{count} total changes)",
+          "changes": "Changes:",
+          "empty": "No audit logs found",
+          "events": {
+            "create": "CREATE",
+            "destroy": "DESTROY",
+            "update": "UPDATE"
+          },
+          "heading": "Audit Logs",
+          "na": "N/A",
+          "no_changes": "No detailed changes available",
+          "only_system": "Only system fields were updated",
+          "pagination": {
+            "next": "Next",
+            "prev": "Previous",
+            "summary": "Showing %{from} to %{to} of %{count} entries"
+          },
+          "subtitle": "Track all changes made across the system",
+          "table": {
+            "changed_by": "Changed By",
+            "event": "Event",
+            "id": "ID",
+            "model": "Model",
+            "when": "When"
+          },
+          "title": "Audit Logs",
+          "unknown_user": "Unknown"
+        }
+      },
       "auth": {
         "login": {
           "continue_with_google": "Continue with Google",
@@ -55,6 +86,23 @@
           "subtitle": "Upcoming events",
           "title": "Events",
           "view_details": "View details"
+        },
+        "registrations": {
+          "back_to_event": "Back to Event",
+          "cancel": "Cancel",
+          "date_tbd": "Date TBD",
+          "delete": "Delete",
+          "delete_description": "Are you sure you want to delete this registration? This action cannot be undone.",
+          "delete_title": "Delete Registration",
+          "edit": "Edit",
+          "empty": "No registrations yet. Check back soon!",
+          "event": "Event",
+          "how_heard": "How They Heard",
+          "kicker": "Event Registrations",
+          "new": "New Registration",
+          "subtitle": "All registrations for this event",
+          "title": "Registrations - %{event}",
+          "total_label": "Total Registrations"
         },
         "show": {
           "about_title": "About this event",
@@ -148,7 +196,9 @@
       "home": {
         "blog_graph_cta": "View Graph",
         "blog_graph_title": "Blog Graph",
+        "current_mood_streak": "Current Mood Streak",
         "email_label": "Email:",
+        "graph_loading": "Loading graph...",
         "name_label": "Name:",
         "please_sign_in": "Please sign in to continue",
         "sign_in_instruction": "Click the Sign In button above to authenticate with your Google account.",
@@ -251,11 +301,115 @@
           "worst_day": "Worst Day"
         }
       },
+      "note": {
+        "admin": {
+          "create": "Create New Note",
+          "create_first": "Create your first note",
+          "delete": "Delete",
+          "delete_confirm": "Are you sure you want to delete \"%{title}\"?",
+          "draft": "Draft",
+          "edit": "Edit",
+          "empty": "No notes yet",
+          "heading": "Manage Notes",
+          "title": "Manage Notes",
+          "total": "%{count} total notes",
+          "view_public": "View Notes"
+        },
+        "category": {
+          "back": "← Back to Notes",
+          "category": "category",
+          "category_title": "Category: %{category}",
+          "count": {
+            "one": "%{count} post",
+            "other": "%{count} posts"
+          },
+          "empty": "No posts found in this %{filterType}",
+          "other_categories": "Other categories:",
+          "other_tags": "Other tags:",
+          "tag": "tag",
+          "tag_title": "Tag: %{tag}",
+          "view_all": "View all posts"
+        },
+        "index": {
+          "clear_filters": "Clear filters",
+          "empty": "No posts found",
+          "filter_all": "All",
+          "filter_by_tag": "Filter by Tag",
+          "graph_loading": "Loading graph...",
+          "search_placeholder": "Search posts...",
+          "title": "Notes",
+          "view": {
+            "graph": "Graph",
+            "list": "List"
+          }
+        },
+        "show": {
+          "author_fallback": "A Philosopher 🧙‍♂️",
+          "back": "← Back to Notes",
+          "loading": "Loading content...",
+          "related_posts": "Related Posts"
+        }
+      },
+      "serializer_demo": {
+        "basic": {
+          "description": "Reusable class - Clean & DRY",
+          "title": "2. UserSerializer (Basic)"
+        },
+        "current_user": "Current User (Serialized)",
+        "detailed": {
+          "description": "More fields for admin views",
+          "title": "3. UserSerializer (Detailed)"
+        },
+        "heading": "Serializer Demo: Different Approaches",
+        "inline": {
+          "description": "Controller method - Simple but repetitive",
+          "title": "1. Inline Serialization"
+        },
+        "minimal": {
+          "description": "Lightweight for lists/dropdowns",
+          "title": "4. UserSerializer (Minimal)"
+        },
+        "role": "Role: %{role}",
+        "title": "Serializer Demo",
+        "why_serializers": {
+          "dry": {
+            "body": "Reuse the same serialization logic across controllers",
+            "title": "DRY:"
+          },
+          "flexibility": {
+            "body": "Multiple serialization strategies (minimal, detailed)",
+            "title": "Flexibility:"
+          },
+          "maintainability": {
+            "body": "Change JSON structure in one place",
+            "title": "Maintainability:"
+          },
+          "security": {
+            "body": "Prevents accidentally exposing sensitive fields (passwords, tokens)",
+            "title": "Security:"
+          },
+          "testing": {
+            "body": "Easy to test serialization logic independently",
+            "title": "Testing:"
+          },
+          "title": "Why Use Serializers?"
+        }
+      },
       "theme": {
         "dark": "Dark",
         "light": "Light",
         "system": "System",
         "toggle": "Toggle theme"
+      },
+      "utils": {
+        "index": {
+          "title": "Utils"
+        }
+      },
+      "v1": {
+        "hello": {
+          "greeting": "Hello"
+        }
       }
     }
   },
@@ -267,6 +421,37 @@
         "poem_quote": "\"Con thuyền đi qua\nđể lại sóng\nĐoàn tàu đi qua\nđể lại tiếng\nĐoàn người đi qua\nđể lại bóng\nTôi không đi qua tôi\nđể lại gì?\"",
         "subheading": "Software Engineer",
         "title": "About"
+      },
+      "admin": {
+        "versions": {
+          "activity_title": "Lịch sử hoạt động (%{count} thay đổi)",
+          "changes": "Thay đổi:",
+          "empty": "Không có bản ghi nào",
+          "events": {
+            "create": "TẠO",
+            "destroy": "XÓA",
+            "update": "CẬP NHẬT"
+          },
+          "heading": "Nhật ký thay đổi",
+          "na": "Không có",
+          "no_changes": "Không có thay đổi chi tiết",
+          "only_system": "Chỉ có trường hệ thống được cập nhật",
+          "pagination": {
+            "next": "Sau",
+            "prev": "Trước",
+            "summary": "Hiển thị %{from} - %{to} / %{count}"
+          },
+          "subtitle": "Theo dõi tất cả cập nhật trong hệ thống",
+          "table": {
+            "changed_by": "Người thay đổi",
+            "event": "Note",
+            "id": "ID",
+            "model": "Model",
+            "when": "Thời gian"
+          },
+          "title": "Nhật ký thay đổi",
+          "unknown_user": "Không rõ"
+        }
       },
       "auth": {
         "login": {
@@ -281,30 +466,30 @@
       "events": {
         "delete": {
           "cancel": "Hủy",
-          "confirm": "Xóa sự kiện",
-          "description": "Hành động này không thể hoàn tác. Sự kiện sẽ bị xóa vĩnh viễn.",
-          "title": "Xóa sự kiện này?",
-          "trigger": "Xóa sự kiện"
+          "confirm": "Xóa Event",
+          "description": "Hành động này không thể hoàn tác. Event sẽ bị xóa vĩnh viễn.",
+          "title": "Xóa Event này?",
+          "trigger": "Xóa Event"
         },
         "flash": {
-          "created": "Đã tạo sự kiện.",
-          "deleted": "Đã xóa sự kiện.",
-          "updated": "Đã cập nhật sự kiện."
+          "created": "Đã tạo Event.",
+          "deleted": "Đã xóa Event.",
+          "updated": "Đã cập nhật Event."
         },
         "form": {
           "description": "Mô tả",
-          "details_title": "Thông tin sự kiện",
-          "edit_title": "Chỉnh sửa sự kiện",
+          "details_title": "Thông tin Event",
+          "edit_title": "Chỉnh sửa Event",
           "location": "Địa điểm",
           "name": "Tên",
-          "new_title": "Tạo sự kiện",
+          "new_title": "Tạo Event",
           "price": "Giá",
           "submit_edit": "Lưu thay đổi",
-          "submit_new": "Tạo sự kiện"
+          "submit_new": "Tạo Event"
         },
         "index": {
-          "description": "Khám phá những sự kiện sắp tới và đăng ký tham gia.",
-          "empty": "Chưa có sự kiện nào.",
+          "description": "Khám phá những Event sắp tới và đăng ký tham gia.",
+          "empty": "Chưa có Event nào.",
           "price_free": "Miễn phí",
           "pulse": "Nhịp",
           "random": {
@@ -312,15 +497,32 @@
             "loading": "Random: Đang tải...",
             "value": "Random: %{value}"
           },
-          "subtitle": "Sự kiện sắp diễn ra",
-          "title": "Sự kiện",
+          "subtitle": "Event sắp diễn ra",
+          "title": "Event",
           "view_details": "Xem chi tiết"
         },
+        "registrations": {
+          "back_to_event": "Quay lại Event",
+          "cancel": "Hủy",
+          "date_tbd": "Chưa rõ ngày",
+          "delete": "Xóa",
+          "delete_description": "Bạn có chắc muốn xóa đăng ký này? Hành động không thể hoàn tác.",
+          "delete_title": "Xóa đăng ký",
+          "edit": "Sửa",
+          "empty": "Chưa có ai đăng ký. Quay lại sau nhé!",
+          "event": "Event",
+          "how_heard": "Biết đến qua",
+          "kicker": "Danh sách đăng ký",
+          "new": "Tạo đăng ký",
+          "subtitle": "Tất cả đăng ký của Event này",
+          "title": "Đăng ký - %{event}",
+          "total_label": "Tổng số đăng ký"
+        },
         "show": {
-          "about_title": "Giới thiệu sự kiện",
+          "about_title": "Giới thiệu Event",
           "back": "Quay lại danh sách",
           "edit": "Chỉnh sửa",
-          "label": "Sự kiện",
+          "label": "Event",
           "price_label": "Giá"
         }
       },
@@ -339,7 +541,7 @@
           "heading": "Tiến độ của bạn",
           "mood_streak_label": "Chuỗi ngày ghi nhận cảm xúc",
           "quick_stats": {
-            "events_attended": "Số sự kiện tham gia",
+            "events_attended": "Số Note tham gia",
             "great_moods": "Số lần cảm xúc tuyệt vời",
             "moods_logged": "Số lần ghi nhận cảm xúc",
             "posts_written": "Số bài viết"
@@ -355,7 +557,7 @@
             "empty": "Chưa có huy hiệu nào được mở khóa. Tiếp tục ghi cảm xúc và viết bài để nhận huy hiệu!",
             "unlocked": "Đã mở khóa (%{count})"
           },
-          "title": "Bảng gamification",
+          "title": "Dashboard",
           "writing_streak_label": "Chuỗi ngày viết bài"
         },
         "events": {
@@ -363,8 +565,8 @@
           "achievement_unlocked_gold": "Mở khóa huy hiệu Vàng",
           "achievement_unlocked_platinum": "Mở khóa huy hiệu Bạch kim",
           "achievement_unlocked_silver": "Mở khóa huy hiệu Bạc",
-          "event_attended": "Tham gia sự kiện",
-          "event_created": "Tạo sự kiện",
+          "event_attended": "Tham gia Note",
+          "event_created": "Tạo Note",
           "great_mood_logged": "Ghi nhận cảm xúc tuyệt vời",
           "long_post_bonus": "Điểm thưởng bài viết dài",
           "mood_logged": "Ghi nhận cảm xúc",
@@ -408,7 +610,9 @@
       "home": {
         "blog_graph_cta": "Xem Notes",
         "blog_graph_title": "Notes",
+        "current_mood_streak": "Mood Streak",
         "email_label": "Email:",
+        "graph_loading": "Đang tải biểu đồ...",
         "name_label": "Tên:",
         "please_sign_in": "Vui lòng đăng nhập để tiếp tục",
         "sign_in_instruction": "Nhấn vào nút Đăng nhập ở trên để xác thực với tài khoản Google của bạn.",
@@ -511,11 +715,115 @@
           "worst_day": "Ngày tệ nhất"
         }
       },
+      "note": {
+        "admin": {
+          "create": "Tạo Note mới",
+          "create_first": "Tạo Note đầu tiên",
+          "delete": "Xóa",
+          "delete_confirm": "Bạn có chắc muốn xóa \"%{title}\"?",
+          "draft": "Bản nháp",
+          "edit": "Sửa",
+          "empty": "Chưa có Note nào",
+          "heading": "Quản lý Note",
+          "title": "Quản lý Note",
+          "total": "%{count} bài",
+          "view_public": "Xem Note"
+        },
+        "category": {
+          "back": "← Quay lại Note",
+          "category": "Category",
+          "category_title": "Category: %{category}",
+          "count": {
+            "one": "%{count} bài viết",
+            "other": "%{count} bài viết"
+          },
+          "empty": "Không có bài trong %{filterType}",
+          "other_categories": "Category khác:",
+          "other_tags": "Tag khác:",
+          "tag": "tag",
+          "tag_title": "Tag: %{tag}",
+          "view_all": "Xem tất cả bài viết"
+        },
+        "index": {
+          "clear_filters": "Xóa bộ lọc",
+          "empty": "Không tìm thấy bài viết",
+          "filter_all": "Tất cả",
+          "filter_by_tag": "Lọc theo Tag",
+          "graph_loading": "Đang tải biểu đồ...",
+          "search_placeholder": "Tìm bài viết...",
+          "title": "Notes",
+          "view": {
+            "graph": "Graph",
+            "list": "List"
+          }
+        },
+        "show": {
+          "author_fallback": "Một nhà hiền triết 🧙‍♂️",
+          "back": "← Quay lại Note",
+          "loading": "Đang tải nội dung...",
+          "related_posts": "Bài viết liên quan"
+        }
+      },
+      "serializer_demo": {
+        "basic": {
+          "description": "Lớp tái sử dụng - gọn và DRY",
+          "title": "2. UserSerializer (Cơ bản)"
+        },
+        "current_user": "Người dùng hiện tại (đã serialize)",
+        "detailed": {
+          "description": "Nhiều trường hơn cho trang quản trị",
+          "title": "3. UserSerializer (Chi tiết)"
+        },
+        "heading": "Demo Serializer - Các cách tiếp cận",
+        "inline": {
+          "description": "Ở controller - đơn giản nhưng lặp lại",
+          "title": "1. Serialize trực tiếp"
+        },
+        "minimal": {
+          "description": "Nhẹ cho danh sách/combobox",
+          "title": "4. UserSerializer (Tối giản)"
+        },
+        "role": "Vai trò: %{role}",
+        "title": "Demo Serializer",
+        "why_serializers": {
+          "dry": {
+            "body": "Tái sử dụng cùng logic serialize ở nhiều controller",
+            "title": "DRY:"
+          },
+          "flexibility": {
+            "body": "Nhiều chiến lược (tối giản, chi tiết)",
+            "title": "Linh hoạt:"
+          },
+          "maintainability": {
+            "body": "Đổi cấu trúc JSON tại một chỗ duy nhất",
+            "title": "Dễ bảo trì:"
+          },
+          "security": {
+            "body": "Tránh lộ trường nhạy cảm (mật khẩu, token)",
+            "title": "Bảo mật:"
+          },
+          "testing": {
+            "body": "Dễ test logic serialize độc lập",
+            "title": "Kiểm thử:"
+          },
+          "title": "Vì sao dùng Serializer?"
+        }
+      },
       "theme": {
         "dark": "Tối",
         "light": "Sáng",
         "system": "Hệ thống",
         "toggle": "Chuyển đổi giao diện"
+      },
+      "utils": {
+        "index": {
+          "title": "Công cụ"
+        }
+      },
+      "v1": {
+        "hello": {
+          "greeting": "Xin chào"
+        }
       }
     }
   }

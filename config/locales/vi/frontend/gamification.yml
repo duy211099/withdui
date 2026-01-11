@@ -3,7 +3,7 @@ vi:
   frontend:
     gamification:
       dashboard:
-        title: Bảng gamification
+        title: Dashboard
         heading: Tiến độ của bạn
         mood_streak_label: Chuỗi ngày ghi nhận cảm xúc
         writing_streak_label: Chuỗi ngày viết bài
@@ -11,7 +11,7 @@ vi:
           moods_logged: Số lần ghi nhận cảm xúc
           posts_written: Số bài viết
           great_moods: Số lần cảm xúc tuyệt vời
-          events_attended: Số sự kiện tham gia
+          events_attended: Số Note tham gia
         tabs:
           unlocked: "Đã mở khóa (%{count})"
           available: "Có thể mở khóa (%{count})"
@@ -52,8 +52,8 @@ vi:
         post_published: Xuất bản bài viết
         post_with_tags: Bài viết có gắn thẻ
         long_post_bonus: Điểm thưởng bài viết dài
-        event_attended: Tham gia sự kiện
-        event_created: Tạo sự kiện
+        event_attended: Tham gia Note
+        event_created: Tạo Note
         profile_view: Lượt xem hồ sơ
         post_read: Lượt đọc bài viết
         achievement_unlocked_bronze: Mở khóa huy hiệu Đồng

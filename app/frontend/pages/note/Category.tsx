@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react'
 import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useTranslation } from '@/contexts/I18nContext'
 import { note_category_path, note_index_path, note_tag_path } from '@/lib/routes'
 import type { PostListItem } from '@/types'
 
@@ -14,7 +15,10 @@ interface CategoryProps {
 }
 
 export default function Category({ category, tag, posts, allCategories, allTags }: CategoryProps) {
-  const title = category ? `Category: ${category}` : `Tag: ${tag}`
+  const { t } = useTranslation()
+  const title = category
+    ? t('frontend.note.category.category_title', { category })
+    : t('frontend.note.category.tag_title', { tag })
   const filterType = category ? 'category' : 'tag'
 
   // Preserve the view mode when going back
@@ -30,20 +34,20 @@ export default function Category({ category, tag, posts, allCategories, allTags 
       <div className="container mx-auto px-4 py-8">
         <Link href={getBackUrl()}>
           <Button variant="ghost" className="mb-4">
-            ← Back to Notes
+            {t('frontend.note.category.back')}
           </Button>
         </Link>
 
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">{title}</h1>
         <p className="text-muted-foreground mb-8">
-          {posts.length} post{posts.length !== 1 ? 's' : ''}
+          {t('frontend.note.category.count', { count: posts.length })}
         </p>
 
         {/* Filter Options */}
         {filterType === 'category' && allCategories && allCategories.length > 1 && (
           <div className="mb-6 flex gap-2 flex-wrap">
             <span className="text-sm text-muted-foreground self-center mr-2">
-              Other categories:
+              {t('frontend.note.category.other_categories')}
             </span>
             {allCategories
               .filter((c) => c !== category)
@@ -59,7 +63,9 @@ export default function Category({ category, tag, posts, allCategories, allTags 
 
         {filterType === 'tag' && allTags && allTags.length > 1 && (
           <div className="mb-6 flex gap-2 flex-wrap">
-            <span className="text-sm text-muted-foreground self-center mr-2">Other tags:</span>
+            <span className="text-sm text-muted-foreground self-center mr-2">
+              {t('frontend.note.category.other_tags')}
+            </span>
             {allTags
               .filter((t) => t !== tag)
               .map((t) => (
@@ -112,10 +118,17 @@ export default function Category({ category, tag, posts, allCategories, allTags 
           </div>
         ) : (
           <div className="text-center py-12 text-muted-foreground">
-            <p className="text-lg">No posts found in this {filterType}</p>
+            <p className="text-lg">
+              {t('frontend.note.category.empty', {
+                filterType:
+                  filterType === 'category'
+                    ? t('frontend.note.category.category')
+                    : t('frontend.note.category.tag'),
+              })}
+            </p>
             <Link href={note_index_path()}>
               <Button variant="link" className="mt-2">
-                View all posts
+                {t('frontend.note.category.view_all')}
               </Button>
             </Link>
           </div>

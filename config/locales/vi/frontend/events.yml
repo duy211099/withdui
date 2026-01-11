@@ -3,40 +3,56 @@ vi:
   frontend:
     events:
       index:
-        title: Sự kiện
-        subtitle: Sự kiện sắp diễn ra
-        description: Khám phá những sự kiện sắp tới và đăng ký tham gia.
+        title: Event
+        subtitle: Event sắp diễn ra
+        description: Khám phá những Event sắp tới và đăng ký tham gia.
         pulse: Nhịp
         random:
           loading: "Random: Đang tải..."
           error: "Random: Lỗi!"
           value: "Random: %{value}"
-        empty: Chưa có sự kiện nào.
+        empty: Chưa có Event nào.
         view_details: Xem chi tiết
         price_free: Miễn phí
       show:
-        label: Sự kiện
+        label: Event
         price_label: Giá
-        about_title: Giới thiệu sự kiện
+        about_title: Giới thiệu Event
         back: Quay lại danh sách
         edit: Chỉnh sửa
       form:
-        new_title: Tạo sự kiện
-        edit_title: Chỉnh sửa sự kiện
-        details_title: Thông tin sự kiện
+        new_title: Tạo Event
+        edit_title: Chỉnh sửa Event
+        details_title: Thông tin Event
         name: Tên
         location: Địa điểm
         price: Giá
         description: Mô tả
-        submit_new: Tạo sự kiện
+        submit_new: Tạo Event
         submit_edit: Lưu thay đổi
       delete:
-        trigger: Xóa sự kiện
-        title: Xóa sự kiện này?
-        description: Hành động này không thể hoàn tác. Sự kiện sẽ bị xóa vĩnh viễn.
+        trigger: Xóa Event
+        title: Xóa Event này?
+        description: Hành động này không thể hoàn tác. Event sẽ bị xóa vĩnh viễn.
         cancel: Hủy
-        confirm: Xóa sự kiện
+        confirm: Xóa Event
       flash:
-        created: Đã tạo sự kiện.
-        updated: Đã cập nhật sự kiện.
-        deleted: Đã xóa sự kiện.
+        created: Đã tạo Event.
+        updated: Đã cập nhật Event.
+        deleted: Đã xóa Event.
+      registrations:
+        title: "Đăng ký - %{event}"
+        kicker: Danh sách đăng ký
+        subtitle: Tất cả đăng ký của Event này
+        new: Tạo đăng ký
+        back_to_event: Quay lại Event
+        total_label: Tổng số đăng ký
+        empty: Chưa có ai đăng ký. Quay lại sau nhé!
+        event: Event
+        how_heard: Biết đến qua
+        edit: Sửa
+        delete: Xóa
+        delete_title: Xóa đăng ký
+        delete_description: Bạn có chắc muốn xóa đăng ký này? Hành động không thể hoàn tác.
+        cancel: Hủy
+        date_tbd: Chưa rõ ngày

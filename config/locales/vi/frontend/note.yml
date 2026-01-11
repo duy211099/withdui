@@ -1,0 +1,45 @@
+---
+vi:
+  frontend:
+    note:
+      index:
+        title: Notes
+        view:
+          list: List
+          graph: Graph
+        search_placeholder: Tìm bài viết...
+        filter_all: Tất cả
+        filter_by_tag: Lọc theo Tag
+        graph_loading: Đang tải biểu đồ...
+        empty: Không tìm thấy bài viết
+        clear_filters: Xóa bộ lọc
+      category:
+        category_title: "Category: %{category}"
+        tag_title: "Tag: %{tag}"
+        back: "← Quay lại Note"
+        count:
+          one: "%{count} bài viết"
+          other: "%{count} bài viết"
+        other_categories: "Category khác:"
+        other_tags: "Tag khác:"
+        category: Category
+        tag: tag
+        empty: "Không có bài trong %{filterType}"
+        view_all: Xem tất cả bài viết
+      show:
+        back: "← Quay lại Note"
+        author_fallback: Một nhà hiền triết 🧙‍♂️
+        loading: Đang tải nội dung...
+        related_posts: Bài viết liên quan
+      admin:
+        title: Quản lý Note
+        heading: Quản lý Note
+        total: "%{count} bài"
+        create: Tạo Note mới
+        view_public: Xem Note
+        draft: Bản nháp
+        edit: Sửa
+        delete: Xóa
+        delete_confirm: "Bạn có chắc muốn xóa \"%{title}\"?"
+        empty: Chưa có Note nào
+        create_first: Tạo Note đầu tiên

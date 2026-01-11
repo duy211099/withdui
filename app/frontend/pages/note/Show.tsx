@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react'
 import { lazy, Suspense } from 'react'
 import LocalTime from '@/components/LocalTime'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from '@/contexts/I18nContext'
 import { note_category_path, note_index_path, note_tag_path } from '@/lib/routes'
 import type { Post } from '@/types'
 
@@ -13,6 +14,7 @@ interface NoteShowProps {
 }
 
 export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
+  const { t } = useTranslation()
   // Preserve the view mode when going back
   const getBackUrl = () => {
     const savedView = typeof window !== 'undefined' ? localStorage.getItem('noteViewMode') : null
@@ -28,7 +30,7 @@ export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
         <header className="mb-8">
           <Link href={getBackUrl()}>
             <Button variant="ghost" className="mb-4">
-              ← Back to Notes
+              {t('frontend.note.show.back')}
             </Button>
           </Link>
 
@@ -47,7 +49,7 @@ export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
               <LocalTime dateTime={post.date} dateOnly />
             </span>
             <span>•</span>
-            <span>{post.author || 'A Philosopher 🧙‍♂️'}</span>
+            <span>{post.author || t('frontend.note.show.author_fallback')}</span>
             {post.category && (
               <>
                 <span>•</span>
@@ -78,7 +80,9 @@ export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
         <Suspense
           fallback={
             <div className="flex items-center justify-center p-8">
-              <div className="animate-pulse text-muted-foreground">Loading content...</div>
+              <div className="animate-pulse text-muted-foreground">
+                {t('frontend.note.show.loading')}
+              </div>
             </div>
           }
         >
@@ -88,7 +92,9 @@ export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
         {/* Related Posts */}
         {relatedPosts && relatedPosts.length > 0 && (
           <aside className="mt-12 pt-8 border-t">
-            <h2 className="text-xl md:text-2xl font-bold mb-4">Related Posts</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-4">
+              {t('frontend.note.show.related_posts')}
+            </h2>
             <div className="grid md:grid-cols-3 gap-3 md:gap-4">
               {relatedPosts.map((p) => (
                 <Link key={p.urlPath} href={p.urlPath}>

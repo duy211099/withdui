@@ -1,0 +1,6 @@
+---
+vi:
+  frontend:
+    v1:
+      hello:
+        greeting: Xin chào

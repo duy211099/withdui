@@ -58,36 +58,6 @@ export default function Home() {
       <Head title={t('frontend.home.title')} />
       <div className="min-h-screen bg-background">
         <main className="container mx-auto px-4 py-8 max-w-6xl">
-          <Card className="w-full mb-6 hover:translate-x-0 hover:translate-y-0">
-            <CardHeader>
-              <CardTitle>{t('frontend.home.welcome')}</CardTitle>
-              <CardDescription>
-                {currentUser
-                  ? t('frontend.home.signed_in_as', { email: currentUser.email })
-                  : t('frontend.home.please_sign_in')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {currentUser ? (
-                <div className="space-y-4">
-                  <p className="text-muted-foreground">{t('frontend.home.success_message')}</p>
-                  <div className="grid gap-2">
-                    <div>
-                      <span className="font-semibold">{t('frontend.home.name_label')}</span>{' '}
-                      {currentUser.name}
-                    </div>
-                    <div>
-                      <span className="font-semibold">{t('frontend.home.email_label')}</span>{' '}
-                      {currentUser.email}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <p className="text-muted-foreground">{t('frontend.home.sign_in_instruction')}</p>
-              )}
-            </CardContent>
-          </Card>
-
           {/* Mood Calendar - only show for logged-in users */}
           {moods && year && month && moodLevels && (
             <div className="w-full">
@@ -118,7 +88,7 @@ export default function Home() {
                       currentStreak={userStats.currentMoodStreak}
                       longestStreak={userStats.longestMoodStreak}
                       type="mood"
-                      label="Current Mood Streak"
+                      label={t('frontend.home.current_mood_streak')}
                       className="cursor-pointer hover:shadow-lg transition-shadow"
                     />
                   </Link>
@@ -144,7 +114,9 @@ export default function Home() {
               <Suspense
                 fallback={
                   <div className="flex items-center justify-center p-8 bg-muted/30 rounded-lg">
-                    <div className="animate-pulse text-muted-foreground">Loading graph...</div>
+                    <div className="animate-pulse text-muted-foreground">
+                      {t('frontend.home.graph_loading')}
+                    </div>
                   </div>
                 }
               >

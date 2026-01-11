@@ -11,5 +11,7 @@ en:
         Google account.
       signed_in_as: You are signed in as %{email}
       success_message: You have successfully authenticated with Google OAuth2.
+      current_mood_streak: Current Mood Streak
+      graph_loading: Loading graph...
       title: Home
       welcome: Welcome to Withdui

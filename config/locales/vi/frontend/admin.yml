@@ -1,0 +1,29 @@
+---
+vi:
+  frontend:
+    admin:
+      versions:
+        title: Nhật ký thay đổi
+        heading: Nhật ký thay đổi
+        subtitle: Theo dõi tất cả cập nhật trong hệ thống
+        activity_title: "Lịch sử hoạt động (%{count} thay đổi)"
+        table:
+          event: Note
+          model: Model
+          id: ID
+          changed_by: Người thay đổi
+          when: Thời gian
+        empty: Không có bản ghi nào
+        changes: "Thay đổi:"
+        no_changes: Không có thay đổi chi tiết
+        only_system: Chỉ có trường hệ thống được cập nhật
+        unknown_user: Không rõ
+        na: Không có
+        events:
+          create: TẠO
+          update: CẬP NHẬT
+          destroy: XÓA
+        pagination:
+          summary: "Hiển thị %{from} - %{to} / %{count}"
+          prev: Trước
+          next: Sau

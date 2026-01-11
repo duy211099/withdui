@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react'
+import { useTranslation } from '@/contexts/I18nContext'
 import type { UserBasic, UserDetailed, UserMinimal } from '@/types'
 
 interface SerializerDemoProps {
@@ -16,16 +17,17 @@ export default function SerializerDemo({
   serializerMinimal,
   currentUserData,
 }: SerializerDemoProps) {
+  const { t } = useTranslation()
   return (
     <>
-      <Head title="Serializer Demo" />
+      <Head title={t('frontend.serializer_demo.title')} />
 
-      <h1 className="text-3xl font-bold mb-8">Serializer Demo: Different Approaches</h1>
+      <h1 className="text-3xl font-bold mb-8">{t('frontend.serializer_demo.heading')}</h1>
 
       {/* Current User Card */}
       <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-950 rounded-lg border-2 border-blue-200 dark:border-blue-800">
         <h2 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-100">
-          Current User (Serialized)
+          {t('frontend.serializer_demo.current_user')}
         </h2>
         <div className="flex items-center gap-4">
           {currentUserData.avatarUrl && (
@@ -38,7 +40,9 @@ export default function SerializerDemo({
           <div>
             <p className="font-semibold">{currentUserData.name}</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">{currentUserData.email}</p>
-            <p className="text-xs text-gray-500">Role: {currentUserData.role}</p>
+            <p className="text-xs text-gray-500">
+              {t('frontend.serializer_demo.role', { role: currentUserData.role })}
+            </p>
           </div>
         </div>
       </div>
@@ -47,32 +51,32 @@ export default function SerializerDemo({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Approach 1: Inline */}
         <DataSection
-          title="1. Inline Serialization"
-          description="Controller method - Simple but repetitive"
+          title={t('frontend.serializer_demo.inline.title')}
+          description={t('frontend.serializer_demo.inline.description')}
           data={inlineSerialized}
           highlight="inline"
         />
 
         {/* Approach 2: Basic Serializer */}
         <DataSection
-          title="2. UserSerializer (Basic)"
-          description="Reusable class - Clean & DRY"
+          title={t('frontend.serializer_demo.basic.title')}
+          description={t('frontend.serializer_demo.basic.description')}
           data={serializerBasic}
           highlight="serializer"
         />
 
         {/* Approach 3: Detailed Serializer */}
         <DataSection
-          title="3. UserSerializer (Detailed)"
-          description="More fields for admin views"
+          title={t('frontend.serializer_demo.detailed.title')}
+          description={t('frontend.serializer_demo.detailed.description')}
           data={serializerDetailed}
           highlight="detailed"
         />
 
         {/* Approach 4: Minimal Serializer */}
         <DataSection
-          title="4. UserSerializer (Minimal)"
-          description="Lightweight for lists/dropdowns"
+          title={t('frontend.serializer_demo.minimal.title')}
+          description={t('frontend.serializer_demo.minimal.description')}
           data={serializerMinimal}
           highlight="minimal"
         />
@@ -80,37 +84,43 @@ export default function SerializerDemo({
 
       {/* Code Comparison */}
       <div className="mt-12 p-6 bg-gray-50 dark:bg-gray-900 rounded-lg">
-        <h2 className="text-xl font-semibold mb-4">Why Use Serializers?</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {t('frontend.serializer_demo.why_serializers.title')}
+        </h2>
         <ul className="space-y-2 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-green-500">✓</span>
             <span>
-              <strong>Security:</strong> Prevents accidentally exposing sensitive fields (passwords,
-              tokens)
+              <strong>{t('frontend.serializer_demo.why_serializers.security.title')}</strong>{' '}
+              {t('frontend.serializer_demo.why_serializers.security.body')}
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-green-500">✓</span>
             <span>
-              <strong>DRY:</strong> Reuse the same serialization logic across controllers
+              <strong>{t('frontend.serializer_demo.why_serializers.dry.title')}</strong>{' '}
+              {t('frontend.serializer_demo.why_serializers.dry.body')}
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-green-500">✓</span>
             <span>
-              <strong>Maintainability:</strong> Change JSON structure in one place
+              <strong>{t('frontend.serializer_demo.why_serializers.maintainability.title')}</strong>{' '}
+              {t('frontend.serializer_demo.why_serializers.maintainability.body')}
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-green-500">✓</span>
             <span>
-              <strong>Flexibility:</strong> Multiple serialization strategies (minimal, detailed)
+              <strong>{t('frontend.serializer_demo.why_serializers.flexibility.title')}</strong>{' '}
+              {t('frontend.serializer_demo.why_serializers.flexibility.body')}
             </span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-green-500">✓</span>
             <span>
-              <strong>Testing:</strong> Easy to test serialization logic independently
+              <strong>{t('frontend.serializer_demo.why_serializers.testing.title')}</strong>{' '}
+              {t('frontend.serializer_demo.why_serializers.testing.body')}
             </span>
           </li>
         </ul>

@@ -1,0 +1,37 @@
+---
+vi:
+  frontend:
+    serializer_demo:
+      title: Demo Serializer
+      heading: Demo Serializer - Các cách tiếp cận
+      current_user: Người dùng hiện tại (đã serialize)
+      role: "Vai trò: %{role}"
+      inline:
+        title: "1. Serialize trực tiếp"
+        description: Ở controller - đơn giản nhưng lặp lại
+      basic:
+        title: "2. UserSerializer (Cơ bản)"
+        description: Lớp tái sử dụng - gọn và DRY
+      detailed:
+        title: "3. UserSerializer (Chi tiết)"
+        description: Nhiều trường hơn cho trang quản trị
+      minimal:
+        title: "4. UserSerializer (Tối giản)"
+        description: Nhẹ cho danh sách/combobox
+      why_serializers:
+        title: Vì sao dùng Serializer?
+        security:
+          title: "Bảo mật:"
+          body: Tránh lộ trường nhạy cảm (mật khẩu, token)
+        dry:
+          title: "DRY:"
+          body: Tái sử dụng cùng logic serialize ở nhiều controller
+        maintainability:
+          title: "Dễ bảo trì:"
+          body: Đổi cấu trúc JSON tại một chỗ duy nhất
+        flexibility:
+          title: "Linh hoạt:"
+          body: Nhiều chiến lược (tối giản, chi tiết)
+        testing:
+          title: "Kiểm thử:"
+          body: Dễ test logic serialize độc lập

@@ -29,6 +29,8 @@ class User < ApplicationRecord
   # Enable PaperTrail for audit logging
   has_paper_trail
 
+  include PgSearch::Model
+
   # Include gamification functionality
   include Gamifiable
 
@@ -48,6 +50,15 @@ class User < ApplicationRecord
 
   # Slug generation
   before_validation :generate_slug, on: :create
+
+  pg_search_scope :search_by_keyword,
+                  against: { name: "A", email: "B" },
+                  using: {
+                    tsearch: {
+                      prefix: true,
+                      normalization: 2
+                    }
+                  }
 
   def to_param
     slug

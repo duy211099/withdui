@@ -36,6 +36,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Override Devise's authenticate_user! to handle Inertia.js requests properly
+  def authenticate_user!(opts = {})
+    return if user_signed_in?
+
+    # For Inertia requests, perform a redirect to login page
+    if request.inertia?
+      redirect_to new_user_session_path, alert: "You need to sign in to continue."
+    else
+      # For regular requests, use Devise's default behavior
+      super(opts)
+    end
+  end
+
   # Transform validation errors to camelCase for frontend
   def form_errors(record)
     record.errors.to_hash(true)
@@ -90,14 +103,14 @@ class ApplicationController < ActionController::Base
       moods_path
     when "VersionPolicy"
       root_path
-    when "AdminPolicy"
+    when "AdminPolicy", "RegistrationPolicy", "EventPolicy"
       root_path
     else
       root_path
     end
 
     # Customize message for admin-only pages
-    alert_message = if %w[VersionPolicy AdminPolicy].include?(policy_class)
+    alert_message = if %w[VersionPolicy AdminPolicy RegistrationPolicy EventPolicy].include?(policy_class)
                       "Admin access required to view this page."
     else
                       "You don't have permission to access this page."

@@ -1,8 +1,10 @@
 class RegistrationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_event
   before_action :set_registration, only: [ :edit, :update, :destroy ]
 
   def index
+    authorize! @event, to: :manage?, with: RegistrationPolicy
     @registrations = @event.registrations
 
     render inertia: "Registrations/Index", props: {
@@ -12,6 +14,7 @@ class RegistrationsController < ApplicationController
   end
 
   def new
+    authorize! @event, to: :manage?, with: RegistrationPolicy
     registration = @event.registrations.build
 
     render inertia: "Registrations/Form", props: {
@@ -23,6 +26,7 @@ class RegistrationsController < ApplicationController
   end
 
   def create
+    authorize! @event, to: :manage?, with: RegistrationPolicy
     @registration = @event.registrations.build(registration_params)
 
     if @registration.save
@@ -33,6 +37,7 @@ class RegistrationsController < ApplicationController
   end
 
   def edit
+    authorize! @registration, to: :manage?, with: RegistrationPolicy
     render inertia: "Registrations/Form", props: {
       event: EventSerializer.one(@event),
       registration: RegistrationFormSerializer.one(@registration),
@@ -42,6 +47,7 @@ class RegistrationsController < ApplicationController
   end
 
   def update
+    authorize! @registration, to: :manage?, with: RegistrationPolicy
     if @registration.update(registration_params)
       redirect_to event_registrations_path(@event), notice: "Registration was successfully updated."
     else
@@ -50,6 +56,7 @@ class RegistrationsController < ApplicationController
   end
 
   def destroy
+    authorize! @registration, to: :manage?, with: RegistrationPolicy
     @registration.destroy!
     redirect_to event_registrations_path(@event), notice: "Registration was successfully deleted."
   end

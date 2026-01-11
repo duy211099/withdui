@@ -1,6 +1,8 @@
 require "test_helper"
 
 class EventsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @event = Event.create!(
       name: "Test Event",
@@ -9,6 +11,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       location: "Test Location",
       starts_at: 1.week.from_now
     )
+    @admin = users(:admin)
   end
 
   # Index tests
@@ -25,12 +28,14 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
   # New tests
   test "should get new" do
+    sign_in @admin
     get new_event_path
     assert_response :success
   end
 
   # Create tests
   test "should create event with valid data" do
+    sign_in @admin
     assert_difference "Event.count", 1 do
       post events_path, params: {
         event: {
@@ -48,6 +53,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create event with invalid data" do
+    sign_in @admin
     assert_no_difference "Event.count" do
       post events_path, params: {
         event: {
@@ -63,12 +69,14 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
   # Edit tests
   test "should get edit" do
+    sign_in @admin
     get edit_event_path(@event)
     assert_response :success
   end
 
   # Update tests
   test "should update event with valid data" do
+    sign_in @admin
     patch event_path(@event), params: {
       event: {
         name: "Updated Event Name",
@@ -83,6 +91,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update event with invalid data" do
+    sign_in @admin
     original_name = @event.name
 
     patch event_path(@event), params: {
@@ -99,6 +108,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
   # Destroy tests
   test "should destroy event" do
+    sign_in @admin
     assert_difference "Event.count", -1 do
       delete event_path(@event)
     end

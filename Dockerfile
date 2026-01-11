@@ -18,7 +18,7 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 # Install packages needed to build gems and Node.js for Vite
-ARG NODE_VERSION=20
+ARG NODE_VERSION=22
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libyaml-dev libpq-dev pkg-config curl && \
     curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \

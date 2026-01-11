@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import * as React from 'react'
 import useSWR from 'swr'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   Command,
@@ -75,6 +76,15 @@ export function UserDropdown({
             'Loading users...'
           ) : selectedUser ? (
             <div className="flex items-center gap-2 truncate">
+              <Avatar className="h-6 w-6">
+                <AvatarImage
+                  src={selectedUser.avatarUrl || undefined}
+                  alt={selectedUser.name || selectedUser.email}
+                />
+                <AvatarFallback className="text-xs">
+                  {(selectedUser.name?.[0] || selectedUser.email[0]).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
               <span className="truncate">{selectedUser.name || selectedUser.email}</span>
               <span className="text-muted-foreground text-xs truncate">({selectedUser.email})</span>
             </div>
@@ -109,6 +119,12 @@ export function UserDropdown({
                   <Check
                     className={cn('mr-2 h-4 w-4', value === user.id ? 'opacity-100' : 'opacity-0')}
                   />
+                  <Avatar className="h-8 w-8 mr-2">
+                    <AvatarImage src={user.avatarUrl || undefined} alt={user.name || user.email} />
+                    <AvatarFallback className="text-sm">
+                      {(user.name?.[0] || user.email[0]).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="flex flex-col gap-0.5 flex-1 min-w-0">
                     <span className="font-medium truncate">{user.name || 'No name'}</span>
                     <span className="text-xs text-muted-foreground truncate">{user.email}</span>

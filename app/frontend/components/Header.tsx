@@ -27,7 +27,13 @@ import LocaleSwitcher from './LocaleSwitcher'
 import MobileMenu from './MobileMenu'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Button } from './ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu'
 
 export default function Header() {
   const { currentUser, userStats } = usePage<{ currentUser?: User; userStats?: UserStats }>().props
@@ -108,8 +114,8 @@ export default function Header() {
                 </Link>
               )}
 
-              <Popover>
-                <PopoverTrigger asChild>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
                   <button
                     type="button"
                     className="flex border-2 items-center gap-2 px-2 py-1 rounded-md hover:bg-accent transition-colors"
@@ -126,8 +132,8 @@ export default function Header() {
                     </span>
                     <ChevronDown className="h-3.5 w-3.5 text-muted-foreground hidden lg:inline" />
                   </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-64 p-0" align="end">
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-64 p-0" align="end" sideOffset={8}>
                   <div className="flex flex-col">
                     {/* User info header */}
                     <div className="px-3 py-3 bg-muted/30">
@@ -172,46 +178,39 @@ export default function Header() {
 
                     <div className="p-1">
                       {/* Menu items */}
-                      <button
-                        type="button"
-                        className="flex items-center gap-2 px-2 py-1.5 text-sm rounded-sm hover:bg-accent transition-colors text-left opacity-50 cursor-not-allowed w-full"
-                      >
+                      <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">
                         <UserIcon className="size-4 text-muted-foreground" />
                         <span>Profile</span>
-                      </button>
+                      </DropdownMenuItem>
 
-                      <button
-                        type="button"
-                        className="flex items-center gap-2 px-2 py-1.5 text-sm rounded-sm hover:bg-accent transition-colors text-left opacity-50 cursor-not-allowed w-full"
-                      >
+                      <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">
                         <Settings className="size-4 text-muted-foreground" />
                         <span>Settings</span>
-                      </button>
+                      </DropdownMenuItem>
 
-                      <button
-                        type="button"
-                        className="flex items-center gap-2 px-2 py-1.5 text-sm rounded-sm hover:bg-accent transition-colors text-left opacity-50 cursor-not-allowed w-full"
-                      >
+                      <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">
                         <HelpCircle className="size-4 text-muted-foreground" />
                         <span>Help</span>
-                      </button>
+                      </DropdownMenuItem>
 
-                      <div className="bg-border -mx-1 my-1 h-px" />
+                      <DropdownMenuSeparator />
 
                       {/* Logout button */}
-                      <Link
-                        href={destroy_user_session_path()}
-                        method="delete"
-                        as="button"
-                        className="flex items-center gap-2 px-2 py-1.5 text-sm rounded-sm hover:bg-destructive/10 dark:hover:bg-destructive/20 transition-colors text-left text-destructive w-full"
-                      >
-                        <LogOut className="size-4" />
-                        <span>{t('frontend.header.sign_out')}</span>
-                      </Link>
+                      <DropdownMenuItem asChild className="text-destructive focus:text-destructive">
+                        <Link
+                          href={destroy_user_session_path()}
+                          method="delete"
+                          as="button"
+                          className="flex items-center gap-2 px-2 py-1.5 text-sm rounded-sm hover:bg-destructive/10 dark:hover:bg-destructive/20 transition-colors text-left w-full"
+                        >
+                          <LogOut className="size-4" />
+                          <span>{t('frontend.header.sign_out')}</span>
+                        </Link>
+                      </DropdownMenuItem>
                     </div>
                   </div>
-                </PopoverContent>
-              </Popover>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ) : (
             <Button variant="default" size="sm" asChild>

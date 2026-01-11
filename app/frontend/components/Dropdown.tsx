@@ -35,6 +35,8 @@ export function Dropdown({
   dialogTitle = 'Select option',
   className,
 }: DropdownProps) {
+  const listId = React.useId()
+  const triggerLabelId = React.useId()
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState('')
   const isMobile = useIsMobile()
@@ -55,10 +57,11 @@ export function Dropdown({
     <Command shouldFilter={false} className="rounded-lg shadow-none">
       <CommandInput
         placeholder={searchPlaceholder}
+        aria-label={searchPlaceholder}
         value={searchQuery}
         onValueChange={setSearchQuery}
       />
-      <CommandList className="max-h-[60vh] sm:max-h-[60vh]">
+      <CommandList id={listId} className="max-h-[60vh] sm:max-h-[60vh]">
         <CommandEmpty>No option found.</CommandEmpty>
         <CommandGroup>
           {filteredOptions.map((option) => (
@@ -88,6 +91,9 @@ export function Dropdown({
       type="button"
       role="combobox"
       aria-expanded={open}
+      aria-haspopup="listbox"
+      aria-controls={listId}
+      aria-labelledby={triggerLabelId}
       className={cn(
         'w-full justify-between border shadow-none hover:shadow-none text-left truncate',
         className
@@ -95,7 +101,7 @@ export function Dropdown({
       disabled={disabled}
       onClick={isMobile ? () => setOpen(true) : undefined}
     >
-      {selectedOption || placeholder}
+      <span id={triggerLabelId}>{selectedOption || placeholder}</span>
       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
     </Button>
   )

@@ -13,10 +13,10 @@ import type { MoodLevels } from '@/types'
 
 interface NewProps {
   date: string
-  mood_levels: MoodLevels
+  moodLevels: MoodLevels
 }
 
-export default function New({ date, mood_levels }: NewProps) {
+export default function New({ date, moodLevels }: NewProps) {
   const { t, locale } = useI18n()
   const { data, setData, post, processing, errors } = useForm({
     level: null as number | null,
@@ -73,7 +73,7 @@ export default function New({ date, mood_levels }: NewProps) {
                   {t('frontend.moods.form.how_feeling')}
                 </Label>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
-                  {Object.entries(mood_levels).map(([level, config]) => {
+                  {Object.entries(moodLevels).map(([level, config]) => {
                     const levelNum = parseInt(level, 10)
                     const isSelected = data.level === levelNum
 

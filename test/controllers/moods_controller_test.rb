@@ -54,7 +54,7 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
     existing_mood = @user.moods.create!(level: 4, entry_date: Date.current)
 
     get new_mood_path(date: Date.current)
-    assert_redirected_to edit_mood_path(existing_mood)
+    assert_redirected_to edit_mood_by_date_path(date: existing_mood.entry_date)
   end
 
   # Create tests
@@ -97,13 +97,13 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
 
   # Edit tests
   test "edit requires authentication" do
-    get edit_mood_path(@mood)
+    get edit_mood_by_date_path(date: @mood.entry_date)
     assert_redirected_to new_user_session_path
   end
 
   test "user can edit their own mood" do
     sign_in @user
-    get edit_mood_path(@mood)
+    get edit_mood_by_date_path(date: @mood.entry_date)
     assert_response :success
   end
 
@@ -111,20 +111,20 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
     other_mood = moods(:admin_mood)
     sign_in @user
 
-    get edit_mood_path(other_mood)
+    get edit_mood_by_date_path(date: other_mood.entry_date)
     assert_redirected_to moods_path
   end
 
   # Update tests
   test "update requires authentication" do
-    patch mood_path(@mood), params: { level: 5 }
+    patch mood_by_date_path(date: @mood.entry_date), params: { level: 5 }
     assert_redirected_to new_user_session_path
   end
 
   test "user can update their own mood" do
     sign_in @user
 
-    patch mood_path(@mood), params: {
+    patch mood_by_date_path(date: @mood.entry_date), params: {
       level: 5,
       notes: "Updated notes"
     }
@@ -140,7 +140,7 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     original_level = other_mood.level
 
-    patch mood_path(other_mood), params: { level: 1 }
+    patch mood_by_date_path(date: other_mood.entry_date), params: { level: 1 }
 
     other_mood.reload
     assert_equal original_level, other_mood.level
@@ -150,15 +150,15 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
   test "update with invalid data redirects back" do
     sign_in @user
 
-    patch mood_path(@mood), params: { level: 10 } # Invalid level
+    patch mood_by_date_path(date: @mood.entry_date), params: { level: 10 } # Invalid level
 
-    assert_redirected_to edit_mood_path(@mood)
+    assert_redirected_to edit_mood_by_date_path(date: @mood.entry_date)
   end
 
   # Destroy tests
   test "destroy requires authentication" do
     assert_no_difference "Mood.count" do
-      delete mood_path(@mood)
+      delete delete_mood_by_date_path(date: @mood.entry_date)
     end
     assert_redirected_to new_user_session_path
   end
@@ -168,7 +168,7 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
     entry_date = @mood.entry_date
 
     assert_difference "Mood.count", -1 do
-      delete mood_path(@mood)
+      delete delete_mood_by_date_path(date: @mood.entry_date)
     end
 
     assert_redirected_to moods_path(year: entry_date.year, month: entry_date.month)
@@ -179,7 +179,7 @@ class MoodsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     assert_no_difference "Mood.count" do
-      delete mood_path(other_mood)
+      delete delete_mood_by_date_path(date: other_mood.entry_date)
     end
 
     assert_redirected_to moods_path

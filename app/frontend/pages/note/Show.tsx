@@ -32,9 +32,9 @@ export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
             </Button>
           </Link>
 
-          {post.featured_image && (
+          {post.featuredImage && (
             <img
-              src={post.featured_image}
+              src={post.featuredImage}
               alt={post.title}
               className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-lg mb-6"
             />
@@ -91,7 +91,7 @@ export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
             <h2 className="text-xl md:text-2xl font-bold mb-4">Related Posts</h2>
             <div className="grid md:grid-cols-3 gap-3 md:gap-4">
               {relatedPosts.map((p) => (
-                <Link key={p.url_path} href={p.url_path}>
+                <Link key={p.urlPath} href={p.urlPath}>
                   <div className="p-4 border rounded hover:shadow-md transition-shadow h-full">
                     <h3 className="font-semibold mb-2 hover:text-primary transition-colors">
                       {p.title}

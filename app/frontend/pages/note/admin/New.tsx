@@ -13,9 +13,22 @@ interface NewProps {
   tags?: string[]
 }
 
+type PostFormData = {
+  title: string
+  slug: string
+  date: string
+  excerpt: string
+  category: string
+  tags: string[]
+  author: string
+  published: boolean
+  featuredImage: string
+  content: string
+}
+
 export default function New({ categories, tags }: NewProps) {
   const [tagsInput, setTagsInput] = useState('')
-  const { data, setData, processing, errors } = useForm({
+  const { data, setData, processing, errors } = useForm<PostFormData>({
     title: '',
     slug: '',
     date: new Date().toISOString().split('T')[0],
@@ -24,7 +37,7 @@ export default function New({ categories, tags }: NewProps) {
     tags: [] as string[],
     author: '',
     published: true,
-    featured_image: '',
+    featuredImage: '',
     content: '',
   })
 
@@ -171,16 +184,16 @@ export default function New({ categories, tags }: NewProps) {
 
           {/* Featured Image */}
           <div className="space-y-2">
-            <Label htmlFor="featured_image">Featured Image URL</Label>
+            <Label htmlFor="featuredImage">Featured Image URL</Label>
             <Input
-              id="featured_image"
+              id="featuredImage"
               type="url"
-              value={data.featured_image}
-              onChange={(e) => setData('featured_image', e.target.value)}
+              value={data.featuredImage}
+              onChange={(e) => setData('featuredImage', e.target.value)}
               placeholder="https://example.com/image.jpg"
             />
-            {errors.featured_image && (
-              <p className="text-destructive text-sm">{errors.featured_image}</p>
+            {errors.featuredImage && (
+              <p className="text-destructive text-sm">{errors.featuredImage}</p>
             )}
           </div>
 

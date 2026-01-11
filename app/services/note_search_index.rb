@@ -17,7 +17,7 @@ class NoteSearchIndex
           content: strip_markdown(post.content),
           category: post.category,
           tags: post.tags || [],
-          url_path: post.url_path
+          urlPath: post.url_path
         }
       end
     end

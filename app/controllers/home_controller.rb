@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     # Fetch published note posts for graph view
-    posts = NotePost.published.map(&:to_json_hash)
+    posts = NotePostSerializer.many(NotePost.published)
 
     # If user is logged in, fetch their mood data for current month
     # Parse year/month from params, default to current month

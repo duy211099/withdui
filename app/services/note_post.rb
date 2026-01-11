@@ -99,20 +99,4 @@ class NotePost
     return nil unless date && slug
     "/note/#{date.year}/#{slug}"
   end
-
-  def to_json_hash
-    {
-      title: title,
-      slug: slug,
-      date: date&.iso8601,
-      excerpt: excerpt,
-      category: category,
-      tags: tags || [],
-      author: author,
-      featured_image: featured_image,
-      url_path: url_path,
-      content: content,
-      published: published
-    }
-  end
 end

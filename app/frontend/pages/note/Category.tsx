@@ -76,11 +76,11 @@ export default function Category({ category, tag, posts, allCategories, allTags 
         {posts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {posts.map((post) => (
-              <Link key={post.slug} href={post.url_path}>
+              <Link key={post.slug} href={post.urlPath}>
                 <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                  {post.featured_image && (
+                  {post.featuredImage && (
                     <img
-                      src={post.featured_image}
+                      src={post.featuredImage}
                       alt={post.title}
                       className="w-full h-40 sm:h-44 md:h-48 object-cover rounded-t-lg"
                     />

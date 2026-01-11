@@ -56,7 +56,7 @@ function buildGraphData(posts: PostListItem[]): GraphData {
     name: post.title,
     val: 1, // Small value - matches visual size for precise hover
     color: categoryColors[post.category] || colorPalette[0],
-    url: post.url_path,
+    url: post.urlPath,
   }))
 
   // Build connections - only link nodes within the same category for clustering

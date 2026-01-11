@@ -72,15 +72,15 @@ class UserStatTest < ActiveSupport::TestCase
     assert_equal 100, @user_stat.level_progress_percentage
   end
 
-  test "to_json_hash should include all fields" do
-    json = @user_stat.to_json_hash
+  test "serializer should include all fields" do
+    json = UserStatsSerializer.one(@user_stat)
 
-    assert json.key?(:total_points)
-    assert json.key?(:current_level)
-    assert json.key?(:points_to_next_level)
-    assert json.key?(:level_progress)
-    assert json.key?(:current_mood_streak)
-    assert json.key?(:total_moods_logged)
+    assert json.key?("totalPoints")
+    assert json.key?("currentLevel")
+    assert json.key?("pointsToNextLevel")
+    assert json.key?("levelProgress")
+    assert json.key?("currentMoodStreak")
+    assert json.key?("totalMoodsLogged")
   end
 
   test "should validate non-negative values" do

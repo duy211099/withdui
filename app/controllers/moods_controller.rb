@@ -55,7 +55,7 @@ class MoodsController < ApplicationController
     existing_mood = current_user.moods.find_by(entry_date: date)
 
     if existing_mood
-      redirect_to edit_mood_path(existing_mood),
+      redirect_to edit_mood_by_date_path(date: existing_mood.entry_date),
                   notice: "Mood entry already exists for #{date.strftime('%B %d, %Y')}. You can edit it here."
       return
     end
@@ -106,7 +106,7 @@ class MoodsController < ApplicationController
         month: @mood.entry_date.month
       ), notice: "Mood entry updated!"
     else
-      redirect_to edit_mood_path(@mood),
+      redirect_to edit_mood_by_date_path(date: @mood.entry_date),
                   alert: @mood.errors.full_messages.join(", ")
     end
   end

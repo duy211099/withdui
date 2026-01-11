@@ -32,14 +32,4 @@ class UserAchievement < ApplicationRecord
   # Scopes
   scope :recent, -> { order(unlocked_at: :desc) }
   scope :for_user, ->(user) { where(user: user) }
-
-  # Serialize to JSON for frontend
-  def to_json_hash
-    {
-      id: id,
-      achievement: achievement.to_json_hash,
-      unlocked_at: unlocked_at.iso8601,
-      progress: progress
-    }
-  end
 end

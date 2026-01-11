@@ -33,15 +33,4 @@ class GamificationEvent < ApplicationRecord
   scope :recent, -> { order(created_at: :desc).limit(50) }
   scope :for_user, ->(user) { where(user: user) }
   scope :by_type, ->(event_type) { where(event_type: event_type) }
-
-  # Serialize to JSON for frontend
-  def to_json_hash
-    {
-      id: id,
-      event_type: event_type,
-      points_earned: points_earned,
-      created_at: created_at.iso8601,
-      metadata: metadata
-    }
-  end
 end

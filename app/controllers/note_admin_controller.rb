@@ -9,7 +9,7 @@ class NoteAdminController < ApplicationController
     authorize! :admin, to: :index?
 
     render inertia: "note/admin/Index", props: {
-      posts: NotePost.all.map(&:to_json_hash)
+      posts: NotePostSerializer.many(NotePost.all)
     }
   end
 
@@ -51,7 +51,7 @@ class NoteAdminController < ApplicationController
     end
 
     render inertia: "note/admin/Edit", props: {
-      post: post.to_json_hash,
+      post: NotePostSerializer.one(post),
       categories: NotePost.categories,
       tags: NotePost.all_tags
     }

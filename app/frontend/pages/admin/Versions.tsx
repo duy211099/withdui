@@ -91,6 +91,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
   }
 
   const renderChanges = (version: Version) => {
+    console.log(version)
     const changes = parseChanges(version.objectChanges ?? null)
 
     if (!changes || Object.keys(changes).length === 0) {

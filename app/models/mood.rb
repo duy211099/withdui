@@ -87,21 +87,6 @@ class Mood < ApplicationRecord
     MOOD_LEVELS[level][:color]
   end
 
-  # JSON serialization for Inertia
-  def to_json_hash
-    {
-      id: id,
-      level: level,
-      entry_date: entry_date.to_s,
-      notes: notes,
-      mood_name: mood_name,
-      mood_emoji: mood_emoji,
-      mood_color: mood_color,
-      created_at: created_at.iso8601,
-      updated_at: updated_at.iso8601
-    }
-  end
-
   private
 
   def generate_slug

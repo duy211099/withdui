@@ -95,7 +95,7 @@ class AchievementTest < ActiveSupport::TestCase
     assert_equal 7, achievement.unlock_criteria["days"]
   end
 
-  test "to_json_hash should include all fields" do
+  test "serializer should include all fields" do
     achievement = Achievement.create!(
       key: "test",
       name: "Test Achievement",
@@ -105,11 +105,11 @@ class AchievementTest < ActiveSupport::TestCase
       points_reward: 200
     )
 
-    json = achievement.to_json_hash
+    json = AchievementSerializer.one(achievement)
 
-    assert_equal "test", json[:key]
-    assert_equal "Test Achievement", json[:name]
-    assert_equal "gold", json[:tier]
-    assert_equal 200, json[:points_reward]
+    assert_equal "test", json["key"]
+    assert_equal "Test Achievement", json["name"]
+    assert_equal "gold", json["tier"]
+    assert_equal 200, json["pointsReward"]
   end
 end

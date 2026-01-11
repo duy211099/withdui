@@ -14,10 +14,23 @@ interface EditProps {
   tags?: string[]
 }
 
+type PostFormData = {
+  title: string
+  slug: string
+  date: string
+  excerpt: string
+  category: string
+  tags: string[]
+  author: string
+  published: boolean
+  featuredImage: string
+  content: string
+}
+
 export default function Edit({ post, categories }: EditProps) {
   const [tagsInput, setTagsInput] = useState((post.tags || []).join(', '))
 
-  const { data, setData, processing, errors } = useForm({
+  const { data, setData, processing, errors } = useForm<PostFormData>({
     title: post.title,
     slug: post.slug,
     date: post.date.split('T')[0],
@@ -26,7 +39,7 @@ export default function Edit({ post, categories }: EditProps) {
     tags: post.tags || [],
     author: post.author || '',
     published: post.published !== false,
-    featured_image: post.featured_image || '',
+    featuredImage: post.featuredImage || '',
     content: post.content,
   })
 
@@ -165,16 +178,16 @@ export default function Edit({ post, categories }: EditProps) {
 
           {/* Featured Image */}
           <div className="space-y-2">
-            <Label htmlFor="featured_image">Featured Image URL</Label>
+            <Label htmlFor="featuredImage">Featured Image URL</Label>
             <Input
-              id="featured_image"
+              id="featuredImage"
               type="url"
-              value={data.featured_image}
-              onChange={(e) => setData('featured_image', e.target.value)}
+              value={data.featuredImage}
+              onChange={(e) => setData('featuredImage', e.target.value)}
               placeholder="https://example.com/image.jpg"
             />
-            {errors.featured_image && (
-              <p className="text-destructive text-sm">{errors.featured_image}</p>
+            {errors.featuredImage && (
+              <p className="text-destructive text-sm">{errors.featuredImage}</p>
             )}
           </div>
 

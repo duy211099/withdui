@@ -6,7 +6,7 @@ class NoteController < ApplicationController
     posts = NotePost.published
 
     render inertia: "note/Index", props: {
-      posts: posts.map(&:to_json_hash),
+      posts: NotePostSerializer.many(posts),
       categories: NotePost.categories,
       tags: NotePost.all_tags,
       search_index: NoteSearchIndex.build
@@ -32,8 +32,8 @@ class NoteController < ApplicationController
     end
 
     render inertia: "note/Show", props: {
-      post: post.to_json_hash,
-      related_posts: find_related_posts(post).map(&:to_json_hash)
+      post: NotePostSerializer.one(post),
+      related_posts: NotePostSerializer.many(find_related_posts(post))
     }
   end
 
@@ -43,7 +43,7 @@ class NoteController < ApplicationController
 
     render inertia: "note/Category", props: {
       category: category,
-      posts: posts.map(&:to_json_hash),
+      posts: NotePostSerializer.many(posts),
       all_categories: NotePost.categories
     }
   end
@@ -54,7 +54,7 @@ class NoteController < ApplicationController
 
     render inertia: "note/Category", props: {
       tag: tag,
-      posts: posts.map(&:to_json_hash),
+      posts: NotePostSerializer.many(posts),
       all_tags: NotePost.all_tags
     }
   end

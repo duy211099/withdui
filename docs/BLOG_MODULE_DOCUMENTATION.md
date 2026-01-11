@@ -1091,7 +1091,7 @@ BlogPost.all.map(&:title)
 post = BlogPost.find_by_slug('my-post')
 
 # Check post details
-post.to_json_hash
+NotePostSerializer.one(post)
 
 # Clear cache
 BlogPost.reload!

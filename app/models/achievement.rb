@@ -36,19 +36,4 @@ class Achievement < ApplicationRecord
   scope :by_category, ->(category) { where(category: category) }
   scope :by_tier, ->(tier) { where(tier: tier) }
   scope :ordered, -> { order(display_order: :asc, created_at: :asc) }
-
-  # Serialize to JSON for frontend
-  def to_json_hash
-    {
-      id: id,
-      key: key,
-      name: name,
-      description: description,
-      category: category,
-      icon: icon,
-      tier: tier,
-      points_reward: points_reward,
-      hidden: hidden
-    }
-  end
 end

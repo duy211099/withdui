@@ -57,23 +57,4 @@ class UserStat < ApplicationRecord
     # Clamp percentage between 0 and 100 to handle data inconsistencies
     [ [ percentage, 0 ].max, 100 ].min
   end
-
-  # Serialize to JSON for frontend
-  def to_json_hash
-    {
-      total_points: total_points,
-      current_level: current_level,
-      points_to_next_level: points_to_next_level,
-      level_progress: level_progress_percentage,
-      current_mood_streak: current_mood_streak,
-      longest_mood_streak: longest_mood_streak,
-      current_writing_streak: current_writing_streak,
-      longest_writing_streak: longest_writing_streak,
-      total_moods_logged: total_moods_logged,
-      total_posts_written: total_posts_written,
-      total_events_attended: total_events_attended,
-      total_great_moods: total_great_moods,
-      total_notes_with_details: total_notes_with_details
-    }
-  end
 end

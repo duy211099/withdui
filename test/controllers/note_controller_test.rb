@@ -34,10 +34,6 @@ class NoteControllerTest < ActionDispatch::IntegrationTest
         def initialize(attrs = {})
           attrs.each { |k, v| send("#{k}=", v) }
         end
-
-        def to_json_hash
-          { title: title, slug: slug }
-        end
       end
     end
 
@@ -45,6 +41,18 @@ class NoteControllerTest < ActionDispatch::IntegrationTest
       NoteSearchIndex = Class.new do
         def self.build
           []
+        end
+      end
+    end
+
+    unless defined?(NotePostSerializer)
+      NotePostSerializer = Class.new do
+        def self.one(post)
+          { "title" => post.title, "slug" => post.slug }
+        end
+
+        def self.many(posts)
+          posts.map { |p| one(p) }
         end
       end
     end

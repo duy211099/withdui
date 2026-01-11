@@ -40,6 +40,8 @@ export function UserDropdown({
   placeholder = 'Select user...',
   className,
 }: UserDropdownProps) {
+  const listId = React.useId()
+  const triggerLabelId = React.useId()
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState('')
   const isMobile = useIsMobile()
@@ -71,6 +73,9 @@ export function UserDropdown({
       type="button"
       role="combobox"
       aria-expanded={open}
+      aria-haspopup="listbox"
+      aria-controls={listId}
+      aria-labelledby={triggerLabelId}
       className={cn(
         'w-full justify-between border shadow-none hover:shadow-none text-left truncate',
         className
@@ -91,11 +96,13 @@ export function UserDropdown({
               {(selectedUser.name?.[0] || selectedUser.email[0]).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <span className="truncate">{selectedUser.name || selectedUser.email}</span>
+          <span id={triggerLabelId} className="truncate">
+            {selectedUser.name || selectedUser.email}
+          </span>
           <span className="text-muted-foreground text-xs truncate">({selectedUser.email})</span>
         </div>
       ) : (
-        placeholder
+        <span id={triggerLabelId}>{placeholder}</span>
       )}
       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
     </Button>
@@ -108,11 +115,12 @@ export function UserDropdown({
     >
       <CommandInput
         placeholder="Search users by name or email..."
+        aria-label="Search users by name or email"
         value={searchQuery}
         onValueChange={setSearchQuery}
         className="text-base sm:text-sm"
       />
-      <CommandList className="max-h-[55vh] sm:max-h-[320px]">
+      <CommandList id={listId} className="max-h-[55vh] sm:max-h-80">
         <CommandEmpty>
           {error ? 'Error loading users' : isLoading ? 'Loading...' : 'No user found.'}
         </CommandEmpty>
@@ -158,7 +166,12 @@ export function UserDropdown({
     return (
       <>
         {triggerButton}
-        <CommandDialog open={open} onOpenChange={setOpen} title="Select user">
+        <CommandDialog
+          open={open}
+          onOpenChange={setOpen}
+          title="Select user"
+          contentClassName="h-[80vh]"
+        >
           {commandContent}
         </CommandDialog>
       </>

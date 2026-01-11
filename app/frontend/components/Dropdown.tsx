@@ -110,7 +110,12 @@ export function Dropdown({
     return (
       <>
         {triggerButton}
-        <CommandDialog open={open} onOpenChange={setOpen} title={dialogTitle}>
+        <CommandDialog
+          open={open}
+          onOpenChange={setOpen}
+          title={dialogTitle}
+          contentClassName="h-[80vh]"
+        >
           {commandContent}
         </CommandDialog>
       </>

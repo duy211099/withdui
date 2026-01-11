@@ -20,13 +20,11 @@
 #  fk_rails_...  (event_id => events.id)
 #
 one:
-  name: MyString
-  email: MyString
-  how_heard: MyString
+  user: one
+  how_heard: Newsletters
   event: one
 
 two:
-  name: MyString
-  email: MyString
-  how_heard: MyString
+  user: two
+  how_heard: Blog
   event: two

@@ -9,6 +9,20 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Prevent dark mode flash - must run before any content renders -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+          if (theme === 'dark' || (!theme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Be Vietnam Pro Font - Non-blocking async load -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +58,11 @@
         z-index: 9999;
       }
 
+      /* Dark mode support for loading indicator */
+      html.dark #app-loading {
+        background: #0a0a0a;
+      }
+
       #app-loading .spinner {
         width: 48px;
         height: 48px;
@@ -51,6 +70,11 @@
         border-top: 4px solid #3b82f6;
         border-radius: 50%;
         animation: spin 1s linear infinite;
+      }
+
+      html.dark #app-loading .spinner {
+        border: 4px solid #27272a;
+        border-top: 4px solid #3b82f6;
       }
 
       @keyframes spin {

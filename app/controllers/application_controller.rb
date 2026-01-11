@@ -40,6 +40,9 @@ class ApplicationController < ActionController::Base
   def authenticate_user!(opts = {})
     return if user_signed_in?
 
+    # Store the location the user was trying to access
+    store_location_for(:user, request.fullpath) if request.get?
+
     # For Inertia requests, perform a redirect to login page
     if request.inertia?
       redirect_to new_user_session_path, alert: "You need to sign in to continue."

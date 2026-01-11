@@ -15,11 +15,11 @@ interface FormProps extends BasePageProps {
     slug: string
   }
   registration: RegistrationForm
-  how_heard_options: string[]
-  is_edit: boolean
+  howHeardOptions: string[]
+  isEdit: boolean
 }
 
-export default function Form({ event, registration, how_heard_options, is_edit }: FormProps) {
+export default function Form({ event, registration, howHeardOptions, isEdit }: FormProps) {
   const { data, setData, post, put, processing, errors } = useForm({
     user_id: registration.userId || '',
     how_heard: registration.howHeard || '',
@@ -48,7 +48,7 @@ export default function Form({ event, registration, how_heard_options, is_edit }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (is_edit && registration.id) {
+    if (isEdit && registration.id) {
       put(event_registration_path(event.slug, registration.id))
     } else {
       post(event_registrations_path(event.slug))
@@ -57,13 +57,13 @@ export default function Form({ event, registration, how_heard_options, is_edit }
 
   return (
     <>
-      <Head title={is_edit ? 'Edit Registration' : 'New Registration'} />
+      <Head title={isEdit ? 'Edit Registration' : 'New Registration'} />
       <div className="min-h-[calc(100vh-120px)] bg-linear-to-b from-background via-background to-muted/40">
         <div className="container mx-auto px-4 py-10 max-w-2xl">
           <div className="mb-6">
             <p className="text-sm uppercase tracking-widest text-muted-foreground">{event.name}</p>
             <h1 className="text-3xl sm:text-4xl font-bold">
-              {is_edit ? 'Edit Registration' : 'New Registration'}
+              {isEdit ? 'Edit Registration' : 'New Registration'}
             </h1>
           </div>
 
@@ -99,7 +99,7 @@ export default function Form({ event, registration, how_heard_options, is_edit }
                   <Dropdown
                     value={data.how_heard}
                     onValueChange={(value) => setData('how_heard', value)}
-                    options={how_heard_options}
+                    options={howHeardOptions}
                     placeholder="Select an option..."
                     searchPlaceholder="Search options..."
                     disabled={processing}
@@ -114,7 +114,7 @@ export default function Form({ event, registration, how_heard_options, is_edit }
                 {/* Form Actions */}
                 <div className="flex flex-wrap gap-3 pt-4">
                   <Button type="submit" disabled={processing}>
-                    {is_edit ? 'Update Registration' : 'Create Registration'}
+                    {isEdit ? 'Update Registration' : 'Create Registration'}
                   </Button>
                   <Button asChild variant="outline" type="button">
                     <Link href={event_registrations_path(event.slug)}>Cancel</Link>

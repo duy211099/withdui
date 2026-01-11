@@ -605,12 +605,12 @@ export const edit_event_registration = /*#__PURE__*/ __jsr.r({"event_id":{"r":tr
 
 /**
  * Generates rails route to
- * /moods/:id/edit(.:format)
- * @param {any} id
+ * /moods/:date/edit(.:format)
+ * @param {any} date
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const edit_mood = /*#__PURE__*/ __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"moods"],[2,[7,"/"],[2,[3,"id"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
+export const edit_mood_by_date = /*#__PURE__*/ __jsr.r({"date":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"moods"],[2,[7,"/"],[2,[3,"date"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
 
 /**
  * Generates rails route to
@@ -893,15 +893,6 @@ export const mission_control_jobs_root = /*#__PURE__*/ __jsr.r({}, [2,[2,[7,"/"]
 
 /**
  * Generates rails route to
- * /moods/:id(.:format)
- * @param {any} id
- * @param {object | undefined} options
- * @returns {string} route path
- */
-export const mood = /*#__PURE__*/ __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"moods"],[2,[7,"/"],[2,[3,"id"],[1,[2,[8,"."],[3,"format"]]]]]]]);
-
-/**
- * Generates rails route to
  * /moods(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
@@ -1118,7 +1109,7 @@ export const cancel_user_registration_path = cancel_user_registration;
 export const destroy_user_session_path = destroy_user_session;
 export const edit_event_path = edit_event;
 export const edit_event_registration_path = edit_event_registration;
-export const edit_mood_path = edit_mood;
+export const edit_mood_by_date_path = edit_mood_by_date;
 export const edit_note_admin_path = edit_note_admin;
 export const edit_user_password_path = edit_user_password;
 export const edit_user_registration_path = edit_user_registration;
@@ -1150,7 +1141,6 @@ export const mission_control_jobs_jobs_path = mission_control_jobs_jobs;
 export const mission_control_jobs_queue_path = mission_control_jobs_queue;
 export const mission_control_jobs_queues_path = mission_control_jobs_queues;
 export const mission_control_jobs_root_path = mission_control_jobs_root;
-export const mood_path = mood;
 export const moods_path = moods;
 export const new_event_path = new_event;
 export const new_event_registration_path = new_event_registration;

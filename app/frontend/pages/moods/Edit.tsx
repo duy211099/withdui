@@ -9,16 +9,16 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useI18n } from '@/contexts/I18nContext'
 import { getDateTimeFormat, getLongDateFormat } from '@/lib/localTime'
-import { mood_path, moods_path } from '@/lib/routes'
+import { moods_path } from '@/lib/routes'
 import { cn, isDateStringInFuture } from '@/lib/utils/utils'
 import type { Mood, MoodLevels } from '@/types'
 
 interface EditProps {
   mood: Mood
-  mood_levels: MoodLevels
+  moodLevels: MoodLevels
 }
 
-export default function Edit({ mood, mood_levels }: EditProps) {
+export default function Edit({ mood, moodLevels }: EditProps) {
   const { t, locale } = useI18n()
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const { data, setData, patch, processing, errors } = useForm({
@@ -26,6 +26,9 @@ export default function Edit({ mood, mood_levels }: EditProps) {
     entryDate: mood.entryDate,
     notes: mood.notes || '',
   })
+
+  // Generate mood path by date (for update/delete)
+  const moodByDatePath = (date: string) => `/moods/${date}`
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,7 +44,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
       return
     }
 
-    patch(mood_path(mood.id))
+    patch(moodByDatePath(mood.entryDate))
   }
 
   const handleDelete = () => {
@@ -91,7 +94,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
                   {t('frontend.moods.form.how_feeling')}
                 </Label>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
-                  {Object.entries(mood_levels).map(([level, config]) => {
+                  {Object.entries(moodLevels).map(([level, config]) => {
                     const levelNum = parseInt(level, 10)
                     const isSelected = data.level === levelNum
 
@@ -194,7 +197,7 @@ export default function Edit({ mood, mood_levels }: EditProps) {
           description={t('frontend.moods.edit.confirm_delete')}
           cancelLabel={t('frontend.moods.shared.cancel')}
           confirmLabel={t('frontend.moods.edit.delete_entry')}
-          onConfirm={() => router.delete(mood_path(mood.id))}
+          onConfirm={() => router.delete(moodByDatePath(mood.entryDate))}
         />
       </div>
     </>

@@ -2,19 +2,19 @@ import { Head } from '@inertiajs/react'
 import type { UserBasic, UserDetailed, UserMinimal } from '@/types'
 
 interface SerializerDemoProps {
-  inline_serialized: UserBasic[]
-  serializer_basic: UserBasic[]
-  serializer_detailed: UserDetailed[]
-  serializer_minimal: UserMinimal[]
-  current_user_data: UserBasic
+  inlineSerialized: UserBasic[]
+  serializerBasic: UserBasic[]
+  serializerDetailed: UserDetailed[]
+  serializerMinimal: UserMinimal[]
+  currentUserData: UserBasic
 }
 
 export default function SerializerDemo({
-  inline_serialized,
-  serializer_basic,
-  serializer_detailed,
-  serializer_minimal,
-  current_user_data,
+  inlineSerialized,
+  serializerBasic,
+  serializerDetailed,
+  serializerMinimal,
+  currentUserData,
 }: SerializerDemoProps) {
   return (
     <>
@@ -28,17 +28,17 @@ export default function SerializerDemo({
           Current User (Serialized)
         </h2>
         <div className="flex items-center gap-4">
-          {current_user_data.avatarUrl && (
+          {currentUserData.avatarUrl && (
             <img
-              src={current_user_data.avatarUrl}
-              alt={current_user_data.name || 'User avatar'}
+              src={currentUserData.avatarUrl}
+              alt={currentUserData.name || 'User avatar'}
               className="w-16 h-16 rounded-full"
             />
           )}
           <div>
-            <p className="font-semibold">{current_user_data.name}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{current_user_data.email}</p>
-            <p className="text-xs text-gray-500">Role: {current_user_data.role}</p>
+            <p className="font-semibold">{currentUserData.name}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{currentUserData.email}</p>
+            <p className="text-xs text-gray-500">Role: {currentUserData.role}</p>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function SerializerDemo({
         <DataSection
           title="1. Inline Serialization"
           description="Controller method - Simple but repetitive"
-          data={inline_serialized}
+          data={inlineSerialized}
           highlight="inline"
         />
 
@@ -57,7 +57,7 @@ export default function SerializerDemo({
         <DataSection
           title="2. UserSerializer (Basic)"
           description="Reusable class - Clean & DRY"
-          data={serializer_basic}
+          data={serializerBasic}
           highlight="serializer"
         />
 
@@ -65,7 +65,7 @@ export default function SerializerDemo({
         <DataSection
           title="3. UserSerializer (Detailed)"
           description="More fields for admin views"
-          data={serializer_detailed}
+          data={serializerDetailed}
           highlight="detailed"
         />
 
@@ -73,7 +73,7 @@ export default function SerializerDemo({
         <DataSection
           title="4. UserSerializer (Minimal)"
           description="Lightweight for lists/dropdowns"
-          data={serializer_minimal}
+          data={serializerMinimal}
           highlight="minimal"
         />
       </div>
@@ -144,17 +144,21 @@ function DataSection({
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{description}</p>
 
       <div className="space-y-2">
-        {data.slice(0, 2).map((user) => (
-          <div key={user.id} className="p-2 bg-gray-50 dark:bg-gray-900 rounded text-xs">
-            <pre className="overflow-x-auto">{JSON.stringify(user, null, 2)}</pre>
-          </div>
-        ))}
+        {data &&
+          Array.isArray(data) &&
+          data.slice(0, 2).map((user) => (
+            <div key={user.id} className="p-2 bg-gray-50 dark:bg-gray-900 rounded text-xs">
+              <pre className="overflow-x-auto">{JSON.stringify(user, null, 2)}</pre>
+            </div>
+          ))}
       </div>
 
-      <p className="text-xs text-gray-500 mt-2">
-        Fields: {Object.keys(data[0] || {}).length} | Size: ~{JSON.stringify(data[0]).length}{' '}
-        bytes/user
-      </p>
+      {data && data.length > 0 && (
+        <p className="text-xs text-gray-500 mt-2">
+          Fields: {Object.keys(data[0] || {}).length} | Size: ~{JSON.stringify(data[0]).length}{' '}
+          bytes/user
+        </p>
+      )}
     </div>
   )
 }

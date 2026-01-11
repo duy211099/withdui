@@ -9,17 +9,11 @@ interface CategoryProps {
   category?: string
   tag?: string
   posts: PostListItem[]
-  all_categories?: string[]
-  all_tags?: string[]
+  allCategories?: string[]
+  allTags?: string[]
 }
 
-export default function Category({
-  category,
-  tag,
-  posts,
-  all_categories,
-  all_tags,
-}: CategoryProps) {
+export default function Category({ category, tag, posts, allCategories, allTags }: CategoryProps) {
   const title = category ? `Category: ${category}` : `Tag: ${tag}`
   const filterType = category ? 'category' : 'tag'
 
@@ -46,12 +40,12 @@ export default function Category({
         </p>
 
         {/* Filter Options */}
-        {filterType === 'category' && all_categories && all_categories.length > 1 && (
+        {filterType === 'category' && allCategories && allCategories.length > 1 && (
           <div className="mb-6 flex gap-2 flex-wrap">
             <span className="text-sm text-muted-foreground self-center mr-2">
               Other categories:
             </span>
-            {all_categories
+            {allCategories
               .filter((c) => c !== category)
               .map((cat) => (
                 <Link key={cat} href={note_category_path(cat)}>
@@ -63,10 +57,10 @@ export default function Category({
           </div>
         )}
 
-        {filterType === 'tag' && all_tags && all_tags.length > 1 && (
+        {filterType === 'tag' && allTags && allTags.length > 1 && (
           <div className="mb-6 flex gap-2 flex-wrap">
             <span className="text-sm text-muted-foreground self-center mr-2">Other tags:</span>
-            {all_tags
+            {allTags
               .filter((t) => t !== tag)
               .map((t) => (
                 <Link key={t} href={note_tag_path(t)}>

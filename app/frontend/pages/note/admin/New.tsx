@@ -15,7 +15,6 @@ interface NewProps {
 
 export default function New({ categories, tags }: NewProps) {
   const [tagsInput, setTagsInput] = useState('')
-
   const { data, setData, processing, errors } = useForm({
     title: '',
     slug: '',

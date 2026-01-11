@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { useI18n } from '@/contexts/I18nContext'
 import { getFullDateTimeFormat, getLongDateFormat } from '@/lib/localTime'
+import { edit_mood_by_date_path } from '@/lib/routes'
 import { cn } from '@/lib/utils'
 import type { Mood, User } from '@/types'
 
@@ -19,7 +20,7 @@ interface MultiMoodModalProps {
   isOpen: boolean
   onClose: () => void
   moods: Mood[]
-  current_user?: User | null
+  currentUser?: User | null
   canEdit?: boolean
 }
 
@@ -27,7 +28,7 @@ export default function MultiMoodModal({
   isOpen,
   onClose,
   moods,
-  current_user,
+  currentUser,
   canEdit = true,
 }: MultiMoodModalProps) {
   const { t, locale } = useI18n()
@@ -53,7 +54,7 @@ export default function MultiMoodModal({
 
         <div className="space-y-4 mt-4">
           {moods.map((mood) => {
-            const isCurrentUser = current_user && mood.user.id === current_user.id
+            const isCurrentUser = currentUser && mood.user.id === currentUser.id
 
             return (
               <Card
@@ -127,7 +128,7 @@ export default function MultiMoodModal({
                             size="sm"
                             onClick={() => {
                               onClose()
-                              router.visit(`/moods/${mood.id}/edit`)
+                              router.visit(edit_mood_by_date_path({ date: mood.entryDate }))
                             }}
                           >
                             {t('frontend.moods.multi.edit_my_mood')}
@@ -142,10 +143,10 @@ export default function MultiMoodModal({
           })}
 
           {/* Add your mood button if current user hasn't added one */}
-          {current_user &&
+          {currentUser &&
             canEdit &&
             moods.length > 0 &&
-            !moods.some((m) => m.user.id === current_user.id) && (
+            !moods.some((m) => m.user.id === currentUser.id) && (
               <Card className="hover:translate-x-0 hover:translate-y-0 border-dashed border-2">
                 <CardContent className="py-8 text-center">
                   <Smile className="h-12 w-12 mx-auto mb-3 text-muted-foreground" />

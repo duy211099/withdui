@@ -17,12 +17,12 @@ interface HomePageProps extends BasePageProps {
   moods?: Mood[]
   year?: number
   month?: number
-  mood_levels?: MoodLevels
+  moodLevels?: MoodLevels
 }
 
 export default function Home() {
-  const { current_user, moods, year, month, mood_levels, posts, user_stats } = usePage<
-    HomePageProps & { user_stats?: UserStats }
+  const { currentUser, moods, year, month, moodLevels, posts, userStats } = usePage<
+    HomePageProps & { userStats?: UserStats }
   >().props
   const { t } = useTranslation()
   const [selectedDayMoods, setSelectedDayMoods] = useState<Mood[]>([])
@@ -42,7 +42,7 @@ export default function Home() {
 
     // If there are no moods for this day, let user create one
     if (dayMoods.length === 0) {
-      if (current_user) {
+      if (currentUser) {
         router.visit(`/moods/new?date=${date}`)
       }
       return
@@ -62,23 +62,23 @@ export default function Home() {
             <CardHeader>
               <CardTitle>{t('frontend.home.welcome')}</CardTitle>
               <CardDescription>
-                {current_user
-                  ? t('frontend.home.signed_in_as', { email: current_user.email })
+                {currentUser
+                  ? t('frontend.home.signed_in_as', { email: currentUser.email })
                   : t('frontend.home.please_sign_in')}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {current_user ? (
+              {currentUser ? (
                 <div className="space-y-4">
                   <p className="text-muted-foreground">{t('frontend.home.success_message')}</p>
                   <div className="grid gap-2">
                     <div>
                       <span className="font-semibold">{t('frontend.home.name_label')}</span>{' '}
-                      {current_user.name}
+                      {currentUser.name}
                     </div>
                     <div>
                       <span className="font-semibold">{t('frontend.home.email_label')}</span>{' '}
-                      {current_user.email}
+                      {currentUser.email}
                     </div>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export default function Home() {
           </Card>
 
           {/* Mood Calendar - only show for logged-in users */}
-          {moods && year && month && mood_levels && (
+          {moods && year && month && moodLevels && (
             <div className="w-full">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -111,12 +111,12 @@ export default function Home() {
                 showUserAvatars={true}
               />
 
-              {user_stats && user_stats.currentMoodStreak > 0 && (
+              {userStats && userStats.currentMoodStreak > 0 && (
                 <div className="mt-4 max-w-xs mx-auto">
                   <Link href={gamification_dashboard_path()}>
                     <StreakCounter
-                      currentStreak={user_stats.currentMoodStreak}
-                      longestStreak={user_stats.longestMoodStreak}
+                      currentStreak={userStats.currentMoodStreak}
+                      longestStreak={userStats.longestMoodStreak}
                       type="mood"
                       label="Current Mood Streak"
                       className="cursor-pointer hover:shadow-lg transition-shadow"
@@ -160,7 +160,7 @@ export default function Home() {
         isOpen={isMultiMoodModalOpen}
         onClose={() => setIsMultiMoodModalOpen(false)}
         moods={selectedDayMoods}
-        current_user={current_user}
+        currentUser={currentUser}
       />
     </>
   )

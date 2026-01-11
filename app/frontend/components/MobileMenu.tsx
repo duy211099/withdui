@@ -20,11 +20,11 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from './ui/sheet'
 interface MobileMenuProps {
   isOpen: boolean
   onClose: () => void
-  current_user?: User | null
-  user_stats?: UserStats | null
+  currentUser?: User | null
+  userStats?: UserStats | null
 }
 
-export default function MobileMenu({ isOpen, onClose, current_user, user_stats }: MobileMenuProps) {
+export default function MobileMenu({ isOpen, onClose, currentUser, userStats }: MobileMenuProps) {
   const { t } = useTranslation()
 
   return (
@@ -82,7 +82,7 @@ export default function MobileMenu({ isOpen, onClose, current_user, user_stats }
               <Wrench className="h-5 w-5" />
               <span>{t('frontend.header.utils')}</span>
             </Link>
-            {current_user && (
+            {currentUser && (
               <Link
                 href={moods_path()}
                 className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
@@ -104,24 +104,22 @@ export default function MobileMenu({ isOpen, onClose, current_user, user_stats }
 
           {/* Auth section */}
           <div className="border-t-2 border-border pt-4">
-            {current_user ? (
+            {currentUser ? (
               <div className="space-y-3">
                 {/* User info */}
                 <div className="flex items-center gap-2">
-                  {current_user.avatarUrl && (
+                  {currentUser.avatarUrl && (
                     <img
-                      src={current_user.avatarUrl}
-                      alt={current_user.name || current_user.email}
+                      src={currentUser.avatarUrl}
+                      alt={currentUser.name || currentUser.email}
                       className="h-8 w-8 rounded-full"
                     />
                   )}
-                  <span className="text-sm truncate">
-                    {current_user.name || current_user.email}
-                  </span>
+                  <span className="text-sm truncate">{currentUser.name || currentUser.email}</span>
                 </div>
 
                 {/* Gamification level indicator */}
-                {user_stats && (
+                {userStats && (
                   <Link
                     href={gamification_dashboard_path()}
                     onClick={onClose}
@@ -131,17 +129,17 @@ export default function MobileMenu({ isOpen, onClose, current_user, user_stats }
                       <Trophy className="h-5 w-5 text-primary" />
                       <div>
                         <div className="text-sm font-semibold text-primary">
-                          Level {user_stats.currentLevel}
+                          Level {userStats.currentLevel}
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          {user_stats.totalPoints} points
+                          {userStats.totalPoints} points
                         </div>
                       </div>
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {user_stats.currentMoodStreak > 0 && (
+                      {userStats.currentMoodStreak > 0 && (
                         <span className="flex items-center gap-1">
-                          🔥 {user_stats.currentMoodStreak}
+                          🔥 {userStats.currentMoodStreak}
                         </span>
                       )}
                     </div>

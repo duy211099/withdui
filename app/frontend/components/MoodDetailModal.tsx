@@ -17,7 +17,7 @@ interface MoodDetailModalProps {
   mood: MoodDetail | null
   isOpen: boolean
   onClose: () => void
-  onEdit?: (moodId: string) => void // UUID string
+  onEdit?: (entryDate: string) => void // Date string (YYYY-MM-DD)
   canEdit: boolean
 }
 
@@ -96,7 +96,7 @@ export default function MoodDetailModal({
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-2 justify-end pt-2">
           {canEdit && onEdit && (
-            <Button variant="default" onClick={() => onEdit(mood.id)}>
+            <Button variant="default" onClick={() => onEdit(mood.entryDate)}>
               {t('frontend.moods.detail.edit_entry')}
             </Button>
           )}

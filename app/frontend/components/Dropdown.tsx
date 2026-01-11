@@ -36,6 +36,7 @@ export function Dropdown({
 
   // Filter options based on search query
   const filteredOptions = React.useMemo(() => {
+    if (!options || !Array.isArray(options)) return []
     if (!searchQuery) return options
 
     const query = searchQuery.toLowerCase()
@@ -43,7 +44,7 @@ export function Dropdown({
   }, [options, searchQuery])
 
   // Find selected option
-  const selectedOption = options.find((option) => option === value)
+  const selectedOption = options?.find((option) => option === value)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -21,9 +21,9 @@ export interface Post {
   tags: string[]
   author: string | null
   published: boolean
-  featured_image?: string
+  featuredImage?: string
   content: string
-  url_path: string
+  urlPath: string
 }
 
 /**
@@ -31,7 +31,7 @@ export interface Post {
  */
 export type PostListItem = Pick<
   Post,
-  'title' | 'slug' | 'date' | 'excerpt' | 'category' | 'tags' | 'url_path' | 'featured_image'
+  'title' | 'slug' | 'date' | 'excerpt' | 'category' | 'tags' | 'urlPath' | 'featuredImage'
 >
 
 /**

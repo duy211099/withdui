@@ -13,7 +13,7 @@ interface IndexProps extends BasePageProps {
 
 interface RandomResponse {
   value: string
-  generated_at: string
+  generatedAt: string
 }
 
 export default function Index({ events }: IndexProps) {

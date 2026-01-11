@@ -16,7 +16,7 @@ interface NoteIndexProps {
   posts: PostListItem[]
   categories: string[]
   tags?: string[]
-  search_index: SearchIndexItem[]
+  searchIndex: SearchIndexItem[]
 }
 
 interface SearchIndexItem {
@@ -26,11 +26,11 @@ interface SearchIndexItem {
   content: string
   category: string
   tags: string[]
-  url_path: string
+  urlPath: string
   [key: string]: any
 }
 
-export default function NoteIndex({ posts, categories, tags, search_index }: NoteIndexProps) {
+export default function NoteIndex({ posts, categories, tags, searchIndex }: NoteIndexProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
@@ -63,21 +63,23 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
   }
 
   // Initialize search index
-  const searchIndex = useMemo(() => {
+  const searchIndexDoc = useMemo(() => {
     const index = new Document({
       document: {
         id: 'id',
         index: ['title', 'excerpt', 'content'],
-        store: ['title', 'url_path'],
+        store: ['title', 'urlPath'],
       },
     })
 
-    search_index.forEach((doc) => {
-      index.add(doc)
-    })
+    if (searchIndex && Array.isArray(searchIndex)) {
+      searchIndex.forEach((doc) => {
+        index.add(doc)
+      })
+    }
 
     return index
-  }, [search_index])
+  }, [searchIndex])
 
   // Filter posts
   const filteredPosts = useMemo(() => {
@@ -92,21 +94,23 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
     }
 
     if (searchQuery) {
-      const searchResults = searchIndex.search(searchQuery) as Array<{ result: string[] }>
+      const searchResults = searchIndexDoc.search(searchQuery) as Array<{ result: string[] }>
       const resultIds = new Set(searchResults.flatMap((r) => r.result))
       result = result.filter((p) => resultIds.has(p.slug))
     }
 
     return result
-  }, [posts, selectedCategory, selectedTag, searchQuery, searchIndex])
+  }, [posts, selectedCategory, selectedTag, searchQuery, searchIndexDoc])
 
   // Calculate tag counts
   const tagCounts = useMemo(() => {
     const counts: Record<string, number> = {}
     posts.forEach((post) => {
-      post.tags.forEach((tag) => {
-        counts[tag] = (counts[tag] || 0) + 1
-      })
+      if (post.tags && Array.isArray(post.tags)) {
+        post.tags.forEach((tag) => {
+          counts[tag] = (counts[tag] || 0) + 1
+        })
+      }
     })
     return counts
   }, [posts])
@@ -220,11 +224,11 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
             {filteredPosts.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {filteredPosts.map((post) => (
-                  <Link key={post.slug} href={post.url_path}>
+                  <Link key={post.slug} href={post.urlPath}>
                     <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                      {post.featured_image && (
+                      {post.featuredImage && (
                         <img
-                          src={post.featured_image}
+                          src={post.featuredImage}
                           alt={post.title}
                           className="w-full h-40 sm:h-44 md:h-48 object-cover rounded-t-lg"
                         />
@@ -245,7 +249,7 @@ export default function NoteIndex({ posts, categories, tags, search_index }: Not
                               key={tag}
                               type="button"
                               variant="ghost"
-                              className="group h-auto border-transparent bg-transparent p-0 text-left self-start hover:bg-transparent max-w-full whitespace-normal break-words break-all hyphens-auto shrink"
+                              className="group h-auto border-transparent bg-transparent p-0 text-left self-start hover:bg-transparent max-w-full whitespace-normal wrap-break-word break-all hyphens-auto shrink"
                               onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()

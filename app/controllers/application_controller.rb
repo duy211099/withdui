@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   # Dynamic sharing: Data is evaluated at render time
   inertia_share do
      {
-        current_user: current_user&.as_json(only: [ :id, :email, :name, :avatar_url ]),
+        current_user: current_user.present? ? UserSerializer.one(current_user) : nil,
         user_stats: current_user&.user_stat ? UserStatsSerializer.one(current_user.user_stat) : nil,
         is_admin: current_user&.admin? || false,
         flash: flash.to_hash,

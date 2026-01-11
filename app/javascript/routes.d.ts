@@ -165,13 +165,13 @@ export const edit_event_registration: ((
 
 /**
  * Generates rails route to
- * /moods/:id/edit(.:format)
- * @param {any} id
+ * /moods/:date/edit(.:format)
+ * @param {any} date
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const edit_mood: ((
-  id: RequiredRouteParameter,
+export const edit_mood_by_date: ((
+  date: RequiredRouteParameter,
   options?: {format?: OptionalRouteParameter} & RouteOptions
 ) => string) & RouteHelperExtras;
 
@@ -545,18 +545,6 @@ export const mission_control_jobs_queues: ((
  */
 export const mission_control_jobs_root: ((
   options?: RouteOptions
-) => string) & RouteHelperExtras;
-
-/**
- * Generates rails route to
- * /moods/:id(.:format)
- * @param {any} id
- * @param {object | undefined} options
- * @returns {string} route path
- */
-export const mood: ((
-  id: RequiredRouteParameter,
-  options?: {format?: OptionalRouteParameter} & RouteOptions
 ) => string) & RouteHelperExtras;
 
 /**

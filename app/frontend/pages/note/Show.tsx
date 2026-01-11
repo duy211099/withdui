@@ -9,10 +9,10 @@ const MDXRenderer = lazy(() => import('@/components/note/MDXRenderer'))
 
 interface NoteShowProps {
   post: Post
-  related_posts: Post[]
+  relatedPosts: Post[]
 }
 
-export default function NoteShow({ post, related_posts }: NoteShowProps) {
+export default function NoteShow({ post, relatedPosts }: NoteShowProps) {
   // Preserve the view mode when going back
   const getBackUrl = () => {
     const savedView = typeof window !== 'undefined' ? localStorage.getItem('noteViewMode') : null
@@ -86,11 +86,11 @@ export default function NoteShow({ post, related_posts }: NoteShowProps) {
         </Suspense>
 
         {/* Related Posts */}
-        {related_posts && related_posts.length > 0 && (
+        {relatedPosts && relatedPosts.length > 0 && (
           <aside className="mt-12 pt-8 border-t">
             <h2 className="text-xl md:text-2xl font-bold mb-4">Related Posts</h2>
             <div className="grid md:grid-cols-3 gap-3 md:gap-4">
-              {related_posts.map((p) => (
+              {relatedPosts.map((p) => (
                 <Link key={p.url_path} href={p.url_path}>
                   <div className="p-4 border rounded hover:shadow-md transition-shadow h-full">
                     <h3 className="font-semibold mb-2 hover:text-primary transition-colors">

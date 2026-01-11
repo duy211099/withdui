@@ -1,7 +1,7 @@
 class MoodsController < ApplicationController
   # Require authentication for create/update/delete only (index is public)
   before_action :authenticate_user!, except: [ :index ]
-  before_action :set_mood, only: [ :edit, :update, :destroy ]
+  before_action :set_mood_by_date, only: [ :edit, :update, :destroy ]
 
   # GET /moods
   # Calendar view with month navigation (public - anyone can view)
@@ -126,8 +126,12 @@ class MoodsController < ApplicationController
 
   private
 
-  def set_mood
-    @mood = Mood.find_by!(slug: params[:id])
+  def set_mood_by_date
+    # Find mood by date instead of slug for friendlier URLs
+    date = Date.parse(params[:date])
+    @mood = current_user.moods.find_by!(entry_date: date)
+  rescue Date::Error
+    redirect_to moods_path, alert: "Invalid date format"
   end
 
   def mood_params

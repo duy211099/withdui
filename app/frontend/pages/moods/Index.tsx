@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { useI18n } from '@/contexts/I18nContext'
 import { getShortDateFormat } from '@/lib/localTime'
+import { edit_mood_by_date_path } from '@/lib/routes'
 import type { BasePageProps, MonthlySummary, Mood, MoodLevels, User } from '@/types'
 
 interface IndexProps extends BasePageProps {
@@ -17,10 +18,10 @@ interface IndexProps extends BasePageProps {
   year: number
   month: number
   summary: MonthlySummary
-  mood_levels: MoodLevels
-  all_users: User[]
-  viewing_user_id: string | null
-  can_edit: boolean
+  moodLevels: MoodLevels
+  allUsers: User[]
+  viewingUserId: string | null
+  canEdit: boolean
 }
 
 export default function Index({
@@ -28,22 +29,21 @@ export default function Index({
   year,
   month,
   summary,
-  mood_levels,
-  all_users,
-  viewing_user_id,
-  can_edit,
+  moodLevels,
+  allUsers,
+  viewingUserId,
+  canEdit,
 }: IndexProps) {
-  const { current_user } = usePage<BasePageProps>().props
+  const { currentUser } = usePage<BasePageProps>().props
   const { t, locale } = useI18n()
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null)
   const [selectedDayMoods, setSelectedDayMoods] = useState<Mood[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMultiMoodModalOpen, setIsMultiMoodModalOpen] = useState(false)
-
   // Handle month navigation
   const handleMonthChange = (newYear: number, newMonth: number) => {
     router.visit('/moods', {
-      data: { year: newYear, month: newMonth, user_id: viewing_user_id || undefined },
+      data: { year: newYear, month: newMonth, user_id: viewingUserId || undefined },
       preserveScroll: true,
     })
   }
@@ -72,10 +72,10 @@ export default function Index({
   }
 
   // Handle edit from modal
-  const handleEdit = (moodId: string) => {
-    // UUID string
+  const handleEdit = (entryDate: string) => {
+    // Date string (YYYY-MM-DD)
     setIsModalOpen(false)
-    router.visit(`/moods/${moodId}/edit`)
+    router.visit(edit_mood_by_date_path({ date: entryDate }))
   }
 
   // Handle user filter change
@@ -91,11 +91,11 @@ export default function Index({
   }
 
   // Determine if showing multi-user view
-  const isMultiUserView = !viewing_user_id
+  const isMultiUserView = !viewingUserId
 
-  const isFilteredView = viewing_user_id !== null && viewing_user_id !== current_user?.id
+  const isFilteredView = viewingUserId !== null && viewingUserId !== currentUser?.id
   // Prevent edits when viewing someone else's calendar
-  const canEditMoods = Boolean(current_user && !isFilteredView && can_edit)
+  const canEditMoods = Boolean(currentUser && !isFilteredView && canEdit)
 
   return (
     <>
@@ -126,15 +126,17 @@ export default function Index({
               <select
                 id="user-filter"
                 className="flex-1 h-10 rounded-md border-2 border-border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                value={viewing_user_id || 'all'}
+                value={viewingUserId || 'all'}
                 onChange={(e) => handleUserFilterChange(e.target.value)}
               >
                 <option value="all">{t('frontend.moods.index.everyone_option')}</option>
-                {all_users.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.name || user.email}
-                  </option>
-                ))}
+                {allUsers &&
+                  Array.isArray(allUsers) &&
+                  allUsers.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.name || user.email}
+                    </option>
+                  ))}
               </select>
             </div>
           </CardContent>
@@ -164,7 +166,7 @@ export default function Index({
                 {summary.average_level !== null ? (
                   <div className="flex items-center gap-2">
                     <span className="text-4xl">
-                      {mood_levels[Math.round(Number(summary.average_level))].emoji}
+                      {moodLevels[Math.round(Number(summary.average_level))].emoji}
                     </span>
                     <span className="text-sm text-muted-foreground">
                       {Number(summary.average_level).toFixed(1)}
@@ -255,7 +257,7 @@ export default function Index({
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-4">
-              {Object.entries(mood_levels).map(([level, config]) => (
+              {Object.entries(moodLevels).map(([level, config]) => (
                 <div
                   key={level}
                   className="flex flex-col items-center gap-1 p-2 rounded-lg border-2"
@@ -281,7 +283,7 @@ export default function Index({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onEdit={canEditMoods ? handleEdit : undefined}
-        canEdit={canEditMoods && selectedMood ? selectedMood.user.id === current_user?.id : false}
+        canEdit={canEditMoods && selectedMood ? selectedMood.user.id === currentUser?.id : false}
       />
 
       {/* Multi-Mood Modal (Everyone view) */}
@@ -289,7 +291,7 @@ export default function Index({
         isOpen={isMultiMoodModalOpen}
         onClose={() => setIsMultiMoodModalOpen(false)}
         moods={selectedDayMoods}
-        current_user={current_user}
+        currentUser={currentUser}
         canEdit={canEditMoods}
       />
     </>

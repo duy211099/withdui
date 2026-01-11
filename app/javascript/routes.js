@@ -604,12 +604,12 @@ export const edit_event_registration = /*#__PURE__*/ __jsr.r({"event_id":{"r":tr
 
 /**
  * Generates rails route to
- * /moods/:id/edit(.:format)
- * @param {any} id
+ * /moods/:date/edit(.:format)
+ * @param {any} date
  * @param {object | undefined} options
  * @returns {string} route path
  */
-export const edit_mood = /*#__PURE__*/ __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"moods"],[2,[7,"/"],[2,[3,"id"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
+export const edit_mood_by_date = /*#__PURE__*/ __jsr.r({"date":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"moods"],[2,[7,"/"],[2,[3,"date"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
 
 /**
  * Generates rails route to
@@ -889,15 +889,6 @@ export const mission_control_jobs_queues = /*#__PURE__*/ __jsr.r({"format":{}}, 
  * @returns {string} route path
  */
 export const mission_control_jobs_root = /*#__PURE__*/ __jsr.r({}, [2,[2,[7,"/"],[2,[6,"admin"],[2,[7,"/"],[6,"jobs"]]]],[7,"/"]]);
-
-/**
- * Generates rails route to
- * /moods/:id(.:format)
- * @param {any} id
- * @param {object | undefined} options
- * @returns {string} route path
- */
-export const mood = /*#__PURE__*/ __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"moods"],[2,[7,"/"],[2,[3,"id"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to

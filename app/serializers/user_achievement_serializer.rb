@@ -32,5 +32,7 @@ class UserAchievementSerializer < BaseSerializer
     item.unlocked_at.iso8601
   end
 
-  attribute :achievement, serializer: AchievementSerializer
+  attribute :achievement do
+    AchievementSerializer.render(item.achievement)
+  end
 end

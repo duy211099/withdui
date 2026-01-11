@@ -20,43 +20,15 @@ module Admin
       # Paginate with Pagy (25 items per page)
       @pagy, @versions = pagy(versions_query, limit: 25)
 
-      # Serialize versions for Inertia
-      versions_data = @versions.map do |version|
-        {
-          id: version.id,
-          event: version.event, # created, updated, destroyed
-          item_type: version.item_type,
-          item_id: version.item_id,
-          whodunnit: version.whodunnit, # User ID who made the change
-          object: version.object, # Previous state (JSON string)
-          object_changes: version.object_changes, # Changes made (JSON string)
-          created_at: version.created_at.iso8601,
-          # Try to get the user who made the change
-          user: user_info(version.whodunnit)
-        }
-      end
+      whodunnit_ids = @versions.map(&:whodunnit).compact.map(&:to_s).uniq
+      users = User.where(id: whodunnit_ids).index_by { |u| u.id.to_s }
 
       render inertia: "admin/Versions", props: {
-        versions: versions_data,
+        versions: VersionSerializer.many(@versions, users: users),
         pagy: pagy_metadata(@pagy)
       }
     end
-
     private
-
-    # Get user info for the audit log
-    def user_info(whodunnit)
-      return nil if whodunnit.blank?
-
-      user = User.find_by(id: whodunnit)
-      return nil unless user
-
-      {
-        id: user.id,
-        name: user.name,
-        email: user.email
-      }
-    end
 
     # Convert Pagy object to JSON for Inertia
     def pagy_metadata(pagy)

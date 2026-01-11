@@ -6,13 +6,8 @@ import StreakCounter from '@/components/gamification/StreakCounter'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useI18n } from '@/contexts/I18nContext'
-import type {
-  Achievement,
-  BasePageProps,
-  GamificationEvent,
-  UserAchievement,
-  UserStats,
-} from '@/types'
+import type { BasePageProps, UserStats } from '@/types'
+import type { Achievement, GamificationEvent, UserAchievement } from '@/types/serializers'
 
 interface DashboardProps extends BasePageProps {
   stats: UserStats
@@ -28,10 +23,13 @@ export default function Dashboard({
   recent_events,
 }: DashboardProps) {
   const { t, locale } = useI18n()
-  const formatEventType = (eventType: string) =>
-    t(`frontend.gamification.events.${eventType}`, {
+  const formatEventType = (eventType?: string) => {
+    if (!eventType) return t('frontend.gamification.events.unknown', { defaultValue: 'Unknown' })
+
+    return t(`frontend.gamification.events.${eventType}`, {
       defaultValue: eventType.replace(/_/g, ' '),
     })
+  }
 
   console.log(stats)
 
@@ -178,14 +176,14 @@ export default function Dashboard({
                     key={event.id || index}
                     className="flex justify-between items-center py-2 border-b last:border-0"
                   >
-                    <span className="text-sm capitalize">{formatEventType(event.event_type)}</span>
+                    <span className="text-sm capitalize">{formatEventType(event.eventType)}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground">
-                        {new Date(event.created_at).toLocaleDateString(locale)}
+                        {new Date(event.createdAt).toLocaleDateString(locale)}
                       </span>
                       <span className="text-sm font-semibold text-primary">
                         {t('frontend.gamification.dashboard.recent_activity.points', {
-                          points: event.points_earned.toLocaleString(locale),
+                          points: event.pointsEarned.toLocaleString(locale),
                         })}
                       </span>
                     </div>

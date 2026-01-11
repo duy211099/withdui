@@ -12,25 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import type { PagyMetadata } from '@/types'
-
-interface User {
-  id: string
-  name: string | null
-  email: string
-}
-
-interface Version {
-  id: number
-  event: 'create' | 'update' | 'destroy'
-  item_type: string
-  item_id: string
-  whodunnit: string | null
-  object: string | null
-  object_changes: string | null
-  created_at: string
-  user: User | null
-}
+import type { PagyMetadata, Version } from '@/types'
 
 interface VersionsProps {
   versions: Version[]
@@ -38,9 +20,9 @@ interface VersionsProps {
 }
 
 export default function Versions({ versions, pagy }: VersionsProps) {
-  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set())
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
 
-  const toggleRow = (id: number) => {
+  const toggleRow = (id: string) => {
     setExpandedRows((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(id)) {
@@ -72,15 +54,18 @@ export default function Versions({ versions, pagy }: VersionsProps) {
     )
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return new Intl.DateTimeFormat('en-US', {
+  const formatDate = (dateString?: string | Date) => {
+    if (!dateString) return 'N/A'
+
+    const date = typeof dateString === 'string' ? new Date(dateString) : dateString
+
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    }).format(date)
+    })
   }
 
   const parseChanges = (objectChanges: string | null) => {
@@ -106,7 +91,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
   }
 
   const renderChanges = (version: Version) => {
-    const changes = parseChanges(version.object_changes)
+    const changes = parseChanges(version.objectChanges ?? null)
 
     if (!changes || Object.keys(changes).length === 0) {
       return (
@@ -172,7 +157,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[50px]"></TableHead>
+                  <TableHead className="w-12.5"></TableHead>
                   <TableHead>Event</TableHead>
                   <TableHead>Model</TableHead>
                   <TableHead>ID</TableHead>
@@ -189,9 +174,10 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                   </TableRow>
                 ) : (
                   versions.map((version) => {
-                    const isExpanded = expandedRows.has(version.id)
+                    const rowId = String(version.id)
+                    const isExpanded = expandedRows.has(rowId)
                     // Check if there are meaningful changes (not just system fields)
-                    const changes = parseChanges(version.object_changes)
+                    const changes = parseChanges(version.objectChanges ?? null)
                     const systemFields = ['updated_at', 'created_at']
                     const hasChanges =
                       changes && Object.keys(changes).some((field) => !systemFields.includes(field))
@@ -204,7 +190,7 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                onClick={() => toggleRow(version.id)}
+                                onClick={() => toggleRow(rowId)}
                                 className="h-8 w-8 p-0"
                               >
                                 {isExpanded ? (
@@ -216,22 +202,20 @@ export default function Versions({ versions, pagy }: VersionsProps) {
                             )}
                           </TableCell>
                           <TableCell>{getEventBadge(version.event)}</TableCell>
-                          <TableCell className="font-medium">{version.item_type}</TableCell>
-                          <TableCell className="font-mono text-xs">{version.item_id}</TableCell>
+                          <TableCell className="font-medium">{version.itemType}</TableCell>
+                          <TableCell className="font-mono text-xs">{version.itemId}</TableCell>
                           <TableCell>
-                            {version.user ? (
-                              <div>
-                                <div className="font-medium">{version.user.name || 'Unknown'}</div>
+                            <div>
+                              <div className="font-medium">{version.user?.name || 'Unknown'}</div>
+                              {version.user?.email && (
                                 <div className="text-xs text-muted-foreground">
                                   {version.user.email}
                                 </div>
-                              </div>
-                            ) : (
-                              <span className="text-muted-foreground">System</span>
-                            )}
+                              )}
+                            </div>
                           </TableCell>
                           <TableCell className="text-sm">
-                            {formatDate(version.created_at)} {/* PaperTrail Version model */}
+                            {formatDate(version?.createdAt)} {/* PaperTrail Version model */}
                           </TableCell>
                         </TableRow>
                         {isExpanded && hasChanges && (

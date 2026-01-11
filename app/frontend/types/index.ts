@@ -15,13 +15,10 @@ export type { BasePageProps, InertiaPageProps } from './inertia'
 // Post types (markdown-based, not from database)
 // Gamification types (temporary - TODO: Create serializers)
 export type {
-  Achievement,
-  GamificationEvent,
   Post,
   PostAdminListItem,
   PostDetail,
   PostListItem,
-  UserAchievement,
 } from './models'
 // Auto-generated serializer types (actual API responses)
 // These represent the actual data shape sent from backend to frontend
@@ -37,6 +34,8 @@ export type {
   UserMinimal,
   UserStats,
 } from './serializers'
+
+export type { default as Version } from './serializers/Version'
 
 // UI configuration types (not from database)
 export type { MonthlySummary, MoodLevel, MoodLevels } from './ui'

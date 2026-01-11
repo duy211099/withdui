@@ -12,6 +12,8 @@ test:
   <<: *default
   url: <%= ENV.fetch("TEST_DATABASE_URL") { "postgresql://localhost/withdui_test?pool=5" } %>
   database: withdui_test
+  # Mac Tahoe bug
+  gssencmode: disable
 
 production:
   <<: *default

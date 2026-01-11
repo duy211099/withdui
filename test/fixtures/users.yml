@@ -14,6 +14,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role                   :string           default("user"), not null
+#  slug                   :string
 #  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -24,6 +25,7 @@
 #  index_users_on_provider_and_uid      (provider,uid) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_role                  (role)
+#  index_users_on_slug                  (slug) UNIQUE
 #
 
 one:
@@ -31,15 +33,18 @@ one:
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   name: User One
   role: user
+  slug: user-one
 
 two:
   email: user_two@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   name: User Two
   role: user
+  slug: user-two
 
 admin:
   email: admin@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   name: Admin User
   role: admin
+  slug: admin-user

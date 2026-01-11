@@ -46,10 +46,10 @@ export default function Show({ event }: IndexProps) {
                 <Link href={events_path()}>{t('frontend.events.show.back')}</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href={event_registrations_path(event.id)}>View Registrations</Link>
+                <Link href={event_registrations_path(event.slug)}>View Registrations</Link>
               </Button>
               <Button asChild>
-                <Link href={edit_event_path(event)}>{t('frontend.events.show.edit')}</Link>
+                <Link href={edit_event_path(event.slug)}>{t('frontend.events.show.edit')}</Link>
               </Button>
               <DeleteDialog
                 trigger={
@@ -59,7 +59,7 @@ export default function Show({ event }: IndexProps) {
                 description={t('frontend.events.delete.description')}
                 cancelLabel={t('frontend.events.delete.cancel')}
                 confirmLabel={t('frontend.events.delete.confirm')}
-                onConfirm={() => router.delete(event_path(event.id))}
+                onConfirm={() => router.delete(event_path(event.slug))}
               />
             </div>
           </CardContent>

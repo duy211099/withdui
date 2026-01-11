@@ -6,6 +6,7 @@
 #  entry_date :date             not null
 #  level      :integer          not null
 #  notes      :text
+#  slug       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :uuid             not null
@@ -14,6 +15,7 @@
 #
 #  index_moods_on_entry_date              (entry_date)
 #  index_moods_on_level                   (level)
+#  index_moods_on_slug                    (slug) UNIQUE
 #  index_moods_on_user_id_and_entry_date  (user_id,entry_date) UNIQUE
 #
 # Foreign Keys

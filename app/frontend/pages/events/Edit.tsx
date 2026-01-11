@@ -19,7 +19,7 @@ export default function Edit({ event }: IndexProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    patch(event_path(event.id))
+    patch(event_path(event.slug))
   }
 
   return (

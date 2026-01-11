@@ -12,6 +12,7 @@ interface FormProps extends BasePageProps {
   event: {
     id: string
     name: string
+    slug: string
   }
   registration: RegistrationForm
   how_heard_options: string[]
@@ -48,9 +49,9 @@ export default function Form({ event, registration, how_heard_options, is_edit }
     e.preventDefault()
 
     if (is_edit && registration.id) {
-      put(event_registration_path(event.id, registration.id))
+      put(event_registration_path(event.slug, registration.id))
     } else {
-      post(event_registrations_path(event.id))
+      post(event_registrations_path(event.slug))
     }
   }
 
@@ -116,7 +117,7 @@ export default function Form({ event, registration, how_heard_options, is_edit }
                     {is_edit ? 'Update Registration' : 'Create Registration'}
                   </Button>
                   <Button asChild variant="outline" type="button">
-                    <Link href={event_registrations_path(event.id)}>Cancel</Link>
+                    <Link href={event_registrations_path(event.slug)}>Cancel</Link>
                   </Button>
                 </div>
               </form>

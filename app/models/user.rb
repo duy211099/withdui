@@ -12,6 +12,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role                   :string           default("user"), not null
+#  slug                   :string
 #  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -22,6 +23,7 @@
 #  index_users_on_provider_and_uid      (provider,uid) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_role                  (role)
+#  index_users_on_slug                  (slug) UNIQUE
 #
 class User < ApplicationRecord
   # Enable PaperTrail for audit logging
@@ -44,6 +46,13 @@ class User < ApplicationRecord
   attribute :role, :string, default: "user"
   enum :role, { user: "user", admin: "admin" }
 
+  # Slug generation
+  before_validation :generate_slug, on: :create
+
+  def to_param
+    slug
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -51,5 +60,23 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.avatar_url = auth.info.image
     end
+  end
+
+  private
+
+  def generate_slug
+    return if slug.present?
+    return unless email.present?
+
+    base_slug = (name.presence || email.split("@").first).parameterize
+    candidate_slug = base_slug
+    counter = 1
+
+    while User.exists?(slug: candidate_slug)
+      candidate_slug = "#{base_slug}-#{counter}"
+      counter += 1
+    end
+
+    self.slug = candidate_slug
   end
 end

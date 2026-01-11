@@ -11,14 +11,19 @@
 #  location    :string
 #  name        :string
 #  price       :decimal(, )
+#  slug        :string
 #  starts_at   :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_events_on_slug  (slug) UNIQUE
+#
 class EventSerializer < BaseSerializer
   object_as :event, model: :Event
 
-  attributes :id, :name, :location, :description, :starts_at
+  attributes :id, :slug, :name, :location, :description, :starts_at
 
   # Explicitly type price as number for TypeScript
   attribute :price, type: :number do

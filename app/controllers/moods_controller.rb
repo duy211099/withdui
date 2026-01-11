@@ -12,8 +12,8 @@ class MoodsController < ApplicationController
 
     # Get moods based on user_id filter (or all users if no filter)
     if params[:user_id].present?
-      # Filter by specific user
-      user = User.find(params[:user_id])
+      # Filter by specific user (support both UUID and slug)
+      user = User.find_by(slug: params[:user_id]) || User.find(params[:user_id])
       moods = user.moods.for_month(@year, @month).includes(:user)
       summary = Mood.month_summary(user, @year, @month)
       viewing_user = user
@@ -127,7 +127,7 @@ class MoodsController < ApplicationController
   private
 
   def set_mood
-    @mood = Mood.find(params[:id])
+    @mood = Mood.find_by!(slug: params[:id])
   end
 
   def mood_params

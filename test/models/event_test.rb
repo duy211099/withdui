@@ -7,9 +7,14 @@
 #  location    :string
 #  name        :string
 #  price       :decimal(, )
+#  slug        :string
 #  starts_at   :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_events_on_slug  (slug) UNIQUE
 #
 require "test_helper"
 

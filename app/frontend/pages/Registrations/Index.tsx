@@ -14,6 +14,7 @@ interface IndexProps extends BasePageProps {
   event: {
     id: string
     name: string
+    slug: string
   }
   registrations: Registration[]
 }
@@ -56,10 +57,10 @@ export default function Index({ event, registrations }: IndexProps) {
             <div className="flex flex-col items-end gap-3">
               <div className="flex gap-2">
                 <Button asChild size="sm">
-                  <Link href={new_event_registration_path(event.id)}>New Registration</Link>
+                  <Link href={new_event_registration_path(event.slug)}>New Registration</Link>
                 </Button>
                 <Button asChild variant="outline" size="sm">
-                  <Link href={event_path(event.id)}>Back to Event</Link>
+                  <Link href={event_path(event.slug)}>Back to Event</Link>
                 </Button>
               </div>
               <div className="text-right">
@@ -102,7 +103,7 @@ export default function Index({ event, registrations }: IndexProps) {
                             Event
                           </p>
                           <Link
-                            href={event_path(registration.event.id)}
+                            href={event_path(registration.event.slug)}
                             className="font-medium text-primary hover:underline"
                           >
                             {registration.event.name}
@@ -121,7 +122,7 @@ export default function Index({ event, registrations }: IndexProps) {
 
                       <div className="flex flex-wrap gap-2 pt-2 border-t">
                         <Button asChild variant="outline" size="sm">
-                          <Link href={edit_event_registration_path(event.id, registration.id)}>
+                          <Link href={edit_event_registration_path(event.slug, registration.id)}>
                             Edit
                           </Link>
                         </Button>
@@ -136,7 +137,7 @@ export default function Index({ event, registrations }: IndexProps) {
                           cancelLabel="Cancel"
                           confirmLabel="Delete"
                           onConfirm={() =>
-                            router.delete(event_registration_path(event.id, registration.id))
+                            router.delete(event_registration_path(event.slug, registration.id))
                           }
                         />
                       </div>

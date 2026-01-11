@@ -9,9 +9,14 @@
 #  location    :string
 #  name        :string
 #  price       :decimal(, )
+#  slug        :string
 #  starts_at   :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_events_on_slug  (slug) UNIQUE
 #
 one:
   name: Test Event One
@@ -19,6 +24,7 @@ one:
   location: Test Location One
   price: 9.99
   starts_at: <%= 1.week.from_now %>
+  slug: test-event-one
 
 two:
   name: Test Event Two
@@ -26,3 +32,4 @@ two:
   location: Test Location Two
   price: 19.99
   starts_at: <%= 2.weeks.from_now %>
+  slug: test-event-two

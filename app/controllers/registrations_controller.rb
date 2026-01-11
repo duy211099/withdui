@@ -64,7 +64,7 @@ class RegistrationsController < ApplicationController
   private
 
   def set_event
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by!(slug: params[:event_id])
   end
 
   def set_registration

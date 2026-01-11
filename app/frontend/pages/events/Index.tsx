@@ -66,9 +66,9 @@ export default function Index({ events }: IndexProps) {
           </Card>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((event, index) => (
-              <li key={index.toString()}>
-                <Link href={event_path(event.id)} className="block h-full">
+            {events.map((event) => (
+              <li key={event.slug}>
+                <Link href={event_path(event.slug)} className="block h-full">
                   <Card className="h-full transition-shadow hover:shadow-lg">
                     <CardHeader className="space-y-1">
                       <CardTitle className="text-lg">{event.name}</CardTitle>

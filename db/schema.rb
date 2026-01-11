@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_11_120317) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_11_132650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -47,8 +47,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_120317) do
     t.string "location"
     t.string "name"
     t.decimal "price"
+    t.string "slug"
     t.datetime "starts_at"
     t.datetime "updated_at", null: false
+    t.index [ "slug" ], name: "index_events_on_slug", unique: true
   end
 
   create_table "gamification_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -68,10 +70,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_120317) do
     t.date "entry_date", null: false
     t.integer "level", null: false
     t.text "notes"
+    t.string "slug"
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.index [ "entry_date" ], name: "index_moods_on_entry_date"
     t.index [ "level" ], name: "index_moods_on_level"
+    t.index [ "slug" ], name: "index_moods_on_slug", unique: true
     t.index [ "user_id", "entry_date" ], name: "index_moods_on_user_id_and_entry_date", unique: true
   end
 
@@ -248,12 +252,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_120317) do
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.string "role", default: "user", null: false
+    t.string "slug"
     t.string "uid"
     t.datetime "updated_at", null: false
     t.index [ "email" ], name: "index_users_on_email", unique: true
     t.index [ "provider", "uid" ], name: "index_users_on_provider_and_uid", unique: true
     t.index [ "reset_password_token" ], name: "index_users_on_reset_password_token", unique: true
     t.index [ "role" ], name: "index_users_on_role"
+    t.index [ "slug" ], name: "index_users_on_slug", unique: true
   end
 
   create_table "versions", force: :cascade do |t|

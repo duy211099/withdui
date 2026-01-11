@@ -6,6 +6,7 @@
 #  entry_date :date             not null
 #  level      :integer          not null
 #  notes      :text
+#  slug       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :uuid             not null
@@ -14,6 +15,7 @@
 #
 #  index_moods_on_entry_date              (entry_date)
 #  index_moods_on_level                   (level)
+#  index_moods_on_slug                    (slug) UNIQUE
 #  index_moods_on_user_id_and_entry_date  (user_id,entry_date) UNIQUE
 #
 # Foreign Keys
@@ -39,6 +41,13 @@ class Mood < ApplicationRecord
                                       message: "already has a mood entry" }
   validates :notes, length: { maximum: 10_000 }
   validate :entry_date_not_in_future
+
+  # Slug generation
+  before_validation :generate_slug, on: :create
+
+  def to_param
+    slug
+  end
 
   # Scopes for common queries
   scope :for_user, ->(user) { where(user: user) }
@@ -94,6 +103,16 @@ class Mood < ApplicationRecord
   end
 
   private
+
+  def generate_slug
+    return if slug.present?
+    return unless entry_date.present?
+
+    # Generate slug from entry date and a short random string for uniqueness
+    base_slug = entry_date.to_s
+    random_suffix = SecureRandom.hex(4)
+    self.slug = "#{base_slug}-#{random_suffix}"
+  end
 
   def entry_date_not_in_future
     return if entry_date.blank?

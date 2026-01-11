@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
+import { Dropdown } from '@/components/Dropdown'
 import { UserDropdown } from '@/components/UserDropdown'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -94,25 +95,14 @@ export default function Form({ event, registration, how_heard_options, is_edit }
                   <Label htmlFor="registration-how-heard">
                     How did you hear about this event? <span className="text-destructive">*</span>
                   </Label>
-                  <select
-                    id="registration-how-heard"
-                    name="how_heard"
-                    aria-invalid={Boolean(errors?.how_heard)}
-                    aria-describedby={
-                      errors?.how_heard ? 'registration-how-heard-error' : undefined
-                    }
+                  <Dropdown
                     value={data.how_heard}
-                    onChange={(e) => setData('how_heard', e.target.value)}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                    required
-                  >
-                    <option value="">Select an option...</option>
-                    {how_heard_options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+                    onValueChange={(value) => setData('how_heard', value)}
+                    options={how_heard_options}
+                    placeholder="Select an option..."
+                    searchPlaceholder="Search options..."
+                    disabled={processing}
+                  />
                   {errors?.how_heard && (
                     <p id="registration-how-heard-error" className="text-sm text-destructive">
                       {errors.how_heard}

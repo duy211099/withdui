@@ -21,7 +21,7 @@
 #
 #  index_moods_on_entry_date              (entry_date)
 #  index_moods_on_level                   (level)
-#  index_moods_on_user_id_and_entry_date  (user_id,entry_id) UNIQUE
+#  index_moods_on_user_id_and_entry_date  (user_id,entry_date) UNIQUE
 #
 # Foreign Keys
 #

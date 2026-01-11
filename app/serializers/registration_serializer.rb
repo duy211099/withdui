@@ -26,12 +26,11 @@
 # Table name: registrations
 #
 #  id         :uuid             not null, primary key
-#  email      :string
 #  how_heard  :string
-#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  event_id   :uuid             not null
+#  user_id    :uuid
 #
 # Indexes
 #
@@ -46,10 +45,14 @@ class RegistrationSerializer < BaseSerializer
   object_as :registration, model: :Registration
 
   # Full serialization - includes event details
-  attributes :id, :name, :email, :how_heard, :created_at
+  attributes :id, :how_heard, :created_at
 
   # Nested event serialization - uses EventSerializer for auto-generated types
   attribute :event, type: "Event" do
     EventSerializer.render(registration.event)
+  end
+
+  attribute :user, type: "User" do
+    UserSerializer.render(registration.user)
   end
 end

@@ -85,8 +85,10 @@ export default function Index({ event, registrations }: IndexProps) {
                     <CardHeader className="pb-3">
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                         <div className="flex-1">
-                          <CardTitle className="text-lg">{registration.name}</CardTitle>
-                          <p className="text-sm text-muted-foreground mt-1">{registration.email}</p>
+                          <CardTitle className="text-lg">{registration.user.name}</CardTitle>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {registration.user.email}
+                          </p>
                         </div>
                         <div className="text-sm text-muted-foreground">
                           Registered {formatDate(registration.createdAt)}

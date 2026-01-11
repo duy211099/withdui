@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import type { PagyMetadata } from '@/types'
 
 interface User {
   id: string
@@ -29,17 +30,6 @@ interface Version {
   object_changes: string | null
   created_at: string
   user: User | null
-}
-
-interface PagyMetadata {
-  page: number
-  pages: number
-  count: number
-  limit: number
-  next: number | null
-  prev: number | null
-  from: number
-  to: number
 }
 
 interface VersionsProps {

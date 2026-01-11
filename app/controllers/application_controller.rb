@@ -110,4 +110,18 @@ class ApplicationController < ActionController::Base
   def user_for_paper_trail
     current_user&.id # Store user ID in whodunnit column
   end
+
+  # Convert Pagy object to JSON metadata for API responses
+  def pagy_metadata(pagy)
+    {
+      page: pagy.page,
+      pages: pagy.pages,
+      count: pagy.count,
+      limit: pagy.limit,
+      next: pagy.next,
+      prev: pagy.prev,
+      from: pagy.from,
+      to: pagy.to
+    }
+  end
 end

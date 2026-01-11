@@ -38,6 +38,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :moods, dependent: :destroy
+  has_many :registrations, dependent: :destroy
 
   # Role-based authorization (string enum)
   attribute :role, :string, default: "user"

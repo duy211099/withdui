@@ -5,12 +5,11 @@
 # Table name: registrations
 #
 #  id         :uuid             not null, primary key
-#  email      :string
 #  how_heard  :string
-#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  event_id   :uuid             not null
+#  user_id    :uuid
 #
 # Indexes
 #

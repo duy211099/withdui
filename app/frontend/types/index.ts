@@ -8,6 +8,8 @@
   * // bundle exec rake types_from_serializers:generate
  */
 
+// API types (pagination, responses)
+export type { ApiError, ApiState, PaginatedResponse, PagyMetadata } from './api'
 // Inertia types
 export type { BasePageProps, InertiaPageProps } from './inertia'
 // Post types (markdown-based, not from database)

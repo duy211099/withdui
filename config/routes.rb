@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   # Gamification routes
   draw :gamification
 
+  # API routes (JSON endpoints)
+  draw :api
+
   # Utils routes
   draw :utils
 

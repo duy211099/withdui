@@ -1,9 +1,8 @@
 import { Head, Link, useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
-
+import { UserDropdown } from '@/components/UserDropdown'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { event_registration_path, event_registrations_path } from '@/lib/routes'
 import type { BasePageProps, RegistrationForm } from '@/types'
@@ -20,14 +19,12 @@ interface FormProps extends BasePageProps {
 
 export default function Form({ event, registration, how_heard_options, is_edit }: FormProps) {
   const { data, setData, post, put, processing, errors } = useForm({
-    name: registration.name || '',
-    email: registration.email || '',
+    user_id: registration.userId || '',
     how_heard: registration.howHeard || '',
   })
 
   const fieldOrder: Array<{ key: string; id: string }> = [
-    { key: 'name', id: 'registration-name' },
-    { key: 'email', id: 'registration-email' },
+    { key: 'user_id', id: 'registration-user-id' },
     { key: 'how_heard', id: 'registration-how-heard' },
   ]
 
@@ -74,46 +71,20 @@ export default function Form({ event, registration, how_heard_options, is_edit }
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Name Field */}
+                {/* User Selection */}
                 <div className="space-y-2">
-                  <Label htmlFor="registration-name">
-                    Name <span className="text-destructive">*</span>
+                  <Label htmlFor="registration-user">
+                    User <span className="text-destructive">*</span>
                   </Label>
-                  <Input
-                    id="registration-name"
-                    type="text"
-                    name="name"
-                    aria-invalid={Boolean(errors?.name)}
-                    aria-describedby={errors?.name ? 'registration-name-error' : undefined}
-                    value={data.name}
-                    onChange={(e) => setData('name', e.target.value)}
-                    required
+                  <UserDropdown
+                    value={data.user_id}
+                    onValueChange={(value) => setData('user_id', value)}
+                    placeholder="Select a user..."
+                    disabled={processing}
                   />
-                  {errors?.name && (
-                    <p id="registration-name-error" className="text-sm text-destructive">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-
-                {/* Email Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="registration-email">
-                    Email <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="registration-email"
-                    type="email"
-                    name="email"
-                    aria-invalid={Boolean(errors?.email)}
-                    aria-describedby={errors?.email ? 'registration-email-error' : undefined}
-                    value={data.email}
-                    onChange={(e) => setData('email', e.target.value)}
-                    required
-                  />
-                  {errors?.email && (
-                    <p id="registration-email-error" className="text-sm text-destructive">
-                      {errors.email}
+                  {errors?.user_id && (
+                    <p id="registration-user-error" className="text-sm text-destructive">
+                      {errors.user_id}
                     </p>
                   )}
                 </div>

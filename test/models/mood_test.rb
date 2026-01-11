@@ -220,7 +220,8 @@ class MoodTest < ActiveSupport::TestCase
 
     assert_equal mood.id, json[:id]
     assert_equal mood.level, json[:level]
-    assert_equal mood.entry_date.to_s, json[:entryDate] || json[:entry_date]
+    serialized_date = json[:entryDate] || json[:entry_date]
+    assert_equal mood.entry_date.to_s, serialized_date.is_a?(String) ? Date.parse(serialized_date).to_s : serialized_date.to_s
     assert_equal mood.notes, json[:notes]
     assert_equal mood.mood_name, json[:moodName] || json[:mood_name]
     assert_equal mood.mood_emoji, json[:moodEmoji] || json[:mood_emoji]

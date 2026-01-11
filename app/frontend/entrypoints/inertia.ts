@@ -1,8 +1,9 @@
 import './application.css'
-import { createInertiaApp } from '@inertiajs/react'
+import { createInertiaApp, router } from '@inertiajs/react'
 import axios from 'axios'
 import { createElement, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
+import snakecaseKeys from 'snakecase-keys'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import Layout from '@/components/Layout'
 
@@ -116,6 +117,24 @@ createInertiaApp({
       )
     }
   },
+})
+
+// Transform all outgoing requests: camelCase → snake_case
+router.on('before', (event) => {
+  const visit = event.detail.visit
+
+  // Skip transformation for FormData (file uploads)
+  if (visit.data instanceof FormData) {
+    return
+  }
+
+  // Transform request data if present
+  if (visit.data && typeof visit.data === 'object') {
+    visit.data = snakecaseKeys(visit.data, {
+      deep: true, // Handle nested objects recursively
+      exclude: [/^_/], // Preserve Rails internal params (_method, etc.)
+    })
+  }
 })
 
 const redirectToErrorPage = (event: Event) => {

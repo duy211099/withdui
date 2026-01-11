@@ -63,8 +63,4 @@ class EventsController < ApplicationController
   def event_params
     params.fetch(:event, params).permit(:name, :location, :price, :description)
   end
-
-  def form_errors(record)
-    record.errors.to_hash(true).transform_values { |messages| Array(messages).first }
-  end
 end

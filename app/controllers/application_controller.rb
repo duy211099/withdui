@@ -36,6 +36,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Transform validation errors to camelCase for frontend
+  def form_errors(record)
+    record.errors.to_hash(true)
+      .transform_keys { |key| key.to_s.camelize(:lower) }
+      .transform_values { |messages| Array(messages).first }
+  end
+
   def set_current_user
     Current.user = current_user
     Current.request_id = request.uuid

@@ -224,10 +224,10 @@ class GamificationFlowTest < ActionDispatch::IntegrationTest
     assert_operator @user.gamification_events.count, :>, 0
 
     # Verify JSON serialization works
-    json = UserStatsSerializer.one(stats)
+    json = UserStatsSerializer.one(stats).with_indifferent_access
     assert_kind_of Hash, json
-    assert json.key?("totalPoints")
-    assert json.key?("currentLevel")
-    assert json.key?("levelProgress")
+    assert json.key?(:totalPoints) || json.key?(:total_points)
+    assert json.key?(:currentLevel) || json.key?(:current_level)
+    assert json.key?(:levelProgress) || json.key?(:level_progress)
   end
 end

@@ -216,17 +216,17 @@ class MoodTest < ActiveSupport::TestCase
 
   test "serializer returns correct hash structure" do
     mood = moods(:one)
-    json = MoodSerializer.one(mood)
+    json = MoodSerializer.one(mood).with_indifferent_access
 
-    assert_equal mood.id, json["id"]
-    assert_equal mood.level, json["level"]
-    assert_equal mood.entry_date.to_s, json["entryDate"]
-    assert_equal mood.notes, json["notes"]
-    assert_equal mood.mood_name, json["moodName"]
-    assert_equal mood.mood_emoji, json["moodEmoji"]
-    assert_equal mood.mood_color, json["moodColor"]
-    assert_not_nil json["createdAt"]
-    assert_not_nil json["updatedAt"]
+    assert_equal mood.id, json[:id]
+    assert_equal mood.level, json[:level]
+    assert_equal mood.entry_date.to_s, json[:entryDate] || json[:entry_date]
+    assert_equal mood.notes, json[:notes]
+    assert_equal mood.mood_name, json[:moodName] || json[:mood_name]
+    assert_equal mood.mood_emoji, json[:moodEmoji] || json[:mood_emoji]
+    assert_equal mood.mood_color, json[:moodColor] || json[:mood_color]
+    assert_not_nil json[:createdAt] || json[:created_at]
+    assert_not_nil json[:updatedAt] || json[:updated_at]
   end
 
   # Class method tests

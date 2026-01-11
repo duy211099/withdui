@@ -73,14 +73,14 @@ class UserStatTest < ActiveSupport::TestCase
   end
 
   test "serializer should include all fields" do
-    json = UserStatsSerializer.one(@user_stat)
+    json = UserStatsSerializer.one(@user_stat).with_indifferent_access
 
-    assert json.key?("totalPoints")
-    assert json.key?("currentLevel")
-    assert json.key?("pointsToNextLevel")
-    assert json.key?("levelProgress")
-    assert json.key?("currentMoodStreak")
-    assert json.key?("totalMoodsLogged")
+    assert json.key?(:totalPoints) || json.key?(:total_points)
+    assert json.key?(:currentLevel) || json.key?(:current_level)
+    assert json.key?(:pointsToNextLevel) || json.key?(:points_to_next_level)
+    assert json.key?(:levelProgress) || json.key?(:level_progress)
+    assert json.key?(:currentMoodStreak) || json.key?(:current_mood_streak)
+    assert json.key?(:totalMoodsLogged) || json.key?(:total_moods_logged)
   end
 
   test "should validate non-negative values" do

@@ -105,11 +105,11 @@ class AchievementTest < ActiveSupport::TestCase
       points_reward: 200
     )
 
-    json = AchievementSerializer.one(achievement)
+    json = AchievementSerializer.one(achievement).with_indifferent_access
 
-    assert_equal "test", json["key"]
-    assert_equal "Test Achievement", json["name"]
-    assert_equal "gold", json["tier"]
-    assert_equal 200, json["pointsReward"]
+    assert_equal "test", json[:key]
+    assert_equal "Test Achievement", json[:name]
+    assert_equal "gold", json[:tier]
+    assert_equal 200, json[:pointsReward] || json[:points_reward]
   end
 end

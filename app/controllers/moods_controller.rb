@@ -129,7 +129,10 @@ class MoodsController < ApplicationController
   def set_mood_by_date
     # Find mood by date instead of slug for friendlier URLs
     date = Date.parse(params[:date])
-    @mood = current_user.moods.find_by!(entry_date: date)
+    @mood = current_user.moods.find_by(entry_date: date)
+    unless @mood
+      redirect_to moods_path, alert: "Mood entry not found"
+    end
   rescue Date::Error
     redirect_to moods_path, alert: "Invalid date format"
   end

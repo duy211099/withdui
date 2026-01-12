@@ -1,0 +1,56 @@
+---
+vi:
+  frontend:
+    life_weeks:
+      title: Cuộc Đời Theo Tuần
+      subtitle: Hình ảnh trực quan về hành trình cuộc đời bạn, từng tuần một
+      export_png: Xuất ảnh PNG
+      legend:
+        title: Chú Thích Trạng Thái Tuần
+      info:
+        description: Mỗi ô vuông đại diện cho một tuần trong cuộc đời bạn. Di chuột qua để xem chi tiết, nhấp để thêm ghi chú và tâm trạng.
+      stats:
+        weeksLived: Số Tuần Đã Sống
+        lifePercentage: Tỷ Lệ Cuộc Đời
+        of_80_years: của 80 năm
+        peak_weeks: Giai Đoạn Đỉnh Cao
+        weeksRemaining: Số Tuần Còn Lại
+        until_80: đến 80 tuổi
+      modal:
+        title: "Tuần %{week}"
+        week_info: Thông Tin Tuần
+        life_stage: Giai Đoạn Cuộc Đời
+        mood_history: Lịch Sử Tâm Trạng
+        notes_label: Ghi Chú
+        notes_placeholder: Thêm ghi chú về tuần này trong cuộc đời bạn...
+      tooltip:
+        week: Tuần
+        average_mood: Tâm Trạng Trung Bình
+        hasNotes: Có ghi chú
+      facts:
+        title: Sự Thật Khoa Học Về Cuộc Đời & Thời Gian
+        weeks_in_life:
+          title: "4.160 Tuần Tiềm Năng"
+          text: "Nếu bạn sống đến 80 tuổi, bạn sẽ trải qua khoảng 4.160 tuần. Hình ảnh hóa này giúp làm rõ con số trừu tượng đó—mỗi ô vuông đại diện cho một tuần trong cuộc đời bạn."
+          link: "https://waitbutwhy.com/2014/05/life-weeks.html"
+          link_text: "Đọc thêm: Cuộc Đời Theo Tuần - Tim Urban"
+        telomeres:
+          title: "Lão Hóa Tế Bào & Telomere"
+          text: "Mỗi lần tế bào phân chia, các đầu bảo vệ gọi là telomere sẽ ngắn lại. Sau khoảng 50-70 lần phân chia, tế bào không thể nhân bản đúng cách nữa—một quá trình được gọi là giới hạn Hayflick, được phát hiện năm 1961."
+          link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3370421/"
+          link_text: "Nghiên cứu: Telomere và Lão Hóa (NIH)"
+        time_perception:
+          title: "Thời Gian Trôi Nhanh Hơn Khi Bạn Lớn Tuổi"
+          text: "Khi bạn già đi, mỗi năm chiếm một phần nhỏ hơn trong tổng trải nghiệm cuộc đời. Một năm ở tuổi 50 chỉ là 2% cuộc đời, trong khi ở tuổi 5, nó là 20%—giải thích tại sao mùa hè thời thơ ấu cảm giác dài vô tận."
+          link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6511639/"
+          link_text: "Nghiên cứu: Nhận Thức Thời Gian Qua Các Giai Đoạn"
+        circadian:
+          title: "Đồng Hồ Sinh Học 24,2 Giờ"
+          text: "Con người có nhịp sinh học tự nhiên dài hơn một chút so với 24 giờ (khoảng 24,2 giờ). Nếu không có tín hiệu thời gian bên ngoài như ánh sáng mặt trời, lịch ngủ của bạn sẽ dần dịch chuyển muộn hơn mỗi ngày."
+          link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2829880/"
+          link_text: "Nghiên cứu: Nhịp Sinh Học Con Người"
+        blue_zones:
+          title: "Vùng Xanh: Sống Trên 100 Tuổi"
+          text: "Một số khu vực được gọi là 'Vùng Xanh' (Okinawa, Sardinia, Nicoya, Ikaria, Loma Linda) có số người sống trên 100 tuổi gấp 10 lần mức trung bình. Yếu tố chung: chế độ ăn thực vật, kết nối xã hội mạnh mẽ, hoạt động thể chất vừa phải, và mục đích sống rõ ràng."
+          link: "https://www.bluezones.com/"
+          link_text: "Khám phá: Trang Web Chính Thức Vùng Xanh"

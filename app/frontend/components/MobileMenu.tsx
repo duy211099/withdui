@@ -1,10 +1,11 @@
 import { Link } from '@inertiajs/react'
-import { BookOpen, Home, Info, Smile, Trophy, Wrench, X } from 'lucide-react'
+import { BookOpen, Calendar, Home, Info, Smile, Trophy, Wrench, X } from 'lucide-react'
 import { useTranslation } from '@/contexts/I18nContext'
 import {
   about_path,
   destroy_user_session_path,
   gamification_dashboard_path,
+  life_weeks_path,
   moods_path,
   new_user_session_path,
   note_index_path,
@@ -83,14 +84,24 @@ export default function MobileMenu({ isOpen, onClose, currentUser, userStats }: 
               <span>{t('frontend.header.utils')}</span>
             </Link>
             {currentUser && (
-              <Link
-                href={moods_path()}
-                className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
-                onClick={onClose}
-              >
-                <Smile className="h-5 w-5" />
-                <span>Moods</span>
-              </Link>
+              <>
+                <Link
+                  href={moods_path()}
+                  className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+                  onClick={onClose}
+                >
+                  <Smile className="h-5 w-5" />
+                  <span>Moods</span>
+                </Link>
+                <Link
+                  href={life_weeks_path()}
+                  className="flex items-center gap-3 text-base font-medium hover:text-primary transition-colors py-2"
+                  onClick={onClose}
+                >
+                  <Calendar className="h-5 w-5" />
+                  <span>{t('frontend.header.life_weeks')}</span>
+                </Link>
+              </>
             )}
           </div>
 

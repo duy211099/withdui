@@ -10,3 +10,5 @@ en:
       utils: Utils
       moods: Moods
       events: Events
+      profile: Profile
+      life_weeks: Weeks in Life

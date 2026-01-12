@@ -2,23 +2,25 @@
 #
 # Table name: users
 #
-#  id                     :uuid             not null, primary key
-#  avatar_url             :string
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  name                   :string
-#  provider               :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  role                   :string           default("user"), not null
-#  slug                   :string
-#  uid                    :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                                                                               :uuid             not null, primary key
+#  avatar_url                                                                       :string
+#  birth_date(User birth date for Life in Weeks visualization and age calculations) :date
+#  email                                                                            :string           default(""), not null
+#  encrypted_password                                                               :string           default(""), not null
+#  name                                                                             :string
+#  provider                                                                         :string
+#  remember_created_at                                                              :datetime
+#  reset_password_sent_at                                                           :datetime
+#  reset_password_token                                                             :string
+#  role                                                                             :string           default("user"), not null
+#  slug                                                                             :string
+#  uid                                                                              :string
+#  created_at                                                                       :datetime         not null
+#  updated_at                                                                       :datetime         not null
 #
 # Indexes
 #
+#  index_users_on_birth_date            (birth_date)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_provider_and_uid      (provider,uid) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
@@ -43,10 +45,17 @@ class User < ApplicationRecord
   # Associations
   has_many :moods, dependent: :destroy
   has_many :registrations, dependent: :destroy
+  has_many :life_week_entries, dependent: :destroy
 
   # Role-based authorization (string enum)
   attribute :role, :string, default: "user"
   enum :role, { user: "user", admin: "admin" }
+
+  # Validations
+  validates :birth_date, allow_nil: true, comparison: {
+    less_than_or_equal_to: -> { Date.current },
+    message: "cannot be in the future"
+  }
 
   # Slug generation
   before_validation :generate_slug, on: :create
@@ -71,6 +80,33 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.avatar_url = auth.info.image
     end
+  end
+
+  # Calculate user's age in years
+  # @return [Integer, nil] Age in years or nil if birth_date not set
+  def age_in_years
+    return nil unless birth_date
+
+    today = Date.current
+    age = today.year - birth_date.year
+    age -= 1 if today < birth_date + age.years
+    age
+  end
+
+  # Calculate total weeks lived since birth
+  # @return [Integer, nil] Weeks lived or nil if birth_date not set
+  def weeks_lived
+    return nil unless birth_date
+
+    ((Date.current - birth_date).to_i / 7).floor
+  end
+
+  # Calculate percentage of 80-year life lived
+  # @return [Float, nil] Percentage (0-100+) or nil if birth_date not set
+  def life_percentage
+    return nil unless birth_date
+
+    (weeks_lived.to_f / 4160 * 100).round(2)
   end
 
   private

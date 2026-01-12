@@ -49,6 +49,11 @@
           "title": "Sign In"
         }
       },
+      "common": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+      },
       "events": {
         "delete": {
           "cancel": "Cancel",
@@ -188,7 +193,9 @@
         "app_name": "WithDui",
         "blog": "Notes",
         "events": "Events",
+        "life_weeks": "Weeks in Life",
         "moods": "Moods",
+        "profile": "Profile",
         "sign_in": "Sign In",
         "sign_out": "Sign Out",
         "utils": "Utils"
@@ -206,6 +213,71 @@
         "success_message": "You have successfully authenticated with Google OAuth2.",
         "title": "Home",
         "welcome": "Welcome to Withdui"
+      },
+      "life_weeks": {
+        "export_png": "Export as PNG",
+        "facts": {
+          "blue_zones": {
+            "link": "https://www.bluezones.com/",
+            "link_text": "Explore: Official Blue Zones Website",
+            "text": "Certain regions called 'Blue Zones' (Okinawa, Sardinia, Nicoya, Ikaria, Loma Linda) have 10x more centenarians than average. Common factors: plant-based diet, strong social connections, moderate physical activity, and life purpose.",
+            "title": "Blue Zones: Living Beyond 100"
+          },
+          "circadian": {
+            "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2829880/",
+            "link_text": "Research: Human Circadian Rhythms",
+            "text": "Humans have a natural circadian rhythm slightly longer than 24 hours (about 24.2 hours). Without external time cues like sunlight, your sleep schedule would gradually drift later each day.",
+            "title": "Your Body's 24.2-Hour Clock"
+          },
+          "telomeres": {
+            "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3370421/",
+            "link_text": "Research: Telomeres and Aging (NIH)",
+            "text": "Each time your cells divide, protective caps called telomeres shorten. After about 50-70 divisions, cells can no longer replicate properly—a process known as the Hayflick limit, discovered in 1961.",
+            "title": "Cellular Aging & Telomeres"
+          },
+          "time_perception": {
+            "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6511639/",
+            "link_text": "Research: Time Perception Across The Lifespan",
+            "text": "As you get older, each year represents a smaller fraction of your total life experience. A year at age 50 is only 2% of your life, while at age 5, it was 20%—explaining why childhood summers felt endless.",
+            "title": "Time Feels Faster As You Age"
+          },
+          "title": "Scientific Facts About Life & Time",
+          "weeks_in_life": {
+            "link": "https://waitbutwhy.com/2014/05/life-weeks.html",
+            "link_text": "Read: Your Life in Weeks by Tim Urban",
+            "text": "If you live to 80 years old, you'll experience approximately 4,160 weeks. This visualization helps make that abstract number tangible—each square represents one week of your life.",
+            "title": "4,160 Weeks of Potential"
+          }
+        },
+        "info": {
+          "description": "Each square represents one week of your life. Hover over weeks to see details, click to add notes and moods."
+        },
+        "legend": {
+          "title": "Week Status Legend"
+        },
+        "modal": {
+          "life_stage": "Life Stage",
+          "mood_history": "Mood History",
+          "notes_label": "Notes",
+          "notes_placeholder": "Add notes about this week of your life...",
+          "title": "Week %{week}",
+          "week_info": "Week Information"
+        },
+        "stats": {
+          "lifePercentage": "Life Percentage",
+          "of_80_years": "of 80 years",
+          "peak_weeks": "Peak Performance Years",
+          "until_80": "until age 80",
+          "weeksLived": "Weeks Lived",
+          "weeksRemaining": "Weeks Remaining"
+        },
+        "subtitle": "A visual representation of your life's journey, week by week",
+        "title": "Life in Weeks",
+        "tooltip": {
+          "average_mood": "Average Mood",
+          "hasNotes": "Has notes",
+          "week": "Week"
+        }
       },
       "locale": {
         "english": "English",
@@ -463,6 +535,11 @@
           "title": "Đăng nhập"
         }
       },
+      "common": {
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "saving": "Đang lưu..."
+      },
       "events": {
         "delete": {
           "cancel": "Hủy",
@@ -602,7 +679,9 @@
         "app_name": "WithDui",
         "blog": "Notes",
         "events": "Events",
+        "life_weeks": "Weeks in Life",
         "moods": "Moods",
+        "profile": "Hồ Sơ",
         "sign_in": "Đăng nhập",
         "sign_out": "Đăng xuất",
         "utils": "Tiện ích"
@@ -620,6 +699,71 @@
         "success_message": "Bạn đã xác thực thành công với Google OAuth2.",
         "title": "Trang chủ",
         "welcome": "Chào mừng đến với Withdui"
+      },
+      "life_weeks": {
+        "export_png": "Xuất ảnh PNG",
+        "facts": {
+          "blue_zones": {
+            "link": "https://www.bluezones.com/",
+            "link_text": "Khám phá: Trang Web Chính Thức Vùng Xanh",
+            "text": "Một số khu vực được gọi là 'Vùng Xanh' (Okinawa, Sardinia, Nicoya, Ikaria, Loma Linda) có số người sống trên 100 tuổi gấp 10 lần mức trung bình. Yếu tố chung: chế độ ăn thực vật, kết nối xã hội mạnh mẽ, hoạt động thể chất vừa phải, và mục đích sống rõ ràng.",
+            "title": "Vùng Xanh: Sống Trên 100 Tuổi"
+          },
+          "circadian": {
+            "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2829880/",
+            "link_text": "Nghiên cứu: Nhịp Sinh Học Con Người",
+            "text": "Con người có nhịp sinh học tự nhiên dài hơn một chút so với 24 giờ (khoảng 24,2 giờ). Nếu không có tín hiệu thời gian bên ngoài như ánh sáng mặt trời, lịch ngủ của bạn sẽ dần dịch chuyển muộn hơn mỗi ngày.",
+            "title": "Đồng Hồ Sinh Học 24,2 Giờ"
+          },
+          "telomeres": {
+            "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3370421/",
+            "link_text": "Nghiên cứu: Telomere và Lão Hóa (NIH)",
+            "text": "Mỗi lần tế bào phân chia, các đầu bảo vệ gọi là telomere sẽ ngắn lại. Sau khoảng 50-70 lần phân chia, tế bào không thể nhân bản đúng cách nữa—một quá trình được gọi là giới hạn Hayflick, được phát hiện năm 1961.",
+            "title": "Lão Hóa Tế Bào & Telomere"
+          },
+          "time_perception": {
+            "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6511639/",
+            "link_text": "Nghiên cứu: Nhận Thức Thời Gian Qua Các Giai Đoạn",
+            "text": "Khi bạn già đi, mỗi năm chiếm một phần nhỏ hơn trong tổng trải nghiệm cuộc đời. Một năm ở tuổi 50 chỉ là 2% cuộc đời, trong khi ở tuổi 5, nó là 20%—giải thích tại sao mùa hè thời thơ ấu cảm giác dài vô tận.",
+            "title": "Thời Gian Trôi Nhanh Hơn Khi Bạn Lớn Tuổi"
+          },
+          "title": "Sự Thật Khoa Học Về Cuộc Đời & Thời Gian",
+          "weeks_in_life": {
+            "link": "https://waitbutwhy.com/2014/05/life-weeks.html",
+            "link_text": "Đọc thêm: Cuộc Đời Theo Tuần - Tim Urban",
+            "text": "Nếu bạn sống đến 80 tuổi, bạn sẽ trải qua khoảng 4.160 tuần. Hình ảnh hóa này giúp làm rõ con số trừu tượng đó—mỗi ô vuông đại diện cho một tuần trong cuộc đời bạn.",
+            "title": "4.160 Tuần Tiềm Năng"
+          }
+        },
+        "info": {
+          "description": "Mỗi ô vuông đại diện cho một tuần trong cuộc đời bạn. Di chuột qua để xem chi tiết, nhấp để thêm ghi chú và tâm trạng."
+        },
+        "legend": {
+          "title": "Chú Thích Trạng Thái Tuần"
+        },
+        "modal": {
+          "life_stage": "Giai Đoạn Cuộc Đời",
+          "mood_history": "Lịch Sử Tâm Trạng",
+          "notes_label": "Ghi Chú",
+          "notes_placeholder": "Thêm ghi chú về tuần này trong cuộc đời bạn...",
+          "title": "Tuần %{week}",
+          "week_info": "Thông Tin Tuần"
+        },
+        "stats": {
+          "lifePercentage": "Tỷ Lệ Cuộc Đời",
+          "of_80_years": "của 80 năm",
+          "peak_weeks": "Giai Đoạn Đỉnh Cao",
+          "until_80": "đến 80 tuổi",
+          "weeksLived": "Số Tuần Đã Sống",
+          "weeksRemaining": "Số Tuần Còn Lại"
+        },
+        "subtitle": "Hình ảnh trực quan về hành trình cuộc đời bạn, từng tuần một",
+        "title": "Cuộc Đời Theo Tuần",
+        "tooltip": {
+          "average_mood": "Tâm Trạng Trung Bình",
+          "hasNotes": "Có ghi chú",
+          "week": "Tuần"
+        }
       },
       "locale": {
         "english": "English",

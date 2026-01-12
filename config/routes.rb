@@ -17,6 +17,12 @@ Rails.application.routes.draw do
   # Gamification routes
   draw :gamification
 
+  # Life in Weeks visualization routes
+  draw :life_weeks
+
+  # User profile routes
+  draw :users
+
   # API routes (JSON endpoints)
   draw :api
 

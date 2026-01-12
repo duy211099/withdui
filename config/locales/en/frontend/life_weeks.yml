@@ -1,0 +1,56 @@
+---
+en:
+  frontend:
+    life_weeks:
+      title: Life in Weeks
+      subtitle: A visual representation of your life's journey, week by week
+      export_png: Export as PNG
+      legend:
+        title: Week Status Legend
+      info:
+        description: Each square represents one week of your life. Hover over weeks to see details, click to add notes and moods.
+      stats:
+        weeksLived: Weeks Lived
+        lifePercentage: Life Percentage
+        of_80_years: of 80 years
+        peak_weeks: Peak Performance Years
+        weeksRemaining: Weeks Remaining
+        until_80: until age 80
+      modal:
+        title: "Week %{week}"
+        week_info: Week Information
+        life_stage: Life Stage
+        mood_history: Mood History
+        notes_label: Notes
+        notes_placeholder: Add notes about this week of your life...
+      tooltip:
+        week: Week
+        average_mood: Average Mood
+        hasNotes: Has notes
+      facts:
+        title: Scientific Facts About Life & Time
+        weeks_in_life:
+          title: "4,160 Weeks of Potential"
+          text: "If you live to 80 years old, you'll experience approximately 4,160 weeks. This visualization helps make that abstract number tangible—each square represents one week of your life."
+          link: "https://waitbutwhy.com/2014/05/life-weeks.html"
+          link_text: "Read: Your Life in Weeks by Tim Urban"
+        telomeres:
+          title: "Cellular Aging & Telomeres"
+          text: "Each time your cells divide, protective caps called telomeres shorten. After about 50-70 divisions, cells can no longer replicate properly—a process known as the Hayflick limit, discovered in 1961."
+          link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3370421/"
+          link_text: "Research: Telomeres and Aging (NIH)"
+        time_perception:
+          title: "Time Feels Faster As You Age"
+          text: "As you get older, each year represents a smaller fraction of your total life experience. A year at age 50 is only 2% of your life, while at age 5, it was 20%—explaining why childhood summers felt endless."
+          link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6511639/"
+          link_text: "Research: Time Perception Across The Lifespan"
+        circadian:
+          title: "Your Body's 24.2-Hour Clock"
+          text: "Humans have a natural circadian rhythm slightly longer than 24 hours (about 24.2 hours). Without external time cues like sunlight, your sleep schedule would gradually drift later each day."
+          link: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2829880/"
+          link_text: "Research: Human Circadian Rhythms"
+        blue_zones:
+          title: "Blue Zones: Living Beyond 100"
+          text: "Certain regions called 'Blue Zones' (Okinawa, Sardinia, Nicoya, Ikaria, Loma Linda) have 10x more centenarians than average. Common factors: plant-based diet, strong social connections, moderate physical activity, and life purpose."
+          link: "https://www.bluezones.com/"
+          link_text: "Explore: Official Blue Zones Website"

@@ -16,9 +16,11 @@ import {
   destroy_user_session_path,
   events_path,
   gamification_dashboard_path,
+  life_weeks_path,
   moods_path,
   new_user_session_path,
   note_index_path,
+  profile_path,
   root_path,
 } from '@/lib/routes'
 import type { User, UserStats } from '@/types'
@@ -78,6 +80,12 @@ export default function Header() {
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.events')}
+            </Link>
+            <Link
+              href={life_weeks_path()}
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
+              {t('frontend.header.life_weeks')}
             </Link>
           </nav>
         </div>
@@ -178,9 +186,11 @@ export default function Header() {
 
                     <div className="p-1">
                       {/* Menu items */}
-                      <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">
-                        <UserIcon className="size-4 text-muted-foreground" />
-                        <span>Profile</span>
+                      <DropdownMenuItem asChild>
+                        <Link href={profile_path()} className="flex items-center gap-2">
+                          <UserIcon className="size-4" />
+                          <span>{t('frontend.header.profile')}</span>
+                        </Link>
                       </DropdownMenuItem>
 
                       <DropdownMenuItem disabled className="opacity-50 cursor-not-allowed">

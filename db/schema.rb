@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_11_132650) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_12_163507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -63,6 +63,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_132650) do
     t.uuid "user_id", null: false
     t.index [ "source_type", "source_id" ], name: "index_gamification_events_on_source_type_and_source_id"
     t.index [ "user_id", "created_at" ], name: "index_gamification_events_on_user_id_and_created_at"
+  end
+
+  create_table "life_week_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "memories"
+    t.text "notes"
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.integer "week_number", null: false
+    t.index [ "user_id", "week_number" ], name: "index_life_week_entries_on_user_and_week", unique: true
+    t.index [ "user_id" ], name: "index_life_week_entries_on_user_id"
+    t.check_constraint "week_number >= 0 AND week_number <= 4159", name: "check_week_number_range"
   end
 
   create_table "moods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -243,6 +255,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_132650) do
 
   create_table "users", id: :uuid, default: nil, force: :cascade do |t|
     t.string "avatar_url"
+    t.date "birth_date", comment: "User birth date for Life in Weeks visualization and age calculations"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -255,6 +268,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_132650) do
     t.string "slug"
     t.string "uid"
     t.datetime "updated_at", null: false
+    t.index [ "birth_date" ], name: "index_users_on_birth_date"
     t.index [ "email" ], name: "index_users_on_email", unique: true
     t.index [ "provider", "uid" ], name: "index_users_on_provider_and_uid", unique: true
     t.index [ "reset_password_token" ], name: "index_users_on_reset_password_token", unique: true
@@ -275,6 +289,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_11_132650) do
 
   add_foreign_key "daily_streaks", "users"
   add_foreign_key "gamification_events", "users"
+  add_foreign_key "life_week_entries", "users"
   add_foreign_key "moods", "users"
   add_foreign_key "registrations", "events"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

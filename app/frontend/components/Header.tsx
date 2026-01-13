@@ -22,6 +22,7 @@ import {
   note_index_path,
   profile_path,
   root_path,
+  utils_index_path,
 } from '@/lib/routes'
 import type { User, UserStats } from '@/types'
 import ProgressBar from './gamification/ProgressBar'
@@ -86,6 +87,12 @@ export default function Header() {
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               {t('frontend.header.life_weeks')}
+            </Link>
+            <Link
+              href={utils_index_path()}
+              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1"
+            >
+              🛠️ Tiện Ích
             </Link>
           </nav>
         </div>

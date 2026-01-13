@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # Authentication routes
   draw :devise
 
+  # Lunar New Year greeting routes
+  draw :greetings
+
   # Admin-only routes (Sidekiq, Note Admin)
   draw :admin
 

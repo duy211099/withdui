@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_12_163507) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_13_052523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -65,6 +65,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_12_163507) do
     t.index [ "user_id", "created_at" ], name: "index_gamification_events_on_user_id_and_created_at"
   end
 
+  create_table "greetings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "message"
+    t.text "payment_info"
+    t.string "payment_method"
+    t.boolean "published", default: false, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index [ "user_id" ], name: "index_greetings_on_user_id"
+  end
+
   create_table "life_week_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "memories"
@@ -89,6 +101,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_12_163507) do
     t.index [ "level" ], name: "index_moods_on_level"
     t.index [ "slug" ], name: "index_moods_on_slug", unique: true
     t.index [ "user_id", "entry_date" ], name: "index_moods_on_user_id_and_entry_date", unique: true
+  end
+
+  create_table "recipients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "gave_lixi", default: false, null: false
+    t.uuid "greeting_id", null: false
+    t.decimal "lixi_amount", precision: 15, scale: 2
+    t.string "name", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "viewed_at"
+    t.index [ "greeting_id" ], name: "index_recipients_on_greeting_id"
+    t.index [ "token" ], name: "index_recipients_on_token", unique: true
   end
 
   create_table "registrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -287,10 +312,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_12_163507) do
     t.index [ "item_type", "item_id" ], name: "index_versions_on_item_type_and_item_id"
   end
 
+  create_table "view_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.uuid "recipient_id", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.index [ "recipient_id", "created_at" ], name: "index_view_logs_on_recipient_id_and_created_at"
+    t.index [ "recipient_id" ], name: "index_view_logs_on_recipient_id"
+  end
+
   add_foreign_key "daily_streaks", "users"
   add_foreign_key "gamification_events", "users"
+  add_foreign_key "greetings", "users"
   add_foreign_key "life_week_entries", "users"
   add_foreign_key "moods", "users"
+  add_foreign_key "recipients", "greetings"
   add_foreign_key "registrations", "events"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
@@ -301,4 +338,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_12_163507) do
   add_foreign_key "user_achievements", "achievements"
   add_foreign_key "user_achievements", "users"
   add_foreign_key "user_stats", "users"
+  add_foreign_key "view_logs", "recipients"
 end

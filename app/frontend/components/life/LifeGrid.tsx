@@ -26,7 +26,7 @@ function LifeGrid({ weeksData, moodData, onWeekClick }: LifeGridProps) {
       <div className="relative -mx-2 sm:mx-0">
         <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:'none'] [&::-webkit-scrollbar]:hidden touch-pan-x snap-x snap-mandatory px-2">
           <div
-            className="grid gap-1 sm:gap-2 py-1 min-w-[580px] sm:min-w-0"
+            className="grid gap-1 sm:gap-2 py-1 min-w-145 sm:min-w-0"
             style={{ gridTemplateColumns: 'auto 1fr' }}
           >
             {/* Age header */}
@@ -60,7 +60,7 @@ function LifeGrid({ weeksData, moodData, onWeekClick }: LifeGridProps) {
                 </div>
 
                 {/* Week row */}
-                <div className="grid grid-cols-52 gap-[3px] sm:gap-1 min-w-[640px] sm:min-w-0 px-1 rounded-md snap-start">
+                <div className="grid grid-cols-52 gap-0.75 sm:gap-1 min-w-160 sm:min-w-0 px-1 rounded-md snap-start">
                   {yearWeeks.map((week) => (
                     <WeekSquare
                       key={week.weekNumber}

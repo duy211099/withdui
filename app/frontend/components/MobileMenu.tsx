@@ -81,7 +81,7 @@ export default function MobileMenu({ isOpen, onClose, currentUser, userStats }: 
               onClick={onClose}
             >
               <Wrench className="h-5 w-5" />
-              <span>{t('frontend.header.utils')}</span>
+              <span>🛠️ Tiện Ích</span>
             </Link>
             {currentUser && (
               <>

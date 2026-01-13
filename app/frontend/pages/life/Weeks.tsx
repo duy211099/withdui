@@ -107,7 +107,7 @@ export default function Weeks({ lifeWeeksData, weekEntries, canEdit }: WeeksPage
                   }}
                 >
                   <div
-                    className="w-4 h-4 rounded-full flex-shrink-0"
+                    className="w-4 h-4 rounded-full shrink-0"
                     style={{ backgroundColor: stage.color }}
                   />
                   <div className="min-w-0">

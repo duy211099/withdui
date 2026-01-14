@@ -1,5 +1,8 @@
 import { Head } from '@inertiajs/react'
+import { Lock } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface Props {
   message: string
@@ -10,15 +13,25 @@ export default function Unpublished({ message }: Props) {
     <>
       <Head title="Thiệp Chưa Được Xuất Bản" />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
-        <div className="max-w-md w-full text-center">
-          <div className="text-9xl mb-6">🔒</div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">Thiệp Chưa Được Xuất Bản</h1>
-          <p className="text-gray-600 mb-8">{message}</p>
-          <p className="text-sm text-gray-500">
-            Thiệp này chưa sẵn sàng để xem. Vui lòng liên hệ người gửi để biết thêm thông tin.
-          </p>
-        </div>
+      <div className="flex min-h-screen items-center justify-center bg-background px-4 text-foreground">
+        <Card className="w-full max-w-md text-center">
+          <CardHeader className="space-y-4">
+            <div className="mx-auto flex size-14 items-center justify-center rounded-full border-2 border-border bg-muted/60">
+              <Lock className="h-5 w-5" />
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Badge variant="outline" className="border-dashed">
+                Chưa xuất bản
+              </Badge>
+            </div>
+            <CardTitle className="text-2xl font-semibold">Thiệp chưa sẵn sàng</CardTitle>
+            <CardDescription>{message}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-muted-foreground">
+            <p>Thiệp này chưa được chia sẻ công khai.</p>
+            <p>Vui lòng liên hệ người gửi để nhận link khi thiệp được xuất bản.</p>
+          </CardContent>
+        </Card>
       </div>
     </>
   )

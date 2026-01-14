@@ -1,41 +1,69 @@
 import { Head, Link } from '@inertiajs/react'
 import { Calendar, Clock, Gift } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 interface UtilityCard {
   title: string
   description: string
-  icon: React.ReactNode
+  icon: ReactNode
   href: string
-  gradient: string
   available: boolean
+  accent: 'primary' | 'blue' | 'emerald'
+}
+
+const ACCENT_STYLES: Record<
+  UtilityCard['accent'],
+  { glow: string; icon: string; pill: string; border: string }
+> = {
+  primary: {
+    glow: 'from-primary/15 via-accent/10 to-primary/5',
+    icon: 'border-primary bg-primary/10 text-primary',
+    pill: 'bg-primary/10 text-primary',
+    border: 'border-primary/50',
+  },
+  blue: {
+    glow: 'from-blue-400/20 via-cyan-300/15 to-blue-500/10',
+    icon: 'border-blue-500 bg-blue-500/10 text-blue-700',
+    pill: 'bg-blue-500/10 text-blue-700',
+    border: 'border-blue-500/50',
+  },
+  emerald: {
+    glow: 'from-emerald-400/20 via-emerald-300/15 to-green-500/10',
+    icon: 'border-emerald-500 bg-emerald-500/10 text-emerald-700',
+    pill: 'bg-emerald-500/10 text-emerald-700',
+    border: 'border-emerald-500/50',
+  },
 }
 
 export default function Index() {
   const utilities: UtilityCard[] = [
     {
-      title: '🧧 Thiệp Chúc Tết',
-      description: 'Tạo thiệp chúc Tết với lời chúc và nhận lì xì từ người thân',
-      icon: <Gift className="h-8 w-8" />,
+      title: 'Thiệp Chúc Tết',
+      description: 'Tạo thiệp, gửi lời chúc và nhận lì xì trực tuyến.',
+      icon: <Gift className="h-6 w-6" />,
       href: '/greetings',
-      gradient: 'from-red-500 to-orange-500',
       available: true,
+      accent: 'primary',
     },
     {
-      title: '📅 Life in Weeks',
-      description: 'Visualize your life in weeks - See the big picture',
-      icon: <Calendar className="h-8 w-8" />,
+      title: 'Life in Weeks',
+      description: 'Theo dõi hành trình cuộc sống theo tuần.',
+      icon: <Calendar className="h-6 w-6" />,
       href: '/life/weeks',
-      gradient: 'from-blue-500 to-cyan-500',
       available: true,
+      accent: 'blue',
     },
     {
-      title: '⏰ Pomodoro Timer',
-      description: 'Quản lý thời gian hiệu quả với kỹ thuật Pomodoro',
-      icon: <Clock className="h-8 w-8" />,
+      title: 'Pomodoro Timer',
+      description: 'Quản lý thời gian với kỹ thuật Pomodoro.',
+      icon: <Clock className="h-6 w-6" />,
       href: '#',
-      gradient: 'from-green-500 to-emerald-500',
       available: false,
+      accent: 'emerald',
     },
   ]
 
@@ -43,64 +71,87 @@ export default function Index() {
     <>
       <Head title="Tiện Ích" />
 
-      <div className="container mx-auto py-8 px-4 max-w-6xl">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">🛠️ Tiện Ích</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Bộ sưu tập các công cụ và tiện ích hữu ích cho cuộc sống
-          </p>
+      <div className="container mx-auto max-w-6xl px-4 py-10 space-y-10">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-2">
+            <Badge variant="outline" className="border-dashed">
+              Bộ sưu tập
+            </Badge>
+            <h1 className="text-3xl font-semibold leading-tight">Tiện ích WithDui</h1>
+            <p className="text-muted-foreground">
+              Những công cụ nhỏ gọn giúp bạn quản lý cuộc sống và sẻ chia lời chúc.
+            </p>
+          </div>
+          <Badge variant="secondary" className="self-start">
+            Beta
+          </Badge>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {utilities.map((utility) => (
-            <Card
-              key={utility.title}
-              className={`relative overflow-hidden transition-all hover:shadow-xl ${
-                utility.available ? 'cursor-pointer' : 'opacity-60'
-              }`}
-            >
-              <div
-                className={`absolute top-0 left-0 right-0 h-2 bg-linear-to-r ${utility.gradient}`}
-              />
-              <CardHeader className="pt-6">
-                <div className="flex items-center justify-between mb-2">
-                  <div className={`p-3 rounded-lg bg-linear-to-r ${utility.gradient} text-white`}>
-                    {utility.icon}
-                  </div>
-                  {!utility.available && (
-                    <span className="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-                      Sắp ra mắt
-                    </span>
-                  )}
-                </div>
-                <CardTitle className="text-xl">{utility.title}</CardTitle>
-                <CardDescription className="text-sm">{utility.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {utility.available ? (
-                  <Link
-                    href={utility.href}
-                    className={`block w-full text-center bg-linear-to-r ${utility.gradient} hover:opacity-90 text-white font-semibold py-2 px-4 rounded-lg transition-all transform hover:scale-105`}
-                  >
-                    Sử dụng →
-                  </Link>
-                ) : (
-                  <div className="w-full text-center bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
-                    Sắp có
-                  </div>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {utilities.map((utility) => {
+            const accent = ACCENT_STYLES[utility.accent]
+
+            return (
+              <Card
+                key={utility.title}
+                className={cn(
+                  'relative h-full overflow-hidden border-2 bg-card',
+                  !utility.available && 'opacity-70'
                 )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              >
+                <div
+                  aria-hidden
+                  className={cn(
+                    'absolute inset-0 -z-[1] bg-gradient-to-br opacity-70 blur-[90px]',
+                    accent.glow
+                  )}
+                />
 
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Có ý tưởng về tiện ích mới?{' '}
-            <a href="mailto:contact@withdui.com" className="text-blue-600 hover:text-blue-700">
-              Liên hệ với chúng tôi
-            </a>
-          </p>
+                <CardHeader className="space-y-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div
+                      className={cn(
+                        'flex size-12 items-center justify-center rounded-md border-2',
+                        accent.icon
+                      )}
+                    >
+                      {utility.icon}
+                    </div>
+                    {!utility.available && (
+                      <Badge variant="outline" className="border-dashed">
+                        Sắp ra mắt
+                      </Badge>
+                    )}
+                  </div>
+                  <CardTitle className="text-xl">{utility.title}</CardTitle>
+                  <CardDescription className="leading-relaxed">
+                    {utility.description}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="flex items-center justify-between gap-3">
+                  <div
+                    className={cn(
+                      'rounded-full px-3 py-1 text-xs font-medium border',
+                      accent.pill,
+                      accent.border
+                    )}
+                  >
+                    {utility.available ? 'Sẵn sàng' : 'Đang phát triển'}
+                  </div>
+                  {utility.available ? (
+                    <Button asChild size="sm">
+                      <Link href={utility.href}>Mở tiện ích</Link>
+                    </Button>
+                  ) : (
+                    <Button size="sm" variant="outline" disabled>
+                      Chờ ra mắt
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            )
+          })}
         </div>
       </div>
     </>

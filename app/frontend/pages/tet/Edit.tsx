@@ -1,6 +1,7 @@
-import { Head, useForm } from '@inertiajs/react'
+import { Head, Link, useForm } from '@inertiajs/react'
 import { ArrowLeft, PlusCircle, Trash2 } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -76,28 +77,33 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
     <>
       <Head title={`Chỉnh sửa: ${greeting.title}`} />
 
-      <div className="container mx-auto py-8 px-4 max-w-4xl">
-        <div className="mb-6">
-          <a
-            href={`/greetings/${greeting.id}`}
-            className="text-blue-600 hover:text-blue-800 flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Quay lại chi tiết
-          </a>
+      <div className="container mx-auto max-w-4xl space-y-8 px-4 py-10">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="space-y-2">
+            <Badge variant="outline" className="border-dashed">
+              Thiệp Tết
+            </Badge>
+            <h1 className="text-3xl font-semibold leading-tight">Chỉnh sửa thiệp</h1>
+            <p className="text-muted-foreground">
+              Cập nhật tiêu đề, lời chúc và thông tin nhận lì xì cho người thân.
+            </p>
+          </div>
+          <Button asChild variant="outline" size="sm" className="sm:self-start">
+            <Link href={`/greetings/${greeting.id}`}>
+              <ArrowLeft className="h-4 w-4" />
+              Quay lại chi tiết
+            </Link>
+          </Button>
         </div>
 
-        <h1 className="text-3xl font-bold text-red-600 mb-8">✏️ Chỉnh Sửa Thiệp</h1>
-
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Basic Info */}
-          <Card>
+          <Card className="border-dashed">
             <CardHeader>
-              <CardTitle>Thông Tin Thiệp</CardTitle>
-              <CardDescription>Cập nhật tiêu đề và lời chúc</CardDescription>
+              <CardTitle>Thông tin thiệp</CardTitle>
+              <CardDescription>Tiêu đề và lời chúc được hiển thị cho người nhận.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="title">Tiêu đề thiệp *</Label>
                 <Input
                   id="title"
@@ -108,7 +114,7 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                 />
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="message">Lời chúc</Label>
                 <Textarea
                   id="message"
@@ -117,25 +123,27 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                   placeholder="Chúc bạn năm mới an khang thịnh vượng, vạn sự như ý..."
                   rows={5}
                 />
+                <p className="text-sm text-muted-foreground">
+                  Để trống nếu bạn muốn dùng lời chúc mặc định.
+                </p>
               </div>
             </CardContent>
           </Card>
 
-          {/* Payment Info */}
-          <Card>
+          <Card className="border-dashed">
             <CardHeader>
-              <CardTitle>Thông Tin Lì Xì</CardTitle>
-              <CardDescription>Cập nhật thông tin thanh toán</CardDescription>
+              <CardTitle>Thông tin lì xì</CardTitle>
+              <CardDescription>Chọn phương thức và điền thông tin nhận tiền.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="payment_method">Phương thức</Label>
                 <Select
                   value={data.paymentMethod}
                   onValueChange={(value) => setData('paymentMethod', value)}
                 >
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue placeholder="Chọn phương thức" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="vietqr">VietQR (Ngân hàng)</SelectItem>
@@ -146,10 +154,9 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                 </Select>
               </div>
 
-              {/* Dynamic payment info fields */}
               {(data.paymentMethod === 'vietqr' || data.paymentMethod === 'bank_account') && (
-                <>
-                  <div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-2 sm:col-span-2">
                     <Label htmlFor="bankName">Tên ngân hàng *</Label>
                     <Input
                       id="bankName"
@@ -158,7 +165,7 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                       placeholder="Vietcombank"
                     />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="accountNumber">Số tài khoản *</Label>
                     <Input
                       id="accountNumber"
@@ -167,7 +174,7 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                       placeholder="9915792897"
                     />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="accountName">Tên chủ tài khoản *</Label>
                     <Input
                       id="accountName"
@@ -176,11 +183,11 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                       placeholder="PHAM BA XUAN DUY"
                     />
                   </div>
-                </>
+                </div>
               )}
 
               {(data.paymentMethod === 'momo' || data.paymentMethod === 'zalopay') && (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="phoneNumber">Số điện thoại *</Label>
                   <Input
                     id="phoneNumber"
@@ -194,14 +201,13 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
             </CardContent>
           </Card>
 
-          {/* Recipients */}
-          <Card>
+          <Card className="border-dashed">
             <CardHeader>
-              <CardTitle>Danh Sách Người Nhận</CardTitle>
-              <CardDescription>Quản lý người nhận thiệp chúc Tết</CardDescription>
+              <CardTitle>Danh sách người nhận</CardTitle>
+              <CardDescription>Thêm hoặc xoá người sẽ nhận thiệp.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 <Input
                   value={recipientName}
                   onChange={(e) => setRecipientName(e.target.value)}
@@ -213,8 +219,9 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                     }
                   }}
                 />
-                <Button type="button" onClick={addRecipient} variant="outline">
+                <Button type="button" onClick={addRecipient} className="sm:w-auto">
                   <PlusCircle className="h-4 w-4" />
+                  Thêm
                 </Button>
               </div>
 
@@ -223,35 +230,34 @@ export default function Edit({ greeting, recipients: initialRecipients }: Props)
                   {data.recipients.map((recipient, index) => (
                     <div
                       key={recipient.id || `new-${index}`}
-                      className="flex justify-between items-center p-3 bg-gray-50 rounded"
+                      className="flex items-center justify-between rounded-md border-2 border-border bg-card/80 px-3 py-2"
                     >
-                      <span>{recipient.name}</span>
+                      <span className="font-medium">{recipient.name}</span>
                       <Button
                         type="button"
                         variant="ghost"
-                        size="sm"
+                        size="icon-sm"
                         onClick={() => removeRecipient(index)}
+                        aria-label={`Xóa ${recipient.name}`}
                       >
-                        <Trash2 className="h-4 w-4 text-red-600" />
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   ))}
-                  <p className="text-sm text-gray-600">Tổng: {data.recipients.length} người nhận</p>
+                  <p className="text-sm text-muted-foreground">
+                    Tổng: {data.recipients.length} người nhận
+                  </p>
                 </div>
               )}
             </CardContent>
           </Card>
 
-          <div className="flex gap-4">
-            <Button
-              type="submit"
-              disabled={processing}
-              className="bg-red-600 hover:bg-red-700 flex-1"
-            >
-              {processing ? 'Đang lưu...' : 'Lưu Thay Đổi'}
-            </Button>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
             <Button type="button" variant="outline" onClick={() => window.history.back()}>
               Hủy
+            </Button>
+            <Button type="submit" disabled={processing}>
+              {processing ? 'Đang lưu...' : 'Lưu thay đổi'}
             </Button>
           </div>
         </form>

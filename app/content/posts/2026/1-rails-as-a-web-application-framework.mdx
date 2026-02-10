@@ -1,0 +1,71 @@
+---
+title: 1. Rails as a Web Application Framework
+slug: 1-rails-as-a-web-application-framework
+date: '2026-02-10'
+excerpt: ''
+category: Rails
+tags:
+- web
+- rails
+author: ''
+published: true
+featured_image: ''
+---
+
+In this capter, we will cover the following topics:
+- The journey of a click through Rails' abstraction layers
+- Beyond requests - background and scheduled tasks
+- The heart of a web application - the database
+
+You'll have better understanding of the core web application principles and how they affect Rails application design. You will have learned about the main Rails components and how they make up the basic abstraction layers of the application
+
+These fundamental ideas will help you to identify and extract abstractions that better fit natural web app flows, thus leading to less conceptual overhead and a better DX,
+
+---
+
+# The journey of a click through Rails’ abstraction layers
+
+The primary goal of any web app is to serve web requests, where web implies communicating over the internet and request refers to data that must be processed and acknowledged by a server.
+
+A simple task, such as clicking on a link and opening a web page in a browser, which we perform hundreds of times every day, consists of dozens of steps, from resolving the IP address pf the target service to displaying the response to the user.
+
+In the modern world, every request passes through multiple intermediate servers (proxies, load balancers, CDNs, and so on). For this chapter, the following simplified diagram will be enough to visualize the journey of a click in the context of a Rails app
+
+![The journey of a click through Rails abstraction layers](/images/rails-journey.png)
+
+The Rails part of this journey starts in a so-called web server - for example, Puma. It takes care of handling connections, transforming HTTP requests into a Ruby-friendly format, calling our Rails application, and sending the result back over the HTTP connection.
+
+Next, we will take a closer look at the right part of the diagram when designing our app. But first, we need to explain why layered architecture makes sense to web apps at all
+
+---
+
+# From web requests to abstraction layers
+The life cycle of a web app consists of the bootstrap phase and the serving phase.
+- Bootstrap phase: loading the app code and then initializing and configuring the framework components - that is, everything we need to do before accepting a first web request - before we enter the serving phase.
+- Serving phase: 
+  - the app acts as an executor, performing many independent units of work - handling web requests. Independent here means that every request is self-contained, and the way we process it doesn't depend on previous or concurrent requests.
+  - How does this affect our application design? Since requests are independent, the serving phase could be seen as a conveyor-belt assemply line - we put request data (raw material) on the belt, pass it throught multiple workstations, and get the response box at the end => A natural reflection of this idea in app design would be the extraction of abstraction layers and chaining them together to build a processing line. this process could also be called layering.
+
+---
+
+# The properties of a good abstraction layer
+
+we can list some basic properties:
+- An abstraction should have a single responsibility, can be broad but should not overlap (Separation of Concerns principle)
+- Layers should be loosely coupled and have no circular or reverse dependencies. If we draw the request processing flow from top to bottom, the inter-layer connectors should never go up, and we should try to minimize the number of connections between layers.
+- Abstractions should not leak their internals. The main idea of extracting an abstraction is to seperate an interface from the implementation. Extracting a comming interface can be a challenging task by itself, but it always pays off in the long term.
+- It should be possible to test abstractions in isolation. This item is usually a result of all the preceding, but it makes sense to pay attention to it explicitly, since thinking about testability can help to come up with a better interface.
+
+> From a developer’s perspective, a good abstraction layer provides a clear interface to solve a common problem and is easy to refactor, debug, and test. A clear interface can be translated as one with the least possible conceptual overhead, or just one that is simple.
+
+- Designing simple abstractions is a difficult task; that’s why you may hear that introducing ab- stractions makes working with the code base more complicated. The goal of this book is to teach you how to avoid this pitfall and learn how to design good abstractions.
+
+---
+
+# Designing abstraction layers
+
+- The number of abstraction layers increases with the evolution of a project’s business logic and the code base growth.
+- In software development, SPEED (the speec of shipping new features) is the efficiency metric. This metric depends on many factors, many of which are not related to how we write our code. From a code perspective, the main factor is maintainability - how easy it is to add new features and introduce changes to the existing one (including fixing bugs).
+- Applying software design patterns and extracting abstraction layers are the two main ways of keeping maintainability high.
+- A basic Rails application comes with just three abstractions – controllers, models, and views. Such a small number allows us to start building things faster and focus on a product, instead of spending time to please the framework (as it would be if it had a dozen different layers). This is the Rails way.
+- In this book, we will learn how to extend it – how to gradually introduce new abstraction layers without losing the focus on product development. First, we need to learn more about the Rails way itself. Let’s take a look at some of the components that make up this approach with regard to web requests.
